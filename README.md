@@ -1,5 +1,5 @@
-# Franco Toolkit System
-(There is no other good name for this at the moment)
+# Fuck This Shit
+(Yes, this is the original name. Only available through the history of changes)
 
 --
 **WARNING** This project is in VERY EARLY development
