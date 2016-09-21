@@ -14,7 +14,7 @@ FTS is a Java based API to help developers write desktop applications with abstr
 user interfaces. Initially any developer with some experience in Android should have
 no problem creating FTS applications.
 
-This work is a derivate of a small library that I wrote for MusicTrans, and now
+This work is a derivate of a small library that I wrote for [MusicTrans](http://musictransapp.com), and now
 I'm extending it for more diverse applications.  
 
 As a reference, it took me only one month to port the code of MusicTrans for Android to Mac/Win/Linux,
