@@ -1,5 +1,6 @@
 package fts.views;
 
+import fts.core.Component;
 import fts.core.Context;
 import fts.events.KeyEvent;
 import fts.events.MouseEvent;
@@ -7,7 +8,7 @@ import fts.events.PaintEvent;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
 
-public abstract class View {
+public abstract class View extends Component {
 	public enum State {Selected, Focused, Enabled, Pressed}
 	private static final long CLICK_TIME = 200;
 	protected boolean state[] = new boolean[] {false, false, true, false};
