@@ -25,4 +25,9 @@ public class Context {
 		AsyncExecutor asyncExecutor = getAsyncExecutor();
 		asyncExecutor.asyncExec(runnable);
 	}
+
+	public int dp2px(int value) {
+		// TODO transform dp2px
+		return value;
+	}
 }
