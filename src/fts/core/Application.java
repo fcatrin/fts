@@ -26,37 +26,47 @@ public class Application {
 		return factory.createWindow();
 	}
 	
-	protected Component createComponent(String name, Node node) {
-		Component component = factory.createComponent(name);
-		if (component == null) {
+	protected View createView(String name, Node node) {
+		View view = null;
+		Layout layout = null;
+		
+		view = factory.createView(name, node);
+		if (view == null) {
 			String layoutClassName = "fts.layouts." + name;
-			component = createComponentInstance(layoutClassName);
-			if (component == null) {
+			layout = (Layout)createComponentInstance(layoutClassName);
+			if (layout != null) {
+				ViewGroup viewGroup = new ViewGroup();
+				viewGroup.setLayout(layout);
+				view = viewGroup;
+			} else {
 				String viewClassName = "fts.views." + name;
-				component = createComponentInstance(viewClassName);
+				view = (View)createComponentInstance(viewClassName);
 			}
 		}
 		
-		if (component == null) {
+		if (view == null) {
 			throw new RuntimeException("Cannot create view " + name);
 		}
 		
 		NamedNodeMap attributes = node.getAttributes();
 		for(int i=0; i<attributes.getLength(); i++) {
 			Node item = attributes.item(i);
-			component.setProperty(item.getNodeName(), item.getNodeValue());
-		}
-		
-		if (component instanceof ViewGroup) {
-			ViewGroup viewGroup = (ViewGroup)component;
-			NodeList childNodes = node.getChildNodes();
-			for (int i = 0; i < childNodes.getLength(); i++) {
-				Node childNode = childNodes.item(i);
-				viewGroup.add(createComponent(childNode.getNodeName(), childNode));
+			view.setProperty(item.getNodeName(), item.getNodeValue());
+			if (layout!=null) {
+				layout.setProperty(item.getNodeName(), item.getNodeValue());
 			}
 		}
 		
-		return component;
+		if (view instanceof ViewGroup) {
+			ViewGroup viewGroup = (ViewGroup)view;
+			NodeList childNodes = node.getChildNodes();
+			for (int i = 0; i < childNodes.getLength(); i++) {
+				Node childNode = childNodes.item(i);
+				viewGroup.add(createView(childNode.getNodeName(), childNode));
+			}
+		}
+		
+		return view;
 	}
 			
 	public static Component createComponentInstance(String className) {
@@ -74,7 +84,7 @@ public class Application {
 		}
 	}
 	
-	public static View loadView(String name) {
+	public View inflateView(String name) {
 		File file = new File("res/layout/" + name + ".xml"); // TODO replace by resource lookup
 		if (!file.exists()) {
 			throw new RuntimeException("File not found " + file.getAbsolutePath());
@@ -91,7 +101,7 @@ public class Application {
 		
 		Element root = doc.getDocumentElement();
 		String viewName = root.getTagName();
-		return createComponent(viewName, root);
+		return createView(viewName, root);
 		
 	}
 }

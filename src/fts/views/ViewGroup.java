@@ -1,10 +1,16 @@
 package fts.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fts.core.Component;
+import fts.core.Layout;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
 
 public class ViewGroup extends View {
+	List<View> children = new ArrayList<View>();
+	Layout layout;
 
 	public ViewGroup() {
 		// TODO Auto-generated constructor stub
@@ -34,9 +40,21 @@ public class ViewGroup extends View {
 		return null;
 	}
 
-	public void add(Component component) {
-		// TODO Auto-generated method stub
-		
+	public void add(View view) {
+		children.add(view);
 	}
 
+	public Layout getLayout() {
+		return layout;
+	}
+
+	public void setLayout(Layout layout) {
+		this.layout = layout;
+	}
+
+	public List<View> getChildren() {
+		return children;
+	}
+
+	
 }
