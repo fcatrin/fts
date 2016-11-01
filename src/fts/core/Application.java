@@ -26,22 +26,14 @@ public class Application {
 		return factory.createWindow();
 	}
 	
-	protected View createView(String name, Node node) {
+	protected View createView(Node node) {
 		View view = null;
-		Layout layout = null;
 		
-		view = factory.createView(name, node);
+		String name = node.getNodeName();
+		view = factory.createView(node);
 		if (view == null) {
-			String layoutClassName = "fts.layouts." + name;
-			layout = (Layout)createComponentInstance(layoutClassName);
-			if (layout != null) {
-				ViewGroup viewGroup = new ViewGroup();
-				viewGroup.setLayout(layout);
-				view = viewGroup;
-			} else {
-				String viewClassName = "fts.views." + name;
-				view = (View)createComponentInstance(viewClassName);
-			}
+			String viewClassName = "fts.views." + name;
+			view = (View)createComponentInstance(viewClassName);
 		}
 		
 		if (view == null) {
@@ -52,9 +44,6 @@ public class Application {
 		for(int i=0; i<attributes.getLength(); i++) {
 			Node item = attributes.item(i);
 			view.setProperty(item.getNodeName(), item.getNodeValue());
-			if (layout!=null) {
-				layout.setProperty(item.getNodeName(), item.getNodeValue());
-			}
 		}
 		
 		if (view instanceof ViewGroup) {
@@ -62,7 +51,9 @@ public class Application {
 			NodeList childNodes = node.getChildNodes();
 			for (int i = 0; i < childNodes.getLength(); i++) {
 				Node childNode = childNodes.item(i);
-				viewGroup.add(createView(childNode.getNodeName(), childNode));
+				if (childNode instanceof Element) {
+					viewGroup.add(createView(childNode));
+				}
 			}
 		}
 		
@@ -100,8 +91,7 @@ public class Application {
 		}
 		
 		Element root = doc.getDocumentElement();
-		String viewName = root.getTagName();
-		return createView(viewName, root);
+		return createView(root);
 		
 	}
 }

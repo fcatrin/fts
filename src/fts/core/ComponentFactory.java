@@ -6,5 +6,5 @@ import fts.views.View;
 
 public interface ComponentFactory {
 	public Window createWindow();
-	public View createView(String name, Node node);
+	public View createView(Node node);
 }

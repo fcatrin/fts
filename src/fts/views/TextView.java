@@ -1,28 +1,40 @@
 package fts.views;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fts.events.PaintEvent;
 import fts.graphics.Point;
 
-public class ViewGroup extends View {
-	List<View> children = new ArrayList<View>();
+public class TextView extends View {
 
-	public ViewGroup() {
+	String text;
+	
+	
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	@Override
+	public String toString(String s) {
+		return super.toString(String.format(",text: %s%s", text, s));
+	}
+
+	public TextView() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void redraw() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onPaint(PaintEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -33,20 +45,8 @@ public class ViewGroup extends View {
 
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {
+		if (propertyName.equals("text")) return value;
 		return super.resolvePropertyValue(propertyName, value);
 	}
 
-	public void add(View view) {
-		children.add(view);
-	}
-
-	public List<View> getChildren() {
-		return children;
-	}
-
-	@Override
-	public String toString(String s) {
-		return super.toString(String.format(", children;%s%s", children.toString(), s));
-	}
-	
 }

@@ -18,6 +18,15 @@ public abstract class View extends Component {
 	private long mouseDownTime = 0;
 	private Point mouseDownPosition = new Point();
 	
+	public static final String VALUE_MATCH_PARENT = "match_parent";
+	public static final String VALUE_WRAP_CONTENT = "wrap_content";
+	
+	public final int MATCH_PARENT = -1;
+	public final int WRAP_CONTENT = -2;
+	
+	int layoutWidth;
+	int layoutHeight;
+	
 	Runnable invalidateTask = new Runnable() {
 		@Override
 		public void run() {
@@ -152,6 +161,46 @@ public abstract class View extends Component {
 	
 	protected boolean isDisposed() {
 		return false;
+	}
+	
+	@Override
+	protected Object resolvePropertyValue(String propertyName, String value) {
+		if (propertyName.equals("layoutWidth") || propertyName.equals("layoutHeight")) {
+			if (VALUE_MATCH_PARENT.equals(value)) return MATCH_PARENT;
+			if (VALUE_WRAP_CONTENT.equals(value)) return WRAP_CONTENT;
+			return resolvePropertyValueDimen(propertyName, value);
+		}
+		return super.resolvePropertyValue(propertyName, value);
+	}
+
+	
+	public int getLayoutWidth() {
+		return layoutWidth;
+	}
+
+	public void setLayoutWidth(int layoutWidth) {
+		this.layoutWidth = layoutWidth;
+	}
+
+	public int getLayoutHeight() {
+		return layoutHeight;
+	}
+
+	public void setLayoutHeight(int layoutHeight) {
+		this.layoutHeight = layoutHeight;
+	}
+
+	public String toString(String s) {
+		return String.format("{class: %s, width: %d, height %d%s}", 
+				getClass().getName(),
+				layoutWidth,
+				layoutHeight, s);
+		
+	}
+	
+	@Override
+	public String toString() {
+		return toString("");
 	}
 
 }
