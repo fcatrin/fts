@@ -6,6 +6,7 @@ import java.util.List;
 import fts.core.Window;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
+import fts.views.View.MeasureSpec;
 
 public class ViewGroup extends View {
 	List<View> children = new ArrayList<View>();
@@ -50,13 +51,15 @@ public class ViewGroup extends View {
 		return super.toString(String.format(", children;%s%s", children.toString(), s));
 	}
 	
-	protected void measure() {
+	protected void onMeasureChildren() {
 		for(View child : children) {
-			if (child instanceof ViewGroup) {
-				ViewGroup viewGroup = (ViewGroup)child;
-				viewGroup.measure();
-			}
+			child.onMeasure(measuredWidth, measuredHeight);
 		}
 	}
 	
+	@Override
+	public void onMeasure(MeasureSpec w, MeasureSpec h) {
+		super.onMeasure(w, h);
+		onMeasureChildren();
+	}
 }

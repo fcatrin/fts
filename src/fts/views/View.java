@@ -226,9 +226,14 @@ public abstract class View extends Component {
 		return toString("");
 	}
 	
+	public Point getDesiredSize() {
+		return new Point(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	}
+	
 	public void onMeasure(int parentWidth, int parentHeight) {
 		MeasureSpec w = new MeasureSpec();
 		MeasureSpec h = new MeasureSpec();
+		
 		if (layoutWidth == MATCH_PARENT) {
 			w.type  = MeasureSpec.Type.Exact;
 			w.value = parentWidth;
@@ -253,17 +258,18 @@ public abstract class View extends Component {
 	}
 	
 	public void onMeasure(MeasureSpec w, MeasureSpec h) {
-		int width;
-		int height;
+		Point desiredSize = getDesiredSize();
+
+		int width  = desiredSize.x;
+		int height = desiredSize.y;
 
 		switch (w.type) {
 		case Exact:
 			width = w.value;
 			break;
 		case AtMost:
-			width = Math.min(DEFAULT_WIDTH, w.value);
+			width = Math.min(width, w.value);
 		default:
-			width = DEFAULT_WIDTH;
 			break;
 		}
 		
@@ -272,9 +278,9 @@ public abstract class View extends Component {
 			height = h.value;
 			break;
 		case AtMost:
-			height = Math.min(DEFAULT_HEIGHT, h.value);
+			height = Math.min(height, h.value);
+			break;
 		default:
-			height = DEFAULT_HEIGHT;
 			break;
 		}
 		

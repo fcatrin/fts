@@ -42,6 +42,13 @@ public class TextView extends View {
 	public Point computeSize(int x, int y) {
 		return getTextSize(text);
 	}
+	
+	
+
+	@Override
+	public Point getDesiredSize() {
+		return computeSize(0, 0);
+	}
 
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {
