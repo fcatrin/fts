@@ -14,6 +14,9 @@ import fts.graphics.Rectangle;
 
 public abstract class View extends Component {
 	public enum State {Selected, Focused, Enabled, Pressed}
+	private static final int DEFAULT_WIDTH  = 100;
+	private static final int DEFAULT_HEIGHT = 100;
+	
 	private static final long CLICK_TIME = 200;
 	protected boolean state[] = new boolean[] {false, false, true, false};
 	protected Rectangle padding = new Rectangle();
@@ -30,6 +33,9 @@ public abstract class View extends Component {
 	
 	int layoutWidth;
 	int layoutHeight;
+	
+	int measuredWidth;
+	int measuredHeight;
 	
 	NativeView nativeView;
 	
@@ -205,10 +211,13 @@ public abstract class View extends Component {
 	}
 
 	public String toString(String s) {
-		return String.format("{class: %s, width: %d, height %d%s}", 
+		return String.format("{class: %s, width: %d, height; %d, mw: %d, mh:%d%s}", 
 				getClass().getName(),
 				layoutWidth,
-				layoutHeight, s);
+				layoutHeight,
+				measuredWidth,
+				measuredHeight,
+				s);
 		
 	}
 	
@@ -216,5 +225,73 @@ public abstract class View extends Component {
 	public String toString() {
 		return toString("");
 	}
+	
+	public void onMeasure(int parentWidth, int parentHeight) {
+		MeasureSpec w = new MeasureSpec();
+		MeasureSpec h = new MeasureSpec();
+		if (layoutWidth == MATCH_PARENT) {
+			w.type  = MeasureSpec.Type.Exact;
+			w.value = parentWidth;
+		} else if (layoutWidth == WRAP_CONTENT) {
+			w.type  = MeasureSpec.Type.AtMost;
+			w.value = parentWidth;
+		} else {
+			w.type  = MeasureSpec.Type.Exact;
+			w.value = layoutWidth;
+		}
+		if (layoutHeight == MATCH_PARENT) {
+			h.type  = MeasureSpec.Type.Exact;
+			h.value = parentHeight;
+		} else if (layoutHeight == WRAP_CONTENT) {
+			h.type  = MeasureSpec.Type.AtMost;
+			h.value = parentHeight;
+		} else {
+			h.type  = MeasureSpec.Type.Exact;
+			h.value = layoutHeight;
+		}
+		onMeasure(w, h);
+	}
+	
+	public void onMeasure(MeasureSpec w, MeasureSpec h) {
+		int width;
+		int height;
 
+		switch (w.type) {
+		case Exact:
+			width = w.value;
+			break;
+		case AtMost:
+			width = Math.min(DEFAULT_WIDTH, w.value);
+		default:
+			width = DEFAULT_WIDTH;
+			break;
+		}
+		
+		switch (h.type) {
+		case Exact:
+			height = h.value;
+			break;
+		case AtMost:
+			height = Math.min(DEFAULT_HEIGHT, h.value);
+		default:
+			height = DEFAULT_HEIGHT;
+			break;
+		}
+		
+		setMeasuredDimensions(width, height);
+	}
+
+			
+	private void setMeasuredDimensions(int width, int height) {
+		this.measuredWidth = width;
+		this.measuredHeight = height;
+		
+	}
+
+
+	public static class MeasureSpec {
+		public enum Type {Free, Exact, AtMost};
+		public Type type = Type.Free;
+		int value = 0;
+	}
 }

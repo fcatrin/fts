@@ -50,4 +50,13 @@ public class ViewGroup extends View {
 		return super.toString(String.format(", children;%s%s", children.toString(), s));
 	}
 	
+	protected void measure() {
+		for(View child : children) {
+			if (child instanceof ViewGroup) {
+				ViewGroup viewGroup = (ViewGroup)child;
+				viewGroup.measure();
+			}
+		}
+	}
+	
 }
