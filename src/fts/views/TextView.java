@@ -1,5 +1,6 @@
 package fts.views;
 
+import fts.core.Window;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
 
@@ -7,6 +8,9 @@ public class TextView extends View {
 
 	String text;
 	
+	public TextView(Window w) {
+		super(w);
+	}
 	
 	public String getText() {
 		return text;
@@ -19,10 +23,6 @@ public class TextView extends View {
 	@Override
 	public String toString(String s) {
 		return super.toString(String.format(",text: %s%s", text, s));
-	}
-
-	public TextView() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

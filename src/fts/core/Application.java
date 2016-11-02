@@ -2,7 +2,7 @@ package fts.core;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,18 +22,22 @@ public class Application {
 		Application.factory = factory;
 	}
 	
-	public Window createWindow() {
+	public static Window createWindow() {
 		return factory.createWindow();
 	}
 	
-	protected View createView(Node node) {
+	public static NativeView createNativeView(Window w) {
+		return factory.createNativeView(w);
+	}
+	
+	protected View createView(Window w, Node node) {
 		View view = null;
 		
 		String name = node.getNodeName();
 		view = factory.createView(node);
 		if (view == null) {
 			String viewClassName = "fts.views." + name;
-			view = (View)createComponentInstance(viewClassName);
+			view = (View)createComponentInstance(w, viewClassName);
 		}
 		
 		if (view == null) {
@@ -52,7 +56,7 @@ public class Application {
 			for (int i = 0; i < childNodes.getLength(); i++) {
 				Node childNode = childNodes.item(i);
 				if (childNode instanceof Element) {
-					viewGroup.add(createView(childNode));
+					viewGroup.add(createView(w, childNode));
 				}
 			}
 		}
@@ -60,7 +64,8 @@ public class Application {
 		return view;
 	}
 			
-	public static Component createComponentInstance(String className) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static Component createComponentInstance(Window w, String className) {
 		Class layoutClass;
 		try {
 			layoutClass = Class.forName(className);
@@ -69,13 +74,15 @@ public class Application {
 		}
 		
 		try {
-			return (Component)layoutClass.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+			return (Component)layoutClass.getDeclaredConstructor(Window.class).newInstance(w);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
 			return null;
+		} catch (NoSuchMethodException e) {
+			throw new RuntimeException("Missing constructor " + className +"(Window)");
 		}
 	}
 	
-	public View inflateView(String name) {
+	public View inflateView(Window w, String name) {
 		File file = new File("res/layout/" + name + ".xml"); // TODO replace by resource lookup
 		if (!file.exists()) {
 			throw new RuntimeException("File not found " + file.getAbsolutePath());
@@ -91,7 +98,7 @@ public class Application {
 		}
 		
 		Element root = doc.getDocumentElement();
-		return createView(root);
+		return createView(w, root);
 		
 	}
 }

@@ -1,12 +1,14 @@
 package fts.views;
 
+import fts.core.Window;
+
 public class LinearLayout extends ViewGroup {
 	enum Orientation {Vertical, Horizontal};
 	
 	private Orientation orientation = Orientation.Vertical;
 
-	public LinearLayout() {
-		// TODO Auto-generated constructor stub
+	public LinearLayout(Window w) {
+		super(w);
 	}
 	
 	public Orientation getOrientation() {

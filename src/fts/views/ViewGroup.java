@@ -3,14 +3,15 @@ package fts.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import fts.core.Window;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
 
 public class ViewGroup extends View {
 	List<View> children = new ArrayList<View>();
 
-	public ViewGroup() {
-		// TODO Auto-generated constructor stub
+	public ViewGroup(Window w) {
+		super(w);
 	}
 
 	@Override

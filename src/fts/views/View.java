@@ -1,10 +1,14 @@
 package fts.views;
 
+import fts.core.Application;
 import fts.core.Component;
 import fts.core.Context;
+import fts.core.NativeView;
+import fts.core.Window;
 import fts.events.KeyEvent;
 import fts.events.MouseEvent;
 import fts.events.PaintEvent;
+import fts.graphics.Canvas;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
 
@@ -26,6 +30,12 @@ public abstract class View extends Component {
 	
 	int layoutWidth;
 	int layoutHeight;
+	
+	NativeView nativeView;
+	
+	public View(Window w) {
+		nativeView = Application.createNativeView(w);
+	}
 	
 	Runnable invalidateTask = new Runnable() {
 		@Override
