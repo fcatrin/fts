@@ -2,6 +2,7 @@ package fts.core;
 
 import fts.graphics.Point;
 import fts.views.View;
+import fts.views.ViewGroup;
 
 public abstract class Window {
 	private View view;
@@ -17,6 +18,11 @@ public abstract class Window {
 	
 	public void layout() {
 		Point bounds = getBounds();
+		view.setBounds(0,  0,  bounds.x, bounds.y);
 		view.onMeasure(bounds.x, bounds.y);
+		if (view instanceof ViewGroup) {
+			ViewGroup viewGroup = (ViewGroup)view;
+			viewGroup.layout();
+		}
 	}
 }

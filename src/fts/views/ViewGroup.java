@@ -6,9 +6,8 @@ import java.util.List;
 import fts.core.Window;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
-import fts.views.View.MeasureSpec;
 
-public class ViewGroup extends View {
+public abstract class ViewGroup extends View {
 	List<View> children = new ArrayList<View>();
 
 	public ViewGroup(Window w) {
@@ -26,6 +25,8 @@ public class ViewGroup extends View {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public abstract void layout();
 
 	@Override
 	public Point computeSize(int x, int y) {

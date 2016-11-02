@@ -29,4 +29,27 @@ public class LinearLayout extends ViewGroup {
 		return super.resolvePropertyValue(propertyName, value);
 	}
 
+	@Override
+	public void layout() {
+		if (orientation == Orientation.Vertical) {
+			layoutVertical();
+		}
+		if (orientation == Orientation.Horizontal) {
+			layoutHorizontal();
+		}
+		
+	}
+
+	private void layoutHorizontal() {
+	}
+
+	private void layoutVertical() {
+		int x = padding.x;
+		int y = padding.y;
+		for (View child : children) {
+			child.setBounds(x, y, child.measuredWidth, child.measuredHeight);
+			y += child.measuredHeight;
+		}
+	}
+
 }

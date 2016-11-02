@@ -211,12 +211,13 @@ public abstract class View extends Component {
 	}
 
 	public String toString(String s) {
-		return String.format("{class: %s, width: %d, height; %d, mw: %d, mh:%d%s}", 
+		return String.format("{class: %s, width: %d, height; %d, mw: %d, mh:%d, bounds:%s%s}", 
 				getClass().getName(),
 				layoutWidth,
 				layoutHeight,
 				measuredWidth,
 				measuredHeight,
+				bounds,
 				s);
 		
 	}
@@ -299,5 +300,14 @@ public abstract class View extends Component {
 		public enum Type {Free, Exact, AtMost};
 		public Type type = Type.Free;
 		int value = 0;
+	}
+
+
+	public void setBounds(int x, int y, int width, int height) {
+		bounds.x = x;
+		bounds.y = y;
+		bounds.width  = width;
+		bounds.height = height;
+		nativeView.setBounds(x, y, width, height);
 	}
 }
