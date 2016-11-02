@@ -12,4 +12,8 @@ public class Point {
 		this.y = y;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("{class: %s, x:%d, y:%d}", Point.class.getName(), x, y);
+	}
 }

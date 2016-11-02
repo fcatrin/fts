@@ -167,6 +167,10 @@ public abstract class View extends Component {
 		return requiredSize.x;
 	}
 	
+	protected Point getTextSize(String s) {
+		return nativeView.getTextSize(s);
+	}
+	
 	public abstract Point computeSize(int x, int y);
 	
 	protected boolean isDisposed() {

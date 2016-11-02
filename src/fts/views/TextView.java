@@ -18,6 +18,7 @@ public class TextView extends View {
 
 	public void setText(String text) {
 		this.text = text;
+		System.out.println("text size:" + computeSize(0, 0));
 	}
 
 	@Override
@@ -39,8 +40,7 @@ public class TextView extends View {
 
 	@Override
 	public Point computeSize(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return getTextSize(text);
 	}
 
 	@Override
