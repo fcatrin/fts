@@ -1,8 +1,8 @@
 package fts.core;
 
 import fts.graphics.Point;
-import fts.views.View;
-import fts.views.ViewGroup;
+import fts.widgets.View;
+import fts.widgets.ViewGroup;
 
 public abstract class Window {
 	private View view;

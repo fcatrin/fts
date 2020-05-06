@@ -1,4 +1,4 @@
-package fts.views;
+package fts.widgets;
 
 import fts.core.Window;
 

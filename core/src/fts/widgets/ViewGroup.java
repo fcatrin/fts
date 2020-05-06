@@ -1,4 +1,4 @@
-package fts.views;
+package fts.widgets;
 
 import java.util.ArrayList;
 import java.util.List;

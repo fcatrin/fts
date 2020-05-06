@@ -3,7 +3,7 @@ package fts.demo;
 import fts.core.Application;
 import fts.core.Window;
 import fts.swt.SWTFactory;
-import fts.views.View;
+import fts.widgets.View;
 
 public class Main {
 	public static void main(String[] args) {
