@@ -24,7 +24,7 @@ public final class DownloadManager {
 		return download(url, null);
 	}
 
-	public static byte[] download(String url, DownloadProgressListener listener) throws IOException {
+	public static byte[] download(String url, ProgressListener listener) throws IOException {
 		return Utils.httpGet(url, persistentHeaders, listener);
 	}
 
@@ -32,11 +32,11 @@ public final class DownloadManager {
 		return downloadFile(url, file, null);
 	}
 	
-	public static boolean downloadFile(String url, File file, DownloadProgressListener listener) throws IOException {
+	public static boolean downloadFile(String url, File file, ProgressListener listener) throws IOException {
 		return Utils.httpGetFile(url, persistentHeaders, file, listener);
 	}
 
-	public static boolean downloadFile(String url, File file, Map<String, String> headers, DownloadProgressListener listener) throws IOException {
+	public static boolean downloadFile(String url, File file, Map<String, String> headers, ProgressListener listener) throws IOException {
 		Map<String, String> tmpHeaders = new HashMap<String, String>();
 		tmpHeaders.putAll(headers);
 		tmpHeaders.putAll(persistentHeaders);

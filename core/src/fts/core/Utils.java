@@ -243,7 +243,7 @@ public final class Utils {
 		return httpGet(sUrl, null, null);
 	}
 
-	public static byte[] httpGet(String sUrl, DownloadProgressListener progressListener) throws IOException {
+	public static byte[] httpGet(String sUrl, ProgressListener progressListener) throws IOException {
 		return httpGet(sUrl, null, progressListener);
 	}
 
@@ -251,7 +251,7 @@ public final class Utils {
 		return httpGet(sUrl, headers, null);
 	}
 	
-	public static byte[] httpGet(String sUrl, Map<String, String>headers, DownloadProgressListener progressListener) throws IOException {
+	public static byte[] httpGet(String sUrl, Map<String, String>headers, ProgressListener progressListener) throws IOException {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		httpGetStream(sUrl, headers, bout, progressListener);
 		return bout.toByteArray();
@@ -261,12 +261,12 @@ public final class Utils {
 		httpGetFile(sUrl, headers, file, null);
 	}
 
-	public static boolean httpGetFile(String sUrl, Map<String, String>headers, File file, DownloadProgressListener progressListener) throws IOException {
+	public static boolean httpGetFile(String sUrl, Map<String, String>headers, File file, ProgressListener progressListener) throws IOException {
 		FileOutputStream fos = new FileOutputStream(file, headers.containsKey(HTTP_RANGE_HEADER));
 		return httpGetStream(sUrl, headers, fos, progressListener);
 	}
 
-	public static boolean httpGetStream(String sUrl, Map<String, String>headers, OutputStream stream, DownloadProgressListener progressListener) throws IOException {
+	public static boolean httpGetStream(String sUrl, Map<String, String>headers, OutputStream stream, ProgressListener progressListener) throws IOException {
 		InputStream in = null;
 		URLConnection connection = null;
 		try {
@@ -291,16 +291,14 @@ public final class Utils {
 			
 			int size = str2i(connection.getHeaderField("Content-Length")) + pos;
 
-			int customBufferSize = 0;
 			if (progressListener!=null) {
-				progressListener.onDownloadStart();
-				progressListener.updateProgress(pos,  size);
-				customBufferSize = progressListener.getBufferSize(size);
+				progressListener.onStart();
+				progressListener.onProgress(pos,  size);
 			}
 
 			in = connection.getInputStream();
 
-			byte[] buf = new byte[customBufferSize>0?customBufferSize:BUF_SIZE];
+			byte[] buf = new byte[BUF_SIZE];
 			boolean cancel = false;
 			while (!cancel) {
 				int rc = in.read(buf);
@@ -309,9 +307,9 @@ public final class Utils {
 				else
 					stream.write(buf, 0, rc);
 				pos += rc;
-				if (progressListener!=null) cancel = progressListener.updateProgress(pos,  size);
+				if (progressListener!=null) cancel = progressListener.onProgress(pos,  size);
 			}
-			if (progressListener!=null) progressListener.onDownloadEnd();
+			if (progressListener!=null) progressListener.onEnd();
 			long t = System.currentTimeMillis() - t0;
 			Log.d(LOGTAG, "Download end " + t + "[ms] " + sUrl);
 			return true;
@@ -503,7 +501,7 @@ public final class Utils {
 		copyFile(src, dst, null);
 	}
 	
-	public static void copyFile(File src, File dst, DownloadProgressListener progressListener) throws IOException {
+	public static void copyFile(File src, File dst, ProgressListener progressListener) throws IOException {
 		FileInputStream is = new FileInputStream(src);
 		FileOutputStream os = new FileOutputStream(dst);
 		copyFile(is, os, progressListener, src.length());
@@ -513,26 +511,22 @@ public final class Utils {
 		copyFile(is, os, null, 0);
 	}
 
-	public static void copyFile(InputStream is, OutputStream os, DownloadProgressListener progressListener) throws IOException {
+	public static void copyFile(InputStream is, OutputStream os, ProgressListener progressListener) throws IOException {
 		copyFile(is, os, progressListener, 0);
 	}
 
-	public static void copyFile(InputStream is, OutputStream os, DownloadProgressListener progressListener, long max) throws IOException {
-		int customBufferSize = 0;
-		if (progressListener!=null) {
-			customBufferSize = progressListener.getBufferSize((int)max);
-		}
-        byte buffer[] = new byte[customBufferSize>0?customBufferSize:BUF_SIZE];
+	public static void copyFile(InputStream is, OutputStream os, ProgressListener progressListener, long max) throws IOException {
+        byte buffer[] = new byte[BUF_SIZE];
         
 		int bufferLength = 0;
 
-		if (progressListener!=null) progressListener.updateProgress(0, (int)max);
+		if (progressListener!=null) progressListener.onProgress(0, (int)max);
 		try {
 			int pos = 0;
 			while ((bufferLength = is.read(buffer)) > 0) {
 				os.write(buffer, 0, bufferLength);
 				pos += bufferLength;
-				if (progressListener!=null) progressListener.updateProgress(pos, (int)max);
+				if (progressListener!=null) progressListener.onProgress(pos, (int)max);
 			}
 		} finally {
 			is.close();
@@ -596,7 +590,7 @@ public final class Utils {
 		return unzip(file, dstPath);
 	}
 	
-	public static boolean unzip(File file, File dstPath, DownloadProgressListener listener) throws IOException {
+	public static boolean unzip(File file, File dstPath, ProgressListener listener) throws IOException {
 		ZipFile zipFile = null;
 		try {
 			zipFile = new ZipFile(file);
@@ -619,7 +613,7 @@ public final class Utils {
 		        }
 		        
 		        zipFile = new ZipFile(file);
-				listener.updateProgress(0, (int)max);
+				listener.onProgress(0, (int)max);
 			}
 			
 	        byte buffer[] = new byte[BUF_SIZE];
@@ -643,7 +637,7 @@ public final class Utils {
 	                  
 	                  if (hasSizeInfo && listener!=null) {
 	                      pos+=b;
-	                	  cancel = listener.updateProgress((int)pos, (int)max);
+	                	  cancel = listener.onProgress((int)pos, (int)max);
 	                	  if (cancel) break;
 	                  }
 	              }
@@ -652,7 +646,7 @@ public final class Utils {
 	              
 	              if (listener!=null && !hasSizeInfo) {
 	            	  pos++;
-	            	  cancel = listener.updateProgress((int)pos, (int)max);
+	            	  cancel = listener.onProgress((int)pos, (int)max);
 	              }
 	              if (cancel) return false;
 	          }
