@@ -2,7 +2,7 @@ package fts.widgets;
 
 import fts.core.Window;
 
-public class LinearLayout extends ViewGroup {
+public class LinearLayout extends Container {
 	enum Orientation {Vertical, Horizontal};
 	
 	private Orientation orientation = Orientation.Vertical;
@@ -46,7 +46,7 @@ public class LinearLayout extends ViewGroup {
 	private void layoutVertical() {
 		int x = padding.x;
 		int y = padding.y;
-		for (View child : children) {
+		for (Widget child : children) {
 			child.setBounds(x, y, child.measuredWidth, child.measuredHeight);
 			y += child.measuredHeight;
 		}

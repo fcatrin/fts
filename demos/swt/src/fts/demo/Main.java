@@ -3,7 +3,7 @@ package fts.demo;
 import fts.core.Application;
 import fts.core.Window;
 import fts.swt.SWTFactory;
-import fts.widgets.View;
+import fts.widgets.Widget;
 
 public class Main {
 	public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class Main {
 		Window window = Application.createWindow();
 		window.setTitle("First FTS window");
 		
-		View rootView = app.inflateView(window, "main");
+		Widget rootView = app.inflateView(window, "main");
 		window.setContentView(rootView);
 		window.open();
 		window.layout();

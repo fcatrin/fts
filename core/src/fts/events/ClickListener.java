@@ -1,7 +1,7 @@
 package fts.events;
 
-import fts.widgets.View;
+import fts.widgets.Widget;
 
 public interface ClickListener {
-	public abstract void onClick(View w);
+	public abstract void onClick(Widget w);
 }

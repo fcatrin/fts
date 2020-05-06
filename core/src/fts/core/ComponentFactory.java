@@ -3,10 +3,10 @@ package fts.core;
 import org.w3c.dom.Node;
 
 import fts.graphics.Canvas;
-import fts.widgets.View;
+import fts.widgets.Widget;
 
 public interface ComponentFactory {
 	public Window createWindow();
-	public View createView(Node node);
+	public Widget createView(Node node);
 	public NativeView createNativeView(Window w);
 }

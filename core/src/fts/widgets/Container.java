@@ -7,10 +7,10 @@ import fts.core.Window;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
 
-public abstract class ViewGroup extends View {
-	List<View> children = new ArrayList<View>();
+public abstract class Container extends Widget {
+	List<Widget> children = new ArrayList<Widget>();
 
-	public ViewGroup(Window w) {
+	public Container(Window w) {
 		super(w);
 	}
 
@@ -39,11 +39,11 @@ public abstract class ViewGroup extends View {
 		return super.resolvePropertyValue(propertyName, value);
 	}
 
-	public void add(View view) {
+	public void add(Widget view) {
 		children.add(view);
 	}
 
-	public List<View> getChildren() {
+	public List<Widget> getChildren() {
 		return children;
 	}
 
@@ -53,7 +53,7 @@ public abstract class ViewGroup extends View {
 	}
 	
 	protected void onMeasureChildren() {
-		for(View child : children) {
+		for(Widget child : children) {
 			child.onMeasure(measuredWidth, measuredHeight);
 		}
 	}

@@ -12,7 +12,7 @@ import fts.graphics.Canvas;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
 
-public abstract class View extends Component {
+public abstract class Widget extends Component {
 	public enum State {Selected, Focused, Enabled, Pressed}
 	private static final int DEFAULT_WIDTH  = 100;
 	private static final int DEFAULT_HEIGHT = 100;
@@ -39,7 +39,7 @@ public abstract class View extends Component {
 	
 	NativeView nativeView;
 	
-	public View(Window w) {
+	public Widget(Window w) {
 		nativeView = Application.createNativeView(w);
 	}
 	

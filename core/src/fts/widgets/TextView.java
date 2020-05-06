@@ -4,7 +4,7 @@ import fts.core.Window;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
 
-public class TextView extends View {
+public class TextView extends Widget {
 
 	String text;
 	

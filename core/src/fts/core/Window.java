@@ -1,18 +1,18 @@
 package fts.core;
 
 import fts.graphics.Point;
-import fts.widgets.View;
-import fts.widgets.ViewGroup;
+import fts.widgets.Widget;
+import fts.widgets.Container;
 
 public abstract class Window {
-	private View view;
+	private Widget view;
 
 	public abstract void setTitle(String title);
 	public abstract void open();
 	public abstract void mainLoop();
 	public abstract Point getBounds();
 	
-	public void setContentView(View view) {
+	public void setContentView(Widget view) {
 		this.view = view;
 	}
 	
@@ -20,8 +20,8 @@ public abstract class Window {
 		Point bounds = getBounds();
 		view.setBounds(0,  0,  bounds.x, bounds.y);
 		view.onMeasure(bounds.x, bounds.y);
-		if (view instanceof ViewGroup) {
-			ViewGroup viewGroup = (ViewGroup)view;
+		if (view instanceof Container) {
+			Container viewGroup = (Container)view;
 			viewGroup.layout();
 		}
 	}

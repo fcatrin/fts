@@ -12,8 +12,8 @@ import org.w3c.dom.NodeList;
 
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
-import fts.widgets.View;
-import fts.widgets.ViewGroup;
+import fts.widgets.Widget;
+import fts.widgets.Container;
 
 public class Application {
 	static ComponentFactory factory;
@@ -30,14 +30,14 @@ public class Application {
 		return factory.createNativeView(w);
 	}
 	
-	protected View createView(Window w, Node node) {
-		View view = null;
+	protected Widget createView(Window w, Node node) {
+		Widget view = null;
 		
 		String name = node.getNodeName();
 		view = factory.createView(node);
 		if (view == null) {
 			String viewClassName = "fts.views." + name;
-			view = (View)createComponentInstance(w, viewClassName);
+			view = (Widget)createComponentInstance(w, viewClassName);
 		}
 		
 		if (view == null) {
@@ -50,8 +50,8 @@ public class Application {
 			view.setProperty(item.getNodeName(), item.getNodeValue());
 		}
 		
-		if (view instanceof ViewGroup) {
-			ViewGroup viewGroup = (ViewGroup)view;
+		if (view instanceof Container) {
+			Container viewGroup = (Container)view;
 			NodeList childNodes = node.getChildNodes();
 			for (int i = 0; i < childNodes.getLength(); i++) {
 				Node childNode = childNodes.item(i);
@@ -82,7 +82,7 @@ public class Application {
 		}
 	}
 	
-	public View inflateView(Window w, String name) {
+	public Widget inflateView(Window w, String name) {
 		File file = new File("res/layout/" + name + ".xml"); // TODO replace by resource lookup
 		if (!file.exists()) {
 			throw new RuntimeException("File not found " + file.getAbsolutePath());

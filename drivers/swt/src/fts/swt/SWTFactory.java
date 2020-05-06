@@ -5,7 +5,7 @@ import org.w3c.dom.Node;
 import fts.core.ComponentFactory;
 import fts.core.NativeView;
 import fts.core.Window;
-import fts.widgets.View;
+import fts.widgets.Widget;
 
 public class SWTFactory implements ComponentFactory {
 	public Window createWindow() {
@@ -13,7 +13,7 @@ public class SWTFactory implements ComponentFactory {
 	}
 
 	@Override
-	public View createView(Node node) {
+	public Widget createView(Node node) {
 		return null;
 	}
 
