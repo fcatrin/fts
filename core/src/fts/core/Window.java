@@ -21,8 +21,8 @@ public abstract class Window {
 		view.setBounds(0,  0,  bounds.x, bounds.y);
 		view.onMeasure(bounds.x, bounds.y);
 		if (view instanceof Container) {
-			Container viewGroup = (Container)view;
-			viewGroup.layout();
+			Container container = (Container)view;
+			container.layout();
 		}
 	}
 }
