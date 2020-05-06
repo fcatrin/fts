@@ -13,7 +13,7 @@ public class SWTFactory implements ComponentFactory {
 	}
 
 	@Override
-	public Widget createView(Node node) {
+	public Widget createWidget(Node node) {
 		return null;
 	}
 

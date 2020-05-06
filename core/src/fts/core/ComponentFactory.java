@@ -7,6 +7,6 @@ import fts.widgets.Widget;
 
 public interface ComponentFactory {
 	public Window createWindow();
-	public Widget createView(Node node);
+	public Widget createWidget(Node node);
 	public NativeView createNativeView(Window w);
 }

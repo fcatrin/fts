@@ -8,7 +8,6 @@ import fts.core.Window;
 import fts.events.KeyEvent;
 import fts.events.MouseEvent;
 import fts.events.PaintEvent;
-import fts.graphics.Canvas;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
 

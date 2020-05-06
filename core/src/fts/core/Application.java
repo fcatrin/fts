@@ -30,51 +30,52 @@ public class Application {
 		return factory.createNativeView(w);
 	}
 	
-	protected Widget createView(Window w, Node node) {
-		Widget view = null;
+	protected Widget createWidget(Window w, Node node) {
+		Widget widget = null;
 		
 		String name = node.getNodeName();
-		view = factory.createView(node);
-		if (view == null) {
-			String viewClassName = "fts.views." + name;
-			view = (Widget)createComponentInstance(w, viewClassName);
+		widget = factory.createWidget(node);
+		if (widget == null) {
+			String viewClassName = "fts.widgets." + name;
+			widget = (Widget)createComponentInstance(w, viewClassName);
 		}
 		
-		if (view == null) {
-			throw new RuntimeException("Cannot create view " + name);
+		if (widget == null) {
+			throw new RuntimeException("Cannot create widget " + name);
 		}
 		
 		NamedNodeMap attributes = node.getAttributes();
 		for(int i=0; i<attributes.getLength(); i++) {
 			Node item = attributes.item(i);
-			view.setProperty(item.getNodeName(), item.getNodeValue());
+			widget.setProperty(item.getNodeName(), item.getNodeValue());
 		}
 		
-		if (view instanceof Container) {
-			Container viewGroup = (Container)view;
+		if (widget instanceof Container) {
+			Container container = (Container)widget;
 			NodeList childNodes = node.getChildNodes();
 			for (int i = 0; i < childNodes.getLength(); i++) {
 				Node childNode = childNodes.item(i);
 				if (childNode instanceof Element) {
-					viewGroup.add(createView(w, childNode));
+					container.add(createWidget(w, childNode));
 				}
 			}
 		}
 		
-		return view;
+		return widget;
 	}
 			
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Component createComponentInstance(Window w, String className) {
-		Class layoutClass;
+		Class componentClass;
 		try {
-			layoutClass = Class.forName(className);
+			componentClass = Class.forName(className);
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 			return null;
 		}
 		
 		try {
-			return (Component)layoutClass.getDeclaredConstructor(Window.class).newInstance(w);
+			return (Component)componentClass.getDeclaredConstructor(Window.class).newInstance(w);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
 			return null;
 		} catch (NoSuchMethodException e) {
@@ -82,7 +83,7 @@ public class Application {
 		}
 	}
 	
-	public Widget inflateView(Window w, String name) {
+	public Widget inflate(Window w, String name) {
 		File file = new File("res/layout/" + name + ".xml"); // TODO replace by resource lookup
 		if (!file.exists()) {
 			throw new RuntimeException("File not found " + file.getAbsolutePath());
@@ -98,7 +99,7 @@ public class Application {
 		}
 		
 		Element root = doc.getDocumentElement();
-		return createView(w, root);
+		return createWidget(w, root);
 		
 	}
 }
