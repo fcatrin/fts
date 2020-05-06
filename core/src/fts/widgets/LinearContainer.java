@@ -2,12 +2,12 @@ package fts.widgets;
 
 import fts.core.Window;
 
-public class LinearLayout extends Container {
+public class LinearContainer extends Container {
 	enum Orientation {Vertical, Horizontal};
 	
 	private Orientation orientation = Orientation.Vertical;
 
-	public LinearLayout(Window w) {
+	public LinearContainer(Window w) {
 		super(w);
 	}
 	

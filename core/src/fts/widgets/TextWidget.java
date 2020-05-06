@@ -4,11 +4,11 @@ import fts.core.Window;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
 
-public class TextView extends Widget {
+public class TextWidget extends Widget {
 
 	String text;
 	
-	public TextView(Window w) {
+	public TextWidget(Window w) {
 		super(w);
 	}
 	
