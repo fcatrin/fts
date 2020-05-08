@@ -8,6 +8,8 @@ FTS aims to fill the missing gap between developers and desktop applications.
 Initially designed for Linux apps, it should easly support Mac and Windows apps as well.
 Support for other systems like Raspberry Pi in Framebuffer mode is considered by design.
 
+... and Android!
+
 **Now into more technical details**
 
 FTS is a Java based API to help developers write desktop applications with abstract
