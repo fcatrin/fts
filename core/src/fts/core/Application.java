@@ -12,8 +12,6 @@ import org.w3c.dom.NodeList;
 
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
-import fts.widgets.Widget;
-import fts.widgets.Container;
 
 public class Application {
 	static ComponentFactory factory;

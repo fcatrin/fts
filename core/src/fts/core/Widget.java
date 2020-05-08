@@ -1,10 +1,5 @@
-package fts.widgets;
+package fts.core;
 
-import fts.core.Application;
-import fts.core.Component;
-import fts.core.Context;
-import fts.core.NativeView;
-import fts.core.Window;
 import fts.events.KeyEvent;
 import fts.events.MouseEvent;
 import fts.events.PaintEvent;
@@ -309,4 +304,22 @@ public abstract class Widget extends Component {
 		bounds.height = height;
 		nativeView.setBounds(x, y, width, height);
 	}
+
+	public int getMeasuredWidth() {
+		return measuredWidth;
+	}
+
+	public void setMeasuredWidth(int measuredWidth) {
+		this.measuredWidth = measuredWidth;
+	}
+
+	public int getMeasuredHeight() {
+		return measuredHeight;
+	}
+
+	public void setMeasuredHeight(int measuredHeight) {
+		this.measuredHeight = measuredHeight;
+	}
+	
+	
 }

@@ -1,8 +1,6 @@
 package fts.core;
 
 import fts.graphics.Point;
-import fts.widgets.Widget;
-import fts.widgets.Container;
 
 public abstract class Window {
 	private Widget view;

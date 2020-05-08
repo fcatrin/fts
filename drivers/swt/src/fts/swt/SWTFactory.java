@@ -4,8 +4,8 @@ import org.w3c.dom.Node;
 
 import fts.core.ComponentFactory;
 import fts.core.NativeView;
+import fts.core.Widget;
 import fts.core.Window;
-import fts.widgets.Widget;
 
 public class SWTFactory implements ComponentFactory {
 	public Window createWindow() {

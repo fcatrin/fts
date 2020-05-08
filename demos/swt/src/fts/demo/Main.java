@@ -1,9 +1,9 @@
 package fts.demo;
 
 import fts.core.Application;
+import fts.core.Widget;
 import fts.core.Window;
 import fts.swt.SWTFactory;
-import fts.widgets.Widget;
 
 public class Main {
 	public static void main(String[] args) {

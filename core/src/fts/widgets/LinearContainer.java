@@ -1,5 +1,7 @@
 package fts.widgets;
 
+import fts.core.Container;
+import fts.core.Widget;
 import fts.core.Window;
 
 public class LinearContainer extends Container {
@@ -46,9 +48,9 @@ public class LinearContainer extends Container {
 	private void layoutVertical() {
 		int x = padding.x;
 		int y = padding.y;
-		for (Widget child : children) {
-			child.setBounds(x, y, child.measuredWidth, child.measuredHeight);
-			y += child.measuredHeight;
+		for (Widget child : getChildren()) {
+			child.setBounds(x, y, child.getMeasuredWidth(), child.getMeasuredHeight());
+			y += child.getMeasuredHeight();
 		}
 	}
 
