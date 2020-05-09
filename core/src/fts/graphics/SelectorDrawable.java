@@ -3,7 +3,6 @@ package fts.graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
 import org.w3c.dom.Element;
 
 import fts.core.Application;
@@ -16,7 +15,7 @@ public class SelectorDrawable extends Drawable {
 	List<String> filters = new ArrayList<String>();
 	List<Drawable> drawables = new ArrayList<Drawable>();
 
-	public void load(Element node) throws JSONException {
+	public void load(Element node) {
 		List<Element> elements = SimpleXML.getElements(node);
 		for(Element element : elements) {
 			filters.add(createFilter(element, filterNames));
@@ -24,7 +23,7 @@ public class SelectorDrawable extends Drawable {
 		}
 	}
 	
-	private String createFilter(Element node, String names[]) throws JSONException {
+	private String createFilter(Element node, String names[]) {
 		String descriptor = "";
 		for(String name : names) {
 			descriptor = descriptor + createFilter(node, name);

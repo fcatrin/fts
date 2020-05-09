@@ -1,6 +1,8 @@
 package fts.graphics;
 
 public abstract class Canvas {
+	
+	Align align = new Align();
 	Image image = null;
 	
 	public Canvas(int width, int height) {
@@ -23,4 +25,16 @@ public abstract class Canvas {
 	public abstract void setLineWidth(int lineWidth);
 	public abstract void setAntialias(boolean antialias);
 	public abstract void setFont(Font font);
+	
+	public void drawRect(int x, int y, int width, int height) {
+		drawRect(x, y, width, height, 0);
+	}
+	
+	public void drawFilledRect(int x, int y, int width, int height) {
+		drawFilledRect(x, y, width, height, 0);
+	}
+
+	public abstract void drawRect(int x, int y, int width, int height, int radius);
+	public abstract void drawFilledRect(int x, int y, int width, int height, int radius);
+	public abstract void drawText(int x, int y, int width, int height, String text);
 }

@@ -1,5 +1,7 @@
 package fts.graphics;
 
+import org.w3c.dom.Element;
+
 import fts.core.Component;
 
 public abstract class Drawable extends Component {
@@ -14,6 +16,7 @@ public abstract class Drawable extends Component {
 		this.padding = padding.clone();
 	}
 
+	public abstract void load(Element element);
 	public abstract void draw(Canvas canvas);
 	public void destroy(){};
 

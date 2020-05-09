@@ -129,6 +129,10 @@ public abstract class SimpleXML {
 		return list;
 	}
 
+	public static int getIntAttribute(Element xml, String name) {
+		return getIntAttribute(xml, name, 0);
+	}
+	
 	public static int getIntAttribute(Element xml, String name, int defaultValue) {
 		if (xml == null) return defaultValue;
 		

@@ -69,8 +69,6 @@ public class Paint {
 	}
 	
 	public void dispose() {
-		if (foregroundColor!=null) foregroundColor.dispose();
-		if (backgroundColor!=null) backgroundColor.dispose();
 		if (font!=null) font.dispose();
 	}
 
