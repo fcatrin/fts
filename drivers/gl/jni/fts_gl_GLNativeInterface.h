@@ -9,6 +9,22 @@ extern "C" {
 #endif
 /*
  * Class:     fts_gl_GLNativeInterface
+ * Method:    frameStart
+ * Signature: (II)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_frameStart
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    frameEnd
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_frameEnd
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
  * Method:    drawRect
  * Signature: (IIII)V
  */

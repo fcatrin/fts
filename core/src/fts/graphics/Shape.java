@@ -10,6 +10,12 @@ public class Shape extends Drawable {
 	Color strokeColor = null;
 	int strokeWidth = 1;
 	int radius = 0;
+	
+	public Shape() {}
+	
+	public Shape(Element element) {
+		load(element);
+	}
 
 	@Override
 	public void load(Element element) {

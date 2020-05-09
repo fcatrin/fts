@@ -1,12 +1,12 @@
 package fts.core;
 
-import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 
 import fts.graphics.Drawable;
 
 public interface ComponentFactory {
 	public Window createWindow();
-	public Widget createWidget(Node node);
+	public Widget createWidget(Element element);
 	public NativeView createNativeView(Window w);
-	public Drawable createDrawable(Node node);
+	public Drawable createDrawable(Element element);
 }

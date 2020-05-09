@@ -3,12 +3,12 @@ package fts.core;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
@@ -29,11 +29,11 @@ public class Application {
 		return factory.createNativeView(w);
 	}
 	
-	public static Drawable createDrawable(Node node) {
+	public static Drawable createDrawable(Element node) {
 		return factory.createDrawable(node);
 	}
 	
-	protected Widget createWidget(Window w, Node node) {
+	protected Widget createWidget(Window w, Element node) {
 		Widget widget = null;
 		
 		String name = node.getNodeName();
@@ -55,12 +55,9 @@ public class Application {
 		
 		if (widget instanceof Container) {
 			Container container = (Container)widget;
-			NodeList childNodes = node.getChildNodes();
-			for (int i = 0; i < childNodes.getLength(); i++) {
-				Node childNode = childNodes.item(i);
-				if (childNode instanceof Element) {
-					container.add(createWidget(w, childNode));
-				}
+			List<Element> elements = SimpleXML.getElements(node);
+			for(Element element : elements) {
+				container.add(createWidget(w, element));
 			}
 		}
 		

@@ -8,7 +8,13 @@ public class TextDrawable extends Drawable {
 	Font font;
 	String text;
 	Color color;
-	
+
+	public TextDrawable() {}
+
+	public TextDrawable(Element element) {
+		load(element);
+	}
+
 	@Override
 	public void load(Element element) {
 		text = SimpleXML.getAttribute(element, "text");
