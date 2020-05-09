@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Locale;
 
+import fts.graphics.Dimension;
+
 public abstract class Component {
 	
 	protected void setProperty(String name, String value) {
@@ -43,13 +45,11 @@ public abstract class Component {
 	}
 	
 	protected int resolvePropertyValueDimen(String propertyName, String value) {
-		if (value.endsWith("px")) {
-			return Integer.parseInt(value.substring(0, value.length()-2));
+		try {
+			return Dimension.parse(value);
+		} catch (Exception e) {
+			throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": " + e.getMessage());
 		}
-		if (value.endsWith("dp")) {
-			return Context.instance.dp2px(Integer.parseInt(value.substring(0, value.length()-2)));
-		}
-		throw new RuntimeException("Invalid dimension " + value + " for property " + propertyName + " in component " + getClass().getName());
 	}
 	
 }

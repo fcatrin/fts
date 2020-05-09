@@ -15,8 +15,8 @@ public class Shape extends Drawable {
 	public void load(Element element) {
 		fillColor   = Color.load(SimpleXML.getAttribute(element, "fill-color"));
 		strokeColor = Color.load(SimpleXML.getAttribute(element, "stroke-color"));
-		strokeWidth = SimpleXML.getIntAttribute(element, "stroke-width");
-		radius = SimpleXML.getIntAttribute(element, "radius");
+		strokeWidth = Dimension.parse(SimpleXML.getAttribute(element, "stroke-width"));
+		radius = Dimension.parse(SimpleXML.getAttribute(element, "radius"));
 	}
 	
 	@Override

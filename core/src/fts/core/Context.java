@@ -2,6 +2,7 @@ package fts.core;
 
 public class Context {
 	static Context instance = null;
+	public static float pointsPerPixel = 1;
 	
 	public static Context getInstance() {
 		if (instance!=null) return instance;
@@ -26,8 +27,11 @@ public class Context {
 		asyncExecutor.asyncExec(runnable);
 	}
 
-	public int dp2px(int value) {
-		// TODO transform dp2px
-		return value;
+	public int pt2px(int value) {
+		return (int)(value * pointsPerPixel);
+	}
+	
+	public int px2pt(int value) {
+		return (int)(value / pointsPerPixel);
 	}
 }
