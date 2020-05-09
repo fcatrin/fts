@@ -69,7 +69,6 @@ public class Paint {
 	}
 	
 	public void dispose() {
-		if (font!=null) font.dispose();
 	}
 
 }
