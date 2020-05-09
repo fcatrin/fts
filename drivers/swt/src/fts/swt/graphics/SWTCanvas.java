@@ -74,4 +74,22 @@ public class SWTCanvas extends Canvas {
 		gc.setFont(swtFont);
 	}
 
+	@Override
+	public void drawRect(int x, int y, int width, int height, int radius) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drawFilledRect(int x, int y, int width, int height, int radius) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void drawText(int x, int y, int width, int height, String text) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
