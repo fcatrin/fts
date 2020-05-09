@@ -6,6 +6,7 @@ import fts.core.ComponentFactory;
 import fts.core.NativeView;
 import fts.core.Widget;
 import fts.core.Window;
+import fts.graphics.Drawable;
 
 public class SWTFactory implements ComponentFactory {
 	public Window createWindow() {
@@ -20,5 +21,10 @@ public class SWTFactory implements ComponentFactory {
 	@Override
 	public NativeView createNativeView(Window w) {
 		return new SWTNativeView(((SWTWindow)w).shell);
+	}
+
+	@Override
+	public Drawable createDrawable(Node node) {
+		return null;
 	}
 }

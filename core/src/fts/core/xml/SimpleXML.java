@@ -45,6 +45,10 @@ public abstract class SimpleXML {
 		return parse(bais);
 	}
 
+	public static List<Element> getElements(Element xml) {
+		return getElements(xml, null);
+	}
+	
 	public static List<Element> getElements(Element xml, String name) {
 		List<Element> elements = new ArrayList<Element>();
 		if (xml == null) return elements;
@@ -52,7 +56,7 @@ public abstract class SimpleXML {
 		NodeList childNodes = xml.getChildNodes();
 		for (int i = 0; i < childNodes.getLength(); i++) {
 			Node node = childNodes.item(i);
-			if (node.getNodeName().equals(name) && node instanceof Element) {
+			if ((name == null || node.getNodeName().equals(name)) && node instanceof Element) {
 				elements.add((Element) node);
 			}
 		}
@@ -145,6 +149,10 @@ public abstract class SimpleXML {
 		Node namedItem = attributes.getNamedItem(name);
 		if (namedItem == null) return defaultValue;
 		return Utils.str2f(namedItem.getNodeValue(), defaultValue);
+	}
+
+	public static boolean getBoolAttribute(Node node, String name) {
+		return getBoolAttribute(node, name, false);
 	}
 	
 	public static boolean getBoolAttribute(Node node, String name, boolean defaultValue) {

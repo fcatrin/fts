@@ -12,6 +12,7 @@ import org.w3c.dom.NodeList;
 
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
+import fts.graphics.Drawable;
 
 public class Application {
 	static ComponentFactory factory;
@@ -26,6 +27,10 @@ public class Application {
 	
 	public static NativeView createNativeView(Window w) {
 		return factory.createNativeView(w);
+	}
+	
+	public static Drawable createDrawable(Node node) {
+		return factory.createDrawable(node);
 	}
 	
 	protected Widget createWidget(Window w, Node node) {

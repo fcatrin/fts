@@ -15,6 +15,10 @@ public class Rectangle {
 		this.height = height;
 	}
 	
+	public Rectangle clone() {
+		return new Rectangle(x, y, width, height);
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("{class: Rect, x: %d, y: %d, width: %d, height: %d}",

@@ -1,7 +1,5 @@
 package fts.graphics;
 
-import fts.core.Utils;
-
 public class Paint {
 	int alpha = 255;
 	Color foregroundColor = null;
