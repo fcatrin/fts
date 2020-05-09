@@ -1,6 +1,7 @@
 package fts.widgets;
 
 import fts.core.Container;
+import fts.core.LayoutInfo;
 import fts.core.Widget;
 import fts.core.Window;
 
@@ -49,8 +50,9 @@ public class LinearContainer extends Container {
 		int x = padding.x;
 		int y = padding.y;
 		for (Widget child : getChildren()) {
-			child.setBounds(x, y, child.getMeasuredWidth(), child.getMeasuredHeight());
-			y += child.getMeasuredHeight();
+			LayoutInfo layoutInfo = child.getLayoutInfo();
+			child.setBounds(x, y, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
+			y += layoutInfo.measuredHeight;
 		}
 	}
 

@@ -21,15 +21,8 @@ public abstract class Widget extends Component {
 	
 	public static final String VALUE_MATCH_PARENT = "match_parent";
 	public static final String VALUE_WRAP_CONTENT = "wrap_content";
-	
-	public final int MATCH_PARENT = -1;
-	public final int WRAP_CONTENT = -2;
-	
-	int layoutWidth;
-	int layoutHeight;
-	
-	int measuredWidth;
-	int measuredHeight;
+
+	LayoutInfo layoutInfo = new LayoutInfo();
 	
 	NativeView nativeView;
 	
@@ -180,40 +173,18 @@ public abstract class Widget extends Component {
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {
 		if (propertyName.equals("layoutWidth") || propertyName.equals("layoutHeight")) {
-			if (VALUE_MATCH_PARENT.equals(value)) return MATCH_PARENT;
-			if (VALUE_WRAP_CONTENT.equals(value)) return WRAP_CONTENT;
+			if (VALUE_MATCH_PARENT.equals(value)) return LayoutInfo.MATCH_PARENT;
+			if (VALUE_WRAP_CONTENT.equals(value)) return LayoutInfo.WRAP_CONTENT;
 			return resolvePropertyValueDimen(propertyName, value);
 		}
 		return super.resolvePropertyValue(propertyName, value);
 	}
 
-	
-	public int getLayoutWidth() {
-		return layoutWidth;
-	}
-
-	public void setLayoutWidth(int layoutWidth) {
-		this.layoutWidth = layoutWidth;
-	}
-
-	public int getLayoutHeight() {
-		return layoutHeight;
-	}
-
-	public void setLayoutHeight(int layoutHeight) {
-		this.layoutHeight = layoutHeight;
-	}
-
 	public String toString(String s) {
 		return String.format("{class: %s, width: %d, height; %d, mw: %d, mh:%d, bounds:%s%s}", 
 				getClass().getName(),
-				layoutWidth,
-				layoutHeight,
-				measuredWidth,
-				measuredHeight,
 				bounds,
 				s);
-		
 	}
 	
 	@Override
@@ -229,25 +200,25 @@ public abstract class Widget extends Component {
 		MeasureSpec w = new MeasureSpec();
 		MeasureSpec h = new MeasureSpec();
 		
-		if (layoutWidth == MATCH_PARENT) {
+		if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
 			w.type  = MeasureSpec.Type.Exact;
 			w.value = parentWidth;
-		} else if (layoutWidth == WRAP_CONTENT) {
+		} else if (layoutInfo.width == LayoutInfo.WRAP_CONTENT) {
 			w.type  = MeasureSpec.Type.AtMost;
 			w.value = parentWidth;
 		} else {
 			w.type  = MeasureSpec.Type.Exact;
-			w.value = layoutWidth;
+			w.value = layoutInfo.width;
 		}
-		if (layoutHeight == MATCH_PARENT) {
+		if (layoutInfo.height == LayoutInfo.MATCH_PARENT) {
 			h.type  = MeasureSpec.Type.Exact;
 			h.value = parentHeight;
-		} else if (layoutHeight == WRAP_CONTENT) {
+		} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
 			h.type  = MeasureSpec.Type.AtMost;
 			h.value = parentHeight;
 		} else {
 			h.type  = MeasureSpec.Type.Exact;
-			h.value = layoutHeight;
+			h.value = layoutInfo.height;
 		}
 		onMeasure(w, h);
 	}
@@ -279,23 +250,15 @@ public abstract class Widget extends Component {
 			break;
 		}
 		
-		setMeasuredDimensions(width, height);
+		layoutInfo.measuredWidth  = width;
+		layoutInfo.measuredHeight = height;
 	}
-
-			
-	private void setMeasuredDimensions(int width, int height) {
-		this.measuredWidth = width;
-		this.measuredHeight = height;
-		
-	}
-
 
 	public static class MeasureSpec {
 		public enum Type {Free, Exact, AtMost};
 		public Type type = Type.Free;
 		int value = 0;
 	}
-
 
 	public void setBounds(int x, int y, int width, int height) {
 		bounds.x = x;
@@ -305,21 +268,8 @@ public abstract class Widget extends Component {
 		nativeView.setBounds(x, y, width, height);
 	}
 
-	public int getMeasuredWidth() {
-		return measuredWidth;
+	public LayoutInfo getLayoutInfo() {
+		return layoutInfo;
 	}
-
-	public void setMeasuredWidth(int measuredWidth) {
-		this.measuredWidth = measuredWidth;
-	}
-
-	public int getMeasuredHeight() {
-		return measuredHeight;
-	}
-
-	public void setMeasuredHeight(int measuredHeight) {
-		this.measuredHeight = measuredHeight;
-	}
-	
 	
 }

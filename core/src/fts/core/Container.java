@@ -53,7 +53,7 @@ public abstract class Container extends Widget {
 	
 	protected void onMeasureChildren() {
 		for(Widget child : children) {
-			child.onMeasure(measuredWidth, measuredHeight);
+			child.onMeasure(layoutInfo.measuredWidth, layoutInfo.measuredHeight);
 		}
 	}
 	
