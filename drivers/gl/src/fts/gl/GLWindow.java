@@ -1,7 +1,6 @@
 package fts.gl;
 
 import fts.core.Window;
-import fts.graphics.Point;
 
 public abstract class GLWindow extends Window {
 
@@ -10,11 +9,14 @@ public abstract class GLWindow extends Window {
 	@Override
 	public void mainLoop() {
 		running = true;
+		GLNativeInterface.uiInit();
 		while (running) {
-			Point size = this.getBounds();
-			GLNativeInterface.frameStart(size.x, size.y);
-			GLNativeInterface.frameEnd();
-			sync();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

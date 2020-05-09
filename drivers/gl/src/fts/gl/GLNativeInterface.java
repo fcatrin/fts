@@ -6,6 +6,8 @@ public class GLNativeInterface {
 		System.loadLibrary("fts-gl");
 	}
 	
+	public static native void uiInit();
+	
 	public static native void frameStart(int width, int height);
 	public static native void frameEnd();
 

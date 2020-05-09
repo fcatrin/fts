@@ -6,6 +6,8 @@ LIBS =
 LDFLAGS = -shared
 
 CFLAGS  += $(shell pkg-config --cflags freetype2)
+LDFLAGS += $(shell pkg-config --libs freetype2)
+
 
 LIBPREFIX = lib
 

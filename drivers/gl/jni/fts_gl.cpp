@@ -5,6 +5,12 @@ extern "C" {
 #include "fts_gl_GLNativeInterface.h"
 #include "graphics.h"
 
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_uiInit
+  (JNIEnv *env, jclass thiz) {
+	graphics_init();
+}
+
+
 JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawRect
   (JNIEnv *env, jclass thiz, jint x, jint y, jint width, jint height) {
 
