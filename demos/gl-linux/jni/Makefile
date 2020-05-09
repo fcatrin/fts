@@ -12,7 +12,7 @@ LDFLAGS += $(shell pkg-config --libs freetype2)
 
 FTS_GL_DRIVER = ../../../drivers/gl
 
-FTS_GL_LIB = $(FTS_GL_DRIVER)/libs/libfts-gl.a
+FTS_GL_LIB = $(FTS_GL_DRIVER)/libs/libfts-gl.so
 
 UNAME_S := $(shell uname -s)
 UNAME_P := $(shell uname -p)
@@ -59,6 +59,7 @@ prepare :
 
 corebuild:
 	cd $(FTS_GL_DRIVER)/jni && $(MAKE)
+	cp $(FTS_GL_LIB) $(LIBSDIR)/$(LIBARCH)
 
 clean :
 	find $(OBJDIR) -name "*.o" -exec rm {} \;

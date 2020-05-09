@@ -3,6 +3,7 @@ CFLAGS = -g -Wall -fPIC -I. -DNANOVG_GLES2_IMPLEMENTATION -DGL_GLEXT_PROTOTYPES 
 AR = ar
 ARFLAGS =
 LIBS =
+LDFLAGS = -shared
 
 CFLAGS  += $(shell pkg-config --cflags freetype2)
 
@@ -17,7 +18,7 @@ OBJDIR = ../obj
 
 ALL_OBJS = $(addprefix $(OBJDIR)/, $(OBJS))
 
-TARGET = ../libs/$(LIBPREFIX)fts-gl.a
+TARGET = ../libs/$(LIBPREFIX)fts-gl.so
 
 UNAME_S := $(shell uname -s)
 UNAME_P := $(shell uname -p)
@@ -38,7 +39,7 @@ $(OBJDIR)/%.o: %.c
 	
 	
 $(TARGET): $(ALL_OBJS)
-	$(AR) rcs -o $@ $(ARFLAGS) $(ALL_OBJS) $(LIBS)
+	$(LD) -o $@ $(LDFLAGS) $(ALL_OBJS) $(LIBS)
 
 clean:
 	rm -f $(ALL_OBJS) 2>/dev/null
