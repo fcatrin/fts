@@ -1,0 +1,17 @@
+<LinearContainer
+    orientation="vertical"
+    layoutWidth="match_parent"
+    layoutHeight="match_parent">
+    <TextWidget
+        layoutWidth="match_parent"
+        layoutHeight="wrap_content"
+        text="First line"/>
+    <TextWidget
+        layoutWidth="match_parent"
+        layoutHeight="wrap_content"
+        text="Second line"/>
+    <TextWidget
+        layoutWidth="match_parent"
+        layoutHeight="wrap_content"
+        text="Third line"/>
+</LinearContainer>

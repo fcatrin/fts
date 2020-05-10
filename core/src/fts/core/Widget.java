@@ -3,6 +3,7 @@ package fts.core;
 import fts.events.KeyEvent;
 import fts.events.MouseEvent;
 import fts.events.PaintEvent;
+import fts.graphics.Drawable;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
 
@@ -25,6 +26,8 @@ public abstract class Widget extends Component {
 	LayoutInfo layoutInfo = new LayoutInfo();
 	
 	NativeView nativeView;
+	
+	protected Drawable background;
 	
 	public Widget(Window w) {
 		nativeView = Application.createNativeView(w);
@@ -176,6 +179,8 @@ public abstract class Widget extends Component {
 			if (VALUE_MATCH_PARENT.equals(value)) return LayoutInfo.MATCH_PARENT;
 			if (VALUE_WRAP_CONTENT.equals(value)) return LayoutInfo.WRAP_CONTENT;
 			return resolvePropertyValueDimen(propertyName, value);
+		} else if (propertyName.equals("text")) {
+			return value;
 		}
 		return super.resolvePropertyValue(propertyName, value);
 	}
@@ -265,11 +270,17 @@ public abstract class Widget extends Component {
 		bounds.y = y;
 		bounds.width  = width;
 		bounds.height = height;
-		nativeView.setBounds(x, y, width, height);
 	}
 
 	public LayoutInfo getLayoutInfo() {
 		return layoutInfo;
 	}
 	
+	public void setLayoutWidth(int width) {
+		layoutInfo.width = width;
+	}
+	
+	public void setLayoutHeight(int height) {
+		layoutInfo.height = height;
+	}
 }

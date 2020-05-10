@@ -14,10 +14,10 @@ public class Main {
 		Window window = Application.createWindow();
 		window.setTitle("First FTS window");
 		
-		//Widget rootView = app.inflate(window, "main");
-		//window.setContentView(rootView);
+		Widget rootView = app.inflate(window, "main");
+		window.setContentView(rootView);
 		window.open();
-		//window.layout();
+		window.layout();
 		window.mainLoop();
 		//System.out.println(rootView);
 	}
