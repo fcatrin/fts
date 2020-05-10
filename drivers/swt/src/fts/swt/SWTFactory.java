@@ -1,5 +1,6 @@
 package fts.swt;
 
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import fts.core.ComponentFactory;
@@ -14,17 +15,19 @@ public class SWTFactory implements ComponentFactory {
 	}
 
 	@Override
-	public Widget createWidget(Node node) {
-		return null;
-	}
-
-	@Override
 	public NativeView createNativeView(Window w) {
 		return new SWTNativeView(((SWTWindow)w).shell);
 	}
 
 	@Override
-	public Drawable createDrawable(Node node) {
+	public Widget createWidget(Element element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Drawable createDrawable(Element element) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
