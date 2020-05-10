@@ -41,7 +41,7 @@ public abstract class Component {
 	}
 	
 	protected Object resolvePropertyValue(String propertyName, String value) {
-		throw new RuntimeException("don't know how to handle " + propertyName + " in componente " + getClass().getName());
+		throw new RuntimeException("don't know how to handle " + propertyName + " in component " + getClass().getName());
 	}
 	
 	protected int resolvePropertyValueDimen(String propertyName, String value) {

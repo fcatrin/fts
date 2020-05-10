@@ -18,6 +18,21 @@ public abstract class Drawable extends Component {
 
 	public abstract void load(Element element);
 	public abstract void draw(Canvas canvas);
-	public void destroy(){};
+	public void destroy(){}
 
+	@Override
+	protected Object resolvePropertyValue(String propertyName, String value) {
+		if (propertyName.equals("fillColor")) {
+			return resolveColor(value);
+		}
+		return super.resolvePropertyValue(propertyName, value);
+	};
+
+	private Color resolveColor(String value) {
+		if (value.startsWith("#")) {
+			Color color = Color.load(value);
+			return color;
+		}
+		throw new RuntimeException("Invalid color " + value);
+	}
 }

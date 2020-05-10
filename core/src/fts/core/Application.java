@@ -83,23 +83,30 @@ public class Application {
 		}
 	}
 	
-	public Widget inflate(Window w, String name) {
-		File file = new File("res/layout/" + name + ".xml"); // TODO replace by resource lookup
+	private static Document loadResource(String type, String name) {
+		File file = new File("res/" + type + "/" + name + ".xml"); // TODO replace by resource lookup
 		if (!file.exists()) {
 			throw new RuntimeException("File not found " + file.getAbsolutePath());
 		}
 
-		Document doc;
 		try {
-			doc = SimpleXML.parse(file);
+			 return SimpleXML.parse(file);
 		} catch (ParserException e) {
 			throw new RuntimeException("Cannot parse XML " + file.getAbsolutePath(), e);
 		} catch (IOException e) {
 			throw new RuntimeException("Cannot parse XML " + file.getAbsolutePath(), e);
 		}
-		
+	}
+
+	public static Drawable loadDrawable(String name) {
+		Document doc = loadResource("drawable", name);
+		Element root = doc.getDocumentElement();
+		return createDrawable(root);
+	}
+	
+	public Widget inflate(Window w, String name) {
+		Document doc = loadResource("layout", name);
 		Element root = doc.getDocumentElement();
 		return createWidget(w, root);
-		
 	}
 }

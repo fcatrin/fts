@@ -1,6 +1,7 @@
 package fts.gl;
 
 import fts.core.Window;
+import fts.events.PaintEvent;
 import fts.graphics.Point;
 
 public abstract class GLWindow extends Window {
@@ -11,9 +12,15 @@ public abstract class GLWindow extends Window {
 	public void mainLoop() {
 		running = true;
 		GLNativeInterface.uiInit();
+		
+		PaintEvent paint = new PaintEvent();
+		Point size = this.getBounds();
+		paint.canvas = new GLCanvas(size.x, size.y);
+		paint.clip = null;
+		
 		while (running) {
-			Point size = this.getBounds();
 			GLNativeInterface.frameStart(size.x, size.y);
+			onPaint(paint);
 			GLNativeInterface.frameEnd();
 			sync();
 		}

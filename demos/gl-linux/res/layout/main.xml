@@ -1,4 +1,5 @@
 <LinearContainer
+    background="#FF80A080"
     orientation="vertical"
     layoutWidth="match_parent"
     layoutHeight="match_parent">

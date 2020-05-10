@@ -3,9 +3,11 @@ package fts.core;
 import fts.events.KeyEvent;
 import fts.events.MouseEvent;
 import fts.events.PaintEvent;
+import fts.graphics.Color;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
+import fts.graphics.Shape;
 
 public abstract class Widget extends Component {
 	public enum State {Selected, Focused, Enabled, Pressed}
@@ -181,8 +183,23 @@ public abstract class Widget extends Component {
 			return resolvePropertyValueDimen(propertyName, value);
 		} else if (propertyName.equals("text")) {
 			return value;
+		} else if (propertyName.equals("background")) {
+			return resolveBackground(value);
 		}
 		return super.resolvePropertyValue(propertyName, value);
+	}
+	
+	private Drawable resolveBackground(String value) {
+		if (value.startsWith("@drawable/")) {
+			String name = value.substring("@drawable/".length());
+			return Application.loadDrawable(name);
+		} else if (value.startsWith("@color") || value.startsWith("#")) {
+			Shape shape = new Shape();
+			shape.setProperty("fillColor", value);
+			return shape;
+		}
+		throw new RuntimeException("don't know how to drawable " + value);
+
 	}
 
 	public String toString(String s) {
@@ -282,5 +299,9 @@ public abstract class Widget extends Component {
 	
 	public void setLayoutHeight(int height) {
 		layoutInfo.height = height;
+	}
+	
+	public void setBackground(Drawable background) {
+		this.background = background;
 	}
 }

@@ -37,4 +37,8 @@ public class Shape extends Drawable {
 			canvas.drawRect(bounds.x, bounds.y, bounds.width, bounds.height, radius);
 		}
 	}
+	
+	public void setFillColor(Color color) {
+		this.fillColor = color;
+	}
 }

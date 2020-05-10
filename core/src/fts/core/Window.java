@@ -1,5 +1,6 @@
 package fts.core;
 
+import fts.events.PaintEvent;
 import fts.graphics.Point;
 
 public abstract class Window {
@@ -22,5 +23,9 @@ public abstract class Window {
 			Container container = (Container)view;
 			container.layout();
 		}
+	}
+	
+	public void onPaint(PaintEvent e) {
+		view.onPaint(e);
 	}
 }

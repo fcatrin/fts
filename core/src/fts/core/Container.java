@@ -15,14 +15,14 @@ public abstract class Container extends Widget {
 
 	@Override
 	public void redraw() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected void onPaint(PaintEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (background != null) {
+			background.setBounds(bounds);
+			background.draw(e.canvas);
+		}
 	}
 	
 	public abstract void layout();

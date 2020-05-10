@@ -33,11 +33,27 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_frameEnd
 
 /*
  * Class:     fts_gl_GLNativeInterface
- * Method:    drawRect
+ * Method:    setColor
  * Signature: (IIII)V
  */
-JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawRect
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_setColor
   (JNIEnv *, jclass, jint, jint, jint, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    drawRect
+ * Signature: (IIIII)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawRect
+  (JNIEnv *, jclass, jint, jint, jint, jint, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    drawFilledRect
+ * Signature: (IIIII)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawFilledRect
+  (JNIEnv *, jclass, jint, jint, jint, jint, jint);
 
 #ifdef __cplusplus
 }

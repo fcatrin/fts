@@ -21,7 +21,8 @@ public class GLCanvas extends Canvas {
 	}
 
 	@Override
-	public void setForeground(Color foregroundColor) {
+	public void setForeground(Color color) {
+		GLNativeInterface.setColor(color.r, color.g, color.b, color.a);
 	}
 
 	@Override
@@ -42,10 +43,12 @@ public class GLCanvas extends Canvas {
 
 	@Override
 	public void drawRect(int x, int y, int width, int height, int radius) {
+		GLNativeInterface.drawRect(x, y, width, height, radius);
 	}
 
 	@Override
 	public void drawFilledRect(int x, int y, int width, int height, int radius) {
+		GLNativeInterface.drawFilledRect(x, y, width, height, radius);
 	}
 
 	@Override
