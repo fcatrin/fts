@@ -7,7 +7,6 @@ public class LinuxWindow extends GLWindow {
 	
 	private int height;
 	private int width;
-	boolean running;
 
 	public LinuxWindow(int width, int height) {
 		this.width = width;
@@ -29,8 +28,8 @@ public class LinuxWindow extends GLWindow {
 	}
 
 	@Override
-	protected void sync() {
-		LinuxNativeInterface.windowSwapBuffers();
+	protected boolean sync() {
+		return LinuxNativeInterface.windowSwapBuffers();
 	}
 
 }

@@ -11,9 +11,9 @@ JNIEXPORT void JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowOpen
 	window_open(width, height);
 }
 
-JNIEXPORT void JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowSwapBuffers
+JNIEXPORT jboolean JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowSwapBuffers
   (JNIEnv *env, jclass thiz) {
-	window_swap_buffers();
+	return window_swap_buffers();
 }
 
 JNIEXPORT void JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowClose

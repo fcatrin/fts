@@ -22,10 +22,10 @@ public abstract class GLWindow extends Window {
 			GLNativeInterface.frameStart(size.x, size.y);
 			onPaint(paint);
 			GLNativeInterface.frameEnd();
-			sync();
+			running = sync();
 		}
 	}
 	
-	protected abstract void sync();
+	protected abstract boolean sync();
 
 }

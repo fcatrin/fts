@@ -18,9 +18,9 @@ JNIEXPORT void JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowOpen
 /*
  * Class:     fts_demo_gl_LinuxNativeInterface
  * Method:    windowSwapBuffers
- * Signature: ()V
+ * Signature: ()Z
  */
-JNIEXPORT void JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowSwapBuffers
+JNIEXPORT jboolean JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowSwapBuffers
   (JNIEnv *, jclass);
 
 /*

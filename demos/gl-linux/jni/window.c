@@ -19,8 +19,28 @@ void window_open(int req_width, int req_height) {
 	SDL_GLContext context = SDL_GL_CreateContext(window);
 }
 
-void window_swap_buffers() {
+static int process_events() {
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		switch (event.type) {
+		case SDL_WINDOWEVENT:
+			switch (event.window.event) {
+				case SDL_WINDOWEVENT_CLOSE:   // exit
+					return false;
+					break;
+				default:
+					break;
+			}
+			break;
+		}
+	}
+	return true;
+}
+
+
+int window_swap_buffers() {
    SDL_GL_SwapWindow(window);
+   return process_events();
 }
 
 void window_close() {
