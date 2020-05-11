@@ -9,6 +9,7 @@ public class TextDrawable extends Drawable {
 	Font font;
 	String text;
 	Color color;
+	int lineHeight;
 
 	public TextDrawable() {}
 
@@ -29,7 +30,49 @@ public class TextDrawable extends Drawable {
 		
 		canvas.setFont(font);
 		canvas.setForeground(color);
-		canvas.drawText(bounds.x, bounds.y, bounds.width, bounds.height, text);
+		canvas.drawText(bounds.x, bounds.y + lineHeight, bounds.width, bounds.height, text);
 	}
+	
+	public Point getSize(Canvas canvas, String text) {
+		canvas.setFont(font);
+
+		Point textSize = canvas.getTextSize(text);
+		lineHeight = textSize.y;
+		return textSize;
+	}
+
+	public Align getAlign() {
+		return align;
+	}
+
+	public void setAlign(Align align) {
+		this.align = align;
+	}
+
+	public Font getFont() {
+		return font;
+	}
+
+	public void setFont(Font font) {
+		this.font = font;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
+	
 	
 }

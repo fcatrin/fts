@@ -286,4 +286,18 @@ public abstract class Widget extends Component {
 	public boolean needsLayout() {
 		return layoutRequested;
 	}
+	
+	public Point getPaddingSize() {
+		return new Point(padding.x + padding.width, padding.y + padding.height);
+	}
+	
+	public Rectangle getInternalBounds(int width, int height) {
+		Point paddingSize = getPaddingSize();
+		return new Rectangle( 
+				bounds.x + padding.x,
+				bounds.y + padding.y,
+				bounds.width - paddingSize.x,
+				bounds.height - paddingSize.y);
+	}
+
 }
