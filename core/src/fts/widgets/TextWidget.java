@@ -35,9 +35,10 @@ public class TextWidget extends Widget {
 	}
 
 	@Override
-	public Point computeSize(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+	public Point getContentSize(int width, int height) {
+		// measure required width and height of text
+		// width is used for text wrapping limit
+		return new Point(width, 20);
 	}
 
 }

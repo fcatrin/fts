@@ -23,15 +23,12 @@ public abstract class Container extends Widget {
 			background.setBounds(bounds);
 			background.draw(e.canvas);
 		}
+		for(Widget child : children) {
+			child.onPaint(e);
+		}
 	}
 	
 	public abstract void layout();
-
-	@Override
-	public Point computeSize(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {
@@ -51,15 +48,21 @@ public abstract class Container extends Widget {
 		return super.toString(String.format(", children;%s%s", children.toString(), s));
 	}
 	
-	protected void onMeasureChildren() {
-		for(Widget child : children) {
-			child.onMeasure(layoutInfo.measuredWidth, layoutInfo.measuredHeight);
-		}
-	}
+	public abstract void onMeasureChildren(MeasureSpec w, MeasureSpec h);
 	
 	@Override
 	public void onMeasure(MeasureSpec w, MeasureSpec h) {
 		super.onMeasure(w, h);
-		onMeasureChildren();
+		onMeasureChildren(w, h);
 	}
+
+	@Override
+	public boolean needsLayout() {
+		if (super.needsLayout()) return true;
+		for(Widget child : children) {
+			if (child.needsLayout()) return true;
+		}
+		return false;
+	}
+	
 }

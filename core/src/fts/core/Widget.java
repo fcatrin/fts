@@ -3,7 +3,6 @@ package fts.core;
 import fts.events.KeyEvent;
 import fts.events.MouseEvent;
 import fts.events.PaintEvent;
-import fts.graphics.Color;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
@@ -11,8 +10,6 @@ import fts.graphics.Shape;
 
 public abstract class Widget extends Component {
 	public enum State {Selected, Focused, Enabled, Pressed}
-	private static final int DEFAULT_WIDTH  = 100;
-	private static final int DEFAULT_HEIGHT = 100;
 	
 	private static final long CLICK_TIME = 200;
 	protected boolean state[] = new boolean[] {false, false, true, false};
@@ -26,6 +23,7 @@ public abstract class Widget extends Component {
 	public static final String VALUE_WRAP_CONTENT = "wrap_content";
 
 	LayoutInfo layoutInfo = new LayoutInfo();
+	boolean layoutRequested = false;
 	
 	NativeView nativeView;
 	
@@ -155,21 +153,9 @@ public abstract class Widget extends Component {
 		if (!isDisposed()) Context.post(runnable);
 	}
 	
-	public int getRequiredHeight() {
-		Point requiredSize = computeSize(0, 0);
-		return requiredSize.y;
-	}
-	
-	public int getRequiredWidth() {
-		Point requiredSize = computeSize(0, 0);
-		return requiredSize.x;
-	}
-	
 	protected Point getTextSize(String s) {
 		return nativeView.getTextSize(s);
 	}
-	
-	public abstract Point computeSize(int x, int y);
 	
 	protected boolean isDisposed() {
 		return false;
@@ -214,10 +200,6 @@ public abstract class Widget extends Component {
 		return toString("");
 	}
 	
-	public Point getDesiredSize() {
-		return new Point(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-	}
-	
 	public void onMeasure(int parentWidth, int parentHeight) {
 		MeasureSpec w = new MeasureSpec();
 		MeasureSpec h = new MeasureSpec();
@@ -246,10 +228,9 @@ public abstract class Widget extends Component {
 	}
 	
 	public void onMeasure(MeasureSpec w, MeasureSpec h) {
-		Point desiredSize = getDesiredSize();
-
-		int width  = desiredSize.x;
-		int height = desiredSize.y;
+		Point contentSize = getContentSize(w.value, h.value);
+		int width  = contentSize.x;
+		int height = contentSize.y;
 
 		switch (w.type) {
 		case Exact:
@@ -276,10 +257,12 @@ public abstract class Widget extends Component {
 		layoutInfo.measuredHeight = height;
 	}
 
+	public abstract Point getContentSize(int width, int height);
+
 	public static class MeasureSpec {
 		public enum Type {Free, Exact, AtMost};
 		public Type type = Type.Free;
-		int value = 0;
+		public int value = 0;
 	}
 
 	public void setBounds(int x, int y, int width, int height) {
@@ -303,5 +286,15 @@ public abstract class Widget extends Component {
 	
 	public void setBackground(Drawable background) {
 		this.background = background;
+	}
+	
+	public void layout() {}
+	
+	public void requestLayout() {
+		layoutRequested = true;
+	}
+	
+	public boolean needsLayout() {
+		return layoutRequested;
 	}
 }

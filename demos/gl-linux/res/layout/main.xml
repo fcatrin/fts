@@ -4,14 +4,17 @@
     layoutWidth="match_parent"
     layoutHeight="match_parent">
     <TextWidget
+	    background="#FF8080A0"
         layoutWidth="match_parent"
         layoutHeight="wrap_content"
         text="First line"/>
     <TextWidget
+    	background="#FFA08080"
         layoutWidth="match_parent"
         layoutHeight="wrap_content"
         text="Second line"/>
     <TextWidget
+    	background="#FF80A0A0"
         layoutWidth="match_parent"
         layoutHeight="wrap_content"
         text="Third line"/>

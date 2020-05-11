@@ -17,15 +17,12 @@ public abstract class Window {
 	
 	public void layout() {
 		Point bounds = getBounds();
-		view.setBounds(0,  0,  bounds.x, bounds.y);
 		view.onMeasure(bounds.x, bounds.y);
-		if (view instanceof Container) {
-			Container container = (Container)view;
-			container.layout();
-		}
+		view.requestLayout();
 	}
 	
 	public void onPaint(PaintEvent e) {
+		if (view.needsLayout()) view.layout();
 		view.onPaint(e);
 	}
 }
