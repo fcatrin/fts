@@ -57,6 +57,7 @@ public class GLCanvas extends Canvas {
 
 	@Override
 	public void drawText(int x, int y, int width, int height, String text) {
+		GLNativeInterface.drawText(x, y, text);
 	}
 
 	@Override

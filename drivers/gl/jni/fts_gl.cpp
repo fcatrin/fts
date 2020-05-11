@@ -15,6 +15,14 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_setColor
 	graphics_set_color(r, g, b, a);
 }
 
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawText
+  (JNIEnv *env, jclass clazz, jint x, jint y, jstring sText) {
+	const char* text = env->GetStringUTFChars(sText,0);
+	graphics_draw_text(x, y, text);
+	env->ReleaseStringUTFChars(sText, text);
+}
+
+
 JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawRect
   (JNIEnv *env, jclass thiz, jint x, jint y, jint width, jint height, int radius) {
 	graphics_draw_rect(x, y, width, height, radius);

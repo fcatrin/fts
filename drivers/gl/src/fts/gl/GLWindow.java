@@ -23,6 +23,7 @@ public abstract class GLWindow extends Window {
 		Canvas canvas = new GLCanvas(size.x, size.y);
 		setCanvas(canvas);
 		
+		createAllFonts();
 		layout();
 		
 		PaintEvent paint = new PaintEvent();

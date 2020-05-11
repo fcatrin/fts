@@ -42,8 +42,10 @@ void graphics_draw_rect(int x, int y, int width, int height, int radius) {
 }
 
 bool graphics_create_font(const char *alias, const char *path) {
-	int font = nvgCreateFont(vg, alias, path);
-	return font >= 0;
+	int result = nvgCreateFont(vg, alias, path);
+	fts_gl_log_debug("create font %s %s result:%s", alias, path, result >= 0 ? "true":"false");
+
+	return result >= 0;
 }
 
 void graphics_set_font_size(int size) {
@@ -60,9 +62,16 @@ int* graphics_get_text_size(const char *text) {
 	float bounds[4];
 	nvgTextBounds(vg, 0, 0, text, NULL, bounds);
 
-	size[0] = bounds[2];
-	size[1] = bounds[3];
+	fts_gl_log_debug("get text size for %s: %f,%f %f,%f", text, bounds[0], bounds[1], bounds[2], bounds[3]);
+
+	size[0] = bounds[2] - bounds[0];
+	size[1] = bounds[3] - bounds[1];
 	return size;
+}
+
+void graphics_draw_text(int x, int y, const char *text) {
+	nvgFillColor(vg, nvgRGBA(r, g, b, a));
+	nvgText(vg, x, y, text, NULL);
 }
 
 void graphics_done() {

@@ -41,6 +41,14 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_setColor
 
 /*
  * Class:     fts_gl_GLNativeInterface
+ * Method:    drawText
+ * Signature: (IILjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawText
+  (JNIEnv *, jclass, jint, jint, jstring);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
  * Method:    drawRect
  * Signature: (IIIII)V
  */

@@ -20,6 +20,7 @@ public class Application {
 	
 	public Application(ComponentFactory factory) {
 		Application.factory = factory;
+		loadFonts();
 	}
 	
 	public static Window createWindow() {
@@ -47,6 +48,7 @@ public class Application {
 		}
 		
 		List<Element> fontDescriptors = SimpleXML.getElements(fontResources.getDocumentElement(), "font");
+		boolean defaultHasBeenRegistered = false;
 		for(Element fontDescriptor : fontDescriptors) {
 			String name = fontDescriptor.getAttribute("name");
 			String file = fontDescriptor.getAttribute("file");
@@ -56,6 +58,10 @@ public class Application {
 			}
 			
 			factory.registerFont(name, fontFile);
+			if (!defaultHasBeenRegistered) {
+				factory.registerFont("default", fontFile);
+				defaultHasBeenRegistered = true;
+			}
 		}
 	}
 	

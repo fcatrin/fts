@@ -38,8 +38,8 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 	}
 	@Override
 	public File getFont(String alias) {
-		if (fonts.containsKey(alias)) {
-			throw new RuntimeException("Font alias not found " + alias);
+		if (!fonts.containsKey(alias)) {
+			throw new RuntimeException("Font alias " + alias + " not found");
 		}
 		
 		return fonts.get(alias);
