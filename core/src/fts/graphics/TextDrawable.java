@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 import fts.core.xml.SimpleXML;
 
 public class TextDrawable extends Drawable {
+	Align align;
 	Font font;
 	String text;
 	Color color;
@@ -17,9 +18,9 @@ public class TextDrawable extends Drawable {
 
 	@Override
 	public void load(Element element) {
-		text = SimpleXML.getAttribute(element, "text");
-		font = Font.load(element);
-		color = Color.load(SimpleXML.getAttribute(element, "color"));
+		setProperty("text", SimpleXML.getAttribute(element, "text"));
+		font = resolvePropertyValueFont(element);
+		setProperty("color", SimpleXML.getAttribute(element, "color"));
 	}
 
 	@Override
@@ -30,5 +31,5 @@ public class TextDrawable extends Drawable {
 		canvas.setForeground(color);
 		canvas.drawText(bounds.x, bounds.y, bounds.width, bounds.height, text);
 	}
-
+	
 }

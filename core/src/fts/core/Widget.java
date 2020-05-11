@@ -173,27 +173,10 @@ public abstract class Widget extends Component {
 			if (VALUE_MATCH_PARENT.equals(value)) return LayoutInfo.MATCH_PARENT;
 			if (VALUE_WRAP_CONTENT.equals(value)) return LayoutInfo.WRAP_CONTENT;
 			return resolvePropertyValueDimen(propertyName, value);
-		} else if (propertyName.equals("text")) {
-			return value;
-		} else if (propertyName.equals("background")) {
-			return resolveBackground(value);
 		}
 		return super.resolvePropertyValue(propertyName, value);
 	}
 	
-	private Drawable resolveBackground(String value) {
-		if (value.startsWith("@drawable/")) {
-			String name = value.substring("@drawable/".length());
-			return Application.loadDrawable(name);
-		} else if (value.startsWith("@color") || value.startsWith("#")) {
-			Shape shape = new Shape();
-			shape.setProperty("fillColor", value);
-			return shape;
-		}
-		throw new RuntimeException("don't know how to drawable " + value);
-
-	}
-
 	public String toString(String s) {
 		return String.format("{class: %s, width: %d, height; %d, mw: %d, mh:%d, bounds:%s%s}", 
 				getClass().getName(),

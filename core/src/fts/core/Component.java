@@ -2,11 +2,29 @@ package fts.core;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
+import org.w3c.dom.Element;
+
+import fts.graphics.Color;
 import fts.graphics.Dimension;
+import fts.graphics.Drawable;
+import fts.graphics.Font;
+import fts.graphics.Shape;
 
 public abstract class Component {
+	static Set<String> colorProperties     = new HashSet<String>();
+	static Set<String> dimensionProperties = new HashSet<String>();
+	
+	static {
+		colorProperties.add("fillColor");
+		colorProperties.add("strokeColor");
+		
+		dimensionProperties.add("strokeWidth");
+		dimensionProperties.add("radius");
+	}
 	
 	protected void setProperty(String name, String value) {
 		
@@ -41,7 +59,40 @@ public abstract class Component {
 	}
 	
 	protected Object resolvePropertyValue(String propertyName, String value) {
+		if (propertyName.equals("text")) {
+			return value;
+		} else if (colorProperties.contains(propertyName)) {
+				return resolvePropertyValueColor(propertyName, value);
+		} else if (dimensionProperties.contains(propertyName)) {
+			return resolvePropertyValueDimen(propertyName, value);
+		} else if (propertyName.equals("background")) {
+			return resolveBackground(value);
+		}
 		throw new RuntimeException("don't know how to handle " + propertyName + " in component " + getClass().getName());
+	}
+	
+	private Drawable resolveBackground(String value) {
+		if (value.startsWith("@drawable/")) {
+			String name = value.substring("@drawable/".length());
+			return Application.loadDrawable(name);
+		} else if (value.startsWith("@color") || value.startsWith("#")) {
+			Shape shape = new Shape();
+			shape.setProperty("fillColor", value);
+			return shape;
+		}
+		throw new RuntimeException("don't know how to drawable " + value);
+	}
+	
+	private Color resolvePropertyValueColor(String propertyName, String value) {
+		if (value.startsWith("#")) {
+			Color color = Color.load(value);
+			return color;
+		}
+		throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": Invalid format " + value);
+	}
+	
+	protected Font resolvePropertyValueFont(Element element) {
+		return Font.load(element);
 	}
 	
 	protected int resolvePropertyValueDimen(String propertyName, String value) {

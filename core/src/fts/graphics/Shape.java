@@ -19,10 +19,10 @@ public class Shape extends Drawable {
 
 	@Override
 	public void load(Element element) {
-		fillColor   = Color.load(SimpleXML.getAttribute(element, "fill-color"));
-		strokeColor = Color.load(SimpleXML.getAttribute(element, "stroke-color"));
-		strokeWidth = Dimension.parse(SimpleXML.getAttribute(element, "stroke-width"));
-		radius = Dimension.parse(SimpleXML.getAttribute(element, "radius"));
+		setProperty("fillColor",   SimpleXML.getAttribute(element, "fillColor"));
+		setProperty("strokeColor", SimpleXML.getAttribute(element, "strokeColor"));
+		setProperty("strokeWidth", SimpleXML.getAttribute(element, "strokeWidth"));
+		setProperty("radius",      SimpleXML.getAttribute(element, "radius"));
 	}
 	
 	@Override
@@ -37,8 +37,38 @@ public class Shape extends Drawable {
 			canvas.drawRect(bounds.x, bounds.y, bounds.width, bounds.height, radius);
 		}
 	}
-	
-	public void setFillColor(Color color) {
-		this.fillColor = color;
+
+	public Color getFillColor() {
+		return fillColor;
 	}
+
+	public void setFillColor(Color fillColor) {
+		this.fillColor = fillColor;
+	}
+
+	public Color getStrokeColor() {
+		return strokeColor;
+	}
+
+	public void setStrokeColor(Color strokeColor) {
+		this.strokeColor = strokeColor;
+	}
+
+	public int getStrokeWidth() {
+		return strokeWidth;
+	}
+
+	public void setStrokeWidth(int strokeWidth) {
+		this.strokeWidth = strokeWidth;
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+
+	
 }
