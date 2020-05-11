@@ -26,11 +26,17 @@ public abstract class Widget extends Component {
 	boolean layoutRequested = false;
 	
 	NativeView nativeView;
+	Window window;
 	
 	protected Drawable background;
 	
-	public Widget(Window w) {
-		nativeView = Application.createNativeView(w);
+	public Widget(Window window) {
+		nativeView = Application.createNativeView(window);
+		this.window = window;
+	}
+	
+	public Window getWindow() {
+		return window;
 	}
 	
 	Runnable invalidateTask = new Runnable() {

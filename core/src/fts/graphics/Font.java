@@ -8,10 +8,14 @@ public class Font {
 	public String name;
 	public int size;
 	
+	public Font(String name, int size) {
+		this.name = name;
+		this.size = size;
+	}
+	
 	public static Font load(Element element) {
-		Font font = new Font();
-		font.name = SimpleXML.getAttribute(element, "font");
-		font.size = Dimension.parse(SimpleXML.getAttribute(element, "font-size"));
-		return font;
+		String name = SimpleXML.getAttribute(element, "font");
+		int    size = Dimension.parse(SimpleXML.getAttribute(element, "fontSize"));
+		return new Font(name, size);
 	}
 }

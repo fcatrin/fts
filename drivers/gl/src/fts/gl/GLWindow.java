@@ -1,7 +1,13 @@
 package fts.gl;
 
+import java.io.File;
+import java.util.List;
+
+import fts.core.Application;
+import fts.core.ComponentFactory;
 import fts.core.Window;
 import fts.events.PaintEvent;
+import fts.graphics.Canvas;
 import fts.graphics.Point;
 
 public abstract class GLWindow extends Window {
@@ -13,9 +19,14 @@ public abstract class GLWindow extends Window {
 		running = true;
 		GLNativeInterface.uiInit();
 		
-		PaintEvent paint = new PaintEvent();
 		Point size = this.getBounds();
-		paint.canvas = new GLCanvas(size.x, size.y);
+		Canvas canvas = new GLCanvas(size.x, size.y);
+		setCanvas(canvas);
+		
+		layout();
+		
+		PaintEvent paint = new PaintEvent();
+		paint.canvas = canvas;
 		paint.clip = null;
 		
 		while (running) {
@@ -27,5 +38,15 @@ public abstract class GLWindow extends Window {
 	}
 	
 	protected abstract boolean sync();
+	
+	protected void createAllFonts() {
+		ComponentFactory factory = Application.getFactory();
+		List<String> aliases = factory.getAllFontAliases();
+		GLCanvas canvas = (GLCanvas)getCanvas();
+		for(String alias : aliases) {
+			File fontFile = factory.getFont(alias);
+			canvas.createFont(alias, fontFile);
+		}
+	}
 
 }

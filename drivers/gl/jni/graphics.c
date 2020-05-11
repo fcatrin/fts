@@ -41,6 +41,30 @@ void graphics_draw_filled_rect(int x, int y, int width, int height, int radius) 
 void graphics_draw_rect(int x, int y, int width, int height, int radius) {
 }
 
+bool graphics_create_font(const char *alias, const char *path) {
+	int font = nvgCreateFont(vg, alias, path);
+	return font >= 0;
+}
+
+void graphics_set_font_size(int size) {
+	nvgFontSize(vg, size);
+}
+
+void graphics_set_font_name(const char *name) {
+	nvgFontFace(vg, name);
+}
+
+int* graphics_get_text_size(const char *text) {
+	static int size[2];
+
+	float bounds[4];
+	nvgTextBounds(vg, 0, 0, text, NULL, bounds);
+
+	size[0] = bounds[2];
+	size[1] = bounds[3];
+	return size;
+}
+
 void graphics_done() {
 
 }

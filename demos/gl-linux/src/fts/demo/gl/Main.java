@@ -17,9 +17,7 @@ public class Main {
 		Widget rootView = app.inflate(window, "main");
 		window.setContentView(rootView);
 		window.open();
-		window.layout();
 		window.mainLoop();
-		//System.out.println(rootView);
 	}
 
 }

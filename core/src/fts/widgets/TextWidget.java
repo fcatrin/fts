@@ -4,13 +4,16 @@ import fts.core.Widget;
 import fts.core.Window;
 import fts.events.PaintEvent;
 import fts.graphics.Canvas;
+import fts.graphics.Font;
 import fts.graphics.Point;
 
 public class TextWidget extends Widget {
+	Font font;
 	String text;
 
 	public TextWidget(Window w) {
 		super(w);
+		font = new Font("default", 10);
 	}
 	
 	public String getText() {
@@ -36,9 +39,9 @@ public class TextWidget extends Widget {
 
 	@Override
 	public Point getContentSize(int width, int height) {
-		// measure required width and height of text
-		// width is used for text wrapping limit
-		return new Point(width, 20);
+		Canvas canvas = getWindow().getCanvas();
+		canvas.setFont(font);
+		return canvas.getTextSize(text);
 	}
 
 }

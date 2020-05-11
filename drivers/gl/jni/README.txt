@@ -1,4 +1,4 @@
 Rebuild header for NativeInterface:
 
 cd jni
-javah -classpath ../bin fts.gl.GLNativeInterface
+javah -classpath ../bin:../../../core/bin fts.gl.GLNativeInterface

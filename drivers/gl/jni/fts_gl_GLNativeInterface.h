@@ -55,6 +55,38 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawRect
 JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawFilledRect
   (JNIEnv *, jclass, jint, jint, jint, jint, jint);
 
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    getTextSize
+ * Signature: (Ljava/lang/String;)[I
+ */
+JNIEXPORT jintArray JNICALL Java_fts_gl_GLNativeInterface_getTextSize
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    createFont
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_fts_gl_GLNativeInterface_createFont
+  (JNIEnv *, jclass, jstring, jstring);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    setFontSize
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_setFontSize
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    setFontName
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_setFontName
+  (JNIEnv *, jclass, jstring);
+
 #ifdef __cplusplus
 }
 #endif

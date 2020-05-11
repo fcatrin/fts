@@ -35,6 +35,48 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_frameEnd
 	 graphics_frame_end();
  }
 
+JNIEXPORT jintArray JNICALL Java_fts_gl_GLNativeInterface_getTextSize
+  (JNIEnv *env, jclass thiz, jstring sText) {
+
+	const char* text = env->GetStringUTFChars(sText,0);
+
+	int *size = graphics_get_text_size(text);
+
+	jintArray result = env->NewIntArray(2);
+	env->SetIntArrayRegion(result, 0, 2, size);
+
+	env->ReleaseStringUTFChars(sText, text);
+	return result;
+}
+
+JNIEXPORT jboolean JNICALL Java_fts_gl_GLNativeInterface_createFont
+  (JNIEnv *env, jclass thiz, jstring sAlias, jstring sPath) {
+	const char* alias = env->GetStringUTFChars(sAlias, 0);
+	const char* path  = env->GetStringUTFChars(sPath,  0);
+
+	bool result = graphics_create_font(alias, path);
+
+	env->ReleaseStringUTFChars(sAlias, alias);
+	env->ReleaseStringUTFChars(sPath,  path);
+
+	return result;
+}
+
+
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_setFontSize
+  (JNIEnv *env, jclass thiz, jint size) {
+	graphics_set_font_size(size);
+}
+
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_setFontName
+  (JNIEnv *env, jclass thiz, jstring sName) {
+	const char* name = env->GetStringUTFChars(sName,0);
+	graphics_set_font_name(name);
+	env->ReleaseStringUTFChars(sName, name);
+
+}
+
+
 #ifdef __cplusplus
 }
 #endif

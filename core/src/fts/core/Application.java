@@ -13,6 +13,7 @@ import org.w3c.dom.Node;
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
 import fts.graphics.Drawable;
+import fts.graphics.Font;
 
 public class Application {
 	static ComponentFactory factory;
@@ -31,6 +32,31 @@ public class Application {
 	
 	public static Drawable createDrawable(Element node) {
 		return factory.createDrawable(node);
+	}
+	
+	public static ComponentFactory getFactory() {
+		return factory;
+	}
+	
+	public static void loadFonts() {
+		Document fontResources;
+		try  {
+			fontResources = loadResource("values", "fonts");
+		} catch (Exception e) {
+			return;
+		}
+		
+		List<Element> fontDescriptors = SimpleXML.getElements(fontResources.getDocumentElement(), "font");
+		for(Element fontDescriptor : fontDescriptors) {
+			String name = fontDescriptor.getAttribute("name");
+			String file = fontDescriptor.getAttribute("file");
+			File fontFile = new File("res/fonts/" + file);
+			if (!fontFile.exists()) {
+				throw new RuntimeException("Font " + name + " not found: " + fontFile.getAbsolutePath());
+			}
+			
+			factory.registerFont(name, fontFile);
+		}
 	}
 	
 	protected Widget createWidget(Window w, Element node) {
@@ -83,11 +109,16 @@ public class Application {
 		}
 	}
 	
-	private static Document loadResource(String type, String name) {
-		File file = new File("res/" + type + "/" + name + ".xml"); // TODO replace by resource lookup
+	private static File findResourceRaw(String type, String name) {
+		File file = new File("res/" + type + "/" + name); // TODO replace by resource lookup
 		if (!file.exists()) {
 			throw new RuntimeException("File not found " + file.getAbsolutePath());
 		}
+		return file;
+	}
+	
+	private static Document loadResource(String type, String name) {
+		File file = findResourceRaw(type, name + ".xml");
 
 		try {
 			 return SimpleXML.parse(file);

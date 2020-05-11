@@ -1,9 +1,12 @@
 package fts.gl;
 
+import java.io.File;
+
 import fts.graphics.Canvas;
 import fts.graphics.Color;
 import fts.graphics.Font;
 import fts.graphics.Image;
+import fts.graphics.Point;
 
 public class GLCanvas extends Canvas {
 
@@ -39,6 +42,7 @@ public class GLCanvas extends Canvas {
 
 	@Override
 	public void setFont(Font font) {
+		GLNativeInterface.setFont(font);
 	}
 
 	@Override
@@ -53,6 +57,16 @@ public class GLCanvas extends Canvas {
 
 	@Override
 	public void drawText(int x, int y, int width, int height, String text) {
+	}
+
+	@Override
+	public Point getTextSize(String text) {
+		int[] textSize = GLNativeInterface.getTextSize(text);
+		return new Point(textSize[0], textSize[1]);
+	}
+
+	public boolean createFont(String alias, File fontFile) {
+		return GLNativeInterface.createFont(alias, fontFile.getAbsolutePath());
 	}
 
 }

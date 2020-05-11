@@ -1,10 +1,12 @@
 package fts.core;
 
 import fts.events.PaintEvent;
+import fts.graphics.Canvas;
 import fts.graphics.Point;
 
 public abstract class Window {
 	private Widget view;
+	private Canvas canvas;
 
 	public abstract void setTitle(String title);
 	public abstract void open();
@@ -25,4 +27,14 @@ public abstract class Window {
 		if (view.needsLayout()) view.layout();
 		view.onPaint(e);
 	}
+	
+	public Canvas getCanvas() {
+		return canvas;
+	}
+	
+	public void setCanvas(Canvas canvas) {
+		this.canvas = canvas;
+	}
+	
+	
 }
