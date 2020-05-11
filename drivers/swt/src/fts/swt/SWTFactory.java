@@ -1,5 +1,8 @@
 package fts.swt;
 
+import java.io.File;
+import java.util.List;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -27,6 +30,24 @@ public class SWTFactory implements ComponentFactory {
 
 	@Override
 	public Drawable createDrawable(Element element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void registerFont(String alias, File file) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public File getFont(String alias) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getAllFontAliases() {
 		// TODO Auto-generated method stub
 		return null;
 	}
