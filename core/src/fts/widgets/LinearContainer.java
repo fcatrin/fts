@@ -28,7 +28,7 @@ public class LinearContainer extends Container {
 		if (propertyName.equals("orientation")) {
 			if (value.equals("vertical")) return Orientation.Vertical;
 			if (value.equals("horizontal")) return Orientation.Horizontal;
-			throw new RuntimeException("Invalida value " + value + " for property " + propertyName);
+			throw new RuntimeException("Invalid value " + value + " for property " + propertyName);
 		}
 		return super.resolvePropertyValue(propertyName, value);
 	}
@@ -41,7 +41,6 @@ public class LinearContainer extends Container {
 		if (orientation == Orientation.Horizontal) {
 			layoutHorizontal();
 		}
-		
 	}
 
 	private void layoutHorizontal() {

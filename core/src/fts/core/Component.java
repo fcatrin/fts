@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.w3c.dom.Element;
 
+import fts.graphics.Align;
 import fts.graphics.Color;
 import fts.graphics.Dimension;
 import fts.graphics.Drawable;
@@ -19,6 +20,7 @@ public abstract class Component {
 	static Set<String> dimensionProperties = new HashSet<String>();
 	
 	static {
+		colorProperties.add("color");
 		colorProperties.add("fillColor");
 		colorProperties.add("strokeColor");
 		
@@ -67,8 +69,37 @@ public abstract class Component {
 			return resolvePropertyValueDimen(propertyName, value);
 		} else if (propertyName.equals("background")) {
 			return resolveBackground(value);
+		} else if (propertyName.equals("align")) {
+			return resolveAlign(propertyName, value);
 		}
 		throw new RuntimeException("don't know how to handle " + propertyName + " in component " + getClass().getName());
+	}
+	
+	private Align resolveAlign(String propertyName, String spec) {
+		Align align = new Align();
+		
+		String parts[] = spec.split("[|]");
+		for(String part : parts) {
+			if (part.equals("center")) {
+				align.h = Align.HAlign.Center;
+				align.v = Align.VAlign.Center;
+			} else if (part.equals("center_horizontal")) {
+				align.h = Align.HAlign.Center;
+			} else if (part.equals("center_vertical")) {
+				align.v = Align.VAlign.Center;
+			} else if (part.equals("left")) {
+				align.h = Align.HAlign.Left;
+			} else if (part.equals("right")) {
+				align.h = Align.HAlign.Right;
+			} else if (part.equals("top")) {
+				align.v = Align.VAlign.Top;
+			} else if (part.equals("bottom")) {
+				align.v = Align.VAlign.Bottom;
+			} else {
+				throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": Invalid alignment " + spec);
+			}
+		}
+		return align;
 	}
 	
 	private Drawable resolveBackground(String value) {

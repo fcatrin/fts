@@ -22,6 +22,7 @@ public class TextDrawable extends Drawable {
 		setProperty("text", SimpleXML.getAttribute(element, "text"));
 		font = resolvePropertyValueFont(element);
 		setProperty("color", SimpleXML.getAttribute(element, "color"));
+		setProperty("align", SimpleXML.getAttribute(element, "align"));
 	}
 
 	@Override

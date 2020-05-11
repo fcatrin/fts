@@ -3,6 +3,7 @@ package fts.widgets;
 import fts.core.Widget;
 import fts.core.Window;
 import fts.events.PaintEvent;
+import fts.graphics.Align;
 import fts.graphics.Canvas;
 import fts.graphics.Color;
 import fts.graphics.Font;
@@ -11,24 +12,29 @@ import fts.graphics.Rectangle;
 import fts.graphics.TextDrawable;
 
 public class TextWidget extends Widget {
-	Font font;
-	String text;
-	
 	TextDrawable textDrawable;
 
 	public TextWidget(Window w) {
 		super(w);
-		font = new Font("default", 20);
 		textDrawable = new TextDrawable();
+		textDrawable.setFont(new Font("default", 20));
 		setPadding(4);
 	}
 	
 	public String getText() {
-		return text;
+		return textDrawable.getText();
 	}
 
 	public void setText(String text) {
-		this.text = text;
+		textDrawable.setText(text);
+	}
+	
+	public void setAlign(Align align) {
+		textDrawable.setAlign(align);
+	}
+	
+	public void setColor(Color color) {
+		textDrawable.setColor(color);
 	}
 
 	@Override
@@ -46,9 +52,7 @@ public class TextWidget extends Widget {
 		Rectangle textBounds = getInternalBounds(bounds.width, bounds.height);
 		
 		textDrawable.setBounds(textBounds);
-		textDrawable.setFont(font);
 		textDrawable.setColor(new Color("#FFFFFFFF"));
-		textDrawable.setText(text);
 		textDrawable.draw(canvas);
 	}
 
@@ -58,9 +62,8 @@ public class TextWidget extends Widget {
 		
 		Rectangle textBounds = getInternalBounds(width, height);
 		textDrawable.setBounds(textBounds);
-		textDrawable.setFont(font);
 		
-		Point textSize = textDrawable.getSize(canvas, text);
+		Point textSize = textDrawable.getSize(canvas, textDrawable.getText());
 		
 		Point paddingSize = getPaddingSize();
 		textSize.x += paddingSize.x;

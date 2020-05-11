@@ -7,14 +7,20 @@
 	    background="#FF8080A0"
         layoutWidth="match_parent"
         layoutHeight="wrap_content"
+        align="left"
+        color="#FFFFFF"
         text="First line"/>
     <TextWidget
     	background="#FFA08080"
         layoutWidth="match_parent"
         layoutHeight="wrap_content"
+        align="center"
+        color="#CCCCCC"
         text="Second line"/>
     <TextWidget
     	background="#FF80A0A0"
+    	color="#404040"
+    	align="bottom"
         layoutWidth="match_parent"
         layoutHeight="wrap_content"
         text="Third line"/>
