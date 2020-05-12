@@ -46,12 +46,6 @@ public class TextDrawable extends Drawable {
 		int left = bounds.x;
 		int top = bounds.y;
 		
-		if (align.h == HAlign.Center) {
-			left += (bounds.width - size.x) / 2;
-		} else if (align.h == HAlign.Right) {
-			left += bounds.width - size.x;
-		}
-		
 		if (align.v == VAlign.Center) {
 			top += (bounds.height - size.y) / 2;
 		} else if (align.v == VAlign.Bottom) {
@@ -61,7 +55,15 @@ public class TextDrawable extends Drawable {
 		int lineHeight = textWrapper.getLineHeight();
 		int lineSeparator = textWrapper.getLineSeparator();
 		for(String line : textWrapper.getLines()) {
-			canvas.drawText(left, top + lineHeight, bounds.width, bounds.height, line);
+			Point lineSize = canvas.getTextSize(line);
+			int lineLeft = left;
+			if (align.h == HAlign.Center) {
+				lineLeft += (bounds.width - lineSize.x) / 2;
+			} else if (align.h == HAlign.Right) {
+				lineLeft += bounds.width - lineSize.x;
+			}
+			
+			canvas.drawText(lineLeft, top + lineHeight, bounds.width, bounds.height, line);
 			top += lineHeight + lineSeparator;
 		}
 		

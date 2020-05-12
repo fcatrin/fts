@@ -17,12 +17,14 @@
         layoutHeight="wrap_content"
         align="center"
         color="#CCCCCC"
-        text="Second line"/>
+        text="First line that is now a longer text and more longer"/>
+        />
     <TextWidget
     	background="#FF80A0A0"
     	color="#404040"
     	align="right"
         layoutWidth="match_parent"
         layoutHeight="wrap_content"
-        text="Third line"/>
+        text="First line that is now a longer text and more longer"/>
+       />
 </LinearContainer>
