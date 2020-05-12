@@ -279,6 +279,10 @@ public abstract class Widget extends Component {
 	
 	public void layout() {}
 	
+	public void setLayoutDone() {
+		layoutRequested = false;
+	}
+	
 	public void requestLayout() {
 		layoutRequested = true;
 	}

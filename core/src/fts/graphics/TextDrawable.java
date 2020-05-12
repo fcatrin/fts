@@ -1,5 +1,7 @@
 package fts.graphics;
 
+import java.util.List;
+
 import org.w3c.dom.Element;
 
 import fts.core.xml.SimpleXML;
@@ -54,13 +56,19 @@ public class TextDrawable extends Drawable {
 
 		int lineHeight = textWrapper.getLineHeight();
 		int lineSeparator = textWrapper.getLineSeparator();
-		for(String line : textWrapper.getLines()) {
-			Point lineSize = canvas.getTextSize(line);
+		
+		List<String> lines = textWrapper.getLines();
+		List<Integer> lineWidths = textWrapper.getLineWidths();
+		
+		for(int i=0; i<lines.size(); i++) {
+			String line = lines.get(i);
+			int lineWidth = lineWidths.get(i);
+			
 			int lineLeft = left;
 			if (align.h == HAlign.Center) {
-				lineLeft += (bounds.width - lineSize.x) / 2;
+				lineLeft += (bounds.width - lineWidth) / 2;
 			} else if (align.h == HAlign.Right) {
-				lineLeft += bounds.width - lineSize.x;
+				lineLeft += bounds.width - lineWidth;
 			}
 			
 			canvas.drawText(lineLeft, top + lineHeight, bounds.width, bounds.height, line);

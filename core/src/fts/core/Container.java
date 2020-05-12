@@ -29,6 +29,14 @@ public abstract class Container extends Widget {
 	}
 	
 	public abstract void layout();
+	
+	@Override
+	public void setLayoutDone() {
+		super.setLayoutDone();
+		for(Widget child : children) {
+			child.setLayoutDone();
+		}
+	}
 
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {

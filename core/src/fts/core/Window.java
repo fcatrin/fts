@@ -24,7 +24,10 @@ public abstract class Window {
 	}
 	
 	public void onPaint(PaintEvent e) {
-		if (view.needsLayout()) view.layout();
+		if (view.needsLayout()) {
+			view.layout();
+			view.setLayoutDone();
+		}
 		view.onPaint(e);
 	}
 	
