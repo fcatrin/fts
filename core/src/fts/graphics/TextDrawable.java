@@ -3,6 +3,8 @@ package fts.graphics;
 import org.w3c.dom.Element;
 
 import fts.core.xml.SimpleXML;
+import fts.graphics.Align.HAlign;
+import fts.graphics.Align.VAlign;
 
 public class TextDrawable extends Drawable {
 	Align align;
@@ -31,7 +33,24 @@ public class TextDrawable extends Drawable {
 		
 		canvas.setFont(font);
 		canvas.setForeground(color);
-		canvas.drawText(bounds.x, bounds.y + lineHeight, bounds.width, bounds.height, text);
+		
+		Point size = getSize(canvas, text);
+		int left = bounds.x;
+		int top = bounds.y;
+		
+		if (align.h == HAlign.Center) {
+			left += (bounds.width - size.x) / 2;
+		} else if (align.h == HAlign.Right) {
+			left += bounds.width - size.x;
+		}
+		
+		if (align.v == VAlign.Center) {
+			top += (bounds.height - size.y) / 2;
+		} else if (align.v == VAlign.Bottom) {
+			top += bounds.height - size.y;
+		}
+		
+		canvas.drawText(left, top + lineHeight, bounds.width, bounds.height, text);
 	}
 	
 	public Point getSize(Canvas canvas, String text) {
@@ -73,7 +92,4 @@ public class TextDrawable extends Drawable {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
-	
-	
 }

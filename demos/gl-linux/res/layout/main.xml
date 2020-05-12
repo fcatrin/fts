@@ -20,7 +20,7 @@
     <TextWidget
     	background="#FF80A0A0"
     	color="#404040"
-    	align="bottom"
+    	align="right"
         layoutWidth="match_parent"
         layoutHeight="wrap_content"
         text="Third line"/>
