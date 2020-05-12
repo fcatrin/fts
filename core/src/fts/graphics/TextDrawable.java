@@ -13,7 +13,8 @@ public class TextDrawable extends Drawable {
 	Color color;
 	
 	int maxLines;
-	int lineHeight;
+	
+	TextWrapper textWrapper;
 
 	public TextDrawable() {}
 
@@ -37,7 +38,11 @@ public class TextDrawable extends Drawable {
 		canvas.setFont(font);
 		canvas.setForeground(color);
 		
-		Point size = getSize(canvas, text, bounds.width);
+		if (textWrapper == null) {
+			getSize(canvas, text, bounds.width);
+		}
+		
+		Point size = textWrapper.getSize();
 		int left = bounds.x;
 		int top = bounds.y;
 		
@@ -52,16 +57,21 @@ public class TextDrawable extends Drawable {
 		} else if (align.v == VAlign.Bottom) {
 			top += bounds.height - size.y;
 		}
+
+		int lineHeight = textWrapper.getLineHeight();
+		int lineSeparator = textWrapper.getLineSeparator();
+		for(String line : textWrapper.getLines()) {
+			canvas.drawText(left, top + lineHeight, bounds.width, bounds.height, line);
+			top += lineHeight + lineSeparator;
+		}
 		
-		canvas.drawText(left, top + lineHeight, bounds.width, bounds.height, text);
 	}
 	
 	public Point getSize(Canvas canvas, String text, int width) {
 		canvas.setFont(font);
-
-		Point textSize = canvas.getTextSize(text, width, maxLines);
-		lineHeight = textSize.y;
-		return textSize;
+		
+		textWrapper = canvas.getTextWrap(text, width, width);
+		return textWrapper.getSize();
 	}
 
 	public Align getAlign() {

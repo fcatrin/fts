@@ -13,12 +13,28 @@ public class TextWrapper {
 	int position = 0;
 	int advance  = 0;
 	
+	int lineHeight = 0;
+	int lineSeparator = 2;
+	
 	public TextWrapper(Canvas canvas, String text) {
 		this.canvas = canvas;
 		this.text = text;
 	}
 	
 	public Point wrap(int width, int maxLines) {
+		lines.clear();
+		
+		Point oneLineSize = canvas.getTextSize(text);
+		if (oneLineSize.x <= width) {
+			addLine(text);
+			size = oneLineSize;
+			lineHeight = size.y;
+			return size;
+		}
+		
+		position = 0;
+		advance  = 0;
+		
 		String textWrap = "";
 		do {
 			String nextWord = getNextWord();
@@ -37,8 +53,9 @@ public class TextWrapper {
 		if (!textWrap.trim().isEmpty() && (maxLines < 0 || lines.size() <= maxLines)) {
 			addLine(textWrap);
 		}
-		
-		size.y = lines.size() * size.y + 2 * (lines.size() * 2); // TODO get inter-line space
+
+		lineHeight = size.y;
+		size.y = lines.size() * lineHeight + lineSeparator * (lines.size()-1); // TODO get inter-line space
 		return size;
 	}
 	
@@ -64,4 +81,22 @@ public class TextWrapper {
 		}
 		return word;
 	}
+	
+	public Point getSize() {
+		return size;
+	}
+	
+	public List<String> getLines() {
+		return lines;
+	}
+
+	public int getLineHeight() {
+		return lineHeight;
+	}
+
+	public int getLineSeparator() {
+		return lineSeparator;
+	}
+	
+	
 }

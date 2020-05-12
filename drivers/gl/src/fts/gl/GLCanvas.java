@@ -67,17 +67,15 @@ public class GLCanvas extends Canvas {
 		return new Point(textSize[0], textSize[1]);
 	}
 	
-	public Point getTextSize(String text, int width, int maxLines) {
-		Point size = getTextSize(text);
-		if (size.x <= width) return size;
-		
-		TextWrapper textWrapper = new TextWrapper(this, text);
-		return textWrapper.wrap(width, maxLines);
-	}
-
-
 	public boolean createFont(String alias, File fontFile) {
 		return GLNativeInterface.createFont(alias, fontFile.getAbsolutePath());
+	}
+
+	@Override
+	public TextWrapper getTextWrap(String text, int width, int maxLines) {
+		TextWrapper wrapper = new TextWrapper(this, text);
+		wrapper.wrap(width, maxLines);
+		return wrapper;
 	}
 
 }

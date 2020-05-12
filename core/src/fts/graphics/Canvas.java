@@ -27,7 +27,7 @@ public abstract class Canvas {
 	public abstract void setFont(Font font);
 	
 	public abstract Point getTextSize(String text);
-	public abstract Point getTextSize(String text, int width, int maxLines);
+	public abstract TextWrapper getTextWrap(String text, int width, int maxLines);
 	
 	public void drawRect(int x, int y, int width, int height) {
 		drawRect(x, y, width, height, 0);
