@@ -8,6 +8,7 @@ import fts.graphics.Color;
 import fts.graphics.Font;
 import fts.graphics.Image;
 import fts.graphics.Point;
+import fts.graphics.TextWrapper;
 import fts.swt.SWTUtils;
 
 public class SWTCanvas extends Canvas {
@@ -95,6 +96,12 @@ public class SWTCanvas extends Canvas {
 
 	@Override
 	public Point getTextSize(String text) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TextWrapper getTextWrap(String text, int width, int maxLines) {
 		// TODO Auto-generated method stub
 		return null;
 	}
