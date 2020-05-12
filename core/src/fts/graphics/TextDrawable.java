@@ -11,6 +11,8 @@ public class TextDrawable extends Drawable {
 	Font font;
 	String text;
 	Color color;
+	
+	int maxLines;
 	int lineHeight;
 
 	public TextDrawable() {}
@@ -25,6 +27,7 @@ public class TextDrawable extends Drawable {
 		font = resolvePropertyValueFont(element);
 		setProperty("color", SimpleXML.getAttribute(element, "color"));
 		setProperty("align", SimpleXML.getAttribute(element, "align"));
+		setProperty("maxLines", SimpleXML.getAttribute(element, "maxLines"));
 	}
 
 	@Override
@@ -34,7 +37,7 @@ public class TextDrawable extends Drawable {
 		canvas.setFont(font);
 		canvas.setForeground(color);
 		
-		Point size = getSize(canvas, text);
+		Point size = getSize(canvas, text, bounds.width);
 		int left = bounds.x;
 		int top = bounds.y;
 		
@@ -53,10 +56,10 @@ public class TextDrawable extends Drawable {
 		canvas.drawText(left, top + lineHeight, bounds.width, bounds.height, text);
 	}
 	
-	public Point getSize(Canvas canvas, String text) {
+	public Point getSize(Canvas canvas, String text, int width) {
 		canvas.setFont(font);
 
-		Point textSize = canvas.getTextSize(text);
+		Point textSize = canvas.getTextSize(text, width, maxLines);
 		lineHeight = textSize.y;
 		return textSize;
 	}
@@ -91,5 +94,9 @@ public class TextDrawable extends Drawable {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	
+	public void setMaxLines(int lines) {
+		this.maxLines = lines;
 	}
 }

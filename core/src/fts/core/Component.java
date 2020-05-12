@@ -18,6 +18,7 @@ import fts.graphics.Shape;
 public abstract class Component {
 	static Set<String> colorProperties     = new HashSet<String>();
 	static Set<String> dimensionProperties = new HashSet<String>();
+	static Set<String> intProperties = new HashSet<String>();
 	
 	static {
 		colorProperties.add("color");
@@ -26,6 +27,8 @@ public abstract class Component {
 		
 		dimensionProperties.add("strokeWidth");
 		dimensionProperties.add("radius");
+		
+		intProperties.add("maxLines");
 	}
 	
 	protected void setProperty(String name, String value) {
@@ -67,6 +70,8 @@ public abstract class Component {
 				return resolvePropertyValueColor(propertyName, value);
 		} else if (dimensionProperties.contains(propertyName)) {
 			return resolvePropertyValueDimen(propertyName, value);
+		} else if (intProperties.contains(propertyName)) {
+			return resolvePropertyValueInt(propertyName, value);
 		} else if (propertyName.equals("background")) {
 			return resolveBackground(value);
 		} else if (propertyName.equals("align")) {
@@ -74,7 +79,7 @@ public abstract class Component {
 		}
 		throw new RuntimeException("don't know how to handle " + propertyName + " in component " + getClass().getName());
 	}
-	
+
 	private Align resolveAlign(String propertyName, String spec) {
 		Align align = new Align();
 		
@@ -113,7 +118,15 @@ public abstract class Component {
 		}
 		throw new RuntimeException("don't know how to drawable " + value);
 	}
-	
+
+	private int resolvePropertyValueInt(String propertyName, String value) {
+		try {
+			return Integer.parseInt(value);
+		} catch (Exception e) {
+			throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": Invalid integer " + value);
+		}
+	}
+
 	private Color resolvePropertyValueColor(String propertyName, String value) {
 		if (value.startsWith("#")) {
 			Color color = Color.load(value);

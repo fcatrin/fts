@@ -13,7 +13,7 @@ import fts.graphics.TextDrawable;
 
 public class TextWidget extends Widget {
 	TextDrawable textDrawable;
-
+	
 	public TextWidget(Window w) {
 		super(w);
 		textDrawable = new TextDrawable();
@@ -37,6 +37,10 @@ public class TextWidget extends Widget {
 		textDrawable.setColor(color);
 	}
 
+	public void setMaxLines(int lines) {
+		textDrawable.setMaxLines(lines);
+	}
+	
 	@Override
 	public void redraw() {
 	}
@@ -63,7 +67,7 @@ public class TextWidget extends Widget {
 		Rectangle textBounds = getInternalBounds(width, height);
 		textDrawable.setBounds(textBounds);
 		
-		Point textSize = textDrawable.getSize(canvas, textDrawable.getText());
+		Point textSize = textDrawable.getSize(canvas, textDrawable.getText(), width);
 		
 		Point paddingSize = getPaddingSize();
 		textSize.x += paddingSize.x;

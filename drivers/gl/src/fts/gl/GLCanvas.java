@@ -7,6 +7,7 @@ import fts.graphics.Color;
 import fts.graphics.Font;
 import fts.graphics.Image;
 import fts.graphics.Point;
+import fts.graphics.TextWrapper;
 
 public class GLCanvas extends Canvas {
 
@@ -65,6 +66,15 @@ public class GLCanvas extends Canvas {
 		int[] textSize = GLNativeInterface.getTextSize(text);
 		return new Point(textSize[0], textSize[1]);
 	}
+	
+	public Point getTextSize(String text, int width, int maxLines) {
+		Point size = getTextSize(text);
+		if (size.x <= width) return size;
+		
+		TextWrapper textWrapper = new TextWrapper(this, text);
+		return textWrapper.wrap(width, maxLines);
+	}
+
 
 	public boolean createFont(String alias, File fontFile) {
 		return GLNativeInterface.createFont(alias, fontFile.getAbsolutePath());
