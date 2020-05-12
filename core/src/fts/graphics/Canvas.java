@@ -26,7 +26,7 @@ public abstract class Canvas {
 	public abstract void setAntialias(boolean antialias);
 	public abstract void setFont(Font font);
 	
-	public abstract Point getTextSize(String text);
+	public abstract TextMetrics getTextSize(String text);
 	public abstract TextWrapper getTextWrap(String text, int width, int maxLines);
 	
 	public void drawRect(int x, int y, int width, int height) {

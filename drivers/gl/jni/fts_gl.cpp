@@ -50,8 +50,8 @@ JNIEXPORT jintArray JNICALL Java_fts_gl_GLNativeInterface_getTextSize
 
 	int *size = graphics_get_text_size(text);
 
-	jintArray result = env->NewIntArray(2);
-	env->SetIntArrayRegion(result, 0, 2, size);
+	jintArray result = env->NewIntArray(4);
+	env->SetIntArrayRegion(result, 0, 4, size);
 
 	env->ReleaseStringUTFChars(sText, text);
 	return result;

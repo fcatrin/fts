@@ -54,25 +54,24 @@ public class TextDrawable extends Drawable {
 			top += bounds.height - size.y;
 		}
 
-		int lineHeight = textWrapper.getLineHeight();
 		int lineSeparator = textWrapper.getLineSeparator();
 		
 		List<String> lines = textWrapper.getLines();
-		List<Integer> lineWidths = textWrapper.getLineWidths();
+		List<TextMetrics> lineMetrics = textWrapper.getLineMetrics();
 		
 		for(int i=0; i<lines.size(); i++) {
 			String line = lines.get(i);
-			int lineWidth = lineWidths.get(i);
+			TextMetrics metrics = lineMetrics.get(i);
 			
 			int lineLeft = left;
 			if (align.h == HAlign.Center) {
-				lineLeft += (bounds.width - lineWidth) / 2;
+				lineLeft += (bounds.width - metrics.width) / 2;
 			} else if (align.h == HAlign.Right) {
-				lineLeft += bounds.width - lineWidth;
+				lineLeft += bounds.width - metrics.width;
 			}
 			
-			canvas.drawText(lineLeft, top + lineHeight, bounds.width, bounds.height, line);
-			top += lineHeight + lineSeparator;
+			canvas.drawText(lineLeft, top + metrics.ascent, bounds.width, bounds.height, line);
+			top += metrics.height + lineSeparator;
 		}
 		
 	}
@@ -80,7 +79,7 @@ public class TextDrawable extends Drawable {
 	public Point getSize(Canvas canvas, String text, int width) {
 		canvas.setFont(font);
 		
-		textWrapper = canvas.getTextWrap(text, width, width);
+		textWrapper = canvas.getTextWrap(text, width, maxLines);
 		return textWrapper.getSize();
 	}
 

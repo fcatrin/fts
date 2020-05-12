@@ -6,7 +6,7 @@ import java.util.List;
 public class TextWrapper {
 	private Point size = new Point();
 	private List<String> lines = new ArrayList<String>();
-	private List<Integer> lineWidths = new ArrayList<Integer>();
+	private List<TextMetrics> lineMetrics = new ArrayList<TextMetrics>();
 	
 	Canvas canvas;
 	String text;
@@ -14,7 +14,6 @@ public class TextWrapper {
 	int position = 0;
 	int advance  = 0;
 	
-	int lineHeight = 0;
 	int lineSeparator = 2;
 	
 	public TextWrapper(Canvas canvas, String text) {
@@ -24,12 +23,13 @@ public class TextWrapper {
 	
 	public Point wrap(int width, int maxLines) {
 		lines.clear();
+		lineMetrics.clear();
 		
-		Point oneLineSize = canvas.getTextSize(text);
-		if (oneLineSize.x <= width) {
-			addLine(text, oneLineSize.x);
-			size = oneLineSize;
-			lineHeight = size.y;
+		TextMetrics oneLineMetrics = canvas.getTextSize(text);
+		if (oneLineMetrics.width <= width) {
+			addLine(text, oneLineMetrics);
+			size.x = oneLineMetrics.width;
+			size.y = oneLineMetrics.height;
 			return size;
 		}
 		
@@ -37,35 +37,37 @@ public class TextWrapper {
 		advance  = 0;
 		
 		String textWrap = "";
-		int lastWidth = 0;
+		boolean hasMoreLines = false;
+		TextMetrics lastSize = null;
 		do {
 			String nextWord = getNextWord();
-			Point nextSize = canvas.getTextSize((textWrap + nextWord).trim());
-			if (nextSize.x > width) { // TODO handle case where text just don't fit
-				addLine(textWrap, lastWidth);
+			TextMetrics nextSize = canvas.getTextSize((textWrap + nextWord).trim());
+			if (nextSize.width > width) { // TODO handle case where text just don't fit
+				addLine(textWrap, lastSize);
+				size.x = Math.max(lastSize.width, size.x);
+				lastSize = null;
 				textWrap = "";
 			} else {
 				textWrap += nextWord;
-				Point lastSize = canvas.getTextSize(textWrap.trim());
-				lastWidth = lastSize.x;
-				size.x = Math.max(lastSize.x, size.x);
-				size.y = Math.max(lastSize.y, size.y);
+				lastSize = nextSize;
 				position += advance + 1;
 			}
-		} while (position < text.length() && (maxLines < 0 || lines.size() <= maxLines));
-		if (!textWrap.trim().isEmpty() && (maxLines < 0 || lines.size() <= maxLines)) {
-			Point nextSize = canvas.getTextSize(textWrap.trim());
-			addLine(textWrap, nextSize.x);
+			hasMoreLines = maxLines < 0 || lines.size() <= maxLines;
+		} while (position < text.length() && hasMoreLines);
+		
+		if (!textWrap.trim().isEmpty() && hasMoreLines) {
+			TextMetrics nextSize = canvas.getTextSize(textWrap.trim());
+			addLine(textWrap, nextSize);
 		}
 
-		lineHeight = size.y;
-		size.y = lines.size() * lineHeight + lineSeparator * (lines.size()-1); // TODO get inter-line space
 		return size;
 	}
 	
-	private void addLine(String line, int width) {
+	private void addLine(String line, TextMetrics metrics) {
 		lines.add(line.trim());
-		lineWidths.add(width);
+		lineMetrics.add(metrics);
+		size.y += metrics.height + (size.y == 0 ? 0 : lineSeparator);
+		System.out.println("add line '" + line.trim()  + "'height: " + metrics.height + " size.y=" + size.y);
 	}
 	
 	private boolean isSpacer(String s) {
@@ -94,13 +96,9 @@ public class TextWrapper {
 	public List<String> getLines() {
 		return lines;
 	}
-
-	public List<Integer> getLineWidths() {
-		return lineWidths;
-	}
-
-	public int getLineHeight() {
-		return lineHeight;
+	
+	public List<TextMetrics> getLineMetrics() {
+		return lineMetrics;
 	}
 
 	public int getLineSeparator() {

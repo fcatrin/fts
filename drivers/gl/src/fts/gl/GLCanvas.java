@@ -7,6 +7,7 @@ import fts.graphics.Color;
 import fts.graphics.Font;
 import fts.graphics.Image;
 import fts.graphics.Point;
+import fts.graphics.TextMetrics;
 import fts.graphics.TextWrapper;
 
 public class GLCanvas extends Canvas {
@@ -62,9 +63,14 @@ public class GLCanvas extends Canvas {
 	}
 
 	@Override
-	public Point getTextSize(String text) {
-		int[] textSize = GLNativeInterface.getTextSize(text);
-		return new Point(textSize[0], textSize[1]);
+	public TextMetrics getTextSize(String text) {
+		int[] textSizeInfo = GLNativeInterface.getTextSize(text);
+		TextMetrics textMetrics = new TextMetrics();
+		textMetrics.width = textSizeInfo[0];
+		textMetrics.height = textSizeInfo[1];
+		textMetrics.ascent = textSizeInfo[2];
+		textMetrics.descent = textSizeInfo[3];
+		return textMetrics;
 	}
 	
 	public boolean createFont(String alias, File fontFile) {

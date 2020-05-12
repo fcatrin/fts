@@ -70,6 +70,8 @@ int* graphics_get_text_size(const char *text) {
 
 	size[0] = bounds[2] - bounds[0];
 	size[1] = bounds[3] - bounds[1];
+	size[2] = -bounds[1];
+	size[3] = bounds[3];
 	return size;
 }
 

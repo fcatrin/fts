@@ -18,6 +18,7 @@ public class TextWidget extends Widget {
 		super(w);
 		textDrawable = new TextDrawable();
 		textDrawable.setFont(new Font("default", 20));
+		textDrawable.setMaxLines(-1);
 		setPadding(4);
 	}
 	
@@ -54,6 +55,8 @@ public class TextWidget extends Widget {
 		}
 
 		Rectangle textBounds = getInternalBounds(bounds.width, bounds.height);
+		canvas.setForeground(new Color("#000000"));
+		canvas.drawRect(textBounds.x, textBounds.y, textBounds.width, textBounds.height);
 		
 		textDrawable.setBounds(textBounds);
 		textDrawable.setColor(new Color("#FFFFFFFF"));
@@ -67,13 +70,15 @@ public class TextWidget extends Widget {
 		Rectangle textBounds = getInternalBounds(width, height);
 		textDrawable.setBounds(textBounds);
 		
-		Point textSize = textDrawable.getSize(canvas, textDrawable.getText(), width);
 		
 		Point paddingSize = getPaddingSize();
-		textSize.x += paddingSize.x;
-		textSize.y += paddingSize.y;
+		Point textSize = textDrawable.getSize(canvas, textDrawable.getText(), width);
+
+		Point contentSize = new Point(
+			textSize.x + paddingSize.x,
+			textSize.y + paddingSize.y);
 		
-		return textSize;
+		return contentSize;
 	}
 	
 }
