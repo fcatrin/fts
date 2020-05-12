@@ -39,6 +39,10 @@ void graphics_draw_filled_rect(int x, int y, int width, int height, int radius) 
 }
 
 void graphics_draw_rect(int x, int y, int width, int height, int radius) {
+	nvgBeginPath(vg);
+	nvgRect(vg, x, y, width, height);
+	nvgStrokeColor(vg, nvgRGBA(r, g, b, a));
+	nvgStroke(vg);
 }
 
 bool graphics_create_font(const char *alias, const char *path) {
