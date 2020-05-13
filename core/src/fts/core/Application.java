@@ -12,6 +12,7 @@ import org.w3c.dom.Node;
 
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
+import fts.graphics.Color;
 import fts.graphics.Drawable;
 
 public class Application {
@@ -22,6 +23,7 @@ public class Application {
 		Application.factory = factory;
 		Application.context = context;
 		loadFonts();
+		loadColors();
 	}
 	
 	public static Window createWindow() {
@@ -65,7 +67,24 @@ public class Application {
 			}
 		}
 	}
-	
+
+	public static void loadColors() {
+		Document colorResources;
+		try  {
+			colorResources = loadResource("values", "colors");
+		} catch (Exception e) {
+			return;
+		}
+		
+		List<Element> colorDescriptors = SimpleXML.getElements(colorResources.getDocumentElement(), "color");
+		for(Element colorDescriptor : colorDescriptors) {
+			String name = colorDescriptor.getAttribute("name");
+			String value = colorDescriptor.getTextContent();
+			Color color = new Color(value);
+			factory.registerColor(name, color);
+		}
+	}
+
 	protected Widget createWidget(Window w, Element node) {
 		Widget widget = null;
 		

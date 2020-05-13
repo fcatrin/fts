@@ -1,5 +1,5 @@
 <LinearContainer
-    background="@drawable/test_gradient"
+    background="@color/window_background"
     orientation="vertical"
     layoutWidth="match_parent"
     layoutHeight="match_parent">
@@ -9,7 +9,7 @@
         layoutHeight="wrap_content"
         maxLines="10"
         align="left"
-        color="#FFFFFF"
+        color="@color/white"
         text="First line that is now a longer text and more longer"/>
     <TextWidget
     	background="@drawable/test_background"
@@ -21,7 +21,7 @@
         />
     <TextWidget
     	background="@drawable/test_gradient"
-    	color="#404040"
+    	color="@color/white"
     	align="right|bottom"
         layoutWidth="match_parent"
         layoutHeight="100pt"

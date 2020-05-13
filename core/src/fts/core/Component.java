@@ -145,6 +145,9 @@ public abstract class Component {
 		if (value.startsWith("#")) {
 			Color color = Color.load(value);
 			return color;
+		} else if (value.startsWith("@color/")) {
+			String alias = value.substring("@color/".length());
+			return Application.factory.getColor(alias);
 		}
 		throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": Invalid format " + value);
 	}

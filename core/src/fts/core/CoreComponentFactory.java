@@ -8,13 +8,16 @@ import java.util.Map;
 
 import org.w3c.dom.Element;
 
+import fts.graphics.Color;
 import fts.graphics.Drawable;
 import fts.graphics.Shape;
 import fts.graphics.TextDrawable;
 
 public abstract class CoreComponentFactory implements ComponentFactory {
 
-	private static Map<String, File> fonts = new HashMap<String, File>();
+	private static Map<String, File>  fonts = new HashMap<String, File>();
+	private static Map<String, Color> colors = new HashMap<String, Color>();
+	
 
 	@Override
 	public Widget createWidget(Element node) {
@@ -51,4 +54,20 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 		aliases.addAll(fonts.keySet());
 		return aliases;
 	}
+
+	@Override
+	public void registerColor(String alias, Color color) {
+		colors.put(alias, color);
+		
+	}
+
+	@Override
+	public Color getColor(String alias) {
+		if (!colors.containsKey(alias)) {
+			throw new RuntimeException("Color alias " + alias + " not found");
+		}
+		return colors.get(alias);
+	}
+	
+	
 }
