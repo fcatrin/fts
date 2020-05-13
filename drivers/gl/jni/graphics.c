@@ -62,17 +62,31 @@ void graphics_draw_rect(int x, int y, int width, int height, int radius) {
 }
 
 void graphics_draw_gradient_rect(int x, int y, int width, int height, int raius, int angle) {
+
+	float radius_w = width  / 2;
+	float radius_h = height / 2;
+
+	float radians = angle / 180.0 * NVG_PI;
+	float cosw = cosf(radians) * radius_w;
+	float sinh = sinf(radians) * radius_h;
+	float cx = x + radius_w;
+	float cy = y + radius_h;
+
+	float gx2 = cx + cosw;
+	float gy2 = cy + sinh;
+	float gx1 = cx - cosw;
+	float gy1 = cy - sinh;
+
 	NVGpaint paint =
-			nvgLinearGradient(vg, x, y, x ,y+height,
+			nvgLinearGradient(vg, gx1, gy1, gx2, gy2,
 					nvgRGBA(r_start, g_start, b_start, a_start),
 					nvgRGBA(r_end, g_end, b_end,a_end));
 
+
 	nvgBeginPath(vg);
 	nvgRect(vg, x, y, width, height);
-	//nvgFillColor(vg, nvgRGBA(255, 0, 0, 255));
 	nvgFillPaint(vg, paint);
 	nvgFill(vg);
-
 }
 
 bool graphics_create_font(const char *alias, const char *path) {

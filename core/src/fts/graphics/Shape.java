@@ -33,6 +33,8 @@ public class Shape extends Drawable {
 		setProperty("endColor",    SimpleXML.getAttribute(element, "endColor"));
 		setProperty("angle",       SimpleXML.getAttribute(element, "angle"));
 	}
+
+	float fangle = 0;
 	
 	@Override
 	public void draw(Canvas canvas) {

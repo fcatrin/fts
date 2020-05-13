@@ -157,7 +157,7 @@ public abstract class Component {
 		try {
 			return Dimension.parse(value);
 		} catch (Exception e) {
-			throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": " + e.getMessage());
+			throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": " + e.getMessage(), e);
 		}
 	}
 	
