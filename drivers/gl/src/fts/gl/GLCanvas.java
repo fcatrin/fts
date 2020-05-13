@@ -56,6 +56,14 @@ public class GLCanvas extends Canvas {
 	public void drawFilledRect(int x, int y, int width, int height, int radius) {
 		GLNativeInterface.drawFilledRect(x, y, width, height, radius);
 	}
+	
+	@Override
+	public void drawGradientRect(int x, int y, int width, int height, int radius, int angle, Color start, Color end) {
+		GLNativeInterface.drawGraidentRect(x, y, width, height, radius, 
+				angle, 
+				start.r, start.g, start.b, start.a, 
+				end.r, end.g, end.b, end.a);
+	}
 
 	@Override
 	public void drawText(int x, int y, int width, int height, String text) {

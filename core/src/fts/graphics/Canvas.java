@@ -29,15 +29,17 @@ public abstract class Canvas {
 	public abstract TextMetrics getTextSize(String text);
 	public abstract TextWrapper getTextWrap(String text, int width, int maxLines);
 	
-	public void drawRect(int x, int y, int width, int height) {
+	final public void drawRect(int x, int y, int width, int height) {
 		drawRect(x, y, width, height, 0);
 	}
 	
-	public void drawFilledRect(int x, int y, int width, int height) {
+	final public void drawFilledRect(int x, int y, int width, int height) {
 		drawFilledRect(x, y, width, height, 0);
 	}
 
 	public abstract void drawRect(int x, int y, int width, int height, int radius);
 	public abstract void drawFilledRect(int x, int y, int width, int height, int radius);
 	public abstract void drawText(int x, int y, int width, int height, String text);
+	public abstract void drawGradientRect(int x, int y, int width, int height, int radius,
+			int angle, Color start, Color end);
 }

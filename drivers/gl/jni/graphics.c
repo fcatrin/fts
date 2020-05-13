@@ -8,6 +8,8 @@
 static struct NVGcontext* vg;
 
 static int r, g, b, a;
+static int r_start, g_start, b_start, a_start;
+static int r_end, g_end, b_end, a_end;
 
 void graphics_init() {
 	vg = nvgCreateGLES2(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
@@ -31,6 +33,20 @@ void graphics_set_color(int red, int green, int blue, int alpha) {
 	a = alpha;
 }
 
+void graphics_set_color_start(int red, int green, int blue, int alpha) {
+	r_start = red;
+	g_start = green;
+	b_start = blue;
+	a_start = alpha;
+}
+
+void graphics_set_color_end(int red, int green, int blue, int alpha) {
+	r_end = red;
+	g_end = green;
+	b_end = blue;
+	a_end = alpha;
+}
+
 void graphics_draw_filled_rect(int x, int y, int width, int height, int radius) {
 	nvgBeginPath(vg);
 	nvgRect(vg, x, y, width, height);
@@ -43,6 +59,20 @@ void graphics_draw_rect(int x, int y, int width, int height, int radius) {
 	nvgRect(vg, x, y, width, height);
 	nvgStrokeColor(vg, nvgRGBA(r, g, b, a));
 	nvgStroke(vg);
+}
+
+void graphics_draw_gradient_rect(int x, int y, int width, int height, int raius, int angle) {
+	NVGpaint paint =
+			nvgLinearGradient(vg, x, y, x ,y+height,
+					nvgRGBA(r_start, g_start, b_start, a_start),
+					nvgRGBA(r_end, g_end, b_end,a_end));
+
+	nvgBeginPath(vg);
+	nvgRect(vg, x, y, width, height);
+	//nvgFillColor(vg, nvgRGBA(255, 0, 0, 255));
+	nvgFillPaint(vg, paint);
+	nvgFill(vg);
+
 }
 
 bool graphics_create_font(const char *alias, const char *path) {

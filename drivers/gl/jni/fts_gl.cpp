@@ -33,6 +33,18 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawFilledRect
 	graphics_draw_filled_rect(x, y, width, height, radius);
 }
 
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawGraidentRect
+  (JNIEnv *env, jclass thiz, jint x, jint y, jint width, jint height, jint radius,
+		  jint angle,
+		  jint r_start, jint g_start, jint b_start, jint a_start,
+		  jint r_end, jint g_end, jint b_end, jint a_end) {
+
+	graphics_set_color_start(r_start, g_start, b_start, a_start);
+	graphics_set_color_end(r_end, g_end, b_end, a_end);
+	graphics_draw_gradient_rect(x, y, width, height, radius, angle);
+}
+
+
 JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_frameStart
   (JNIEnv *env, jclass thiz, jint width, jint height) {
 	graphics_frame_begin(width, height);

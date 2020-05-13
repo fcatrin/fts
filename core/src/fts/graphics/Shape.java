@@ -11,6 +11,11 @@ public class Shape extends Drawable {
 	int strokeWidth = 1;
 	int radius = 0;
 	
+	// gradient attributes
+	Color startColor = null;
+	Color endColor = null;
+	int angle;
+	
 	public Shape() {}
 	
 	public Shape(Element element) {
@@ -23,6 +28,10 @@ public class Shape extends Drawable {
 		setProperty("strokeColor", SimpleXML.getAttribute(element, "strokeColor"));
 		setProperty("strokeWidth", SimpleXML.getAttribute(element, "strokeWidth"));
 		setProperty("radius",      SimpleXML.getAttribute(element, "radius"));
+
+		setProperty("startColor",  SimpleXML.getAttribute(element, "startColor"));
+		setProperty("endColor",    SimpleXML.getAttribute(element, "endColor"));
+		setProperty("angle",       SimpleXML.getAttribute(element, "angle"));
 	}
 	
 	@Override
@@ -30,6 +39,9 @@ public class Shape extends Drawable {
 		if (fillColor!=null) {
 			canvas.setForeground(fillColor);
 			canvas.drawFilledRect(bounds.x, bounds.y, bounds.width, bounds.height, radius);
+		} else if (startColor != null && endColor != null) {
+			canvas.drawGradientRect(bounds.x, bounds.y, bounds.width, bounds.height, radius, 
+					angle, startColor, endColor);
 		}
 		
 		if (strokeColor!=null && strokeWidth>0) {
@@ -68,6 +80,30 @@ public class Shape extends Drawable {
 
 	public void setRadius(int radius) {
 		this.radius = radius;
+	}
+
+	public Color getStartColor() {
+		return startColor;
+	}
+
+	public void setStartColor(Color startColor) {
+		this.startColor = startColor;
+	}
+
+	public Color getEndColor() {
+		return endColor;
+	}
+
+	public void setEndColor(Color endColor) {
+		this.endColor = endColor;
+	}
+
+	public int getAngle() {
+		return angle;
+	}
+
+	public void setAngle(int angle) {
+		this.angle = angle;
 	}
 
 	

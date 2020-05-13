@@ -17,6 +17,10 @@ public class GLNativeInterface {
 	public static native void drawText(int x, int y, String text);
 	public static native void drawRect(int x, int y, int width, int height, int radius);
 	public static native void drawFilledRect(int x, int y, int width, int height, int radius);
+	public static native void drawGraidentRect(int x, int y, int width, int height, int radius,
+			int angle,
+			int r_start, int g_start, int b_start, int a_start,
+			int r_end, int g_end, int b_end, int a_end);
 	
 	public static native int[] getTextSize(String text);
 	

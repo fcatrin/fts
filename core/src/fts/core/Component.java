@@ -24,6 +24,8 @@ public abstract class Component {
 		colorProperties.add("color");
 		colorProperties.add("fillColor");
 		colorProperties.add("strokeColor");
+		colorProperties.add("startColor");
+		colorProperties.add("endColor");
 		
 		dimensionProperties.add("strokeWidth");
 		dimensionProperties.add("radius");
@@ -77,6 +79,8 @@ public abstract class Component {
 			return resolveBackground(value);
 		} else if (propertyName.equals("align")) {
 			return resolveAlign(propertyName, value);
+		} else if (propertyName.equals("angle")) {
+			return resolveAngle(propertyName, value);
 		}
 		throw new RuntimeException("don't know how to handle " + propertyName + " in component " + getClass().getName());
 	}
@@ -107,7 +111,16 @@ public abstract class Component {
 		}
 		return align;
 	}
-	
+
+	private int resolveAngle(String propertyName, String value) {
+		try {
+			int angle = Integer.parseInt(value);
+			if (angle >= 0 && angle < 360) return angle;
+		} catch (Exception e) {}
+
+		throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": Invalid angle " + value);
+	}
+
 	private Drawable resolveBackground(String value) {
 		if (value.startsWith("@drawable/")) {
 			String name = value.substring("@drawable/".length());
