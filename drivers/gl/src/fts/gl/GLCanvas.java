@@ -6,7 +6,6 @@ import fts.graphics.Canvas;
 import fts.graphics.Color;
 import fts.graphics.Font;
 import fts.graphics.Image;
-import fts.graphics.Point;
 import fts.graphics.TextMetrics;
 import fts.graphics.TextWrapper;
 

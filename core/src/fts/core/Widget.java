@@ -6,7 +6,6 @@ import fts.events.PaintEvent;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
-import fts.graphics.Shape;
 
 public abstract class Widget extends Component {
 	public enum State {Selected, Focused, Enabled, Pressed}

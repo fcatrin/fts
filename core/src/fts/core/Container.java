@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fts.events.PaintEvent;
-import fts.graphics.Point;
 
 public abstract class Container extends Widget {
 	List<Widget> children = new ArrayList<Widget>();
