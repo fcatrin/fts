@@ -32,6 +32,7 @@ public abstract class Component {
 	}
 	
 	protected void setProperty(String name, String value) {
+		if (value == null) return;
 		
 		Method m = resolveMethod(getClass(), "set", name);
 		Object o = resolvePropertyValue(name, value);
