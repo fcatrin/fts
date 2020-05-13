@@ -1,5 +1,5 @@
 <LinearContainer
-    background="#FF80A080"
+    background="@drawable/test_gradient"
     orientation="vertical"
     layoutWidth="match_parent"
     layoutHeight="match_parent">

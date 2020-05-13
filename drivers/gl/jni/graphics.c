@@ -49,19 +49,19 @@ void graphics_set_color_end(int red, int green, int blue, int alpha) {
 
 void graphics_draw_filled_rect(int x, int y, int width, int height, int radius) {
 	nvgBeginPath(vg);
-	nvgRect(vg, x, y, width, height);
+	nvgRoundedRect(vg, x, y, width, height, radius);
 	nvgFillColor(vg, nvgRGBA(r, g, b, a));
 	nvgFill(vg);
 }
 
 void graphics_draw_rect(int x, int y, int width, int height, int radius) {
 	nvgBeginPath(vg);
-	nvgRect(vg, x, y, width, height);
+	nvgRoundedRect(vg, x, y, width, height, radius);
 	nvgStrokeColor(vg, nvgRGBA(r, g, b, a));
 	nvgStroke(vg);
 }
 
-void graphics_draw_gradient_rect(int x, int y, int width, int height, int raius, int angle) {
+void graphics_draw_gradient_rect(int x, int y, int width, int height, int radius, int angle) {
 
 	float radius_w = width  / 2;
 	float radius_h = height / 2;
@@ -84,7 +84,7 @@ void graphics_draw_gradient_rect(int x, int y, int width, int height, int raius,
 
 
 	nvgBeginPath(vg);
-	nvgRect(vg, x, y, width, height);
+	nvgRoundedRect(vg, x, y, width, height, radius);
 	nvgFillPaint(vg, paint);
 	nvgFill(vg);
 }
