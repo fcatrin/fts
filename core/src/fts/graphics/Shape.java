@@ -34,7 +34,7 @@ public class Shape extends Drawable {
 		
 		if (strokeColor!=null && strokeWidth>0) {
 			canvas.setForeground(strokeColor);
-			canvas.drawRect(bounds.x, bounds.y, bounds.width, bounds.height, radius);
+			canvas.drawRect(bounds.x + strokeWidth/2, bounds.y + strokeWidth/2, bounds.width - strokeWidth, bounds.height - strokeWidth, radius);
 		}
 	}
 

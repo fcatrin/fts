@@ -12,7 +12,7 @@
         color="#FFFFFF"
         text="First line that is now a longer text and more longer"/>
     <TextWidget
-    	background="#FFA08080"
+    	background="@drawable/test_background"
         layoutWidth="match_parent"
         layoutHeight="wrap_content"
         align="center"
