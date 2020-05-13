@@ -53,7 +53,7 @@ public class Application {
 		for(Element fontDescriptor : fontDescriptors) {
 			String name = fontDescriptor.getAttribute("name");
 			String file = fontDescriptor.getAttribute("file");
-			File fontFile = new File("res/fonts/" + file);
+			File fontFile = new File("resources/fonts/" + file);
 			if (!fontFile.exists()) {
 				throw new RuntimeException("Font " + name + " not found: " + fontFile.getAbsolutePath());
 			}
@@ -117,7 +117,7 @@ public class Application {
 	}
 	
 	private static File findResourceRaw(String type, String name) {
-		File file = new File("res/" + type + "/" + name); // TODO replace by resource lookup
+		File file = new File("resources/" + type + "/" + name); // TODO replace by resource lookup
 		if (!file.exists()) {
 			throw new RuntimeException("File not found " + file.getAbsolutePath());
 		}
