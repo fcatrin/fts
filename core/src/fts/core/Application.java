@@ -54,7 +54,7 @@ public class Application {
 		boolean defaultHasBeenRegistered = false;
 		for(Element fontDescriptor : fontDescriptors) {
 			String name = fontDescriptor.getAttribute("name");
-			String file = fontDescriptor.getAttribute("file");
+			String file = fontDescriptor.getTextContent();
 			File fontFile = new File("resources/fonts/" + file);
 			if (!fontFile.exists()) {
 				throw new RuntimeException("Font " + name + " not found: " + fontFile.getAbsolutePath());
