@@ -24,6 +24,7 @@ public class Application {
 		Application.context = context;
 		loadFonts();
 		loadColors();
+		loadStrings();
 	}
 	
 	public static Window createWindow() {
@@ -82,6 +83,22 @@ public class Application {
 			String value = colorDescriptor.getTextContent();
 			Color color = new Color(value);
 			factory.registerColor(name, color);
+		}
+	}
+
+	public static void loadStrings() {
+		Document stringResources;
+		try  {
+			stringResources = loadResource("values", "strings");
+		} catch (Exception e) {
+			return;
+		}
+		
+		List<Element> stringDescriptors = SimpleXML.getElements(stringResources.getDocumentElement(), "string");
+		for(Element stringDescriptor : stringDescriptors) {
+			String name = stringDescriptor.getAttribute("name");
+			String value = stringDescriptor.getTextContent();
+			factory.registerString(name, value);
 		}
 	}
 

@@ -20,4 +20,8 @@ public interface ComponentFactory {
 	
 	public void registerColor(String alias, Color color);
 	public Color getColor(String alias);
+	
+	public void registerString(String alias, String string);
+	public String getString(String string);
+
 }

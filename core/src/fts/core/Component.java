@@ -67,6 +67,10 @@ public abstract class Component {
 	}
 	
 	protected Object resolvePropertyValue(String propertyName, String value) {
+		if (value.startsWith("@string/")) {
+			String alias = value.substring("@string/".length());
+			value = Application.factory.getString(alias);
+		}
 		if (propertyName.equals("text")) {
 			return value;
 		} else if (colorProperties.contains(propertyName)) {

@@ -17,7 +17,7 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 
 	private static Map<String, File>  fonts = new HashMap<String, File>();
 	private static Map<String, Color> colors = new HashMap<String, Color>();
-	
+	private static Map<String, String> strings = new HashMap<String, String>();
 
 	@Override
 	public Widget createWidget(Element node) {
@@ -58,7 +58,6 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 	@Override
 	public void registerColor(String alias, Color color) {
 		colors.put(alias, color);
-		
 	}
 
 	@Override
@@ -67,6 +66,19 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 			throw new RuntimeException("Color alias " + alias + " not found");
 		}
 		return colors.get(alias);
+	}
+
+	@Override
+	public void registerString(String alias, String string) {
+		strings.put(alias,  string);
+	}
+
+	@Override
+	public String getString(String alias) {
+		if (!strings.containsKey(alias)) {
+			throw new RuntimeException("String alias " + alias + " not found");
+		}
+		return strings.get(alias);
 	}
 	
 	
