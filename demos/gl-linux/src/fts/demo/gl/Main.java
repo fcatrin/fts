@@ -1,6 +1,7 @@
 package fts.demo.gl;
 
 import fts.core.Application;
+import fts.core.Context;
 import fts.core.Widget;
 import fts.core.Window;
 
@@ -10,7 +11,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		Application app = new Application(new LinuxGLFactory());
+		Application app = new Application(new LinuxGLFactory(), new Context());
 		Window window = Application.createWindow();
 		window.setTitle("First FTS window");
 		

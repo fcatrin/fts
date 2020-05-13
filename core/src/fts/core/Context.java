@@ -1,13 +1,10 @@
 package fts.core;
 
 public class Context {
-	static Context instance = null;
 	public static float pointsPerPixel = 1;
 	
 	public static Context getInstance() {
-		if (instance!=null) return instance;
-		instance = new Context().createInstance();
-		return instance;
+		return Application.context;
 	}
 	
 	public static AsyncExecutor getAsyncExecutor() {
@@ -18,10 +15,6 @@ public class Context {
 		return null;
 	}
 
-	protected Context createInstance() {
-		return null;
-	}
-	
 	public static void post(Runnable runnable) {
 		AsyncExecutor asyncExecutor = getAsyncExecutor();
 		asyncExecutor.asyncExec(runnable);

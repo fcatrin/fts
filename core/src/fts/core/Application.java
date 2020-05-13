@@ -13,13 +13,14 @@ import org.w3c.dom.Node;
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
 import fts.graphics.Drawable;
-import fts.graphics.Font;
 
 public class Application {
 	static ComponentFactory factory;
+	static Context context;
 	
-	public Application(ComponentFactory factory) {
+	public Application(ComponentFactory factory, Context context) {
 		Application.factory = factory;
+		Application.context = context;
 		loadFonts();
 	}
 	
