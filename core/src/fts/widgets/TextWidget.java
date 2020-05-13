@@ -55,11 +55,8 @@ public class TextWidget extends Widget {
 		}
 
 		Rectangle textBounds = getInternalBounds(bounds.width, bounds.height);
-		canvas.setForeground(new Color("#000000"));
-		canvas.drawRect(textBounds.x, textBounds.y, textBounds.width, textBounds.height);
 		
 		textDrawable.setBounds(textBounds);
-		textDrawable.setColor(new Color("#FFFFFFFF"));
 		textDrawable.draw(canvas);
 	}
 
