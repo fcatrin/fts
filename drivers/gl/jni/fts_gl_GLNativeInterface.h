@@ -33,6 +33,22 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_frameEnd
 
 /*
  * Class:     fts_gl_GLNativeInterface
+ * Method:    viewStart
+ * Signature: (IIII)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_viewStart
+  (JNIEnv *, jclass, jint, jint, jint, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    viewEnd
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_viewEnd
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
  * Method:    setColor
  * Signature: (IIII)V
  */

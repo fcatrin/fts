@@ -19,6 +19,9 @@ public abstract class Canvas {
 		image.dispose();
 	}
 
+	public abstract void viewStart(int x, int y, int width, int height);
+	public abstract void viewEnd();
+	
 	public abstract void drawImage(Image srcImage, int x, int y);
 	public abstract void setForeground(Color foregroundColor);
 	public abstract void setBackground(Color backgroundColor);

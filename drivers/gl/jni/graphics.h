@@ -6,6 +6,9 @@ void graphics_done();
 void graphics_frame_begin(int width, int height);
 void graphics_frame_end();
 
+void graphics_view_start(int x, int y, int width, int height);
+void graphics_view_end();
+
 void graphics_set_color(int red, int green, int blue, int alpha);
 void graphics_set_color_start(int red, int green, int blue, int alpha);
 void graphics_set_color_end(int red, int green, int blue, int alpha);

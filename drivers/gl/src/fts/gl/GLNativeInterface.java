@@ -12,6 +12,9 @@ public class GLNativeInterface {
 	
 	public static native void frameStart(int width, int height);
 	public static native void frameEnd();
+	
+	public static native void viewStart(int x, int y, int width, int height);
+	public static native void viewEnd();
 
 	public static native void setColor(int r, int g, int b, int a);
 	public static native void drawText(int x, int y, String text);

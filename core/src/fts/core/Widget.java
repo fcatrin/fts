@@ -260,6 +260,9 @@ public abstract class Widget extends Component {
 		bounds.height = height;
 	}
 
+	public Rectangle getBounds() {
+		return bounds;
+	}
 	public LayoutInfo getLayoutInfo() {
 		return layoutInfo;
 	}

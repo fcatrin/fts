@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fts.events.PaintEvent;
+import fts.graphics.Rectangle;
 
 public abstract class Container extends Widget {
 	List<Widget> children = new ArrayList<Widget>();
@@ -23,7 +24,11 @@ public abstract class Container extends Widget {
 			background.draw(e.canvas);
 		}
 		for(Widget child : children) {
+			Rectangle childBounds = child.getBounds();
+			e.canvas.viewStart(childBounds.x, childBounds.y, 
+					childBounds.width, childBounds.height);
 			child.onPaint(e);
+			e.canvas.viewEnd();
 		}
 	}
 	

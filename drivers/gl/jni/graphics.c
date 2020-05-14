@@ -124,6 +124,15 @@ void graphics_draw_text(int x, int y, const char *text) {
 	nvgText(vg, x, y, text, NULL);
 }
 
+void graphics_view_start(int x, int y, int width, int height) {
+	nvgSave(vg);
+	nvgScissor(vg, x, y, width, height);
+}
+
+void graphics_view_end() {
+	nvgRestore(vg);
+}
+
 void graphics_done() {
 
 }

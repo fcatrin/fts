@@ -53,7 +53,17 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_frameStart
 JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_frameEnd
   (JNIEnv *env, jclass thiz) {
 	 graphics_frame_end();
- }
+}
+
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_viewStart
+  (JNIEnv *env, jclass thiz, jint x, jint y, jint width, jint height) {
+	graphics_view_start(x, y, width, height);
+}
+
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_viewEnd
+  (JNIEnv *env, jclass thiz) {
+	graphics_view_end();
+}
 
 JNIEXPORT jintArray JNICALL Java_fts_gl_GLNativeInterface_getTextSize
   (JNIEnv *env, jclass thiz, jstring sText) {
