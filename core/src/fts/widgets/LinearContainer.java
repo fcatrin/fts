@@ -53,6 +53,8 @@ public class LinearContainer extends Container {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
 			child.setBounds(x, y, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
 			y += layoutInfo.measuredHeight;
+			
+			child.layout();
 		}
 	}
 	

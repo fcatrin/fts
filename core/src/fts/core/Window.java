@@ -3,6 +3,7 @@ package fts.core;
 import fts.events.PaintEvent;
 import fts.graphics.Canvas;
 import fts.graphics.Point;
+import fts.widgets.AbsoluteContainer;
 
 public abstract class Window {
 	private Widget view;
@@ -14,7 +15,14 @@ public abstract class Window {
 	public abstract Point getBounds();
 	
 	public void setContentView(Widget view) {
-		this.view = view;
+		Container container = new AbsoluteContainer(this);
+		container.add(view);
+		
+		LayoutInfo layoutInfo = container.getLayoutInfo();
+		layoutInfo.width = LayoutInfo.MATCH_PARENT;
+		layoutInfo.height = LayoutInfo.MATCH_PARENT;
+		
+		this.view = container;
 	}
 	
 	public void layout() {

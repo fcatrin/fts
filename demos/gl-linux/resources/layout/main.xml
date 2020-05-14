@@ -23,14 +23,14 @@
     	color="@color/white"
     	align="right|bottom"
         layoutWidth="match_parent"
-        layoutHeight="0pt"
+        layoutHeight="40pt"
         text="First line that is now a longer text and more longer"/>
     <TextWidget
     	background="@drawable/test_gradient"
     	color="@color/white"
     	align="center"
         layoutWidth="match_parent"
-        layoutHeight="0pt"
+        layoutHeight="40pt"
         text="@string/demo"/>
        
 </LinearContainer>
