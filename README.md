@@ -22,6 +22,9 @@ I'm extending it for more diverse applications.
 As a reference, it took me only one month to port the code of MusicTrans for Android to Mac/Win/Linux,
 and most of the code is shared between these very different systems.
 
+**Architecture**
+![FTS Architecture Diagram](http://franco.arealinux.cl/files/fts-architecture.png)
+
 Franco Catrin
 
 Sep 2016
