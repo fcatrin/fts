@@ -22,9 +22,9 @@ I'm extending it for more diverse applications.
 As a reference, it took me only one month to port the code of MusicTrans for Android to Mac/Win/Linux,
 and most of the code is shared between these very different systems.
 
-**Architecture**
+##Architecture
 ![FTS Architecture Diagram](http://franco.arealinux.cl/files/fts-architecture.png)
 
-Franco Catrin
+Current target is Linux / Android apps using OpenGL ES and NanoVG. While there was a SWT driver to try the basic ideas at the beginning, that driver is not being developed anymore.
 
-Sep 2016
+Franco Catrin
