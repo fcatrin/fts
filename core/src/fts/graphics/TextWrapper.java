@@ -42,8 +42,24 @@ public class TextWrapper {
 		do {
 			String nextWord = getNextWord();
 			TextMetrics nextSize = canvas.getTextSize((textWrap + nextWord).trim());
-			if (nextSize.width > width) { // TODO handle case where text just don't fit
-				addLine(textWrap, lastSize);
+			if (nextSize.width > width) { // TODO handle case where text just don't fi
+				if (lastSize == null) {
+					advance = 0;
+					do {
+						int index = position + advance;
+						String nextChar = text.substring(index, index + 1);
+						nextSize = canvas.getTextSize(textWrap + nextChar);
+						if (nextSize.width > width) {
+							if (lastSize == null) return size; // not enough space for any text, abort
+							addLine(textWrap, lastSize);
+							break;
+						}
+						lastSize = nextSize;
+						advance++;
+					} while (position + advance < text.length());
+				} else {
+					addLine(textWrap, lastSize);
+				}
 				size.x = Math.max(lastSize.width, size.x);
 				lastSize = null;
 				textWrap = "";
