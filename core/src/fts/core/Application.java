@@ -103,10 +103,15 @@ public class Application {
 	}
 
 	protected Widget createWidget(Window w, Element node) {
-		Widget widget = null;
-		
 		String name = node.getNodeName();
-		widget = factory.createWidget(node);
+		
+		if (name.equals("include")) {
+			String includeName = node.getAttribute("name");
+			if (Utils.isEmptyString(includeName)) throw new RuntimeException("Missing include name " + node);
+			return inflate(w, includeName);
+		}
+		
+		Widget widget = factory.createWidget(node);
 		if (widget == null) {
 			String viewClassName = "fts.widgets." + name;
 			widget = (Widget)createComponentInstance(w, viewClassName);
@@ -146,8 +151,10 @@ public class Application {
 		try {
 			return (Component)componentClass.getDeclaredConstructor(Window.class).newInstance(w);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
+			e.printStackTrace();
 			return null;
 		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
 			throw new RuntimeException("Missing constructor " + className +"(Window)");
 		}
 	}
