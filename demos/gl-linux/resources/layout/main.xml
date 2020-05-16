@@ -1,20 +1,20 @@
 <LinearContainer
     background="@color/window_background"
     orientation="vertical"
-    layoutWidth="match_parent"
-    layoutHeight="match_parent">
+    width="match_parent"
+    height="match_parent">
     <TextWidget
 	    background="#FF8080A0"
-        layoutWidth="match_parent"
-        layoutHeight="wrap_content"
+        width="match_parent"
+        height="wrap_content"
         maxLines="10"
         align="left"
         color="@color/white"
         text="First line that is now a longer text and more longer"/>
     <TextWidget
     	background="@drawable/test_background"
-        layoutWidth="match_parent"
-        layoutHeight="wrap_content"
+        width="match_parent"
+        height="wrap_content"
         align="center"
         color="#CCCCCC"
         text="First line that is now a longer text and more longer"/>
@@ -22,15 +22,15 @@
     	background="@drawable/test_gradient"
     	color="@color/white"
     	align="right|bottom"
-        layoutWidth="match_parent"
-        layoutHeight="40pt"
+        width="match_parent"
+        height="40pt"
         text="First line that is now a longer text and more longer"/>
     <TextWidget
     	background="@drawable/test_gradient"
     	color="@color/white"
     	align="center"
-        layoutWidth="match_parent"
-        layoutHeight="40pt"
+        width="match_parent"
+        height="40pt"
         text="@string/demo"/>
 	<include name="actions" />
 </LinearContainer>

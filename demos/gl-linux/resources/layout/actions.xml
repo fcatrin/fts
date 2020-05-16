@@ -1,17 +1,17 @@
 <LinearContainer
-    layoutWidth="match_parent"
-    layoutHeight="wrap_content"
+    width="match_parent"
+    height="wrap_content"
     orientation="horizontal">
     <TextWidget
-        layoutWidth="0pt"
-        layoutHeight="wrap_content"
+        width="0pt"
+        height="wrap_content"
         text="First Button" />
     <TextWidget
-        layoutWidth="0pt"
-        layoutHeight="wrap_content"
+        width="0pt"
+        height="wrap_content"
         text="Second Button" />
     <TextWidget
-        layoutWidth="0pt"
-        layoutHeight="wrap_content"
+        width="0pt"
+        height="wrap_content"
         text="Third Button" />
 </LinearContainer>

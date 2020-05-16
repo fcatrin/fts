@@ -168,7 +168,7 @@ public abstract class Widget extends Component {
 	
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {
-		if (propertyName.equals("layoutWidth") || propertyName.equals("layoutHeight")) {
+		if (propertyName.equals("width") || propertyName.equals("height")) {
 			if (VALUE_MATCH_PARENT.equals(value)) return LayoutInfo.MATCH_PARENT;
 			if (VALUE_WRAP_CONTENT.equals(value)) return LayoutInfo.WRAP_CONTENT;
 			return resolvePropertyValueDimen(propertyName, value);
@@ -267,11 +267,11 @@ public abstract class Widget extends Component {
 		return layoutInfo;
 	}
 	
-	public void setLayoutWidth(int width) {
+	public void setWidth(int width) {
 		layoutInfo.width = width;
 	}
 	
-	public void setLayoutHeight(int height) {
+	public void setHeight(int height) {
 		layoutInfo.height = height;
 	}
 	
