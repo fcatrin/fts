@@ -17,8 +17,8 @@ public class TextWidget extends Widget {
 	public TextWidget(Window w) {
 		super(w);
 		textDrawable = new TextDrawable();
-		textDrawable.setFont(new Font("default", 20));
-		textDrawable.setMaxLines(-1);
+		textDrawable.setFont(new Font("default", "16pt"));
+		setProperty("color", "@color/text");
 		setPadding(4);
 	}
 	

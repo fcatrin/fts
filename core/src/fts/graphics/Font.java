@@ -12,7 +12,12 @@ public class Font {
 		this.name = name;
 		this.size = size;
 	}
-	
+
+	public Font(String name, String size) {
+		this.name = name;
+		this.size = Dimension.parse(size);
+	}
+
 	public static Font load(Element element) {
 		String name = SimpleXML.getAttribute(element, "font");
 		int    size = Dimension.parse(SimpleXML.getAttribute(element, "fontSize"));

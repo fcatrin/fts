@@ -26,6 +26,7 @@ public class GLCanvas extends Canvas {
 
 	@Override
 	public void setForeground(Color color) {
+		if (color==null) return;
 		GLNativeInterface.setColor(color.r, color.g, color.b, color.a);
 	}
 

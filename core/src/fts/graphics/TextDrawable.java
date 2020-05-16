@@ -9,12 +9,12 @@ import fts.graphics.Align.HAlign;
 import fts.graphics.Align.VAlign;
 
 public class TextDrawable extends Drawable {
-	Align align;
+	Align align = new Align();
 	Font font;
 	String text;
 	Color color;
 	
-	int maxLines;
+	int maxLines = -1;
 	
 	TextWrapper textWrapper;
 
