@@ -192,7 +192,7 @@ public abstract class Widget extends Component {
 		MeasureSpec w = new MeasureSpec();
 		MeasureSpec h = new MeasureSpec();
 		
-		if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
+		if (layoutInfo.width == LayoutInfo.MATCH_PARENT || layoutInfo.width == 0) {
 			w.type  = MeasureSpec.Type.Exact;
 			w.value = parentWidth;
 		} else if (layoutInfo.width == LayoutInfo.WRAP_CONTENT) {
@@ -202,7 +202,7 @@ public abstract class Widget extends Component {
 			w.type  = MeasureSpec.Type.Exact;
 			w.value = layoutInfo.width;
 		}
-		if (layoutInfo.height == LayoutInfo.MATCH_PARENT) {
+		if (layoutInfo.height == LayoutInfo.MATCH_PARENT || layoutInfo.height == 0) {
 			h.type  = MeasureSpec.Type.Exact;
 			h.value = parentHeight;
 		} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {

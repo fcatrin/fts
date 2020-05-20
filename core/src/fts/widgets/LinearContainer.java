@@ -1,5 +1,8 @@
 package fts.widgets;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fts.core.Container;
 import fts.core.LayoutInfo;
 import fts.core.Widget;
@@ -37,18 +40,26 @@ public class LinearContainer extends Container {
 	public void layout() {
 		if (orientation == Orientation.Vertical) {
 			layoutVertical();
-		}
-		if (orientation == Orientation.Horizontal) {
+		} else {
 			layoutHorizontal();
 		}
 	}
 
 	private void layoutHorizontal() {
+		int x = padding.x + bounds.x;
+		int y = padding.y + bounds.y;
+		for (Widget child : getChildren()) {
+			LayoutInfo layoutInfo = child.getLayoutInfo();
+			child.setBounds(x, y, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
+			x += layoutInfo.measuredWidth;
+			
+			child.layout();
+		}
 	}
 
 	private void layoutVertical() {
-		int x = padding.x;
-		int y = padding.y;
+		int x = padding.x + bounds.x;
+		int y = padding.y + bounds.y;
 		for (Widget child : getChildren()) {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
 			child.setBounds(x, y, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
@@ -62,6 +73,11 @@ public class LinearContainer extends Container {
 	public Point getContentSize(int width, int height) {
 		int contentWidth = 0;
 		int contentHeight = 0;
+		
+		for (Widget child : getChildren()) {
+			LayoutInfo layoutInfo = child.getLayoutInfo();
+			layoutInfo.weight = layoutInfo.weight < 1 ? 1 : layoutInfo.weight;
+		}
 		
 		if (orientation == Orientation.Vertical) {
 			for (Widget child : getChildren()) {
@@ -88,12 +104,90 @@ public class LinearContainer extends Container {
 					contentHeight += layoutInfo.height;
 				}
 			}			
+		} else {
+			int availableWidth = width;
+			int totalWeight = 0;
+			
+			List<Point> sizeInfo = new ArrayList<Point>();
+			for(int i=0; i<getChildren().size(); i++) {
+				sizeInfo.add(new Point());
+			}
+			
+			// first check: match parent and fixed width
+			int i=0;
+			for (Widget child : getChildren()) {
+				Point size = sizeInfo.get(i++);
+				
+				LayoutInfo layoutInfo = child.getLayoutInfo();
+				if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
+					size.x = width;
+					contentWidth = width;
+					availableWidth = 0;
+				} else if (layoutInfo.width > 0) {
+					size.x = layoutInfo.width;
+					contentWidth = layoutInfo.width;
+					availableWidth -= layoutInfo.width;
+				} else if (layoutInfo.width == 0) {
+					totalWeight += layoutInfo.weight;
+				}
+			}
+			
+			// now check wrap content elements
+			i=0;
+			for (Widget child : getChildren()) {
+				if (availableWidth <= 0) break;
+
+				Point size = sizeInfo.get(i++);
+				LayoutInfo layoutInfo = child.getLayoutInfo();
+				if (layoutInfo.width == LayoutInfo.WRAP_CONTENT) {
+					Point childSize = child.getContentSize(availableWidth, height);
+					size.x = childSize.x;
+					
+					contentWidth += childSize.x;
+					availableWidth -= childSize.x;
+				}
+			}			
+			
+			availableWidth = Math.max(0,  availableWidth);
+
+			// use max width if there is any proportional width
+			i=0;
+			for (Widget child : getChildren()) {
+				Point size = sizeInfo.get(i++);
+				LayoutInfo layoutInfo = child.getLayoutInfo();
+				if (layoutInfo.width == 0) {
+					contentWidth = width;
+					size.x = availableWidth * layoutInfo.weight / totalWeight;
+				}				
+			}
+			
+			// now check height 
+			i=0;
+			for (Widget child : getChildren()) {
+				Point size = sizeInfo.get(i++);
+				LayoutInfo layoutInfo = child.getLayoutInfo();
+				if (layoutInfo.height == LayoutInfo.MATCH_PARENT || layoutInfo.height == 0) {
+					contentHeight = height;
+					break;
+				} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
+					Point childSize = child.getContentSize(size.x, height);
+					contentHeight = Math.max(contentHeight, childSize.y);
+				} else if (layoutInfo.height>0) {
+					contentHeight = Math.max(contentHeight, layoutInfo.height);
+				}
+			}			
 		}
 		return new Point(contentWidth, contentHeight);
 	}
 
 	@Override
 	public void onMeasureChildren(MeasureSpec wspec, MeasureSpec hspec) {
+		// quickly fix weight
+		for (Widget child : getChildren()) {
+			LayoutInfo layoutInfo = child.getLayoutInfo();
+			layoutInfo.weight = Math.min(1, layoutInfo.weight);
+		}
+		
 		if (orientation == Orientation.Vertical) {
 			int totalWeight = 0;
 			int height = 0;
@@ -108,7 +202,7 @@ public class LinearContainer extends Container {
 				} else if (layoutInfo.height > 0) {
 					height += layoutInfo.height;
 				} else if (layoutInfo.height == 0) {
-					totalWeight += layoutInfo.weight < 1 ? 1 : layoutInfo.weight;
+					totalWeight += layoutInfo.weight;
 				}
 			}
 			
@@ -118,8 +212,50 @@ public class LinearContainer extends Container {
 			for (Widget child : getChildren()) {
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				if (layoutInfo.height == 0) {
-					int weight = layoutInfo.weight < 1 ? 1 : layoutInfo.weight;
+					int weight = layoutInfo.weight;
 					layoutInfo.measuredHeight = (availableHeight / totalWeight) * weight;
+				}
+			}
+		} else {
+			int totalWeight = 0;
+			int width = 0;
+			
+			// first processs all fixed size children
+			for (Widget child : getChildren()) {
+				LayoutInfo layoutInfo = child.getLayoutInfo();
+				if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
+					child.onMeasure(wspec.value, hspec.value);
+					width += wspec.value;
+				} else 	if (layoutInfo.width > 0) {
+					child.onMeasure(layoutInfo.width, hspec.value);
+					width += layoutInfo.width;
+				} else if (layoutInfo.width == 0) {
+					totalWeight += layoutInfo.weight;
+				}
+			}
+			
+			int availableWidth = wspec.value - width;
+			availableWidth = Math.max(0,  availableWidth);
+			
+			// now process all wrap_content with the available space
+			for (Widget child : getChildren()) {
+				if (availableWidth < 0) availableWidth = 0;
+				
+				LayoutInfo layoutInfo = child.getLayoutInfo();
+				if (layoutInfo.width == LayoutInfo.WRAP_CONTENT) {
+					child.onMeasure(availableWidth, hspec.value);
+					width += layoutInfo.measuredWidth;
+					availableWidth -= layoutInfo.measuredWidth;
+				}
+			}
+
+			if (availableWidth < 0) availableWidth = 0;
+			
+			for (Widget child : getChildren()) {
+				LayoutInfo layoutInfo = child.getLayoutInfo();
+				if (layoutInfo.width == 0) {
+					int childWidth = (availableWidth / totalWeight) * layoutInfo.weight;
+					child.onMeasure(childWidth, hspec.value);
 				}
 			}
 		}

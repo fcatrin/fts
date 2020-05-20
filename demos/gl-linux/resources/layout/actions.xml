@@ -4,14 +4,17 @@
     orientation="horizontal">
     <TextWidget
         width="0pt"
+        background="#C040C0"
         height="wrap_content"
         text="First Button" />
     <TextWidget
         width="0pt"
+        background="#C0A0A0"
         height="wrap_content"
         text="Second Button" />
     <TextWidget
         width="0pt"
+        background="#A0A0C0"
         height="wrap_content"
         text="Third Button" />
 </LinearContainer>

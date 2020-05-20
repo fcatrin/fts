@@ -77,5 +77,14 @@ public class TextWidget extends Widget {
 		
 		return contentSize;
 	}
+
+	@Override
+	public void onMeasure(int parentWidth, int parentHeight) {
+		System.out.println("Text onMeasure " + parentWidth + "x" + parentHeight + " text:" + textDrawable.getText());
+		super.onMeasure(parentWidth, parentHeight);
+		System.out.println("Text measured " + getLayoutInfo().measuredWidth + "x" + getLayoutInfo().measuredHeight);
+	}
+	
+	
 	
 }
