@@ -1,6 +1,7 @@
 package fts.core;
 
 import fts.events.PaintEvent;
+import fts.events.TouchEvent;
 import fts.graphics.Canvas;
 import fts.graphics.Point;
 import fts.widgets.AbsoluteContainer;
@@ -46,6 +47,5 @@ public abstract class Window {
 	public void setCanvas(Canvas canvas) {
 		this.canvas = canvas;
 	}
-	
 	
 }

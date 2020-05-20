@@ -18,9 +18,9 @@ JNIEXPORT void JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowOpen
 /*
  * Class:     fts_demo_gl_LinuxNativeInterface
  * Method:    windowSwapBuffers
- * Signature: ()Z
+ * Signature: ()V
  */
-JNIEXPORT jboolean JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowSwapBuffers
+JNIEXPORT void JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowSwapBuffers
   (JNIEnv *, jclass);
 
 /*
@@ -29,6 +29,14 @@ JNIEXPORT jboolean JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowSwapBuffe
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowClose
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     fts_demo_gl_LinuxNativeInterface
+ * Method:    windowGetEvents
+ * Signature: ()[I
+ */
+JNIEXPORT jintArray JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowGetEvents
   (JNIEnv *, jclass);
 
 #ifdef __cplusplus

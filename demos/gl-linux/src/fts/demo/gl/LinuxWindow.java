@@ -4,7 +4,7 @@ import fts.gl.GLWindow;
 import fts.graphics.Point;
 
 public class LinuxWindow extends GLWindow {
-	
+
 	private int height;
 	private int width;
 
@@ -29,7 +29,26 @@ public class LinuxWindow extends GLWindow {
 
 	@Override
 	protected boolean sync() {
-		return LinuxNativeInterface.windowSwapBuffers();
+		LinuxNativeInterface.windowSwapBuffers();
+		return processEvents(LinuxNativeInterface.windowGetEvents());
+	}
+
+	private boolean processEvents(int[] nativeEvents) {
+		if (nativeEvents == null) return true;
+		
+		for(int i=0; i<nativeEvents.length; i+=5) {
+			int family = nativeEvents[i];
+			int type   = nativeEvents[i+1];
+			switch (family) {
+			case LinuxNativeInterface.FTS_WINDOW_EVENT:
+				if (type == LinuxNativeInterface.FTS_WINDOW_CLOSE) {
+					return false;
+				}
+				
+			}
+
+		}
+		return true;
 	}
 
 }
