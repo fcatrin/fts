@@ -48,9 +48,18 @@ public class LinearContainer extends Container {
 	private void layoutHorizontal() {
 		int x = padding.x + bounds.x;
 		int y = padding.y + bounds.y;
-		for (Widget child : getChildren()) {
+		
+		List<Widget> widgets = getChildren();
+		for (int i=0; i<widgets.size(); i++) {
+			Widget child = widgets.get(i);
 			LayoutInfo layoutInfo = child.getLayoutInfo();
-			child.setBounds(x, y, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
+			
+			int width = layoutInfo.measuredWidth;
+			if (i+1 == widgets.size()) {
+				width = bounds.width - padding.x - padding.width;
+			}
+			
+			child.setBounds(x, y, width, layoutInfo.measuredHeight);
 			x += layoutInfo.measuredWidth;
 			
 			child.layout();
@@ -60,9 +69,18 @@ public class LinearContainer extends Container {
 	private void layoutVertical() {
 		int x = padding.x + bounds.x;
 		int y = padding.y + bounds.y;
-		for (Widget child : getChildren()) {
+
+		List<Widget> widgets = getChildren();
+		for (int i=0; i<widgets.size(); i++) {
+			Widget child = widgets.get(i);
 			LayoutInfo layoutInfo = child.getLayoutInfo();
-			child.setBounds(x, y, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
+			
+			int height = layoutInfo.measuredHeight;
+			if (i+1 == widgets.size()) {
+				height = bounds.height - padding.y - padding.height;
+			}
+			
+			child.setBounds(x, y, layoutInfo.measuredWidth, height);
 			y += layoutInfo.measuredHeight;
 			
 			child.layout();
