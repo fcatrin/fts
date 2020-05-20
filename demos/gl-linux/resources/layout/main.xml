@@ -26,7 +26,7 @@
         height="40pt"
         text="First line that is now a longer text and more longer"/>
     <TextWidget
-    	background="@drawable/test_gradient"
+    	background="#202020"
     	color="@color/white"
     	align="center"
         width="match_parent"
