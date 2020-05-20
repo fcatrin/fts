@@ -46,8 +46,8 @@ public class LinearContainer extends Container {
 	}
 
 	private void layoutHorizontal() {
-		int x = padding.x + bounds.x;
-		int y = padding.y + bounds.y;
+		int x = padding.left + bounds.x;
+		int y = padding.top  + bounds.y;
 		
 		List<Widget> widgets = getChildren();
 		for (int i=0; i<widgets.size(); i++) {
@@ -56,7 +56,7 @@ public class LinearContainer extends Container {
 			
 			int width = layoutInfo.measuredWidth;
 			if (i+1 == widgets.size()) {
-				width = bounds.width - padding.x - padding.width;
+				width = bounds.width - padding.left - padding.right;
 			}
 			
 			child.setBounds(x, y, width, layoutInfo.measuredHeight);
@@ -67,8 +67,8 @@ public class LinearContainer extends Container {
 	}
 
 	private void layoutVertical() {
-		int x = padding.x + bounds.x;
-		int y = padding.y + bounds.y;
+		int x = padding.left + bounds.x;
+		int y = padding.top  + bounds.y;
 
 		List<Widget> widgets = getChildren();
 		for (int i=0; i<widgets.size(); i++) {
@@ -77,7 +77,7 @@ public class LinearContainer extends Container {
 			
 			int height = layoutInfo.measuredHeight;
 			if (i+1 == widgets.size()) {
-				height = bounds.height - padding.y - padding.height;
+				height = bounds.height - padding.top - padding.bottom;
 			}
 			
 			child.setBounds(x, y, layoutInfo.measuredWidth, height);

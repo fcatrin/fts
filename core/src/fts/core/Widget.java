@@ -6,13 +6,14 @@ import fts.events.PaintEvent;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
+import fts.graphics.Sides;
 
 public abstract class Widget extends Component {
 	public enum State {Selected, Focused, Enabled, Pressed}
 	
 	private static final long CLICK_TIME = 200;
 	protected boolean state[] = new boolean[] {false, false, true, false};
-	protected Rectangle padding = new Rectangle();
+	protected Sides padding = new Sides();
 	protected Rectangle bounds  = new Rectangle();
 	
 	private long mouseDownTime = 0;
@@ -129,25 +130,25 @@ public abstract class Widget extends Component {
 	}
 
 	public void setPadding(int p) {
-		padding.x = p;
-		padding.y = p;
-		padding.width = p;
-		padding.height = p;
+		padding.left   = p;
+		padding.right  = p;
+		padding.top    = p;
+		padding.bottom = p;
 	}
 	
-	public void setPadding(int top, int left, int bottom, int right) {
-		padding.x = left;
-		padding.y = top;
-		padding.width = right;
-		padding.height = bottom;
+	public void setPaddingx(int left, int top, int right, int bottom) {
+		padding.left = left;
+		padding.top = top;
+		padding.right = right;
+		padding.bottom = bottom;
 	}
 	
 	public int getInternalWidth() {
-		return bounds.width - padding.x - padding.width;
+		return bounds.width - padding.left - padding.right;
 	}
 	
 	public int getInternalHeight() {
-		return bounds.height - padding.y - padding.height;
+		return bounds.height - padding.top - padding.bottom;
 	}
 	
 	public void postInvalidate() {
@@ -294,14 +295,14 @@ public abstract class Widget extends Component {
 	}
 	
 	public Point getPaddingSize() {
-		return new Point(padding.x + padding.width, padding.y + padding.height);
+		return new Point(padding.left + padding.right, padding.top + padding.bottom);
 	}
 	
 	public Rectangle getInternalBounds(int width, int height) {
 		Point paddingSize = getPaddingSize();
 		return new Rectangle( 
-				bounds.x + padding.x,
-				bounds.y + padding.y,
+				bounds.x + padding.left,
+				bounds.y + padding.top,
 				bounds.width - paddingSize.x,
 				bounds.height - paddingSize.y);
 	}
