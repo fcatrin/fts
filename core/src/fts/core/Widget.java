@@ -1,7 +1,8 @@
 package fts.core;
 
 import fts.events.KeyEvent;
-import fts.events.MouseEvent;
+import fts.events.TouchEvent;
+import fts.events.TouchEvent.Action;
 import fts.events.PaintEvent;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
@@ -11,13 +12,9 @@ import fts.graphics.Sides;
 public abstract class Widget extends Component {
 	public enum State {Selected, Focused, Enabled, Pressed}
 	
-	private static final long CLICK_TIME = 200;
 	protected boolean state[] = new boolean[] {false, false, true, false};
 	protected Sides padding = new Sides();
 	protected Rectangle bounds  = new Rectangle();
-	
-	private long mouseDownTime = 0;
-	private Point mouseDownPosition = new Point();
 	
 	public static final String VALUE_MATCH_PARENT = "match_parent";
 	public static final String VALUE_WRAP_CONTENT = "wrap_content";
@@ -48,19 +45,26 @@ public abstract class Widget extends Component {
 
 	public abstract void redraw();
 	
-	protected final void onMouseUpGesture(MouseEvent e) {
-		long t = System.currentTimeMillis() - mouseDownTime;
-		if (t < CLICK_TIME) {
-			onMouseClick(e);
+	protected void onTouchEvent(TouchEvent e) {
+		e.widget = this;
+		if (e.action == Action.DOWN) {
+			onTouchDown(e);	
+		} else if (e.action == Action.MOVE) {
+			onTouchMove(e);
+		} else {
+			onTouchUp(e);
 		}
-		onMouseUp(e);
 	}
 
-	protected final void onMouseDownGesture(MouseEvent e) {
-		mouseDownTime = System.currentTimeMillis();
-		mouseDownPosition.x = e.x;
-		mouseDownPosition.y = e.y;
-		onMouseDown(e);
+	protected void onTouchDown(TouchEvent e) {
+		setPressed(true);
+	}
+	protected void onTouchMove(TouchEvent e) {
+		setPressed(false);
+	}
+	
+	protected void onTouchUp(TouchEvent e) {
+		onTouchUp(e);
 	}
 
 	protected void onKeyPressed(KeyEvent e) {
@@ -68,21 +72,6 @@ public abstract class Widget extends Component {
 
 	protected void onKeyReleased(KeyEvent e) {
 	}
-
-	protected void onMouseMove(MouseEvent e) {
-	}
-
-	protected void onMouseUp(MouseEvent e) {
-		setPressed(false);
-	}
-
-	protected void onMouseDown(MouseEvent e) {
-		setPressed(true);
-	}
-
-	protected void onMouseClick(MouseEvent e) {}
-	
-	protected void onMouseDoubleClick(MouseEvent e) {}
 
 	protected abstract void onPaint(PaintEvent e);
 	protected void onDispose() {}
