@@ -19,7 +19,8 @@ enum {
 enum {
 	FTS_WINDOW_CLOSE = 1,
 	FTS_MOUSE_DOWN,
-	FTS_MOUSE_UP
+	FTS_MOUSE_UP,
+	FTS_MOUSE_MOVE,
 };
 
 #define MAX_EVENT_QUEUE 100
@@ -70,6 +71,9 @@ int window_process_events() {
 			break;
 		case SDL_MOUSEBUTTONUP:
 			push_event_touch(FTS_MOUSE_UP, event.button.button, event.button.x, event.button.y);
+			break;
+		case SDL_MOUSEMOTION:
+			push_event_touch(FTS_MOUSE_MOVE, 0, event.motion.x, event.motion.y);
 			break;
 		}
 	}

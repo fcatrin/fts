@@ -56,8 +56,12 @@ public class LinuxWindow extends GLWindow {
 
 	private void fireTouchEvent(int type, int button, int x, int y) {
 		TouchEvent event = new TouchEvent();
-		event.action = type == LinuxNativeInterface.FTS_MOUSE_DOWN ?
-				TouchEvent.Action.DOWN : TouchEvent.Action.UP;
+		switch (type) {
+		case LinuxNativeInterface.FTS_MOUSE_DOWN : event.action = TouchEvent.Action.DOWN; break;
+		case LinuxNativeInterface.FTS_MOUSE_UP : event.action = TouchEvent.Action.UP; break;
+		case LinuxNativeInterface.FTS_MOUSE_MOVE : event.action = TouchEvent.Action.MOVE; break;
+		}
+
 		event.x = x;
 		event.y = y;
 		event.timestamp = System.currentTimeMillis();

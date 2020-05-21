@@ -64,9 +64,14 @@ public abstract class Widget extends Component {
 	}
 	
 	protected void onTouchMove(TouchEvent e) {
+		System.out.println("Move " + e.x + ", " + e.y + " " + this);
 	}
 	
 	protected void onTouchUp(TouchEvent e) {
+		setPressed(false);
+	}
+	
+	protected void onTouchExit(TouchEvent e) {
 		setPressed(false);
 	}
 
@@ -182,9 +187,9 @@ public abstract class Widget extends Component {
 	}
 	
 	public String toString(String s) {
-		return String.format("{class: %s, width: %d, height; %d, mw: %d, mh:%d, bounds:%s%s}", 
+		return String.format("{class: %s, bounds:%s%s}", 
 				getClass().getName(),
-				bounds,
+				bounds.toString(),
 				s);
 	}
 	
