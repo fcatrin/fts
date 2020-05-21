@@ -4,26 +4,26 @@ extern "C" {
 
 #include <stdlib.h>
 #include <string.h>
-#include "fts_demo_gl_LinuxNativeInterface.h"
+#include "fts_linux_NativeInterface.h"
 
 #include "window.h"
 
-JNIEXPORT void JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowOpen
+JNIEXPORT void JNICALL Java_fts_linux_NativeInterface_windowOpen
   (JNIEnv *env , jclass thiz, jint width, jint height) {
 	window_open(width, height);
 }
 
-JNIEXPORT void JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowSwapBuffers
+JNIEXPORT void JNICALL Java_fts_linux_NativeInterface_windowSwapBuffers
   (JNIEnv *env, jclass thiz) {
 	window_swap_buffers();
 }
 
-JNIEXPORT void JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowClose
+JNIEXPORT void JNICALL Java_fts_linux_NativeInterface_windowClose
   (JNIEnv *env, jclass thiz) {
 	window_close();
 }
 
-JNIEXPORT jintArray JNICALL Java_fts_demo_gl_LinuxNativeInterface_windowGetEvents
+JNIEXPORT jintArray JNICALL Java_fts_linux_NativeInterface_windowGetEvents
   (JNIEnv *env, jclass thiz) {
 	int n_events = window_process_events();
 	if (n_events == 0) return NULL;

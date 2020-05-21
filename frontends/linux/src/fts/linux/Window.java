@@ -1,15 +1,15 @@
-package fts.demo.gl;
+package fts.linux;
 
 import fts.events.TouchEvent;
 import fts.gl.GLWindow;
 import fts.graphics.Point;
 
-public class LinuxWindow extends GLWindow {
+public class Window extends GLWindow {
 
 	private int height;
 	private int width;
 
-	public LinuxWindow(int width, int height) {
+	public Window(int width, int height) {
 		this.width = width;
 		this.height = height;
 	}
@@ -20,7 +20,7 @@ public class LinuxWindow extends GLWindow {
 
 	@Override
 	public void open() {
-		LinuxNativeInterface.windowOpen(width, height);
+		NativeInterface.windowOpen(width, height);
 	}
 
 	@Override
@@ -30,8 +30,8 @@ public class LinuxWindow extends GLWindow {
 
 	@Override
 	protected boolean sync() {
-		LinuxNativeInterface.windowSwapBuffers();
-		return processEvents(LinuxNativeInterface.windowGetEvents());
+		NativeInterface.windowSwapBuffers();
+		return processEvents(NativeInterface.windowGetEvents());
 	}
 
 	private boolean processEvents(int[] nativeEvents) {
@@ -41,12 +41,12 @@ public class LinuxWindow extends GLWindow {
 			int family = nativeEvents[i];
 			int type   = nativeEvents[i+1];
 			switch (family) {
-			case LinuxNativeInterface.FTS_WINDOW_EVENT:
-				if (type == LinuxNativeInterface.FTS_WINDOW_CLOSE) {
+			case NativeInterface.FTS_WINDOW_EVENT:
+				if (type == NativeInterface.FTS_WINDOW_CLOSE) {
 					return false;
 				}
 				break;
-			case LinuxNativeInterface.FTS_TOUCH_EVENT:
+			case NativeInterface.FTS_TOUCH_EVENT:
 				fireTouchEvent(type, nativeEvents[i+2], nativeEvents[i+3], nativeEvents[i+4]);
 				break;
 			}
@@ -57,9 +57,9 @@ public class LinuxWindow extends GLWindow {
 	private void fireTouchEvent(int type, int button, int x, int y) {
 		TouchEvent event = new TouchEvent();
 		switch (type) {
-		case LinuxNativeInterface.FTS_MOUSE_DOWN : event.action = TouchEvent.Action.DOWN; break;
-		case LinuxNativeInterface.FTS_MOUSE_UP : event.action = TouchEvent.Action.UP; break;
-		case LinuxNativeInterface.FTS_MOUSE_MOVE : event.action = TouchEvent.Action.MOVE; break;
+		case NativeInterface.FTS_MOUSE_DOWN : event.action = TouchEvent.Action.DOWN; break;
+		case NativeInterface.FTS_MOUSE_UP : event.action = TouchEvent.Action.UP; break;
+		case NativeInterface.FTS_MOUSE_MOVE : event.action = TouchEvent.Action.MOVE; break;
 		}
 
 		event.x = x;

@@ -1,4 +1,4 @@
-package fts.demo.gl;
+package fts.linux;
 
 import fts.core.Application;
 import fts.core.Context;
@@ -6,12 +6,9 @@ import fts.core.Widget;
 import fts.core.Window;
 
 public class Main {
-	static {
-		System.loadLibrary("fts-demo");
-	}
 
 	public static void main(String[] args) {
-		Application app = new Application(new LinuxGLFactory(), new Context());
+		Application app = new Application(new ComponentFactory(), new Context());
 		Window window = Application.createWindow();
 		window.setTitle("First FTS window");
 		

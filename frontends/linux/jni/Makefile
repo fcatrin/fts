@@ -30,7 +30,7 @@ endif
 OBJDIR = ../obj
 LIBSDIR = ../libs
 
-LINK_TARGET = $(LIBSDIR)/$(LIBARCH)/$(LIBPREFIX)fts-demo.$(LIBEXT)
+LINK_TARGET = $(LIBSDIR)/$(LIBARCH)/$(LIBPREFIX)fts-linux.$(LIBEXT)
 
 CFLAGS += \
  -O2 -Wall -I . -g -I$(JAVA_HOME)/include/ 

@@ -1,4 +1,4 @@
 Rebuild header for NativeInterface:
 
 cd jni
-javah -classpath ../bin fts.demo.gl.LinuxNativeInterface
+javah -classpath ../bin fts.linux.NativeInterface

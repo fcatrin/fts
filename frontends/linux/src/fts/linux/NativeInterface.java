@@ -1,7 +1,10 @@
-package fts.demo.gl;
+package fts.linux;
 
-public class LinuxNativeInterface {
-	
+public class NativeInterface {
+	static {
+		System.loadLibrary("fts-linux");
+	}
+
 	public static final int FTS_WINDOW_EVENT = 1;
 	public static final int FTS_TOUCH_EVENT = 2;
 
