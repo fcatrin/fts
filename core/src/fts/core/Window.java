@@ -49,8 +49,11 @@ public abstract class Window {
 	}
 
 	protected boolean dispatchTouchEvent(TouchEvent touchEvent) {
-		System.out.println(touchEvent);
+		if (view.dispatchTouchEvent(touchEvent)) return true;
+		onTouchEvent(touchEvent);
 		return true;
 	}
+	
+	protected void onTouchEvent(TouchEvent touchEvent) {}
 	
 }

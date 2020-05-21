@@ -7,11 +7,11 @@
         background="#C040C0"
         height="wrap_content"
         text="First Button" />
-    <TextWidget
+    <ButtonWidget
         width="0pt"
-        background="#C0A0A0"
+        background="@drawable/button"
         height="wrap_content"
-        text="Second Button" />
+        text="Second" />
     <TextWidget
         width="0pt"
         background="#A0A0C0"

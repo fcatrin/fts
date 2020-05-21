@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fts.events.PaintEvent;
+import fts.events.TouchEvent;
 import fts.graphics.Rectangle;
 
 public abstract class Container extends Widget {
@@ -75,6 +76,17 @@ public abstract class Container extends Widget {
 			if (child.needsLayout()) return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
+		for(Widget child : children) {
+			Rectangle childBounds = child.getBounds();
+			if (childBounds.contains(touchEvent.x, touchEvent.y)) {
+				if (child.dispatchTouchEvent(touchEvent)) return true;
+			}
+		}
+		return super.dispatchTouchEvent(touchEvent);
 	}
 	
 }

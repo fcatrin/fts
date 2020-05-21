@@ -18,6 +18,13 @@ public class Rectangle {
 	public Rectangle clone() {
 		return new Rectangle(x, y, width, height);
 	}
+
+	public boolean contains(int x, int y) {
+		return 
+			this.x <= x && x <= (this.x + this.width) &&
+			this.y <= y && y <= (this.y + this.height);
+	}
+
 	
 	@Override
 	public String toString() {

@@ -7,6 +7,7 @@ import fts.events.PaintEvent;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
+import fts.graphics.SelectorDrawable;
 import fts.graphics.Sides;
 
 public abstract class Widget extends Component {
@@ -26,6 +27,8 @@ public abstract class Widget extends Component {
 	Window window;
 	
 	protected Drawable background;
+	
+	private boolean isClickable = false;
 	
 	public Widget(Window window) {
 		nativeView = Application.createNativeView(window);
@@ -59,12 +62,12 @@ public abstract class Widget extends Component {
 	protected void onTouchDown(TouchEvent e) {
 		setPressed(true);
 	}
+	
 	protected void onTouchMove(TouchEvent e) {
-		setPressed(false);
 	}
 	
 	protected void onTouchUp(TouchEvent e) {
-		onTouchUp(e);
+		setPressed(false);
 	}
 
 	protected void onKeyPressed(KeyEvent e) {
@@ -111,11 +114,23 @@ public abstract class Widget extends Component {
 	public boolean setState(State state, boolean value) {
 		boolean changed = this.state[state.ordinal()] != value;
 		this.state[state.ordinal()] = value;
+		if (background instanceof SelectorDrawable) {
+			SelectorDrawable selectorDrawable = (SelectorDrawable)background;
+			selectorDrawable.setState(state.ordinal(), value);
+		}
 		return changed;
 	}
 	
 	public boolean getState(State state) {
 		return this.state[state.ordinal()];
+	}
+
+	public boolean isClickable() {
+		return isClickable;
+	}
+
+	public void setClickable(boolean isClickable) {
+		this.isClickable = isClickable;
 	}
 
 	public void setPadding(int p) {
@@ -125,7 +140,7 @@ public abstract class Widget extends Component {
 		padding.bottom = p;
 	}
 	
-	public void setPaddingx(int left, int top, int right, int bottom) {
+	public void setPadding(int left, int top, int right, int bottom) {
 		padding.left = left;
 		padding.top = top;
 		padding.right = right;
@@ -294,6 +309,14 @@ public abstract class Widget extends Component {
 				bounds.y + padding.top,
 				bounds.width - paddingSize.x,
 				bounds.height - paddingSize.y);
+	}
+
+	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
+		if (isClickable) {
+			onTouchEvent(touchEvent);
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -15,11 +15,25 @@ public class SelectorDrawable extends Drawable {
 	List<String> filters = new ArrayList<String>();
 	List<Drawable> drawables = new ArrayList<Drawable>();
 
+	public SelectorDrawable() {}
+	
+	public SelectorDrawable(Element node) {
+		load(node);
+	}
+	
 	public void load(Element node) {
-		List<Element> elements = SimpleXML.getElements(node);
+		List<Element> elements = SimpleXML.getElements(node, "item");
 		for(Element element : elements) {
 			filters.add(createFilter(element, filterNames));
-			drawables.add(Application.createDrawable(SimpleXML.getElement(element, "drawable")));
+			String drawable = SimpleXML.getAttribute(element, "drawable");
+			if (drawable!=null) {
+				drawables.add(Application.loadDrawable(drawable));
+			} else {
+				List<Element> childElements = SimpleXML.getElements(element);
+				if (childElements.size() != 1) throw new RuntimeException("Wrong number of drawable elements on selector " + element);
+				
+				drawables.add(Application.createDrawable(childElements.get(0))); 
+			}
 		}
 	}
 	

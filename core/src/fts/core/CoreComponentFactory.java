@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 
 import fts.graphics.Color;
 import fts.graphics.Drawable;
+import fts.graphics.SelectorDrawable;
 import fts.graphics.Shape;
 import fts.graphics.TextDrawable;
 
@@ -29,6 +30,8 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 		String name = node.getNodeName();
 		if (name.equals("shape")) {
 			return new Shape(node);
+		} else if (name.equals("selector")) {
+			return new SelectorDrawable(node);
 		} else if (name.equals("text")) {
 			return new TextDrawable(node);
 		}
