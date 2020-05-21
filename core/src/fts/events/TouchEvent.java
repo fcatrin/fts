@@ -13,4 +13,9 @@ public class TouchEvent {
 	public int y;
 	public Widget widget;
 	public long timestamp;
+	
+	@Override
+	public String toString() {
+		return String.format("{TouchEvent action:%s %d,%d}", action.name(), x, y);
+	}
 }

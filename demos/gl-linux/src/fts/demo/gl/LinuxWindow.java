@@ -1,5 +1,6 @@
 package fts.demo.gl;
 
+import fts.events.TouchEvent;
 import fts.gl.GLWindow;
 import fts.graphics.Point;
 
@@ -44,11 +45,23 @@ public class LinuxWindow extends GLWindow {
 				if (type == LinuxNativeInterface.FTS_WINDOW_CLOSE) {
 					return false;
 				}
-				
+				break;
+			case LinuxNativeInterface.FTS_TOUCH_EVENT:
+				fireTouchEvent(type, nativeEvents[i+2], nativeEvents[i+3], nativeEvents[i+4]);
+				break;
 			}
-
 		}
 		return true;
+	}
+
+	private void fireTouchEvent(int type, int button, int x, int y) {
+		TouchEvent event = new TouchEvent();
+		event.action = type == LinuxNativeInterface.FTS_MOUSE_DOWN ?
+				TouchEvent.Action.DOWN : TouchEvent.Action.UP;
+		event.x = x;
+		event.y = y;
+		event.timestamp = System.currentTimeMillis();
+		dispatchTouchEvent(event);
 	}
 
 }

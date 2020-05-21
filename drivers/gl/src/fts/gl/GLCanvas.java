@@ -94,13 +94,11 @@ public class GLCanvas extends Canvas {
 
 	@Override
 	public void viewStart(int x, int y, int width, int height) {
-		System.out.println("viewStart " + x + "," + y + " - " + width + "x" + height);
 		GLNativeInterface.viewStart(x, y, width, height);
 	}
 
 	@Override
 	public void viewEnd() {
-		System.out.println("viewEnd");
 		GLNativeInterface.viewEnd();
 	}
 

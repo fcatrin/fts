@@ -47,5 +47,10 @@ public abstract class Window {
 	public void setCanvas(Canvas canvas) {
 		this.canvas = canvas;
 	}
+
+	protected boolean dispatchTouchEvent(TouchEvent touchEvent) {
+		System.out.println(touchEvent);
+		return true;
+	}
 	
 }
