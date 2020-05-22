@@ -1,0 +1,9 @@
+<project name="build-fts-core" default="build" basedir=".">
+<property file="../../fts-core.local.properties"/>
+<property file="../../fts.local.properties"/>
+
+<target name="build">
+    <exec executable="${fts.dir}/tools/package.sh" failonerror="true"/>
+</target>
+
+</project>

@@ -1,0 +1,13 @@
+<project name="MegaPlay JNI" default="-pre-build" basedir=".">
+<property file="../fts-linux-demo.local.properties"/>
+
+<target name="-pre-build">
+    <exec executable="${ndk.dir}/make" failonerror="true"/>
+</target>
+
+<target name="clean">
+    <exec executable="${ndk.dir}/make" failonerror="true">
+        <arg value="clean"/>
+    </exec>
+</target>
+</project>
