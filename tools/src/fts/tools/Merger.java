@@ -119,7 +119,7 @@ public class Merger {
 			String libraryDirName = properties.getProperty("libs." + i);
 			if (libraryDirName == null) break;
 			
-			File libraryDir = new File(libraryDirName);
+			File libraryDir = new File(projectDir, libraryDirName);
 			libraryDirs.add(libraryDir);
 		}
 		return libraryDirs;
