@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -30,17 +31,20 @@ public class Packager {
 			return;
 		}
 		properties.load(new FileInputStream(propertiesFile));
+		
 	}
 
-	protected void buildPackage() throws FileNotFoundException, IOException {
+	protected void buildPackage(List<String> deps) throws FileNotFoundException, IOException {
 		List<File> libraryDirs = getLibraryDirs(); 
 		for(File libraryDir : libraryDirs) {
 			Packager packager = new Packager(libraryDir, destinationDir);
-			packager.buildPackage();
+			packager.buildPackage(deps);
 		}
 		
 		String packageName = getPackageName();
 		String packageFileName = packageName + "-resources.jar";
+		
+		deps.add(packageName);
 		
 		File resourcesFile = new File(destinationDir, packageFileName);
 		System.out.println("Creating " + resourcesFile.getCanonicalPath());
@@ -90,6 +94,16 @@ public class Packager {
 	protected String getPackageName() {
 		return properties.getProperty("package");
 	}
+
+	private void saveDeps(List<String> deps) throws IOException {
+		File depsFile = new File(destinationDir, "deps.properties");
+		FileWriter fw = new FileWriter(depsFile);
+		for(String dep : deps) {
+			fw.append(dep);
+			fw.append("\n");
+		}
+		fw.close();
+	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		File curDir = new File(".");
@@ -100,7 +114,10 @@ public class Packager {
 			return;
 		}
 
+		List<String> deps = new ArrayList<String>();
 		Packager packager = new Packager(new File("."), dstDir);
-		packager.buildPackage();
+		packager.buildPackage(deps);
+		packager.saveDeps(deps);
 	}
+
 }
