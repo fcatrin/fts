@@ -17,6 +17,7 @@ public class MainFTSLinuxDemo {
 		Widget rootView = app.inflate(window, "main");
 		window.setContentView(rootView);
 		window.open();
-		window.mainLoop();	}
+		window.mainLoop();
+	}
 
 }
