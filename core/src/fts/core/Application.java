@@ -2,6 +2,7 @@ package fts.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -17,11 +18,13 @@ import fts.graphics.Drawable;
 
 public class Application {
 	static ComponentFactory factory;
+	static ResourceLocator resourceLocator;
 	static Context context;
 	
-	public Application(ComponentFactory factory, Context context) {
+	public Application(ComponentFactory factory, ResourceLocator resourceLocator, Context context) {
 		Application.factory = factory;
 		Application.context = context;
+		Application.resourceLocator = resourceLocator;
 		loadFonts();
 		loadColors();
 		loadStrings();
@@ -56,15 +59,21 @@ public class Application {
 		for(Element fontDescriptor : fontDescriptors) {
 			String name = fontDescriptor.getAttribute("name");
 			String file = fontDescriptor.getTextContent();
-			File fontFile = new File("resources/fonts/" + file);
-			if (!fontFile.exists()) {
-				throw new RuntimeException("Font " + name + " not found: " + fontFile.getAbsolutePath());
+			String location = "resources/fonts/" + file;
+			if (!resourceLocator.exists(location)) {
+				throw new RuntimeException("Font " + name + " not found on " + location);
 			}
 			
-			factory.registerFont(name, fontFile);
-			if (!defaultHasBeenRegistered) {
-				factory.registerFont("default", fontFile);
-				defaultHasBeenRegistered = true;
+			try {
+				File fontFile = resourceLocator.extract(location);
+				
+				factory.registerFont(name, fontFile);
+				if (!defaultHasBeenRegistered) {
+					factory.registerFont("default", fontFile);
+					defaultHasBeenRegistered = true;
+				}
+			} catch (IOException e) {
+				throw new RuntimeException("Cannot extract font " + location, e);
 			}
 		}
 	}
@@ -159,23 +168,26 @@ public class Application {
 		}
 	}
 	
-	private static File findResourceRaw(String type, String name) {
-		File file = new File("resources/" + type + "/" + name); // TODO replace by resource lookup
-		if (!file.exists()) {
-			throw new RuntimeException("File not found " + file.getAbsolutePath());
+	private static InputStream findResourceRaw(String type, String name) {
+		String location = "resources/" + type + "/" + name;
+		try {
+			InputStream is = resourceLocator.getResource(location);
+			if (is == null) {
+				throw new RuntimeException("Resource not found " + location);
+			}
+			return is;
+		} catch (IOException e) {
+			throw new RuntimeException("Cannot load resource" + location, e);
 		}
-		return file;
 	}
 	
 	private static Document loadResource(String type, String name) {
-		File file = findResourceRaw(type, name + ".xml");
+		InputStream is = findResourceRaw(type, name + ".xml");
 
 		try {
-			 return SimpleXML.parse(file);
+			 return SimpleXML.parse(is);
 		} catch (ParserException e) {
-			throw new RuntimeException("Cannot parse XML " + file.getAbsolutePath(), e);
-		} catch (IOException e) {
-			throw new RuntimeException("Cannot parse XML " + file.getAbsolutePath(), e);
+			throw new RuntimeException("Cannot parse XML " + type + "/" + name, e);
 		}
 	}
 
