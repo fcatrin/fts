@@ -26,7 +26,7 @@ public class Packager {
 		
 		File propertiesFile = new File(projectDir, "fts.properties");
 		if (!propertiesFile.exists()) {
-			System.out.println("FTS properties not found: " + propertiesFile.getAbsolutePath());
+			System.out.println("FTS properties not found: " + propertiesFile.getCanonicalPath());
 			return;
 		}
 		properties.load(new FileInputStream(propertiesFile));
@@ -43,6 +43,7 @@ public class Packager {
 		String packageFileName = packageName + "-resources.jar";
 		
 		File resourcesFile = new File(destinationDir, packageFileName);
+		System.out.println("Creating " + resourcesFile.getCanonicalPath());
 		buildZip(resourcesFile, packageName);
 	}
 	
@@ -59,20 +60,22 @@ public class Packager {
 		File dir = new File(projectDir, path);
 		File files[] = dir.listFiles();
 		
+		if (files == null) return;
+		
 		for(File file : files) {
 			String fileName = file.getName();
 			if (file.isDirectory()) {
 				addFiles(zos, packagePath, path + "/" + fileName);
 			} else {
 				zos.putNextEntry(new ZipEntry(packagePath + "/" + path + "/" + fileName));
-		        byte[] bytes = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+		        byte[] bytes = Files.readAllBytes(Paths.get(file.getCanonicalPath()));
 		        zos.write(bytes, 0, bytes.length);
 			}
 	        zos.closeEntry();
 		}
 	}
 
-	protected List<File> getLibraryDirs() {
+	protected List<File> getLibraryDirs() throws IOException {
 		List<File> libraryDirs = new ArrayList<File>();
 		for(int i=1; i<100; i++) {
 			String libraryDirName = properties.getProperty("libs." + i);
@@ -93,7 +96,7 @@ public class Packager {
 		File dstDir = new File(curDir, "bin");
 		
 		if (!dstDir.exists()) {
-			System.out.println("Directory not found: " + dstDir.getAbsolutePath());
+			System.out.println("Directory not found: " + dstDir.getCanonicalPath());
 			return;
 		}
 

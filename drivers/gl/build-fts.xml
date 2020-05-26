@@ -1,4 +1,4 @@
-<project name="build-fts-linux-demo" default="build" basedir=".">
+<project name="build-fts-gl" default="build" basedir=".">
 <property file="../../../fts.local.properties"/>
 
 <target name="build">
