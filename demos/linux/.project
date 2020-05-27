@@ -16,7 +16,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/FTS Linux Demo Builder.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/FTS Linux Demo JNI.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
@@ -26,7 +26,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/FTSLinuxDemoResources.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/FTS Linux Demo Resources.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>

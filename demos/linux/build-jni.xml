@@ -2,11 +2,11 @@
 <property file="../fts-linux-demo.local.properties"/>
 
 <target name="-pre-build">
-    <exec executable="${ndk.dir}/make" failonerror="true"/>
+    <exec executable="make" failonerror="true" dir="jni"/>
 </target>
 
 <target name="clean">
-    <exec executable="${ndk.dir}/make" failonerror="true">
+    <exec executable="make" failonerror="true" dir="jni">
         <arg value="clean"/>
     </exec>
 </target>
