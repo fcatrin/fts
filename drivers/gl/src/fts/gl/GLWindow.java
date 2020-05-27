@@ -35,6 +35,7 @@ public abstract class GLWindow extends Window {
 			onPaint(paint);
 			GLNativeInterface.frameEnd();
 			running = sync();
+			if (getOnFrameCallback()!=null) getOnFrameCallback().onResult();
 		}
 	}
 	

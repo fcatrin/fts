@@ -9,6 +9,7 @@ import fts.widgets.AbsoluteContainer;
 public abstract class Window {
 	private Widget view;
 	private Canvas canvas;
+	private SimpleCallback onFrameCallback;
 
 	public abstract void setTitle(String title);
 	public abstract void open();
@@ -55,5 +56,13 @@ public abstract class Window {
 	}
 	
 	protected void onTouchEvent(TouchEvent touchEvent) {}
+	
+	public void setOnFrameCallback(SimpleCallback onFrameCallback) {
+		this.onFrameCallback = onFrameCallback;
+	}
+	
+	public SimpleCallback getOnFrameCallback() {
+		return onFrameCallback;
+	}
 	
 }
