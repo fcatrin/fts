@@ -22,7 +22,7 @@ struct event {
 	};
 };
 
-void window_open(int width, int height);
+void window_open(const char *title, int req_width, int req_height);
 void window_swap_buffers();
 int  window_process_events();
 struct event *window_get_events();

@@ -9,8 +9,11 @@ extern "C" {
 #include "window.h"
 
 JNIEXPORT void JNICALL Java_fts_linux_NativeInterface_windowOpen
-  (JNIEnv *env , jclass thiz, jint width, jint height) {
-	window_open(width, height);
+  (JNIEnv *env , jclass thiz, jstring sTitle, jint width, jint height) {
+
+	const char* title = env->GetStringUTFChars(sTitle, 0);
+	window_open(title, width, height);
+	env->ReleaseStringUTFChars(sTitle, title);
 }
 
 JNIEXPORT void JNICALL Java_fts_linux_NativeInterface_windowSwapBuffers

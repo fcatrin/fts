@@ -22,10 +22,10 @@ extern "C" {
 /*
  * Class:     fts_linux_NativeInterface
  * Method:    windowOpen
- * Signature: (II)V
+ * Signature: (Ljava/lang/String;II)V
  */
 JNIEXPORT void JNICALL Java_fts_linux_NativeInterface_windowOpen
-  (JNIEnv *, jclass, jint, jint);
+  (JNIEnv *, jclass, jstring, jint, jint);
 
 /*
  * Class:     fts_linux_NativeInterface

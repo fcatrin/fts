@@ -28,12 +28,12 @@ enum {
 struct event event_queue[MAX_EVENT_QUEUE];
 int event_queue_index;
 
-void window_open(int req_width, int req_height) {
+void window_open(const char *title, int req_width, int req_height) {
 	width  = req_width;
 	height = req_height;
 
 	uint32 window_flags = SDL_WINDOW_OPENGL;
-	window = SDL_CreateWindow("FTS GL Demo", 0, 0, width, height, window_flags);
+	window = SDL_CreateWindow(title, 0, 0, width, height, window_flags);
 	SDL_GLContext context = SDL_GL_CreateContext(window);
 }
 

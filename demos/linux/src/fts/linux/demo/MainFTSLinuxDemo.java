@@ -11,8 +11,7 @@ public class MainFTSLinuxDemo {
 
 	public static void main(String[] args) {
 		Application app = new Application(new ComponentFactory(), new DesktopResourceLocator(), new Context());
-		Window window = Application.createWindow();
-		window.setTitle("First FTS window");
+		Window window = Application.createWindow("Linux FTS window", 820, 240);
 		
 		Widget rootView = app.inflate(window, "main");
 		window.setContentView(rootView);

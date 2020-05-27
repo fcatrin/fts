@@ -8,19 +8,22 @@ public class Window extends GLWindow {
 
 	private int height;
 	private int width;
+	private String title;
 
-	public Window(int width, int height) {
+	public Window(String title, int width, int height) {
 		this.width = width;
 		this.height = height;
+		this.title = title;
 	}
 
 	@Override
 	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Override
 	public void open() {
-		NativeInterface.windowOpen(width, height);
+		NativeInterface.windowOpen(title, width, height);
 	}
 
 	@Override

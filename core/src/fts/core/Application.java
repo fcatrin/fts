@@ -30,8 +30,8 @@ public class Application {
 		loadStrings();
 	}
 	
-	public static Window createWindow() {
-		return factory.createWindow();
+	public static Window createWindow(String title, int width, int height) {
+		return factory.createWindow(title, width, height);
 	}
 	
 	public static NativeView createNativeView(Window w) {
@@ -121,6 +121,9 @@ public class Application {
 		}
 		
 		Widget widget = factory.createWidget(node);
+		if (widget == null) try {
+			widget = (Widget)createComponentInstance(w, name);
+		} catch (Exception e) {}
 		if (widget == null) {
 			String viewClassName = "fts.widgets." + name;
 			widget = (Widget)createComponentInstance(w, viewClassName);
