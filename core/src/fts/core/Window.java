@@ -27,6 +27,10 @@ public abstract class Window {
 		this.view = container;
 	}
 	
+	public Widget findWidget(String id) {
+		return view.findWidget(id);
+	}
+	
 	public void layout() {
 		Point bounds = getBounds();
 		view.onMeasure(bounds.x, bounds.y);

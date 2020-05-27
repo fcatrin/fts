@@ -20,6 +20,8 @@ public abstract class Widget extends Component {
 	public static final String VALUE_MATCH_PARENT = "match_parent";
 	public static final String VALUE_WRAP_CONTENT = "wrap_content";
 
+	String id;
+	
 	LayoutInfo layoutInfo = new LayoutInfo();
 	boolean layoutRequested = false;
 	
@@ -38,7 +40,15 @@ public abstract class Widget extends Component {
 	public Window getWindow() {
 		return window;
 	}
-	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	Runnable invalidateTask = new Runnable() {
 		@Override
 		public void run() {
@@ -324,4 +334,8 @@ public abstract class Widget extends Component {
 		return false;
 	}
 
+	public Widget findWidget(String id) {
+		if (id!=null && id.equals(this.id)) return this;
+		return null;
+	}
 }

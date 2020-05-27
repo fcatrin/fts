@@ -1,14 +1,18 @@
 package fts.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fts.events.PaintEvent;
 import fts.events.TouchEvent;
+import fts.graphics.Point;
 import fts.graphics.Rectangle;
 
 public abstract class Container extends Widget {
 	List<Widget> children = new ArrayList<Widget>();
+	Map<String, Widget> knownWidgets = new HashMap<String, Widget>();
 
 	public Container(Window w) {
 		super(w);
@@ -50,6 +54,26 @@ public abstract class Container extends Widget {
 
 	public void add(Widget view) {
 		children.add(view);
+		String id = view.getId();
+		if (id!=null && !knownWidgets.containsKey(id)) {
+			knownWidgets.put(id,  view);
+		}
+	}
+	
+	@Override
+	public Widget findWidget(String id) {
+		Widget w = super.findWidget(id);
+		if (w!=null) return w;
+		
+		w = knownWidgets.get(id);
+		if (w!=null) return w;
+		
+		for(Widget child : children) {
+			w = child.findWidget(id);
+			if (w!=null) return w;
+		}
+		
+		return null;
 	}
 
 	public List<Widget> getChildren() {

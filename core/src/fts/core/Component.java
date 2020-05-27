@@ -71,7 +71,7 @@ public abstract class Component {
 			String alias = value.substring("@string/".length());
 			value = Application.factory.getString(alias);
 		}
-		if (propertyName.equals("text")) {
+		if (propertyName.equals("text") || propertyName.equals("id")) {
 			return value;
 		} else if (colorProperties.contains(propertyName)) {
 				return resolvePropertyValueColor(propertyName, value);
