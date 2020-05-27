@@ -121,9 +121,11 @@ public class Application {
 		}
 		
 		Widget widget = factory.createWidget(node);
-		if (widget == null) try {
+		
+		if (widget == null) {
 			widget = (Widget)createComponentInstance(w, name);
-		} catch (Exception e) {}
+		}
+		
 		if (widget == null) {
 			String viewClassName = "fts.widgets." + name;
 			widget = (Widget)createComponentInstance(w, viewClassName);
@@ -156,7 +158,6 @@ public class Application {
 		try {
 			componentClass = Class.forName(className);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 			return null;
 		}
 		
