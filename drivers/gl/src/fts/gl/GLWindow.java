@@ -12,10 +12,10 @@ import fts.graphics.Point;
 
 public abstract class GLWindow extends Window {
 
+	PaintEvent paintEvent = new PaintEvent();
 	boolean running;
 	
-	@Override
-	public void mainLoop() {
+	public void init() {
 		running = true;
 		GLNativeInterface.uiInit();
 		
@@ -25,17 +25,25 @@ public abstract class GLWindow extends Window {
 		
 		createAllFonts();
 		layout();
-		
-		PaintEvent paint = new PaintEvent();
-		paint.canvas = canvas;
-		paint.clip = null;
-		
+	}
+	
+	public void render() {
+		paintEvent.canvas = getCanvas();
+		paintEvent.clip = null;
+
+		Point size = this.getBounds();
+		GLNativeInterface.frameStart(size.x, size.y);
+		onPaint(paintEvent);
+		GLNativeInterface.frameEnd();
+		running = sync();
+		if (getOnFrameCallback()!=null) getOnFrameCallback().onResult();
+	}
+	
+	@Override
+	public void mainLoop() {
+		init();
 		while (running) {
-			GLNativeInterface.frameStart(size.x, size.y);
-			onPaint(paint);
-			GLNativeInterface.frameEnd();
-			running = sync();
-			if (getOnFrameCallback()!=null) getOnFrameCallback().onResult();
+			render();
 		}
 	}
 	
