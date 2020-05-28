@@ -25,7 +25,6 @@ public class GLRenderer implements Renderer {
 
 	@Override
 	public void onDrawFrame(GL10 gl) {
-		Log.d("RENDER", "OnRender");
 		window.render();
 	}
 

@@ -18,7 +18,7 @@ public class FtsActivity extends Activity {
 		
 		setContentView(R.layout.main);
 		
-		Application app = new Application(new ComponentFactory(), new AndroidResourceLocator(this), new Context());
+		Application app = new Application(new ComponentFactory(), new AndroidResourceLocator(this), new AndroidLogger(), new Context());
 		Window window = Application.createWindow("", 0, 0);
 
 		Widget rootView = app.inflate(window, "main");

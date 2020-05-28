@@ -20,11 +20,14 @@ public class Application {
 	static ComponentFactory factory;
 	static ResourceLocator resourceLocator;
 	static Context context;
+	static Logger logger;
 	
-	public Application(ComponentFactory factory, ResourceLocator resourceLocator, Context context) {
+	public Application(ComponentFactory factory, ResourceLocator resourceLocator, Logger logger, Context context) {
 		Application.factory = factory;
 		Application.context = context;
 		Application.resourceLocator = resourceLocator;
+		Application.logger = logger;
+		
 		loadFonts();
 		loadColors();
 		loadStrings();
