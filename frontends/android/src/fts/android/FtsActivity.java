@@ -13,6 +13,9 @@ public class FtsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		AndroidUtils.configureAsFullscreen(this);
+		
 		setContentView(R.layout.main);
 		
 		Application app = new Application(new ComponentFactory(), new AndroidResourceLocator(this), new Context());
