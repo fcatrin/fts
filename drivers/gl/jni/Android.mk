@@ -1,7 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := fts_gl_android
+LOCAL_MODULE    := fts-gl
 LOCAL_SRC_FILES := fts_gl.cpp graphics.c utils.c libs/nanovg/nanovg.c
 LOCAL_LDLIBS    += -llog -lGLESv2
 

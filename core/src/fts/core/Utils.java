@@ -729,4 +729,8 @@ public final class Utils {
 			return null;
 		}
 	}
+	
+	public static boolean isAndroid() {
+		return System.getenv("ANDROID_DATA") != null;
+	}
 }
