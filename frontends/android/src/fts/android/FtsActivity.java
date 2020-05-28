@@ -19,7 +19,10 @@ public class FtsActivity extends Activity {
 
 		Widget rootView = app.inflate(window, "main");
 		window.setContentView(rootView);
-
+		
+		GLRenderer renderer = new GLRenderer((AndroidWindow)window);
+		GLSurface surface = (GLSurface)findViewById(R.id.fts_view);
+		surface.setRenderer(renderer);
 	}
 
 }
