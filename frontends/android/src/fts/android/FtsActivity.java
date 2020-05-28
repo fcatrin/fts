@@ -1,6 +1,7 @@
 package fts.android;
 
 import android.app.Activity;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import fts.core.Application;
 import fts.core.Context;
@@ -23,6 +24,6 @@ public class FtsActivity extends Activity {
 		GLRenderer renderer = new GLRenderer((AndroidWindow)window);
 		GLSurface surface = (GLSurface)findViewById(R.id.fts_view);
 		surface.setRenderer(renderer);
+		surface.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 	}
-
 }

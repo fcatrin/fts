@@ -8,6 +8,7 @@ public class GLSurface extends GLSurfaceView {
 
 	public GLSurface(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		setEGLContextClientVersion(2);
 	}
 
 }

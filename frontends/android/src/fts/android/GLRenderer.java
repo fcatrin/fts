@@ -4,6 +4,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLSurfaceView.Renderer;
+import fts.core.Log;
 
 public class GLRenderer implements Renderer {
 	AndroidWindow window;
@@ -24,6 +25,7 @@ public class GLRenderer implements Renderer {
 
 	@Override
 	public void onDrawFrame(GL10 gl) {
+		Log.d("RENDER", "OnRender");
 		window.render();
 	}
 
