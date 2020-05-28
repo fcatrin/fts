@@ -141,7 +141,7 @@ public class Merger {
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParserException, TransformerFactoryConfigurationError, TransformerException {
 		File curDir = new File(".");
-		File dstDir = new File(curDir, "bin");
+		File dstDir = new File(curDir, args[1]);
 		
 		if (!dstDir.exists()) {
 			System.out.println("Directory not found: " + dstDir.getCanonicalPath());
