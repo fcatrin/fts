@@ -105,7 +105,7 @@ void graphics_set_font_name(const char *name) {
 }
 
 int* graphics_get_text_size(const char *text) {
-	static int size[2];
+	static int size[4];
 
 	float bounds[4];
 	nvgTextBounds(vg, 0, 0, text, NULL, bounds);
