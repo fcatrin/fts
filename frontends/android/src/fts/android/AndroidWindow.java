@@ -27,6 +27,7 @@ public class AndroidWindow extends GLWindow {
 	public void setSize(int width, int height) {
 		bounds.x = width;
 		bounds.y = height;
+		layout();
 	}
 
 }

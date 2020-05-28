@@ -24,7 +24,6 @@ public abstract class GLWindow extends Window {
 		setCanvas(canvas);
 		
 		createAllFonts();
-		layout();
 	}
 	
 	public void render() {
