@@ -1,0 +1,20 @@
+<LinearContainer
+    width="match_parent"
+    height="wrap_content"
+    orientation="horizontal">
+    <TextWidget
+        width="0pt"
+        background="#C040C0"
+        height="wrap_content"
+        text="First Button" />
+    <ButtonWidget
+        width="0pt"
+        background="@drawable/button"
+        height="wrap_content"
+        text="Second" />
+    <TextWidget
+        width="0pt"
+        background="#A0A0C0"
+        height="wrap_content"
+        text="Third Button" />
+</LinearContainer>
