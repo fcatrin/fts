@@ -17,7 +17,7 @@ void graphics_draw_text(int x, int y, const char *text);
 void graphics_draw_rect(int x, int y, int width, int height, int radius);
 void graphics_draw_filled_rect(int x, int y, int width, int height, int radius);
 void graphics_draw_gradient_rect(int x, int y, int width, int height, int raius, int angle);
-
+void graphics_draw_line(int x, int y, int dx, int dy);
 
 bool graphics_create_font(const char *alias, const char *path);
 void graphics_set_font_size(int size);

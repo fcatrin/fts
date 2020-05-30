@@ -89,6 +89,14 @@ void graphics_draw_gradient_rect(int x, int y, int width, int height, int radius
 	nvgFill(vg);
 }
 
+void graphics_draw_line(int x, int y, int dx, int dy) {
+	nvgBeginPath(vg);
+	nvgMoveTo(vg, x, y);
+	nvgLineTo(vg, dx, dy);
+	nvgStrokeColor(vg, nvgRGBA(r, g, b, a));
+	nvgStroke(vg);
+}
+
 bool graphics_create_font(const char *alias, const char *path) {
 	int result = nvgCreateFont(vg, alias, path);
 	fts_gl_log_debug("create font %s %s result:%s", alias, path, result >= 0 ? "true":"false");

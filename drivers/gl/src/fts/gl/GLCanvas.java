@@ -102,4 +102,9 @@ public class GLCanvas extends Canvas {
 		GLNativeInterface.viewEnd();
 	}
 
+	@Override
+	public void drawLine(int x, int y, int dx, int dy) {
+		GLNativeInterface.drawLine(x, y, dx, dy);
+	}
+
 }

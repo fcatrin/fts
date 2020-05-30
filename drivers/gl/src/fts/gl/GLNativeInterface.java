@@ -25,6 +25,8 @@ public class GLNativeInterface {
 			int r_start, int g_start, int b_start, int a_start,
 			int r_end, int g_end, int b_end, int a_end);
 	
+	public static native void drawLine(int x, int y, int dx, int dy);
+
 	public static native int[] getTextSize(String text);
 	
 	public static native boolean createFont(String alias, String path);

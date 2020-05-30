@@ -44,6 +44,10 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawGraidentRect
 	graphics_draw_gradient_rect(x, y, width, height, radius, angle);
 }
 
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawLine
+  (JNIEnv *env, jclass thiz, jint x, jint y, jint dx, jint dy) {
+	graphics_draw_line(x, y, dx, dy);
+}
 
 JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_frameStart
   (JNIEnv *env, jclass thiz, jint width, jint height) {

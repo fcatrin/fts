@@ -89,6 +89,14 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawGraidentRect
 
 /*
  * Class:     fts_gl_GLNativeInterface
+ * Method:    drawLine
+ * Signature: (IIII)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawLine
+  (JNIEnv *, jclass, jint, jint, jint, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
  * Method:    getTextSize
  * Signature: (Ljava/lang/String;)[I
  */

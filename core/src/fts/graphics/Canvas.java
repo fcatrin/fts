@@ -45,4 +45,6 @@ public abstract class Canvas {
 	public abstract void drawText(int x, int y, int width, int height, String text);
 	public abstract void drawGradientRect(int x, int y, int width, int height, int radius,
 			int angle, Color start, Color end);
+	
+	public abstract void drawLine(int x, int y, int dx, int dy);
 }
