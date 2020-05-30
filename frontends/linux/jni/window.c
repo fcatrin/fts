@@ -33,7 +33,7 @@ void window_open(const char *title, int req_width, int req_height) {
 	height = req_height;
 
 	uint32 window_flags = SDL_WINDOW_OPENGL;
-	window = SDL_CreateWindow(title, 0, 0, width, height, window_flags);
+	window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, window_flags);
 	SDL_GLContext context = SDL_GL_CreateContext(window);
 }
 
