@@ -29,6 +29,7 @@ public abstract class Component {
 		
 		dimensionProperties.add("strokeWidth");
 		dimensionProperties.add("radius");
+		dimensionProperties.add("padding");
 		
 		intProperties.add("maxLines");
 	}
@@ -55,7 +56,7 @@ public abstract class Component {
 		String methodName = prefix + name.substring(0, 1).toUpperCase(Locale.US) +name.substring(1);
 		Method[] methods = _class.getDeclaredMethods();
 		for (Method method : methods ) {
-			if (method.getName().equals(methodName)) return method;
+			if (method.getName().equals(methodName) && method.getParameterCount() == 1) return method;
 		}
 		
 		Class superClass = _class.getSuperclass();
@@ -145,7 +146,7 @@ public abstract class Component {
 		}
 	}
 
-	private Color resolvePropertyValueColor(String propertyName, String value) {
+	public Color resolvePropertyValueColor(String propertyName, String value) {
 		if (value.startsWith("#")) {
 			Color color = Color.load(value);
 			return color;
