@@ -1,5 +1,6 @@
 package fts.core;
 
+import fts.events.OnClickListener;
 import fts.events.KeyEvent;
 import fts.events.TouchEvent;
 import fts.events.TouchEvent.Action;
@@ -31,6 +32,7 @@ public abstract class Widget extends Component {
 	protected Drawable background;
 	
 	private boolean isClickable = false;
+	private OnClickListener onClickListener;
 	
 	public Widget(Window window) {
 		nativeView = Application.createNativeView(window);
@@ -74,15 +76,22 @@ public abstract class Widget extends Component {
 	}
 	
 	protected void onTouchMove(TouchEvent e) {
-		System.out.println("Move " + e.x + ", " + e.y + " " + this);
+		// System.out.println("Move " + e.x + ", " + e.y + " " + this);
 	}
 	
 	protected void onTouchUp(TouchEvent e) {
 		setPressed(false);
+		if (isClickable && onClickListener!=null) {
+			onClickListener.onClick(this);
+		}
 	}
 	
 	protected void onTouchExit(TouchEvent e) {
 		setPressed(false);
+	}
+
+	public void setOnClickListener(OnClickListener onClickListener) {
+		this.onClickListener = onClickListener;
 	}
 
 	protected void onKeyPressed(KeyEvent e) {
@@ -327,11 +336,8 @@ public abstract class Widget extends Component {
 	}
 
 	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
-		if (isClickable) {
-			onTouchEvent(touchEvent);
-			return true;
-		}
-		return false;
+		onTouchEvent(touchEvent);
+		return true;
 	}
 
 	public Widget findWidget(String id) {

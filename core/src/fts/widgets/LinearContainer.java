@@ -77,9 +77,10 @@ public class LinearContainer extends Container {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
 			
 			int height = layoutInfo.measuredHeight;
+			/*
 			if (i+1 == widgets.size()) {
 				height = bounds.height - padding.top - padding.bottom;
-			}
+			}*/
 			
 			child.setBounds(x, y, layoutInfo.measuredWidth, height);
 			y += layoutInfo.measuredHeight;

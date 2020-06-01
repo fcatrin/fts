@@ -90,7 +90,7 @@ public abstract class Component {
 		throw new RuntimeException("don't know how to handle " + propertyName + " in component " + getClass().getName());
 	}
 
-	private Align resolveAlign(String propertyName, String spec) {
+	public Align resolveAlign(String propertyName, String spec) {
 		Align align = new Align();
 		
 		String parts[] = spec.split("[|]");
@@ -117,7 +117,7 @@ public abstract class Component {
 		return align;
 	}
 
-	private int resolveAngle(String propertyName, String value) {
+	public int resolveAngle(String propertyName, String value) {
 		try {
 			int angle = Integer.parseInt(value);
 			if (angle >= 0 && angle < 360) return angle;
@@ -126,7 +126,7 @@ public abstract class Component {
 		throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": Invalid angle " + value);
 	}
 
-	private Drawable resolveBackground(String value) {
+	public Drawable resolveBackground(String value) {
 		if (value.startsWith("@drawable/")) {
 			String name = value.substring("@drawable/".length());
 			return Application.loadDrawable(name);
@@ -138,7 +138,7 @@ public abstract class Component {
 		throw new RuntimeException("don't know how to drawable " + value);
 	}
 
-	private int resolvePropertyValueInt(String propertyName, String value) {
+	public int resolvePropertyValueInt(String propertyName, String value) {
 		try {
 			return Integer.parseInt(value);
 		} catch (Exception e) {

@@ -60,6 +60,13 @@ public abstract class Container extends Widget {
 		}
 	}
 	
+	public void removeAllChildren() {
+		for(Widget child : children) {
+			child.onDispose();
+		}
+		children.clear();
+	}
+	
 	@Override
 	public Widget findWidget(String id) {
 		Widget w = super.findWidget(id);

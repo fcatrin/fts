@@ -2,6 +2,6 @@ package fts.events;
 
 import fts.core.Widget;
 
-public interface ClickListener {
+public interface OnClickListener {
 	public abstract void onClick(Widget w);
 }
