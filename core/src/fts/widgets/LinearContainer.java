@@ -93,7 +93,8 @@ public class LinearContainer extends Container {
 	public Point getContentSize(int width, int height) {
 		int contentWidth = 0;
 		int contentHeight = 0;
-		
+		int paddingWidth = padding.left + padding.right;
+
 		for (Widget child : getChildren()) {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
 			layoutInfo.weight = layoutInfo.weight < 1 ? 1 : layoutInfo.weight;
@@ -103,7 +104,7 @@ public class LinearContainer extends Container {
 			for (Widget child : getChildren()) {
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
-					contentWidth = width;
+					contentWidth = width - paddingWidth;
 					break;
 				} else if (layoutInfo.width == LayoutInfo.WRAP_CONTENT) {
 					Point childSize = child.getContentSize(width, height);
@@ -125,7 +126,7 @@ public class LinearContainer extends Container {
 				}
 			}			
 		} else {
-			int availableWidth = width;
+			int availableWidth = width - paddingWidth;
 			int totalWeight = 0;
 			
 			List<Point> sizeInfo = new ArrayList<Point>();
@@ -140,8 +141,8 @@ public class LinearContainer extends Container {
 				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
-					size.x = width;
-					contentWidth = width;
+					size.x = paddingWidth;
+					contentWidth = paddingWidth;
 					availableWidth = 0;
 				} else if (layoutInfo.width > 0) {
 					size.x = layoutInfo.width;
@@ -207,16 +208,18 @@ public class LinearContainer extends Container {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
 			layoutInfo.weight = Math.min(1, layoutInfo.weight);
 		}
-		
+
+		Point paddingSize = getPaddingSize();
+
 		if (orientation == Orientation.Vertical) {
 			int totalWeight = 0;
 			int height = 0;
 			for (Widget child : getChildren()) {
-				child.onMeasure(wspec.value, hspec.value);
+				child.onMeasure(wspec.value - paddingSize.x, hspec.value - paddingSize.y);
 				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				if (layoutInfo.height == LayoutInfo.MATCH_PARENT) {
-					height += hspec.value;
+					height += hspec.value - paddingSize.y;
 				} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
 					height += layoutInfo.measuredHeight;
 				} else if (layoutInfo.height > 0) {
@@ -226,7 +229,7 @@ public class LinearContainer extends Container {
 				}
 			}
 			
-			int availableHeight = hspec.value - height;
+			int availableHeight = hspec.value - height - paddingSize.y;
 			if (availableHeight <= 0) availableHeight = 0;
 			
 			for (Widget child : getChildren()) {
@@ -244,8 +247,8 @@ public class LinearContainer extends Container {
 			for (Widget child : getChildren()) {
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
-					child.onMeasure(wspec.value, hspec.value);
-					width += wspec.value;
+					child.onMeasure(wspec.value - paddingSize.x, hspec.value - paddingSize.y);
+					width += wspec.value - paddingSize.x;
 				} else 	if (layoutInfo.width > 0) {
 					child.onMeasure(layoutInfo.width, hspec.value);
 					width += layoutInfo.width;
@@ -254,7 +257,7 @@ public class LinearContainer extends Container {
 				}
 			}
 			
-			int availableWidth = wspec.value - width;
+			int availableWidth = wspec.value - width - paddingSize.x;
 			availableWidth = Math.max(0,  availableWidth);
 			
 			// now process all wrap_content with the available space
