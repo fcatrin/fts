@@ -39,7 +39,7 @@ public class Shape extends Drawable {
 	@Override
 	public void draw(Canvas canvas) {
 		if (fillColor!=null) {
-			canvas.setForeground(fillColor);
+			canvas.setColor(fillColor);
 			canvas.drawFilledRect(bounds.x, bounds.y, bounds.width, bounds.height, radius);
 		} else if (startColor != null && endColor != null) {
 			canvas.drawGradientRect(bounds.x, bounds.y, bounds.width, bounds.height, radius, 
@@ -47,7 +47,7 @@ public class Shape extends Drawable {
 		}
 		
 		if (strokeColor!=null && strokeWidth>0) {
-			canvas.setForeground(strokeColor);
+			canvas.setColor(strokeColor);
 			canvas.drawRect(bounds.x + strokeWidth/2, bounds.y + strokeWidth/2, bounds.width - strokeWidth, bounds.height - strokeWidth, radius);
 		}
 	}

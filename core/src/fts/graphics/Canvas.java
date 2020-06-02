@@ -23,8 +23,7 @@ public abstract class Canvas {
 	public abstract void viewEnd();
 	
 	public abstract void drawImage(Image srcImage, int x, int y);
-	public abstract void setForeground(Color foregroundColor);
-	public abstract void setBackground(Color backgroundColor);
+	public abstract void setColor(Color color);
 	public abstract void setLineWidth(int lineWidth);
 	public abstract void setAntialias(boolean antialias);
 	public abstract void setFont(Font font);

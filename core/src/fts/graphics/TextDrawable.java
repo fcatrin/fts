@@ -38,7 +38,7 @@ public class TextDrawable extends Drawable {
 		if (text == null || text.trim().isEmpty()) return;
 		
 		canvas.setFont(font);
-		canvas.setForeground(color);
+		canvas.setColor(color);
 		
 		if (textWrapper == null) {
 			getSize(canvas, text, bounds.width);
