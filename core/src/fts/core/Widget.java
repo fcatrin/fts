@@ -157,6 +157,29 @@ public abstract class Widget extends Component {
 		this.isClickable = isClickable;
 	}
 
+	public void setMargin(int margin) {
+		layoutInfo.margins.left   = margin;
+		layoutInfo.margins.right  = margin;
+		layoutInfo.margins.top    = margin;
+		layoutInfo.margins.bottom = margin;
+	}
+	
+	public void setMarginLeft(int margin) {
+		layoutInfo.margins.left = margin;
+	}
+	
+	public void setMarginRight(int margin) {
+		layoutInfo.margins.right = margin;
+	}
+	
+	public void setMarginTop(int margin) {
+		layoutInfo.margins.top = margin;
+	}
+	
+	public void setMarginBottom(int margin) {
+		layoutInfo.margins.bottom = margin;
+	}
+	
 	public void setPadding(int p) {
 		padding.left   = p;
 		padding.right  = p;
