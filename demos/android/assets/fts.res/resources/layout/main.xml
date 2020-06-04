@@ -32,5 +32,5 @@
         width="match_parent"
         height="40pt"
         text="@string/demo"/>
-	<include name="actions" />
+	<include layout="actions" />
 </LinearContainer>

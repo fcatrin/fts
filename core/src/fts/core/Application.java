@@ -118,8 +118,8 @@ public class Application {
 		String name = node.getNodeName();
 		
 		if (name.equals("include")) {
-			String includeName = node.getAttribute("name");
-			if (Utils.isEmptyString(includeName)) throw new RuntimeException("Missing include name " + node);
+			String includeName = node.getAttribute("layout");
+			if (Utils.isEmptyString(includeName)) throw new RuntimeException("Include: Missing layout name " + node);
 			return inflate(w, includeName);
 		}
 		

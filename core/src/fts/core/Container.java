@@ -7,6 +7,7 @@ import java.util.Map;
 
 import fts.events.PaintEvent;
 import fts.events.TouchEvent;
+import fts.graphics.Color;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
 
