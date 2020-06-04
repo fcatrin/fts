@@ -49,6 +49,7 @@ public class TextDrawable extends Drawable {
 		int top = bounds.y;
 		
 		if (align.v == VAlign.Center) {
+			int descent = textWrapper.getDescent();
 			top += (bounds.height - size.y) / 2;
 		} else if (align.v == VAlign.Bottom) {
 			top += bounds.height - size.y;

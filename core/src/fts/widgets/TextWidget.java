@@ -19,7 +19,6 @@ public class TextWidget extends Widget {
 		textDrawable = new TextDrawable();
 		textDrawable.setFont(new Font("default", "16pt"));
 		setProperty("color", "@color/text");
-		setPadding(4);
 	}
 	
 	public String getText() {

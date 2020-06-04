@@ -121,5 +121,9 @@ public class TextWrapper {
 		return lineSeparator;
 	}
 	
+	public int getDescent() {
+		if (lineMetrics.size() == 0) return 0;
+		return lineMetrics.get(0).descent;
+	}
 	
 }
