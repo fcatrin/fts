@@ -61,7 +61,7 @@ public abstract class Component {
 		String methodName = prefix + name.substring(0, 1).toUpperCase(Locale.US) +name.substring(1);
 		Method[] methods = _class.getDeclaredMethods();
 		for (Method method : methods ) {
-			if (method.getName().equals(methodName) && method.getParameterCount() == 1) return method;
+			if (method.getName().equals(methodName) && method.getParameterTypes().length == 1) return method;
 		}
 		
 		Class superClass = _class.getSuperclass();
