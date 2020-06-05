@@ -4,4 +4,9 @@ import fts.android.FtsActivity;
 
 public class DemoActivity extends FtsActivity {
 
+	@Override
+	protected String getRootLayout() {
+		return "main";
+	}
+
 }

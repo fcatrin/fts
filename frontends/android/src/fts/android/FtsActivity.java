@@ -8,7 +8,8 @@ import fts.core.Context;
 import fts.core.Widget;
 import fts.core.Window;
 
-public class FtsActivity extends Activity {
+public abstract class FtsActivity extends Activity {
+	private Window window;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,14 +20,20 @@ public class FtsActivity extends Activity {
 		setContentView(R.layout.main);
 		
 		Application app = new Application(new ComponentFactory(), new AndroidResourceLocator(this), new AndroidLogger(), new Context());
-		Window window = Application.createWindow("", 0, 0);
+		window = Application.createWindow("", 0, 0);
 
-		Widget rootView = app.inflate(window, "main");
+		Widget rootView = app.inflate(window, getRootLayout());
 		window.setContentView(rootView);
 		
 		GLRenderer renderer = new GLRenderer((AndroidWindow)window);
 		GLSurface surface = (GLSurface)findViewById(R.id.fts_view);
 		surface.setRenderer(renderer);
 		surface.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+	}
+	
+	protected abstract String getRootLayout();
+	
+	public Window getFtsWindow() {
+		return window;
 	}
 }
