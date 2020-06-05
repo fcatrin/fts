@@ -184,7 +184,7 @@ public class Application {
 			}
 			return is;
 		} catch (IOException e) {
-			throw new RuntimeException("Cannot load resource" + location, e);
+			throw new RuntimeException("Cannot load resource " + location, e);
 		}
 	}
 	
