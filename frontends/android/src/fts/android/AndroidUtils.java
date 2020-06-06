@@ -1,11 +1,21 @@
 package fts.android;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import fts.core.ProgressListener;
+import fts.core.Utils;
 
 public class AndroidUtils {
 	
@@ -55,6 +65,35 @@ public class AndroidUtils {
     
     private static boolean isMotoXorG() {
 		return Build.MODEL.contains("XT1032") || Build.MODEL.contains("XT1058");
+	}
+    
+	public static void unpackAssets(Context ctx, String dir, File dstDir) throws IOException {
+		unpackAssets(ctx, dir, dstDir, null);
+	}
+	
+	public static void unpackAssets(Context ctx, String dir, File dstDir, ProgressListener progressListener) throws IOException {
+		File unpackDir = new File (dstDir, dir);
+		if (unpackDir.exists()) Utils.delTree(unpackDir);
+		unpackDir.mkdirs();
+
+		AssetManager assets = ctx.getAssets();
+		String[] files = assets.list(dir);
+		
+		int filesMax = files.length;
+		int filesProgress = 0;
+		
+		for(String file : files) {
+			String fileName = dir + "/" + file;
+			if (progressListener!=null) progressListener.onProgress(filesProgress++, filesMax);
+			try {
+				InputStream is = assets.open(fileName);
+				File dstFile = new File(dstDir, fileName);
+				Utils.copyFile(is, new FileOutputStream(dstFile));
+			} catch (FileNotFoundException e) {
+				// this is a folder
+				unpackAssets(ctx, fileName, dstDir, progressListener);
+			}
+		}
 	}
 
 }
