@@ -41,6 +41,7 @@ $(OBJDIR)/%.o: %.c
 	
 	
 $(TARGET): $(ALL_OBJS)
+	@mkdir -p $(dir $(TARGET)) 2> /dev/null
 	$(LD) -o $@ $(LDFLAGS) $(ALL_OBJS) $(LIBS)
 
 clean:
