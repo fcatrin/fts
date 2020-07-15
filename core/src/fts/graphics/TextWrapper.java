@@ -29,7 +29,7 @@ public class TextWrapper {
 		if (oneLineMetrics.width <= width) {
 			addLine(text, oneLineMetrics);
 			size.x = oneLineMetrics.width;
-			size.y = oneLineMetrics.height;
+			size.y = oneLineMetrics.height - oneLineMetrics.descent;
 			return size;
 		}
 		
@@ -82,7 +82,7 @@ public class TextWrapper {
 	private void addLine(String line, TextMetrics metrics) {
 		lines.add(line.trim());
 		lineMetrics.add(metrics);
-		size.y += metrics.height + (size.y == 0 ? 0 : lineSeparator);
+		size.y += metrics.height - metrics.descent + (size.y == 0 ? 0 : lineSeparator);
 		System.out.println("add line '" + line.trim()  + "'height: " + metrics.height + " size.y=" + size.y);
 	}
 	
