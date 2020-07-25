@@ -30,6 +30,10 @@ public abstract class Component {
 		dimensionProperties.add("strokeWidth");
 		dimensionProperties.add("radius");
 		dimensionProperties.add("padding");
+		dimensionProperties.add("paddingLeft");
+		dimensionProperties.add("paddingRight");
+		dimensionProperties.add("paddingTop");
+		dimensionProperties.add("paddingBottom");
 		dimensionProperties.add("margin");
 		dimensionProperties.add("marginLeft");
 		dimensionProperties.add("marginRight");

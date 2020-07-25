@@ -194,6 +194,22 @@ public abstract class Widget extends Component {
 		padding.bottom = bottom;
 	}
 	
+	public void setPaddingLeft(int p) {
+		padding.left   = p;
+	}
+
+	public void setPaddingRight(int p) {
+		padding.right  = p;
+	}
+	
+	public void setPaddingTop(int p) {
+		padding.top    = p;
+	}
+
+	public void setPaddingBottom(int p) {
+		padding.bottom = p;
+	}
+
 	public int getInternalWidth() {
 		return bounds.width - padding.left - padding.right;
 	}
