@@ -7,6 +7,8 @@ import fts.core.Container;
 import fts.core.LayoutInfo;
 import fts.core.Widget;
 import fts.core.Window;
+import fts.graphics.Align.HAlign;
+import fts.graphics.Align.VAlign;
 import fts.graphics.Point;
 
 public class LinearContainer extends Container {
@@ -46,45 +48,62 @@ public class LinearContainer extends Container {
 	}
 
 	private void layoutHorizontal() {
-		int x = padding.left + bounds.x;
-		int y = padding.top  + bounds.y;
+		int left = padding.left + bounds.x;
+		int top  = padding.top  + bounds.y;
 		
 		List<Widget> widgets = getChildren();
 		for (int i=0; i<widgets.size(); i++) {
 			Widget child = widgets.get(i);
 			LayoutInfo layoutInfo = child.getLayoutInfo();
+
+			int width  = layoutInfo.measuredWidth;
+			int height = layoutInfo.measuredHeight;
 			
-			int width = layoutInfo.measuredWidth;
+			VAlign vAlign = child.getContainerAlign().v;
+			switch (vAlign) {
+			case Center : top = top + (bounds.height - padding.top - padding.bottom - height) / 2; break;
+			case Bottom : top = bounds.y + bounds.height - padding.bottom - height; break;
+			default     : break;
+			}
+			
 			/*
 			if (i+1 == widgets.size()) {
 				width = bounds.width - padding.left - padding.right;
 			}
 			*/
-			x+= layoutInfo.margins.left;
-			child.setBounds(x, y, width, layoutInfo.measuredHeight);
-			x += layoutInfo.measuredWidth + layoutInfo.margins.right;
+			left += layoutInfo.margins.left;
+			child.setBounds(left, top, width, height);
+			left += width + layoutInfo.margins.right;
 			
 			child.layout();
 		}
 	}
 
 	private void layoutVertical() {
-		int x = padding.left + bounds.x;
-		int y = padding.top  + bounds.y;
+		int left = padding.left + bounds.x;
+		int top  = padding.top  + bounds.y;
 
 		List<Widget> widgets = getChildren();
 		for (int i=0; i<widgets.size(); i++) {
 			Widget child = widgets.get(i);
 			LayoutInfo layoutInfo = child.getLayoutInfo();
-			
+			int width  = layoutInfo.measuredWidth;
 			int height = layoutInfo.measuredHeight;
+			
+			HAlign hAlign = child.getContainerAlign().h;
+			switch (hAlign) {
+			case Center : left = left + (bounds.width - padding.left - padding.right - width) / 2; break;
+			case Right  : left = bounds.x + bounds.width - padding.right - width; break;
+			default     : break;
+			}
+			
 			/*
 			if (i+1 == widgets.size()) {
 				height = bounds.height - padding.top - padding.bottom;
 			}*/
-			y += layoutInfo.margins.top;
-			child.setBounds(x, y, layoutInfo.measuredWidth, height);
-			y += layoutInfo.measuredHeight + layoutInfo.margins.bottom;
+			top += layoutInfo.margins.top;
+			child.setBounds(left, top, width, height);
+			top += height + layoutInfo.margins.bottom;
 			
 			child.layout();
 		}

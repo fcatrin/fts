@@ -1,10 +1,10 @@
 package fts.graphics;
 
 public class Align {
-	public enum HAlign {Left, Center, Right};
-	public enum VAlign {Top, Center, Bottom};
+	public enum HAlign {Left, Center, Right, Undefined};
+	public enum VAlign {Top, Center, Bottom, Undefined};
 
-	public VAlign v = VAlign.Top;
-	public HAlign h = HAlign.Left;
+	public VAlign v = VAlign.Undefined;
+	public HAlign h = HAlign.Undefined;
 	
 }

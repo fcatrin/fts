@@ -5,6 +5,7 @@ import fts.events.KeyEvent;
 import fts.events.TouchEvent;
 import fts.events.TouchEvent.Action;
 import fts.events.PaintEvent;
+import fts.graphics.Align;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
@@ -28,6 +29,8 @@ public abstract class Widget extends Component {
 	
 	NativeView nativeView;
 	Window window;
+	
+	private Align containerAlign = new Align();
 	
 	protected Drawable background;
 	
@@ -345,6 +348,14 @@ public abstract class Widget extends Component {
 	
 	public void setBackground(Drawable background) {
 		this.background = background;
+	}
+	
+	public Align getContainerAlign() {
+		return containerAlign;
+	}
+	
+	public void setContainerAlign(Align align) {
+		this.containerAlign = align;
 	}
 	
 	public void layout() {}

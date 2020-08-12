@@ -93,6 +93,8 @@ public abstract class Component {
 			return resolveBackground(value);
 		} else if (propertyName.equals("align")) {
 			return resolveAlign(propertyName, value);
+		} else if (propertyName.equals("containerAlign")) {
+			return resolveAlign(propertyName, value);
 		} else if (propertyName.equals("angle")) {
 			return resolveAngle(propertyName, value);
 		}

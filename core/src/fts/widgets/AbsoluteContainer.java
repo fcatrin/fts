@@ -4,6 +4,7 @@ import fts.core.Container;
 import fts.core.LayoutInfo;
 import fts.core.Widget;
 import fts.core.Window;
+import fts.graphics.Align;
 import fts.graphics.Point;
 
 public class AbsoluteContainer extends Container {
@@ -14,9 +15,31 @@ public class AbsoluteContainer extends Container {
 
 	@Override
 	public void layout() {
+		Point paddingSize = getPaddingSize();
 		for (Widget child : getChildren()) {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
-			child.setBounds(layoutInfo.x, layoutInfo.y, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
+			Align containerAlign = child.getContainerAlign();
+			
+			int left   = layoutInfo.x;
+			int top    = layoutInfo.y;
+			int width  = layoutInfo.measuredWidth;
+			int height = layoutInfo.measuredHeight;
+			
+			switch(containerAlign.h) {
+			case Center : left = (bounds.width - paddingSize.x - width ) / 2; break;
+			case Left   : left = padding.left; break;
+			case Right  : left = (bounds.width - padding.right - width); break;
+			case Undefined : break;
+			}
+			
+			switch(containerAlign.v) {
+			case Center : top = (bounds.height - paddingSize.y - height) / 2; break;
+			case Top    : top = padding.top;
+			case Bottom : top = bounds.height - padding.bottom - height;
+			case Undefined : break;
+			}
+			
+			child.setBounds(left, top, width, height);
 			child.layout();
 		}
 	}
