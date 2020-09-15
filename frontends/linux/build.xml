@@ -10,6 +10,8 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
+    <import file="build-fts.xml"/>
+    <import file="build-jni.xml"/>
     <path id="fts-core.classpath">
         <pathelement location="${fts-core.location}/bin"/>
         <pathelement location="${fts-core.location}/lib/json.jar"/>
@@ -32,14 +34,14 @@
             </fileset>
         </copy>
     </target>
-    <target name="clean">
+    <target name="clean" depends="clean-jni">
         <delete dir="bin"/>
     </target>
     <target depends="clean" name="cleanall">
         <ant antfile="build.xml" dir="${fts-core.location}" inheritAll="false" target="clean"/>
         <ant antfile="build.xml" dir="${fts-gl.location}" inheritAll="false" target="clean"/>
     </target>
-    <target depends="build-subprojects,build-project" name="build"/>
+    <target depends="build-jni,build-fts,build-subprojects,build-project" name="build"/>
     <target name="build-subprojects">
         <ant antfile="build.xml" dir="${fts-core.location}" inheritAll="false" target="build-project"/>
         <ant antfile="build.xml" dir="${fts-gl.location}" inheritAll="false" target="build-project"/>
