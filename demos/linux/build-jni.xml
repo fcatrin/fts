@@ -1,11 +1,11 @@
-<project name="MegaPlay JNI" default="-pre-build" basedir=".">
-<property file="../fts-linux-demo.local.properties"/>
+<project name="build-fts-linux-demo-jni" default="-pre-build" basedir=".">
+<property file="../../../fts-linux-demo.local.properties"/>
 
-<target name="-pre-build">
+<target name="build-jni">
     <exec executable="make" failonerror="true" dir="jni"/>
 </target>
 
-<target name="clean">
+<target name="clean-jni">
     <exec executable="make" failonerror="true" dir="jni">
         <arg value="clean"/>
     </exec>

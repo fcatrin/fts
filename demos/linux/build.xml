@@ -11,6 +11,8 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
+    <import file="build-fts.xml"/>
+    <import file="build-jni.xml"/>
     <path id="fts-core.classpath">
         <pathelement location="${fts-core.location}/bin"/>
         <pathelement location="${fts-core.location}/lib/json.jar"/>
@@ -39,7 +41,7 @@
             </fileset>
         </copy>
     </target>
-    <target name="clean">
+    <target name="clean" depends="clean-jni">
         <delete dir="bin"/>
     </target>
     <target depends="clean" name="cleanall">
@@ -47,7 +49,7 @@
         <ant antfile="build.xml" dir="${fts-gl.location}" inheritAll="false" target="clean"/>
         <ant antfile="build.xml" dir="${fts-linux.location}" inheritAll="false" target="clean"/>
     </target>
-    <target depends="build-subprojects,build-project" name="build"/>
+    <target depends="build-subprojects,build-jni,build-fts,build-project" name="build"/>
     <target name="build-subprojects">
         <ant antfile="build.xml" dir="${fts-core.location}" inheritAll="false" target="build-project"/>
         <ant antfile="build.xml" dir="${fts-gl.location}" inheritAll="false" target="build-project"/>
@@ -60,7 +62,7 @@
             <classpath refid="fts-linux-demo.classpath"/>
         </javac>
     </target>
-    <target name="MainFTSLinuxDemo">
+    <target name="run">
         <java classname="fts.linux.demo.MainFTSLinuxDemo" failonerror="true" fork="yes">
             <jvmarg line="-Djava.library.path=libs/x86_64"/>
             <classpath refid="fts-linux-demo.classpath"/>
