@@ -1,3 +1,4 @@
+<?eclipse.ant.import?>
 <project name="build-fts-gl" default="build" basedir=".">
 <property file="../../../fts.local.properties"/>
 

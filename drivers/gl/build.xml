@@ -9,6 +9,7 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
+    <import file="build-fts.xml"/>
     <path id="fts-core.classpath">
         <pathelement location="${fts-core.location}/bin"/>
         <pathelement location="${fts-core.location}/lib/json.jar"/>
@@ -21,6 +22,7 @@
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
