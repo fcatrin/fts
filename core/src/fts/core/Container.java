@@ -7,7 +7,6 @@ import java.util.Map;
 
 import fts.events.PaintEvent;
 import fts.events.TouchEvent;
-import fts.graphics.BackBuffer;
 import fts.graphics.Rectangle;
 
 public abstract class Container extends Widget {
@@ -28,16 +27,13 @@ public abstract class Container extends Widget {
 	}
 	
 	@Override
-	protected void draw(PaintEvent e, int x, int y) {
-		backBuffer.draw(e.canvas, x, y);
-		for(Widget child : children) {
-			BackBuffer childBackBuffer = child.getBackBuffer();
-			Rectangle childBounds = child.getBounds();
-			e.canvas.viewStart(childBounds.x, childBounds.y, 
-					childBounds.width, childBounds.height);
-			childBackBuffer.draw(e.canvas, childBounds.x, childBounds.y);
-			e.canvas.viewEnd();
+	protected void draw(PaintEvent e) {
+		// e.canvas.viewStart(bounds.x, bounds.y, bounds.width, bounds.height);
+		backBuffer.draw(e.canvas, bounds.x, bounds.y);
+		for (Widget child : children) {
+			child.draw(e);
 		}
+		// e.canvas.viewEnd();
 	}
 	
 	public abstract void layout();

@@ -1,10 +1,10 @@
 package fts.core;
 
-import fts.events.OnClickListener;
 import fts.events.KeyEvent;
+import fts.events.OnClickListener;
+import fts.events.PaintEvent;
 import fts.events.TouchEvent;
 import fts.events.TouchEvent.Action;
-import fts.events.PaintEvent;
 import fts.graphics.Align;
 import fts.graphics.BackBuffer;
 import fts.graphics.Drawable;
@@ -130,8 +130,8 @@ public abstract class Widget extends Component {
 		isDirty = false;
 	}
 	
-	protected void draw(PaintEvent e, int x, int y) {
-		backBuffer.draw(e.canvas, x, y);
+	protected void draw(PaintEvent e) {
+		backBuffer.draw(e.canvas, bounds.x, bounds.y);
 	}
 	
 	protected void onPaint(PaintEvent e) {

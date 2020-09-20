@@ -4,7 +4,6 @@ import fts.events.PaintEvent;
 import fts.events.TouchEvent;
 import fts.graphics.Canvas;
 import fts.graphics.Point;
-import fts.graphics.Rectangle;
 import fts.widgets.AbsoluteContainer;
 
 public abstract class Window {
@@ -35,6 +34,8 @@ public abstract class Window {
 	public void layout() {
 		Point bounds = getBounds();
 		view.onMeasure(bounds.x, bounds.y);
+		LayoutInfo layoutInfo = view.getLayoutInfo();
+		view.setBounds(0, 0, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
 		view.requestLayout();
 	}
 	
@@ -43,9 +44,8 @@ public abstract class Window {
 			view.layout();
 			view.setLayoutDone();
 		}
-		Rectangle bounds = view.getBounds();
 		view.render(e);
-		view.draw(e, bounds.x, bounds.y);
+		view.draw(e);
 	}
 	
 	public Canvas getCanvas() {
