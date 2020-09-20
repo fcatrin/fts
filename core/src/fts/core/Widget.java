@@ -37,6 +37,8 @@ public abstract class Widget extends Component {
 	private boolean isClickable = false;
 	private OnClickListener onClickListener;
 	
+	protected BackBuffer backBuffer;
+	
 	public Widget(Window window) {
 		nativeView = Application.createNativeView(window);
 		this.window = window;
@@ -104,8 +106,7 @@ public abstract class Widget extends Component {
 	}
 
 	protected abstract void onPaint(PaintEvent e);
-	protected void onDispose() {}
-
+	
 	public boolean isSelected() {
 		return getState(State.Selected);
 	}
@@ -393,5 +394,12 @@ public abstract class Widget extends Component {
 	public Widget findWidget(String id) {
 		if (id!=null && id.equals(this.id)) return this;
 		return null;
+	}
+	
+	public void destroy() {
+		if (backBuffer!=null) {
+			backBuffer.destroy();
+			backBuffer = null;
+		}
 	}
 }

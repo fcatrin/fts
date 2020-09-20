@@ -69,4 +69,7 @@ public abstract class Window {
 		return onFrameCallback;
 	}
 	
+	public void destroy() {
+		if (view!=null) view.destroy();
+	}
 }

@@ -63,7 +63,7 @@ public abstract class Container extends Widget {
 	
 	public void removeAllChildren() {
 		for(Widget child : children) {
-			child.onDispose();
+			child.destroy();
 		}
 		children.clear();
 	}
@@ -119,6 +119,14 @@ public abstract class Container extends Widget {
 			}
 		}
 		return super.dispatchTouchEvent(touchEvent);
+	}
+	
+	@Override
+	public void destroy() {
+		super.destroy();
+		for(Widget child : children) {
+			child.destroy();
+		}
 	}
 	
 }
