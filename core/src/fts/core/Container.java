@@ -7,8 +7,6 @@ import java.util.Map;
 
 import fts.events.PaintEvent;
 import fts.events.TouchEvent;
-import fts.graphics.Color;
-import fts.graphics.Point;
 import fts.graphics.Rectangle;
 
 public abstract class Container extends Widget {
@@ -20,20 +18,23 @@ public abstract class Container extends Widget {
 	}
 
 	@Override
-	public void redraw() {
-	}
-
-	@Override
-	protected void onPaint(PaintEvent e) {
-		if (background != null) {
-			background.setBounds(bounds);
-			background.draw(e.canvas);
-		}
+	protected void render(PaintEvent e) {
 		for(Widget child : children) {
+			if (isDirty) child.invalidate();
+			child.render(e);
+		}
+		super.render(e);
+	}
+	
+	@Override
+	protected void draw(PaintEvent e) {
+		backBuffer.draw(e.canvas);
+		for(Widget child : children) {
+			BackBuffer childBackBuffer = child.getBackBuffer();
 			Rectangle childBounds = child.getBounds();
 			e.canvas.viewStart(childBounds.x, childBounds.y, 
 					childBounds.width, childBounds.height);
-			child.onPaint(e);
+			childBackBuffer.draw(e.canvas);
 			e.canvas.viewEnd();
 		}
 	}

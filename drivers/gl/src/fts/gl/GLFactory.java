@@ -2,6 +2,7 @@ package fts.gl;
 
 import org.w3c.dom.Element;
 
+import fts.core.BackBuffer;
 import fts.core.CoreComponentFactory;
 import fts.core.NativeView;
 import fts.core.Widget;
@@ -23,6 +24,11 @@ public abstract class GLFactory extends CoreComponentFactory {
 	@Override
 	public Drawable createDrawable(Element element) {
 		return super.createDrawable(element);
+	}
+
+	@Override
+	public BackBuffer createBackBuffer(int width, int height) {
+		return null;
 	}
 
 }

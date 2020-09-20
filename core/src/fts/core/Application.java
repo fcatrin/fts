@@ -45,6 +45,10 @@ public class Application {
 		return factory.createDrawable(node);
 	}
 	
+	public static BackBuffer createBackBuffer(int width, int height) {
+		return factory.createBackBuffer(width, height);
+	}
+	
 	public static ComponentFactory getFactory() {
 		return factory;
 	}

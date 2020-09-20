@@ -42,10 +42,6 @@ public class TextWidget extends Widget {
 	}
 	
 	@Override
-	public void redraw() {
-	}
-
-	@Override
 	protected void onPaint(PaintEvent e) {
 		Canvas canvas = e.canvas;
 		if (background!=null) {

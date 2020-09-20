@@ -13,6 +13,7 @@ public interface ComponentFactory {
 	public Widget createWidget(Element element);
 	public NativeView createNativeView(Window w);
 	public Drawable createDrawable(Element element);
+	public BackBuffer createBackBuffer(int width, int height);
 	
 	public void registerFont(String alias, File file);
 	public File getFont(String alias);

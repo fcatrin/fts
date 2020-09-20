@@ -37,7 +37,8 @@ public abstract class Widget extends Component {
 	private boolean isClickable = false;
 	private OnClickListener onClickListener;
 	
-	protected BackBuffer backBuffer;
+	protected BackBuffer backBuffer = null;
+	protected boolean isDirty = true;
 	
 	public Widget(Window window) {
 		nativeView = Application.createNativeView(window);
@@ -59,11 +60,13 @@ public abstract class Widget extends Component {
 	Runnable invalidateTask = new Runnable() {
 		@Override
 		public void run() {
-			if (!isDisposed()) redraw();
+			if (!isDisposed()) invalidate();
 		}
 	};
 
-	public abstract void redraw();
+	public void invalidate() {
+		isDirty = true;
+	}
 	
 	protected void onTouchEvent(TouchEvent e) {
 		e.widget = this;
@@ -105,7 +108,38 @@ public abstract class Widget extends Component {
 	protected void onKeyReleased(KeyEvent e) {
 	}
 
-	protected abstract void onPaint(PaintEvent e);
+	public BackBuffer getBackBuffer() {
+		return backBuffer;
+	}
+	
+	protected BackBuffer getBackBuffer(int width, int height) {
+		if (backBuffer == null || backBuffer.width != width || backBuffer.height != height) {
+			if (backBuffer != null) backBuffer.destroy();
+			backBuffer = Application.createBackBuffer(width, height);
+		}
+		return backBuffer;
+	}
+	
+	protected void render(PaintEvent e) {
+		if (isDirty) {
+			getBackBuffer(bounds.width, bounds.height);
+			backBuffer.bind();
+			onPaint(e);
+			backBuffer.unbind();
+		}
+		isDirty = false;
+	}
+	
+	protected void draw(PaintEvent e) {
+		backBuffer.draw(e.canvas);
+	}
+	
+	protected void onPaint(PaintEvent e) {
+		if (background != null) {
+			background.setBounds(bounds);
+			background.draw(e.canvas);
+		}
+	}
 	
 	public boolean isSelected() {
 		return getState(State.Selected);
