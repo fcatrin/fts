@@ -110,6 +110,33 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_setFontName
 
 }
 
+JNIEXPORT jint JNICALL Java_fts_gl_GLNativeInterface_createBackBuffer
+  (JNIEnv *env, jclass clazz, jint width, jint height) {
+	return graphics_backbuffer_create(width, height);
+}
+
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_destroyBackBuffer
+  (JNIEnv *env, jclass clazz, jint handle) {
+	graphics_backbuffer_destroy(handle);
+}
+
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_bindBackBuffer
+  (JNIEnv *env, jclass clazz, jint handle) {
+	graphics_backbuffer_bind(handle);
+}
+
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_unbindBackBuffer
+  (JNIEnv *env, jclass clazz, jint handle) {
+	graphics_backbuffer_unbind(handle);
+}
+
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawBackBuffer
+  (JNIEnv *env, jclass clazz, jint handle, jint x, jint y, jint width, jint height){
+	graphics_backbuffer_draw(handle, x, y, width, height);
+}
+
+
+
 
 #ifdef __cplusplus
 }

@@ -1,30 +1,26 @@
 package fts.graphics;
 
 public abstract class BackBuffer {
-	int lastWidth = 0;
-	int lastHeight = 0;
-	Canvas canvas = null;
+	int width;
+	int height;
 	
-	public Canvas get(int width, int height) {
-		if (canvas == null || width != lastWidth || height != lastHeight) {
-			dispose();
-
-			canvas = createCanvas(width, height);
-			lastWidth = width;
-			lastHeight = height;
-		}
-		
-		return canvas;
+	public abstract void create(int width, int height);
+	public abstract void bind();
+	public abstract void draw(Canvas canvas, int x, int y);
+	public abstract void unbind();
+	public abstract void destroy();
+	
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
+	}
+	protected void setWidth(int width) {
+		this.width = width;
+	}
+	protected void setHeight(int height) {
+		this.height = height;
 	}
 	
-	public void dispose() {
-		canvas.dispose();
-		canvas = null;
-	}
-	
-	protected abstract Canvas createCanvas(int width, int height);
-	
-	public void draw(Canvas canvas) {
-		canvas.drawImage(canvas.getImage(), 0, 0);
-	}
 }

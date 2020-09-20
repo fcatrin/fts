@@ -13,6 +13,7 @@ import org.w3c.dom.Node;
 
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
+import fts.graphics.BackBuffer;
 import fts.graphics.Color;
 import fts.graphics.Drawable;
 

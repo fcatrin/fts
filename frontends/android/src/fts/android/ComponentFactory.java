@@ -1,8 +1,8 @@
 package fts.android;
 
-import fts.core.BackBuffer;
 import fts.core.Window;
 import fts.gl.GLFactory;
+import fts.graphics.BackBuffer;
 
 public class ComponentFactory extends GLFactory {
 

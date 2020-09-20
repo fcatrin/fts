@@ -3,6 +3,7 @@
 #include <GLES2/gl2ext.h>
 #include <libs/nanovg/nanovg.h>
 #include <libs/nanovg/nanovg_gl.h>
+#include <libs/nanovg/nanovg_gl_utils.h>
 #include "utils.h"
 
 static struct NVGcontext* vg;
@@ -10,6 +11,9 @@ static struct NVGcontext* vg;
 static int r, g, b, a;
 static int r_start, g_start, b_start, a_start;
 static int r_end, g_end, b_end, a_end;
+
+#define MAX_FB_SIZE 10
+NVGLUframebuffer *fbs[MAX_FB_SIZE];
 
 void graphics_init() {
 	vg = nvgCreateGLES2(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
@@ -142,5 +146,64 @@ void graphics_view_end() {
 }
 
 void graphics_done() {
+}
 
+int graphics_backbuffer_create(int width, int height) {
+	NVGLUframebuffer* fb = nvgluCreateFramebuffer(vg, width, height, 0);
+	if (fb == NULL) {
+		fts_gl_log_error("cannot create backbuffer of size %dx%d", width, height);
+		return 0;
+	}
+
+	for(int i=0; i< MAX_FB_SIZE; i++) {
+		if (fbs[i] == NULL) {
+			fbs[i] = fb;
+			return i+1;
+		}
+	}
+
+	nvgluDeleteFramebuffer(fb);
+	fts_gl_log_error("cannot allocate handle for backbuffer of size %dx%d", width, height);
+	return 0;
+}
+
+void graphics_backbuffer_destroy(int handle) {
+	handle--;
+	if (handle < 0 || handle >= MAX_FB_SIZE) return;
+
+	nvgluDeleteFramebuffer(fbs[handle]);
+	fbs[handle] = NULL;
+}
+
+void graphics_backbuffer_bind(int handle) {
+	handle--;
+	if (handle < 0 || handle >= MAX_FB_SIZE) return;
+
+	int fboWidth, fboHeight;
+	NVGLUframebuffer* fb = fbs[handle];
+	nvgImageSize(vg, fb->image, &fboWidth, &fboHeight);
+	nvgluBindFramebuffer(fb);
+	glViewport(0, 0, fboWidth, fboHeight);
+}
+
+void graphics_backbuffer_unbind(int handle) {
+	handle--;
+	if (handle < 0 || handle >= MAX_FB_SIZE) return;
+
+	NVGLUframebuffer* fb = fbs[handle];
+	nvgluBindFramebuffer(fb);
+}
+
+void graphics_backbuffer_draw(int handle, int x, int y, int width, int height) {
+	handle--;
+	if (handle < 0 || handle >= MAX_FB_SIZE) return;
+
+	NVGLUframebuffer* fb = fbs[handle];
+	NVGpaint img = nvgImagePattern(vg, 0, 0, width, height, 0, fb->image, 1.0f);
+
+	nvgSave(vg);
+	nvgBeginPath(vg);
+	nvgRect(vg, x, y, width, height);
+	nvgFillPaint(vg, img);
+	nvgRestore(vg);
 }

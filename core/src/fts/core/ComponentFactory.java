@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
+import fts.graphics.BackBuffer;
 import fts.graphics.Color;
 import fts.graphics.Drawable;
 

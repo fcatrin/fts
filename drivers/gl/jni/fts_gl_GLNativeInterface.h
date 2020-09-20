@@ -105,6 +105,46 @@ JNIEXPORT jintArray JNICALL Java_fts_gl_GLNativeInterface_getTextSize
 
 /*
  * Class:     fts_gl_GLNativeInterface
+ * Method:    createBackBuffer
+ * Signature: (II)I
+ */
+JNIEXPORT jint JNICALL Java_fts_gl_GLNativeInterface_createBackBuffer
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    destroyBackBuffer
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_destroyBackBuffer
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    bindBackBuffer
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_bindBackBuffer
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    unbindBackBuffer
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_unbindBackBuffer
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    drawBackBuffer
+ * Signature: (IIIII)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawBackBuffer
+  (JNIEnv *, jclass, jint, jint, jint, jint, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
  * Method:    createFont
  * Signature: (Ljava/lang/String;Ljava/lang/String;)Z
  */

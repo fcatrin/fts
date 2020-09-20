@@ -24,4 +24,11 @@ void graphics_set_font_size(int size);
 void graphics_set_font_name(const char *name);
 int* graphics_get_text_size(const char *text);
 
+int  graphics_backbuffer_create(int width, int height);
+void graphics_backbuffer_destroy(int handle);
+void graphics_backbuffer_bind(int handle);
+void graphics_backbuffer_unbind(int handle);
+void graphics_backbuffer_draw(int handle, int x, int y, int width, int height);
+
+
 #endif

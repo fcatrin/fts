@@ -6,6 +6,7 @@ import fts.events.TouchEvent;
 import fts.events.TouchEvent.Action;
 import fts.events.PaintEvent;
 import fts.graphics.Align;
+import fts.graphics.BackBuffer;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
@@ -113,8 +114,7 @@ public abstract class Widget extends Component {
 	}
 	
 	protected BackBuffer getBackBuffer(int width, int height) {
-		if (backBuffer == null || backBuffer.width != width || backBuffer.height != height) {
-			if (backBuffer != null) backBuffer.destroy();
+		if (backBuffer == null || backBuffer.getWidth() != width || backBuffer.getHeight() != height) {
 			backBuffer = Application.createBackBuffer(width, height);
 		}
 		return backBuffer;
@@ -130,8 +130,8 @@ public abstract class Widget extends Component {
 		isDirty = false;
 	}
 	
-	protected void draw(PaintEvent e) {
-		backBuffer.draw(e.canvas);
+	protected void draw(PaintEvent e, int x, int y) {
+		backBuffer.draw(e.canvas, x, y);
 	}
 	
 	protected void onPaint(PaintEvent e) {

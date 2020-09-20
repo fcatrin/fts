@@ -29,6 +29,12 @@ public class GLNativeInterface {
 
 	public static native int[] getTextSize(String text);
 	
+	public static native int createBackBuffer(int width, int height);
+	public static native void destroyBackBuffer(int handle);
+	public static native void bindBackBuffer(int handle);
+	public static native void unbindBackBuffer(int handle);
+	public static native void drawBackBuffer(int handle, int x, int y, int width, int height);
+	
 	public static native boolean createFont(String alias, String path);
 	
 	public static native void setFontSize(int size);
