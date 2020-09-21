@@ -6,8 +6,7 @@ LIBS =
 LDFLAGS = -shared
 
 CFLAGS  += $(shell pkg-config --cflags freetype2)
-LDFLAGS += $(shell pkg-config --libs freetype2)
-
+LDFLAGS += $(shell pkg-config --libs freetype2 glesv2)
 
 LIBPREFIX = lib
 
@@ -37,8 +36,6 @@ endif
 all: $(TARGET)
 
 $(OBJDIR)/%.o: %.cpp
-	echo $(UNAME_M)
-	echo $(JAVA_HOME)
 	@mkdir -p $(dir $@) 2> /dev/null 
 	$(CC) -c -o $@ -I. $(CFLAGS) $<
 
