@@ -32,7 +32,7 @@ public class GLBackBuffer extends BackBuffer {
 	@Override
 	public void draw(Canvas canvas, int x, int y) {
 		if (handle == 0) return;
-		Log.d(LOGTAG, "draw " + getWidth() + "x" + getHeight());
+		// Log.d(LOGTAG, "draw at " + x + "," + y + " " + getWidth() + "x" + getHeight());
 		GLNativeInterface.drawBackBuffer(handle, x, y, getWidth(), getHeight());
 	}
 

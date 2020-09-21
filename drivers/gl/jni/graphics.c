@@ -185,9 +185,11 @@ void graphics_backbuffer_bind(int handle) {
 	nvgluBindFramebuffer(fb);
 	glViewport(0, 0, fboWidth, fboHeight);
 	nvgBeginFrame(vg, fboWidth, fboHeight, 1.0f);
+	nvgSave(vg);
 }
 
 void graphics_backbuffer_unbind(int handle) {
+	nvgRestore(vg);
 	nvgEndFrame(vg);
 	nvgluBindFramebuffer(NULL);
 }
@@ -197,7 +199,7 @@ void graphics_backbuffer_draw(int handle, int x, int y, int width, int height) {
 	if (handle < 0 || handle >= MAX_FB_SIZE) return;
 
 	NVGLUframebuffer* fb = fbs[handle];
-	NVGpaint img = nvgImagePattern(vg, 0, 0, width, height, 0, fb->image, 1.0f);
+	NVGpaint img = nvgImagePattern(vg, x, y, width, height, 0, fb->image, 1.0f);
 
 	nvgSave(vg);
 	nvgBeginPath(vg);
@@ -205,6 +207,4 @@ void graphics_backbuffer_draw(int handle, int x, int y, int width, int height) {
 	nvgFillPaint(vg, img);
 	nvgFill(vg);
 	nvgRestore(vg);
-
-	fts_gl_log_debug("draw backbuffer %dx%d", width, height);
 }

@@ -4,12 +4,12 @@
     width="match_parent"
     height="match_parent">
     <TextWidget
-	    background="#FF8080A0"
         width="match_parent"
         height="wrap_content"
         maxLines="10"
         align="left"
         color="@color/white"
+        padding="10px"
         text="First line that is now a longer text and more longer"/>
     <TextWidget
     	background="@drawable/test_background"
@@ -17,7 +17,8 @@
         height="wrap_content"
         align="center"
         color="#CCCCCC"
-        text="First line that is now a longer text and more longer"/>
+        padding="4px"
+        text="Second line that is now a longer text and more longer"/>
     <TextWidget
     	background="@drawable/test_gradient"
     	color="@color/white"

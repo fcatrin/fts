@@ -40,15 +40,15 @@ public class Shape extends Drawable {
 	public void draw(Canvas canvas) {
 		if (fillColor!=null) {
 			canvas.setColor(fillColor);
-			canvas.drawFilledRect(bounds.x, bounds.y, bounds.width, bounds.height, radius);
+			canvas.drawFilledRect(0, 0, bounds.width, bounds.height, radius);
 		} else if (startColor != null && endColor != null) {
-			canvas.drawGradientRect(bounds.x, bounds.y, bounds.width, bounds.height, radius, 
+			canvas.drawGradientRect(0, 0, bounds.width, bounds.height, radius, 
 					angle, startColor, endColor);
 		}
 		
 		if (strokeColor!=null && strokeWidth>0) {
 			canvas.setColor(strokeColor);
-			canvas.drawRect(bounds.x + strokeWidth/2, bounds.y + strokeWidth/2, bounds.width - strokeWidth, bounds.height - strokeWidth, radius);
+			canvas.drawRect(0, 0, bounds.width, bounds.height, radius);
 		}
 	}
 

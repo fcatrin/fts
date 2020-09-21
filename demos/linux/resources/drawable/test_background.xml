@@ -1,6 +1,6 @@
 <shape
-    fillColor="#A080A0"
-    strokeWidth="2px"
-    strokeColor="#FFFFFF"
-    radius="10pt"
+    fillColor="#FFA080A0"
+    strokeWidth="20px"
+    strokeColor="#ff000000"
+    
     />
