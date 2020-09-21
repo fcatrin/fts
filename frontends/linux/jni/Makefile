@@ -16,13 +16,19 @@ FTS_GL_LIB = $(FTS_GL_DRIVER)/libs/libfts-gl.so
 
 UNAME_S := $(shell uname -s)
 UNAME_P := $(shell uname -p)
+UNAME_M := $(shell uname -m)
 ifeq ($(UNAME_S),Linux)
-	JAVA_HOME = /usr/lib/jvm/java-8-oracle/
+        ifeq ($(UNAME_M),armv7l)
+	    JAVA_HOME = /usr/lib/jvm/java-11-openjdk-armhf
+	    LIBARCH = armv7l
+        else
+	    JAVA_HOME = /usr/lib/jvm/java-8-oracle
+	    ifeq ($(UNAME_P),x86_64)
+		LIBARCH = x86_64
+	    endif
+        endif
 	CFLAGS += -D LINUX -fPIC -I$(JAVA_HOME)/include/linux/
 	LIBEXT = so
-	ifeq ($(UNAME_P),x86_64)
-		LIBARCH = x86_64
-	endif
 	ifneq ($(filter %86,$(UNAME_P)),)
 	endif
 endif

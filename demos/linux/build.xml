@@ -68,4 +68,10 @@
             <classpath refid="fts-linux-demo.classpath"/>
         </java>
     </target>
+    <target name="run-rpi">
+        <java classname="fts.linux.demo.MainFTSLinuxDemo" failonerror="true" fork="yes">
+            <jvmarg line="-Djava.library.path=libs/armv7l"/>
+            <classpath refid="fts-linux-demo.classpath"/>
+        </java>
+    </target>
 </project>

@@ -24,14 +24,21 @@ TARGET = ../libs/$(LIBPREFIX)fts-gl.so
 
 UNAME_S := $(shell uname -s)
 UNAME_P := $(shell uname -p)
+UNAME_M := $(shell uname -m)
 ifeq ($(UNAME_S),Linux)
-	JAVA_HOME = /usr/lib/jvm/java-8-oracle
+	ifeq ($(UNAME_M),armv7l)
+	    JAVA_HOME = /usr/lib/jvm/java-11-openjdk-armhf
+	else
+	    JAVA_HOME = /usr/lib/jvm/java-8-oracle
+	endif
 	CFLAGS += -D LINUX -I$(JAVA_HOME)/include  -I$(JAVA_HOME)/include/linux
 endif
 
 all: $(TARGET)
 
 $(OBJDIR)/%.o: %.cpp
+	echo $(UNAME_M)
+	echo $(JAVA_HOME)
 	@mkdir -p $(dir $@) 2> /dev/null 
 	$(CC) -c -o $@ -I. $(CFLAGS) $<
 
