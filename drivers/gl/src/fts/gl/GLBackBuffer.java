@@ -26,7 +26,7 @@ public class GLBackBuffer extends BackBuffer {
 	public void bind() {
 		if (handle == 0) return;
 		GLNativeInterface.bindBackBuffer(handle);
-		Log.d(LOGTAG, "bind " + getWidth() + "x" + getHeight());
+		// Log.d(LOGTAG, "bind " + getWidth() + "x" + getHeight());
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class GLBackBuffer extends BackBuffer {
 	@Override
 	public void unbind() {
 		if (handle == 0) return;
-		Log.d(LOGTAG, "unbind " + getWidth() + "x" + getHeight());
+		// Log.d(LOGTAG, "unbind " + getWidth() + "x" + getHeight());
 		GLNativeInterface.unbindBackBuffer(handle);
 	}
 
