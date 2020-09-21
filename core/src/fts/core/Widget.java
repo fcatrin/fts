@@ -1,7 +1,5 @@
 package fts.core;
 
-import javax.swing.InternalFrameFocusTraversalPolicy;
-
 import fts.events.KeyEvent;
 import fts.events.OnClickListener;
 import fts.events.PaintEvent;

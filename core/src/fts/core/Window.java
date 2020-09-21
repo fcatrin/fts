@@ -39,12 +39,18 @@ public abstract class Window {
 		view.requestLayout();
 	}
 	
-	public void onPaint(PaintEvent e) {
+	public void doPendingLayout() {
 		if (view.needsLayout()) {
 			view.layout();
 			view.setLayoutDone();
 		}
+	}
+	
+	public void doRender(PaintEvent e) {
 		view.render(e);
+	}
+	
+	public void doPaint(PaintEvent e) {
 		view.draw(e);
 	}
 	

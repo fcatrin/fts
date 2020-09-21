@@ -31,9 +31,12 @@ public abstract class GLWindow extends Window {
 		paintEvent.canvas = getCanvas();
 		paintEvent.clip = null;
 
+		doPendingLayout();
+		doRender(paintEvent);
+		
 		Point size = this.getBounds();
 		GLNativeInterface.frameStart(size.x, size.y);
-		onPaint(paintEvent);
+		doPaint(paintEvent);
 		GLNativeInterface.frameEnd();
 		running = sync();
 		if (getOnFrameCallback()!=null) getOnFrameCallback().onResult();
