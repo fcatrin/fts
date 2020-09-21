@@ -12,7 +12,7 @@ static int r, g, b, a;
 static int r_start, g_start, b_start, a_start;
 static int r_end, g_end, b_end, a_end;
 
-#define MAX_FB_SIZE 10
+#define MAX_FB_SIZE 200
 NVGLUframebuffer *fbs[MAX_FB_SIZE];
 
 void graphics_init() {
@@ -184,6 +184,8 @@ void graphics_backbuffer_bind(int handle) {
 	nvgImageSize(vg, fb->image, &fboWidth, &fboHeight);
 	nvgluBindFramebuffer(fb);
 	glViewport(0, 0, fboWidth, fboHeight);
+	glClearColor(0, 0, 0, 0);
+	glClear(GL_COLOR_BUFFER_BIT);
 	nvgBeginFrame(vg, fboWidth, fboHeight, 1.0f);
 	nvgSave(vg);
 }
