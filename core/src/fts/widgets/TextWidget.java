@@ -27,18 +27,22 @@ public class TextWidget extends Widget {
 
 	public void setText(String text) {
 		textDrawable.setText(text);
+		invalidate();
 	}
 	
 	public void setAlign(Align align) {
 		textDrawable.setAlign(align);
+		invalidate();
 	}
 	
 	public void setColor(Color color) {
 		textDrawable.setColor(color);
+		invalidate();
 	}
 
 	public void setMaxLines(int lines) {
 		textDrawable.setMaxLines(lines);
+		invalidate();
 	}
 	
 	@Override
