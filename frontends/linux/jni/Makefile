@@ -48,9 +48,9 @@ $(OBJDIR)/%.o: %.c
 $(OBJDIR)/%.o: %.cpp
 	$(CC) -c $(CFLAGS) -o $@ $< 
 
-all : prepare corebuild $(LINK_TARGET)
+all : prepare corebuild $(FTS_GL_LIB)  $(LINK_TARGET)
 
-$(LINK_TARGET) : $(FTS_GL_LIB) $(OBJS)
+$(LINK_TARGET) : $(OBJS)
 	$(LD) -o $@ $^ $(LDFLAGS) 
 
 prepare :
