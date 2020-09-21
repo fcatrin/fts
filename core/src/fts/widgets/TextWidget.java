@@ -45,11 +45,11 @@ public class TextWidget extends Widget {
 	protected void onPaint(PaintEvent e) {
 		Canvas canvas = e.canvas;
 		if (background!=null) {
-			background.setBounds(bounds);
+			background.setBounds(getPaintBounds());
 			background.draw(canvas);
 		}
 
-		Rectangle textBounds = getInternalBounds(bounds.width, bounds.height);
+		Rectangle textBounds = getInternalPaintBounds(bounds.width, bounds.height);
 		
 		textDrawable.setBounds(textBounds);
 		textDrawable.draw(canvas);
@@ -59,9 +59,8 @@ public class TextWidget extends Widget {
 	public Point getContentSize(int width, int height) {
 		Canvas canvas = getWindow().getCanvas();
 		
-		Rectangle textBounds = getInternalBounds(width, height);
+		Rectangle textBounds = getInternalPaintBounds(width, height);
 		textDrawable.setBounds(textBounds);
-		
 		
 		Point paddingSize = getPaddingSize();
 		Point textSize = textDrawable.getSize(canvas, textDrawable.getText(), width);

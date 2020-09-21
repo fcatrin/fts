@@ -1,5 +1,7 @@
 package fts.core;
 
+import javax.swing.InternalFrameFocusTraversalPolicy;
+
 import fts.events.KeyEvent;
 import fts.events.OnClickListener;
 import fts.events.PaintEvent;
@@ -19,7 +21,9 @@ public abstract class Widget extends Component {
 	protected boolean state[] = new boolean[] {false, false, true, false};
 	protected Sides padding = new Sides();
 	protected Rectangle bounds  = new Rectangle();
-	
+	protected Rectangle paintBounds = new Rectangle();
+	protected Rectangle paintInternalBounds = new Rectangle();
+
 	public static final String VALUE_MATCH_PARENT = "match_parent";
 	public static final String VALUE_WRAP_CONTENT = "wrap_content";
 
@@ -136,7 +140,7 @@ public abstract class Widget extends Component {
 	
 	protected void onPaint(PaintEvent e) {
 		if (background != null) {
-			background.setBounds(bounds);
+			background.setBounds(getPaintBounds());
 			background.draw(e.canvas);
 		}
 	}
@@ -364,11 +368,21 @@ public abstract class Widget extends Component {
 		bounds.y = y;
 		bounds.width  = width;
 		bounds.height = height;
+		
+		paintBounds.x = 0;
+		paintBounds.y = 0;
+		paintBounds.width = bounds.width;
+		paintBounds.height = bounds.height;
 	}
 
+	public Rectangle getPaintBounds() {
+		return paintBounds;
+	}
+	
 	public Rectangle getBounds() {
 		return bounds;
 	}
+	
 	public LayoutInfo getLayoutInfo() {
 		return layoutInfo;
 	}
@@ -411,13 +425,13 @@ public abstract class Widget extends Component {
 		return new Point(padding.left + padding.right, padding.top + padding.bottom);
 	}
 	
-	public Rectangle getInternalBounds(int width, int height) {
-		Point paddingSize = getPaddingSize();
-		return new Rectangle( 
-				bounds.x + padding.left,
-				bounds.y + padding.top,
-				bounds.width - paddingSize.x,
-				bounds.height - paddingSize.y);
+	public Rectangle getInternalPaintBounds(int width, int height) {
+		paintInternalBounds.x = padding.left;
+		paintInternalBounds.y = padding.top;
+		paintInternalBounds.width  = bounds.width  - (padding.left + padding.right);
+		paintInternalBounds.height = bounds.height - (padding.top  + padding.bottom);
+		
+		return paintInternalBounds;
 	}
 
 	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
