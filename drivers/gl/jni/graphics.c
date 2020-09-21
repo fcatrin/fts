@@ -23,6 +23,7 @@ void graphics_init() {
 }
 
 void graphics_frame_begin(int width, int height) {
+	glViewport(0, 0, width, height);
 	nvgBeginFrame(vg, width, height, 1.0f);
 }
 
