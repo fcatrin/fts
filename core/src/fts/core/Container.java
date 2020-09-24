@@ -131,7 +131,8 @@ public abstract class Container extends Widget {
 		Widget focusedView = null;
 		for(Widget child : children) {
 			if (child instanceof Container) {
-				focusedView = findFocusedView();
+				Container container = (Container)child;
+				focusedView = container.findFocusedView();
 			} else {
 				if (child.isFocused()) focusedView = child;
 			}
