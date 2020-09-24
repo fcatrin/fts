@@ -448,4 +448,17 @@ public abstract class Widget extends Component {
 			backBuffer = null;
 		}
 	}
+
+	protected boolean dispatchKeyEvent(KeyEvent keyEvent) {
+		if (keyEvent.down) return onKeyDown(keyEvent);
+		else return onKeyUp(keyEvent);
+	}
+	
+	protected boolean onKeyUp(KeyEvent keyEvent) {
+		return false;
+	}
+	
+	protected boolean onKeyDown(KeyEvent keyEvent) {
+		return false;
+	}
 }

@@ -1,5 +1,6 @@
 package fts.linux;
 
+import fts.events.KeyEvent;
 import fts.events.TouchEvent;
 import fts.gl.GLWindow;
 import fts.graphics.Point;
@@ -52,9 +53,20 @@ public class Window extends GLWindow {
 			case NativeInterface.FTS_TOUCH_EVENT:
 				fireTouchEvent(type, nativeEvents[i+2], nativeEvents[i+3], nativeEvents[i+4]);
 				break;
+			case NativeInterface.FTS_KEY_EVENT:
+				fireKeyEvent(type, nativeEvents[i+2], nativeEvents[i+3]);
 			}
+				
 		}
 		return true;
+	}
+
+	private void fireKeyEvent(int type, int keyCode, int modifiers) {
+		KeyEvent event = new KeyEvent();
+		event.down      = type == NativeInterface.FTS_KEY_DOWN;
+		event.keyCode   = keyCode;
+		event.modifiers = modifiers;
+		dispatchKeyEvent(event);
 	}
 
 	private void fireTouchEvent(int type, int button, int x, int y) {

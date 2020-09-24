@@ -127,4 +127,18 @@ public abstract class Container extends Widget {
 		}
 	}
 	
+	public Widget findFocusedView() {
+		Widget focusedView = null;
+		for(Widget child : children) {
+			if (child instanceof Container) {
+				focusedView = findFocusedView();
+			} else {
+				if (child.isFocused()) focusedView = child;
+			}
+			if (focusedView != null) break;
+		}
+		if (focusedView != null) return focusedView;
+		return isFocused() ? this : null;
+	}
+
 }

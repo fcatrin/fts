@@ -1,5 +1,6 @@
 package fts.core;
 
+import fts.events.KeyEvent;
 import fts.events.PaintEvent;
 import fts.events.TouchEvent;
 import fts.graphics.Canvas;
@@ -66,6 +67,32 @@ public abstract class Window {
 		if (view.dispatchTouchEvent(touchEvent)) return true;
 		onTouchEvent(touchEvent);
 		return true;
+	}
+	
+	protected boolean dispatchKeyEvent(KeyEvent keyEvent) {
+		Widget focusedView;
+		
+		if (view instanceof Container) {
+			Container containerView = (Container)view;
+			focusedView = containerView.findFocusedView();
+		} else {
+			focusedView = view.isFocused() ? view : null;
+		}
+		
+		if (focusedView!=null) {
+			if (view.dispatchKeyEvent(keyEvent)) return true;
+		}
+		
+		if (keyEvent.down) return onKeyDown(keyEvent);
+		else return onKeyUp(keyEvent);
+	}
+	
+	protected boolean onKeyUp(KeyEvent keyEvent) {
+		return false;
+	}
+	
+	protected boolean onKeyDown(KeyEvent keyEvent) {
+		return false;
 	}
 	
 	protected void onTouchEvent(TouchEvent touchEvent) {}
