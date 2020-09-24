@@ -38,10 +38,6 @@ public class Application {
 		return factory.createWindow(title, width, height);
 	}
 	
-	public static NativeView createNativeView(Window w) {
-		return factory.createNativeView(w);
-	}
-	
 	public static Drawable createDrawable(Element node) {
 		return factory.createDrawable(node);
 	}

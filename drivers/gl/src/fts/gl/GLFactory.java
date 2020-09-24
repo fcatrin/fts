@@ -3,9 +3,7 @@ package fts.gl;
 import org.w3c.dom.Element;
 
 import fts.core.CoreComponentFactory;
-import fts.core.NativeView;
 import fts.core.Widget;
-import fts.core.Window;
 import fts.graphics.BackBuffer;
 import fts.graphics.Drawable;
 
@@ -14,11 +12,6 @@ public abstract class GLFactory extends CoreComponentFactory {
 	@Override
 	public Widget createWidget(Element element) {
 		return super.createWidget(element);
-	}
-
-	@Override
-	public NativeView createNativeView(Window w) {
-		return null;
 	}
 
 	@Override

@@ -12,7 +12,6 @@ import fts.graphics.Drawable;
 public interface ComponentFactory {
 	public Window createWindow(String title, int width, int height);
 	public Widget createWidget(Element element);
-	public NativeView createNativeView(Window w);
 	public Drawable createDrawable(Element element);
 	public BackBuffer createBackBuffer(int width, int height);
 	

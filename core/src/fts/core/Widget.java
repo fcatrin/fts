@@ -30,7 +30,6 @@ public abstract class Widget extends Component {
 	LayoutInfo layoutInfo = new LayoutInfo();
 	boolean layoutRequested = false;
 	
-	NativeView nativeView;
 	Window window;
 	
 	private Align containerAlign = new Align();
@@ -44,7 +43,6 @@ public abstract class Widget extends Component {
 	protected boolean isDirty = true;
 	
 	public Widget(Window window) {
-		nativeView = Application.createNativeView(window);
 		this.window = window;
 	}
 	
@@ -264,10 +262,6 @@ public abstract class Widget extends Component {
 	
 	public void post(Runnable runnable) {
 		if (!isDisposed()) Context.post(runnable);
-	}
-	
-	protected Point getTextSize(String s) {
-		return nativeView.getTextSize(s);
 	}
 	
 	protected boolean isDisposed() {
