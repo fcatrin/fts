@@ -13,7 +13,8 @@ static SDL_Window *window;
 
 enum {
 	FTS_WINDOW_EVENT = 1,
-	FTS_TOUCH_EVENT
+	FTS_TOUCH_EVENT,
+	FTS_KEY_EVENT
 };
 
 enum {
@@ -21,6 +22,8 @@ enum {
 	FTS_MOUSE_DOWN,
 	FTS_MOUSE_UP,
 	FTS_MOUSE_MOVE,
+	FTS_KEY_DOWN,
+	FTS_KEY_UP
 };
 
 #define MAX_EVENT_QUEUE 100
@@ -52,6 +55,14 @@ static void push_event_touch(int type, int button, int x, int y) {
 	event->touch.y = y;
 }
 
+static void push_event_key(int type, SDL_KeyboardEvent *key) {
+	struct event *event = &event_queue[event_queue_index++];
+	event->family = FTS_KEY_EVENT;
+	event->type = type == SDL_KEYDOWN ? FTS_KEY_DOWN : FTS_KEY_UP;
+	event->key.code = key->keysym.sym;
+	event->key.modifier = key->keysym.mod;
+}
+
 int window_process_events() {
 	SDL_Event event;
 
@@ -75,6 +86,9 @@ int window_process_events() {
 		case SDL_MOUSEMOTION:
 			push_event_touch(FTS_MOUSE_MOVE, 0, event.motion.x, event.motion.y);
 			break;
+		case SDL_KEYDOWN:
+		case SDL_KEYUP:
+			push_event_key(event.type, &event.key);
 		}
 	}
 	return event_queue_index;

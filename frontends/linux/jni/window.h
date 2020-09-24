@@ -10,7 +10,8 @@ struct event_touch {
 };
 
 struct event_key {
-	int key_code;
+	int code;
+	int modifier;
 };
 
 struct event {
