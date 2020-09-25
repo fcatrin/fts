@@ -107,21 +107,24 @@ public class Window implements GLWindowListener {
 		nativeWindow.setContentView(view);
 	}
 	
-	@Override
-	public void onCreate() {
+	public Widget findWidget(String id) {
+		return nativeWindow.findWidget(id);
 	}
+	
+	@Override
+	public void onCreate() {}
 
 	@Override
-	public void onStart() {
-	}
+	public void onStart() {}
 
 	@Override
-	public void onStop() {
-	}
+	public void onStop() {}
 
 	@Override
-	public void onDestroy() {
-	}
+	public void onDestroy() {}
+
+	@Override
+	public void onFrame() {}
 
 	public void run() {
 		onCreate();
@@ -131,5 +134,6 @@ public class Window implements GLWindowListener {
 		onStop();
 		onDestroy();
 	}
+
 
 }

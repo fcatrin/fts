@@ -8,6 +8,8 @@ public interface NativeWindowListener {
 	public void onStop();
 	public void onDestroy();
 	
+	public void onFrame();
+	
 	public void setTitle(String title);
 	public void open();
 	public Point getBounds();

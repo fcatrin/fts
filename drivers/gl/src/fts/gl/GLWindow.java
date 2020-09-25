@@ -39,7 +39,8 @@ public class GLWindow extends NativeWindow {
 		doPaint(paintEvent);
 		GLNativeInterface.frameEnd();
 		running = sync();
-		if (getOnFrameCallback()!=null) getOnFrameCallback().onResult();
+		
+		windowListener.onFrame();
 	}
 	
 	@Override
