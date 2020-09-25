@@ -30,7 +30,7 @@ public abstract class Widget extends Component {
 	LayoutInfo layoutInfo = new LayoutInfo();
 	boolean layoutRequested = false;
 	
-	Window window;
+	NativeWindow window;
 	
 	private Align containerAlign = new Align();
 	
@@ -42,11 +42,11 @@ public abstract class Widget extends Component {
 	protected BackBuffer backBuffer = null;
 	protected boolean isDirty = true;
 	
-	public Widget(Window window) {
+	public Widget(NativeWindow window) {
 		this.window = window;
 	}
 	
-	public Window getWindow() {
+	public NativeWindow getWindow() {
 		return window;
 	}
 

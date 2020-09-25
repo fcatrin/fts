@@ -5,12 +5,12 @@ import java.util.List;
 
 import fts.core.Application;
 import fts.core.ComponentFactory;
-import fts.core.Window;
+import fts.core.NativeWindow;
 import fts.events.PaintEvent;
 import fts.graphics.Canvas;
 import fts.graphics.Point;
 
-public abstract class GLWindow extends Window {
+public abstract class GLWindow extends NativeWindow {
 
 	PaintEvent paintEvent = new PaintEvent();
 	boolean running;

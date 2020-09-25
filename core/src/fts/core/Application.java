@@ -34,8 +34,8 @@ public class Application {
 		loadStrings();
 	}
 	
-	public static Window createWindow(String title, int width, int height) {
-		return factory.createWindow(title, width, height);
+	public static NativeWindow createWindow(String title, int width, int height) {
+		return factory.createNativeWindow(title, width, height);
 	}
 	
 	public static Drawable createDrawable(Element node) {
@@ -115,7 +115,7 @@ public class Application {
 		}
 	}
 
-	protected Widget createWidget(Window w, Element node) {
+	protected Widget createWidget(NativeWindow w, Element node) {
 		String name = node.getNodeName();
 		
 		if (name.equals("include")) {
@@ -157,7 +157,7 @@ public class Application {
 	}
 			
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static Component createComponentInstance(Window w, String className) {
+	public static Component createComponentInstance(NativeWindow w, String className) {
 		Class componentClass;
 		try {
 			componentClass = Class.forName(className);
@@ -166,7 +166,7 @@ public class Application {
 		}
 		
 		try {
-			return (Component)componentClass.getDeclaredConstructor(Window.class).newInstance(w);
+			return (Component)componentClass.getDeclaredConstructor(NativeWindow.class).newInstance(w);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
 			e.printStackTrace();
 			return null;
@@ -205,7 +205,7 @@ public class Application {
 		return createDrawable(root);
 	}
 	
-	public Widget inflate(Window w, String name) {
+	public Widget inflate(NativeWindow w, String name) {
 		Document doc = loadResource("layout", name);
 		Element root = doc.getDocumentElement();
 		return createWidget(w, root);

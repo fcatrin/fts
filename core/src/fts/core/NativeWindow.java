@@ -7,7 +7,7 @@ import fts.graphics.Canvas;
 import fts.graphics.Point;
 import fts.widgets.AbsoluteContainer;
 
-public abstract class Window {
+public abstract class NativeWindow {
 	private Widget view;
 	private Canvas canvas;
 	private SimpleCallback onFrameCallback;

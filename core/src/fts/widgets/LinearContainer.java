@@ -6,7 +6,7 @@ import java.util.List;
 import fts.core.Container;
 import fts.core.LayoutInfo;
 import fts.core.Widget;
-import fts.core.Window;
+import fts.core.NativeWindow;
 import fts.graphics.Align.HAlign;
 import fts.graphics.Align.VAlign;
 import fts.graphics.Point;
@@ -16,7 +16,7 @@ public class LinearContainer extends Container {
 	
 	private Orientation orientation = Orientation.Vertical;
 
-	public LinearContainer(Window w) {
+	public LinearContainer(NativeWindow w) {
 		super(w);
 	}
 	

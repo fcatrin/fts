@@ -13,7 +13,7 @@ public abstract class Container extends Widget {
 	List<Widget> children = new ArrayList<Widget>();
 	Map<String, Widget> knownWidgets = new HashMap<String, Widget>();
 
-	public Container(Window w) {
+	public Container(NativeWindow w) {
 		super(w);
 	}
 

@@ -6,10 +6,10 @@ import android.os.Bundle;
 import fts.core.Application;
 import fts.core.Context;
 import fts.core.Widget;
-import fts.core.Window;
+import fts.core.NativeWindow;
 
 public abstract class FtsActivity extends Activity {
-	private Window window;
+	private NativeWindow window;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public abstract class FtsActivity extends Activity {
 	
 	protected abstract String getRootLayout();
 	
-	public Window getFtsWindow() {
+	public NativeWindow getFtsWindow() {
 		return window;
 	}
 }

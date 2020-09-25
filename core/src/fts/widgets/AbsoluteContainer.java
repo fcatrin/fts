@@ -3,13 +3,13 @@ package fts.widgets;
 import fts.core.Container;
 import fts.core.LayoutInfo;
 import fts.core.Widget;
-import fts.core.Window;
+import fts.core.NativeWindow;
 import fts.graphics.Align;
 import fts.graphics.Point;
 
 public class AbsoluteContainer extends Container {
 
-	public AbsoluteContainer(Window w) {
+	public AbsoluteContainer(NativeWindow w) {
 		super(w);
 	}
 
