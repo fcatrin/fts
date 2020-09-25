@@ -9,7 +9,7 @@ import fts.core.Widget;
 import fts.core.NativeWindow;
 
 public abstract class FtsActivity extends Activity {
-	private NativeWindow window;
+	private AndroidWindow window;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,10 +19,11 @@ public abstract class FtsActivity extends Activity {
 		
 		setContentView(R.layout.main);
 		
-		Application app = new Application(new ComponentFactory(), new AndroidResourceLocator(this), new AndroidLogger(), new Context());
-		window = Application.createWindow("", 0, 0);
+		Application.init(new ComponentFactory(), new AndroidResourceLocator(this), new AndroidLogger(), new fts.core.Context());
 
-		Widget rootView = app.inflate(window, getRootLayout());
+		window = new AndroidWindow();
+
+		Widget rootView = Application.inflate(window, getRootLayout());
 		window.setContentView(rootView);
 		
 		GLRenderer renderer = new GLRenderer((AndroidWindow)window);

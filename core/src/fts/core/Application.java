@@ -36,7 +36,7 @@ public class Application {
 		loadStrings();
 	}
 	
-	public static NativeWindow createWindow(String title, int width, int height) {
+	public static NativeWindow createNativeWindow(String title, int width, int height) {
 		return factory.createNativeWindow(title, width, height);
 	}
 	

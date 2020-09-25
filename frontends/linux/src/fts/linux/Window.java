@@ -28,7 +28,7 @@ public class Window implements GLWindowListener {
 		this.height = height;
 		this.title = title;
 		
-		nativeWindow = (GLWindow)Application.createWindow(title, width, height);
+		nativeWindow = (GLWindow)Application.createNativeWindow(title, width, height);
 		nativeWindow.setWindowListener(this);
 	}
 
