@@ -11,6 +11,7 @@ public abstract class Window {
 	private Widget view;
 	private Canvas canvas;
 	private SimpleCallback onFrameCallback;
+	private OnKeyListener onKeyListener;
 
 	public abstract void setTitle(String title);
 	public abstract void open();
@@ -83,18 +84,16 @@ public abstract class Window {
 			if (view.dispatchKeyEvent(keyEvent)) return true;
 		}
 		
-		if (keyEvent.down) return onKeyDown(keyEvent);
-		else return onKeyUp(keyEvent);
-	}
-	
-	protected boolean onKeyUp(KeyEvent keyEvent) {
+		if (onKeyListener!=null) {
+			if (keyEvent.down) return onKeyListener.onKeyDown(keyEvent);
+			else return onKeyListener.onKeyUp(keyEvent);
+		}
 		return false;
 	}
 	
-	protected boolean onKeyDown(KeyEvent keyEvent) {
-		return false;
+	public void setOnKeyListener(OnKeyListener onKeyListener) {
+		this.onKeyListener = onKeyListener;
 	}
-	
 	protected void onTouchEvent(TouchEvent touchEvent) {}
 	
 	public void setOnFrameCallback(SimpleCallback onFrameCallback) {
