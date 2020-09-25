@@ -12,11 +12,10 @@ public abstract class NativeWindow {
 	private Canvas canvas;
 	private SimpleCallback onFrameCallback;
 	private OnKeyListener onKeyListener;
+	
+	protected NativeWindowListener windowListener;
 
-	public abstract void setTitle(String title);
-	public abstract void open();
 	public abstract void mainLoop();
-	public abstract Point getBounds();
 	
 	public void setContentView(Widget view) {
 		Container container = new AbsoluteContainer(this);
@@ -64,13 +63,13 @@ public abstract class NativeWindow {
 		this.canvas = canvas;
 	}
 
-	protected boolean dispatchTouchEvent(TouchEvent touchEvent) {
+	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
 		if (view.dispatchTouchEvent(touchEvent)) return true;
 		onTouchEvent(touchEvent);
 		return true;
 	}
 	
-	protected boolean dispatchKeyEvent(KeyEvent keyEvent) {
+	public boolean dispatchKeyEvent(KeyEvent keyEvent) {
 		Widget focusedView;
 		
 		if (view instanceof Container) {
@@ -107,4 +106,21 @@ public abstract class NativeWindow {
 	public void destroy() {
 		if (view!=null) view.destroy();
 	}
+	
+	public void setWindowListener(NativeWindowListener windowListener) {
+		this.windowListener = windowListener;
+	}
+	
+	public void setTitle(String title) {
+		windowListener.setTitle(title);
+	}
+
+	public void open() {
+		windowListener.open();
+	}
+
+	public Point getBounds() {
+		return windowListener.getBounds();
+	}
+
 }

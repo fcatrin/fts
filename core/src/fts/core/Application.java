@@ -23,7 +23,9 @@ public class Application {
 	static Context context;
 	static Logger logger;
 	
-	public Application(ComponentFactory factory, ResourceLocator resourceLocator, Logger logger, Context context) {
+	private Application() {};
+	
+	public static void init(ComponentFactory factory, ResourceLocator resourceLocator, Logger logger, Context context) {
 		Application.factory = factory;
 		Application.context = context;
 		Application.resourceLocator = resourceLocator;
@@ -115,7 +117,7 @@ public class Application {
 		}
 	}
 
-	protected Widget createWidget(NativeWindow w, Element node) {
+	protected static Widget createWidget(NativeWindow w, Element node) {
 		String name = node.getNodeName();
 		
 		if (name.equals("include")) {
@@ -205,7 +207,7 @@ public class Application {
 		return createDrawable(root);
 	}
 	
-	public Widget inflate(NativeWindow w, String name) {
+	public static Widget inflate(NativeWindow w, String name) {
 		Document doc = loadResource("layout", name);
 		Element root = doc.getDocumentElement();
 		return createWidget(w, root);

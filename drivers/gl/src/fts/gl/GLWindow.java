@@ -10,7 +10,7 @@ import fts.events.PaintEvent;
 import fts.graphics.Canvas;
 import fts.graphics.Point;
 
-public abstract class GLWindow extends NativeWindow {
+public class GLWindow extends NativeWindow {
 
 	PaintEvent paintEvent = new PaintEvent();
 	boolean running;
@@ -44,13 +44,14 @@ public abstract class GLWindow extends NativeWindow {
 	
 	@Override
 	public void mainLoop() {
-		init();
 		while (running) {
 			render();
 		}
 	}
 	
-	protected abstract boolean sync();
+	protected boolean sync() {
+		return ((GLWindowListener)windowListener).sync();
+	}
 	
 	protected void createAllFonts() {
 		ComponentFactory factory = Application.getFactory();

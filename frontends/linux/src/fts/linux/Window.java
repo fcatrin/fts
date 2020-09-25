@@ -1,20 +1,35 @@
 package fts.linux;
 
+import fts.core.Application;
+import fts.core.Context;
+import fts.core.DesktopLogger;
+import fts.core.DesktopResourceLocator;
+import fts.core.Widget;
 import fts.events.KeyEvent;
 import fts.events.TouchEvent;
 import fts.gl.GLWindow;
+import fts.gl.GLWindowListener;
 import fts.graphics.Point;
 
-public class Window extends GLWindow {
+public class Window implements GLWindowListener {
 
+	GLWindow nativeWindow;
+	
 	private int height;
 	private int width;
 	private String title;
+	
+	static {
+		Application.init(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
+	}
 
 	public Window(String title, int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.title = title;
+		
+		nativeWindow = (GLWindow)Application.createWindow(title, width, height);
+		nativeWindow.setWindowListener(this);
 	}
 
 	@Override
@@ -25,6 +40,7 @@ public class Window extends GLWindow {
 	@Override
 	public void open() {
 		NativeInterface.windowOpen(title, width, height);
+		nativeWindow.init();
 	}
 
 	@Override
@@ -33,7 +49,7 @@ public class Window extends GLWindow {
 	}
 
 	@Override
-	protected boolean sync() {
+	public boolean sync() {
 		NativeInterface.windowSwapBuffers();
 		return processEvents(NativeInterface.windowGetEvents());
 	}
@@ -66,7 +82,7 @@ public class Window extends GLWindow {
 		event.down      = type == NativeInterface.FTS_KEY_DOWN;
 		event.keyCode   = keyCode;
 		event.modifiers = modifiers;
-		dispatchKeyEvent(event);
+		nativeWindow.dispatchKeyEvent(event);
 	}
 
 	private void fireTouchEvent(int type, int button, int x, int y) {
@@ -80,7 +96,40 @@ public class Window extends GLWindow {
 		event.x = x;
 		event.y = y;
 		event.timestamp = System.currentTimeMillis();
-		dispatchTouchEvent(event);
+		nativeWindow.dispatchTouchEvent(event);
+	}
+
+	public Widget inflate(String layoutName) {
+		return Application.inflate(nativeWindow, layoutName);
+	}
+	
+	public void setContentView(Widget view) {
+		nativeWindow.setContentView(view);
+	}
+	
+	@Override
+	public void onCreate() {
+	}
+
+	@Override
+	public void onStart() {
+	}
+
+	@Override
+	public void onStop() {
+	}
+
+	@Override
+	public void onDestroy() {
+	}
+
+	public void run() {
+		onCreate();
+		open();
+		onStart();
+		nativeWindow.mainLoop();
+		onStop();
+		onDestroy();
 	}
 
 }

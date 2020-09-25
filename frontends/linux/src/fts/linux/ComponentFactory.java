@@ -1,12 +1,14 @@
 package fts.linux;
 
+import fts.core.NativeWindow;
 import fts.gl.GLFactory;
+import fts.gl.GLWindow;
 
 public class ComponentFactory extends GLFactory {
 
 	@Override
-	public Window createNativeWindow(String title, int width, int height) {
-		return new Window(title, width, height);
+	public NativeWindow createNativeWindow(String title, int width, int height) {
+		return new GLWindow();
 	}
 
 }
