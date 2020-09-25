@@ -1,5 +1,6 @@
 package fts.core;
 
+import fts.events.KeyEvent;
 import fts.graphics.Point;
 
 public interface NativeWindowListener {
@@ -13,4 +14,9 @@ public interface NativeWindowListener {
 	public void setTitle(String title);
 	public void open();
 	public Point getBounds();
+	
+	public boolean dispatchKeyEvent(KeyEvent keyEvent);
+	public boolean onKeyDown(KeyEvent event);
+	public boolean onKeyUp(KeyEvent event);
+
 }

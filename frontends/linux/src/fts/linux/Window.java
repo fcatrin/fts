@@ -82,7 +82,7 @@ public class Window implements GLWindowListener {
 		event.down      = type == NativeInterface.FTS_KEY_DOWN;
 		event.keyCode   = keyCode;
 		event.modifiers = modifiers;
-		nativeWindow.dispatchKeyEvent(event);
+		dispatchKeyEvent(event);
 	}
 
 	private void fireTouchEvent(int type, int button, int x, int y) {
@@ -135,5 +135,19 @@ public class Window implements GLWindowListener {
 		onDestroy();
 	}
 
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent keyEvent) {
+		return nativeWindow.dispatchKeyEvent(keyEvent);
+	}
+
+	@Override
+	public boolean onKeyDown(KeyEvent event) {
+		return false;
+	}
+
+	@Override
+	public boolean onKeyUp(KeyEvent event) {
+		return false;
+	}
 
 }

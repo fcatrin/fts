@@ -10,7 +10,6 @@ import fts.widgets.AbsoluteContainer;
 public abstract class NativeWindow {
 	private Widget view;
 	private Canvas canvas;
-	private OnKeyListener onKeyListener;
 	
 	protected NativeWindowListener windowListener;
 
@@ -82,16 +81,10 @@ public abstract class NativeWindow {
 			if (view.dispatchKeyEvent(keyEvent)) return true;
 		}
 		
-		if (onKeyListener!=null) {
-			if (keyEvent.down) return onKeyListener.onKeyDown(keyEvent);
-			else return onKeyListener.onKeyUp(keyEvent);
-		}
-		return false;
+		if (keyEvent.down) return windowListener.onKeyDown(keyEvent);
+		else return windowListener.onKeyUp(keyEvent);
 	}
 	
-	public void setOnKeyListener(OnKeyListener onKeyListener) {
-		this.onKeyListener = onKeyListener;
-	}
 	protected void onTouchEvent(TouchEvent touchEvent) {}
 	
 	public void destroy() {
