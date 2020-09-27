@@ -733,4 +733,12 @@ public final class Utils {
 	public static boolean isAndroid() {
 		return System.getenv("ANDROID_DATA") != null;
 	}
+	
+	public static void sleep(long msec) {
+		try {
+			Thread.sleep(msec);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
