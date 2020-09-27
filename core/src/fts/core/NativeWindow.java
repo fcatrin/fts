@@ -9,6 +9,8 @@ import fts.widgets.AbsoluteContainer;
 
 public abstract class NativeWindow {
 	private Widget view;
+	private Widget contentView;
+	
 	private Canvas canvas;
 	
 	protected NativeWindowListener windowListener;
@@ -18,12 +20,17 @@ public abstract class NativeWindow {
 	public void setContentView(Widget view) {
 		Container container = new AbsoluteContainer(this);
 		container.add(view);
+		contentView = view;
 		
 		LayoutInfo layoutInfo = container.getLayoutInfo();
 		layoutInfo.width = LayoutInfo.MATCH_PARENT;
 		layoutInfo.height = LayoutInfo.MATCH_PARENT;
 		
 		this.view = container;
+	}
+	
+	public Widget getContentView() {
+		return contentView;
 	}
 	
 	public Widget findWidget(String id) {

@@ -107,6 +107,10 @@ public class Window implements GLWindowListener {
 		nativeWindow.setContentView(view);
 	}
 	
+	public Widget getContentView() {
+		return nativeWindow.getContentView();
+	}
+	
 	public Widget findWidget(String id) {
 		return nativeWindow.findWidget(id);
 	}
