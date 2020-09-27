@@ -157,6 +157,10 @@ public abstract class Component {
 		}
 	}
 
+	public Color resolveColor(String value) {
+		return resolvePropertyValueColor("color", value);
+	}
+	
 	public Color resolvePropertyValueColor(String propertyName, String value) {
 		if (value.startsWith("#")) {
 			Color color = Color.load(value);
