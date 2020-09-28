@@ -15,6 +15,7 @@ import fts.graphics.Sides;
 
 public abstract class Widget extends Component {
 	public enum State {Selected, Focused, Enabled, Pressed}
+	public enum Visibility {Visible, Invisible, Gone}
 	
 	protected boolean state[] = new boolean[] {false, false, true, false};
 	protected Sides padding = new Sides();
@@ -33,6 +34,7 @@ public abstract class Widget extends Component {
 	NativeWindow window;
 	
 	private Align containerAlign = new Align();
+	private Visibility visibility = Visibility.Visible;
 	
 	protected Drawable background;
 	
@@ -121,7 +123,7 @@ public abstract class Widget extends Component {
 	}
 	
 	protected void render(PaintEvent e) {
-		if (isDirty) {
+		if (isDirty && visibility == Visibility.Visible) {
 			getBackBuffer(bounds.width, bounds.height);
 			backBuffer.bind();
 			onPaint(e);
@@ -131,6 +133,8 @@ public abstract class Widget extends Component {
 	}
 	
 	protected void draw(PaintEvent e) {
+		if (visibility != Visibility.Visible) return;
+		
 		backBuffer.draw(e.canvas, bounds.x, bounds.y);
 	}
 	
@@ -141,6 +145,14 @@ public abstract class Widget extends Component {
 		}
 	}
 	
+	public Visibility getVisibility() {
+		return visibility;
+	}
+
+	public void setVisibility(Visibility visibility) {
+		this.visibility = visibility;
+	}
+
 	public boolean isSelected() {
 		return getState(State.Selected);
 	}
@@ -274,6 +286,11 @@ public abstract class Widget extends Component {
 			if (VALUE_MATCH_PARENT.equals(value)) return LayoutInfo.MATCH_PARENT;
 			if (VALUE_WRAP_CONTENT.equals(value)) return LayoutInfo.WRAP_CONTENT;
 			return resolvePropertyValueDimen(propertyName, value);
+		} else if (propertyName.equals("visibility")) {
+			if (value.equals("gone")) return Visibility.Gone;
+			if (value.equals("visible")) return Visibility.Visible;
+			if (value.equals("invisible")) return Visibility.Invisible;
+			throw new RuntimeException("Invalid visibility " + value);
 		}
 		return super.resolvePropertyValue(propertyName, value);
 	}
