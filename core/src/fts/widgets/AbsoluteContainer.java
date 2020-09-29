@@ -15,6 +15,9 @@ public class AbsoluteContainer extends Container {
 
 	@Override
 	public void layout() {
+		int baseLeft = padding.left + bounds.x;
+		int baseTop  = padding.top  + bounds.y;
+		
 		Point paddingSize = getPaddingSize();
 		for (Widget child : getChildren()) {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
@@ -39,7 +42,7 @@ public class AbsoluteContainer extends Container {
 			case Undefined : break;
 			}
 			
-			child.setBounds(left, top, width, height);
+			child.setBounds(baseLeft + left, baseTop + top, width, height);
 			child.layout();
 		}
 	}
