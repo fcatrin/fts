@@ -80,7 +80,7 @@ public class Window implements GLWindowListener {
 	private void fireKeyEvent(int type, int keyCode, int modifiers) {
 		KeyEvent event = new KeyEvent();
 		event.down      = type == NativeInterface.FTS_KEY_DOWN;
-		event.keyCode   = keyCode;
+		event.keyCode   = KeyMap.translate(keyCode);
 		event.modifiers = modifiers;
 		dispatchKeyEvent(event);
 	}
