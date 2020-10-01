@@ -123,7 +123,7 @@ public abstract class Widget extends Component {
 	}
 	
 	protected void render(PaintEvent e) {
-		if (isDirty && visibility == Visibility.Visible) {
+		if ((isDirty && visibility == Visibility.Visible) || backBuffer == null) {
 			getBackBuffer(bounds.width, bounds.height);
 			backBuffer.bind();
 			onPaint(e);
@@ -150,7 +150,10 @@ public abstract class Widget extends Component {
 	}
 
 	public void setVisibility(Visibility visibility) {
+		if (this.visibility == visibility) return;
+		
 		this.visibility = visibility;
+		invalidate();
 	}
 
 	public boolean isSelected() {

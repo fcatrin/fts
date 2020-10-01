@@ -28,14 +28,11 @@ public abstract class Container extends Widget {
 	
 	@Override
 	protected void draw(PaintEvent e) {
-		// e.canvas.viewStart(bounds.x, bounds.y, bounds.width, bounds.height);
 		if (getVisibility() != Visibility.Visible) return;
-		
 		backBuffer.draw(e.canvas, bounds.x, bounds.y);
 		for (Widget child : children) {
 			child.draw(e);
 		}
-		// e.canvas.viewEnd();
 	}
 	
 	public abstract void layout();
