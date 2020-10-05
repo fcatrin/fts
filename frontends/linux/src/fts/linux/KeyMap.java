@@ -19,6 +19,8 @@ public class KeyMap {
 		map.put(0x40000052, KeyEvent.KEY_DPAD_UP);
 		map.put(0x40000051, KeyEvent.KEY_DPAD_DOWN);
 		
+		map.put(0x20, KeyEvent.KEY_SPACE);
+		
 		int sdl_a = 97;
 		int sdl_z = 122;
 		buildMap(sdl_a, sdl_z, KeyEvent.KEY_A);

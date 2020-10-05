@@ -44,6 +44,7 @@ public class KeyEvent {
 	public static final int KEY_8 = 56;
 	public static final int KEY_9 = 57;
 	
+	public static final int KEY_SPACE = 32;
 	
 	public static final int KEY_DPAD_LEFT  = 0x101;
 	public static final int KEY_DPAD_RIGHT = 0x102;
