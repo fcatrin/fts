@@ -122,7 +122,7 @@ public abstract class Widget extends Component {
 		return backBuffer;
 	}
 	
-	protected void render(PaintEvent e) {
+	public void render(PaintEvent e) {
 		if ((isDirty && visibility == Visibility.Visible) || backBuffer == null) {
 			getBackBuffer(bounds.width, bounds.height);
 			backBuffer.bind();
@@ -132,7 +132,7 @@ public abstract class Widget extends Component {
 		isDirty = false;
 	}
 	
-	protected void draw(PaintEvent e) {
+	public void draw(PaintEvent e) {
 		if (visibility != Visibility.Visible) return;
 		
 		backBuffer.draw(e.canvas, bounds.x, bounds.y);

@@ -18,7 +18,7 @@ public abstract class Container extends Widget {
 	}
 
 	@Override
-	protected void render(PaintEvent e) {
+	public void render(PaintEvent e) {
 		for(Widget child : children) {
 			if (isDirty) child.invalidate();
 			child.render(e);
@@ -27,7 +27,7 @@ public abstract class Container extends Widget {
 	}
 	
 	@Override
-	protected void draw(PaintEvent e) {
+	public void draw(PaintEvent e) {
 		if (getVisibility() != Visibility.Visible) return;
 		backBuffer.draw(e.canvas, bounds.x, bounds.y);
 		for (Widget child : children) {
