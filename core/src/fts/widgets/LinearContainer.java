@@ -108,25 +108,25 @@ public class LinearContainer extends Container {
 			top += (getInternalHeight() - getChildrenMaxHeight());
 		}
 
-		List<Widget> widgets = getChildren();
-		for (int i=0; i<widgets.size(); i++) {
-			Widget child = widgets.get(i);
-			LayoutInfo layoutInfo = child.getLayoutInfo();
+		for (Widget widget : getChildren()) {
+			if (widget.getVisibility() == Visibility.Gone) continue;
+			
+			LayoutInfo layoutInfo = widget.getLayoutInfo();
 
 			int width  = layoutInfo.measuredWidth  + layoutInfo.margins.left + layoutInfo.margins.right;
 			int height = layoutInfo.measuredHeight + layoutInfo.margins.top  + layoutInfo.margins.bottom;
 			
-			switch (child.getContainerAlign().v) {
+			switch (widget.getContainerAlign().v) {
 			case Center : top = containerTop + (getInternalHeight() - height) / 2; break;
 			case Bottom : top = containerTop + (getInternalHeight() - height); break;
 			default     : break;
 			}
 			
 			left += layoutInfo.margins.left;
-			child.setBounds(left, top + layoutInfo.margins.top, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
+			widget.setBounds(left, top + layoutInfo.margins.top, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
 			left += width + layoutInfo.margins.right;
 			
-			child.layout();
+			widget.layout();
 		}
 	}
 
@@ -149,24 +149,24 @@ public class LinearContainer extends Container {
 			top += (getInternalHeight() - getChildrenHeight());
 		}
 
-		List<Widget> widgets = getChildren();
-		for (int i=0; i<widgets.size(); i++) {
-			Widget child = widgets.get(i);
-			LayoutInfo layoutInfo = child.getLayoutInfo();
+		for (Widget widget : getChildren()) {
+			if (widget.getVisibility() == Visibility.Gone) continue;
+
+			LayoutInfo layoutInfo = widget.getLayoutInfo();
 			int width  = layoutInfo.measuredWidth  + layoutInfo.margins.left + layoutInfo.margins.right;
 			int height = layoutInfo.measuredHeight + layoutInfo.margins.top  + layoutInfo.margins.bottom;
 			
-			switch (child.getContainerAlign().h) {
+			switch (widget.getContainerAlign().h) {
 			case Center : left = containerLeft + (getInternalWidth() - width) / 2; break;
 			case Right  : left = containerLeft + (getInternalWidth() - width); break;
 			default     : break;
 			}
 			
 			top += layoutInfo.margins.top;
-			child.setBounds(left + layoutInfo.margins.left, top, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
+			widget.setBounds(left + layoutInfo.margins.left, top, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
 			top += height + layoutInfo.margins.bottom;
 			
-			child.layout();
+			widget.layout();
 		}
 	}
 	
