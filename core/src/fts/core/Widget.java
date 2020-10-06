@@ -2,6 +2,7 @@ package fts.core;
 
 import fts.events.KeyEvent;
 import fts.events.OnClickListener;
+import fts.events.OnStateListener;
 import fts.events.PaintEvent;
 import fts.events.TouchEvent;
 import fts.events.TouchEvent.Action;
@@ -40,6 +41,7 @@ public abstract class Widget extends Component {
 	
 	private boolean isClickable = false;
 	private OnClickListener onClickListener;
+	private OnStateListener onStateListener;
 	
 	protected BackBuffer backBuffer = null;
 	protected boolean isDirty = true;
@@ -103,6 +105,10 @@ public abstract class Widget extends Component {
 
 	public void setOnClickListener(OnClickListener onClickListener) {
 		this.onClickListener = onClickListener;
+	}
+
+	public void setOnStateListener(OnStateListener onStateListener) {
+		this.onStateListener = onStateListener;
 	}
 
 	protected void onKeyPressed(KeyEvent e) {
@@ -195,6 +201,9 @@ public abstract class Widget extends Component {
 			SelectorDrawable selectorDrawable = (SelectorDrawable)background;
 			selectorDrawable.setState(state.ordinal(), value);
 		}
+		
+		if (changed && onStateListener!=null) onStateListener.onStateChanged(this, state, value);
+		
 		return changed;
 	}
 	

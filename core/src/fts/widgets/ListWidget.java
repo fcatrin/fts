@@ -53,6 +53,8 @@ public class ListWidget<T> extends Widget {
 			itemHeight = w.getLayoutInfo().measuredHeight;
 			offsetY = 0;
 			knownWidgets.put(0,  w);
+			
+			w.setState(State.Focused, true);
 		}
 
 		Set<Integer> usedWidgetIndexes = new HashSet<Integer>();
