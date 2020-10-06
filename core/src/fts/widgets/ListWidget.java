@@ -12,7 +12,6 @@ import fts.core.ListAdapter;
 import fts.core.Log;
 import fts.core.NativeWindow;
 import fts.core.Widget;
-import fts.core.Widget.Visibility;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
@@ -27,6 +26,8 @@ public class ListWidget<T> extends Widget {
 	
 	Map<Integer, Widget> knownWidgets = new HashMap<Integer, Widget>();
 	List<Widget> unusedWidgets = new ArrayList<Widget>();
+	
+	int separator = 1;
 
 	public ListWidget(NativeWindow window) {
 		super(window);
@@ -54,16 +55,17 @@ public class ListWidget<T> extends Widget {
 			offsetY = 0;
 			knownWidgets.put(0,  w);
 			
-			w.setState(State.Focused, true);
+			// w.setState(State.Focused, true);
 		}
 
 		Set<Integer> usedWidgetIndexes = new HashSet<Integer>();
 		int baseTop  = padding.top  + bounds.y;
 		int baseLeft = padding.left + bounds.x;
 		
-		int y = offsetY;
-		int nItems = (internalHeight + itemHeight - 1) / itemHeight;
-		int firstItem = offsetY / itemHeight;
+		int lineHeight = itemHeight + separator;
+		int y = offsetY + separator;
+		int nItems = (internalHeight + lineHeight - 1 - separator) / lineHeight;
+		int firstItem = offsetY / lineHeight;
 		for(int i=0; i < nItems && (i + firstItem) < adapter.getCount(); i++) {
 			int index = i + firstItem;
 			
@@ -89,7 +91,7 @@ public class ListWidget<T> extends Widget {
 
 			usedWidgetIndexes.add(index);
 
-			y += itemHeight;
+			y += itemHeight + separator;
 		}
 		
 		for(Integer knownWidgetIndex : knownWidgets.keySet()) {
