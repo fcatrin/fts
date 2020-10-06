@@ -35,29 +35,20 @@ public class ListWidget<T> extends Widget {
 	
 	public void setAdapter(ListAdapter<T> adapter) {
 		this.adapter = adapter;
-		offsetY = -1;
+		offsetY = 0;
 		itemHeight = -1;
 		destroyAllWidgets();
-		
-		layoutItems();
+		requestLayout();
 	}
 	
-	private void layoutItems() {
-		if (adapter.getCount() == 0) return;
+	@Override
+	public void layout() {
+		if (adapter == null || adapter.getCount() == 0) return;
+		
+		measureItemHeight();
 		
 		int internalHeight = getInternalHeight();
 		
-		// assume all items have the same height
-		if (offsetY < 0) { // we need to initialize the height
-			Widget w = adapter.getWidget(null, 0, this);
-			layoutWidget(w);
-			itemHeight = w.getLayoutInfo().measuredHeight;
-			offsetY = 0;
-			knownWidgets.put(0,  w);
-			
-			// w.setState(State.Focused, true);
-		}
-
 		Set<Integer> usedWidgetIndexes = new HashSet<Integer>();
 		int baseTop  = padding.top  + bounds.y;
 		int baseLeft = padding.left + bounds.x;
@@ -103,6 +94,19 @@ public class ListWidget<T> extends Widget {
 		invalidate();
 	}
 	
+	private void measureItemHeight() {
+		if (itemHeight > 0) return;
+		
+		// assume all items have the same height
+		Widget w = knownWidgets.get(0);
+		if (w == null) {
+			w = adapter.getWidget(null, 0, this);
+		}
+		layoutWidget(w);
+		itemHeight = w.getLayoutInfo().measuredHeight;
+		knownWidgets.put(0,  w);
+	}
+	
 	private void layoutWidget(Widget w) {
 		LayoutInfo wLayoutInfo = w.getLayoutInfo();
 		wLayoutInfo.width = LayoutInfo.MATCH_PARENT;
@@ -132,6 +136,15 @@ public class ListWidget<T> extends Widget {
 	
 	@Override
 	public Point getContentSize(int width, int height) {
+		if (adapter != null) {
+			measureItemHeight();
+			int nItems = adapter.getCount();
+			int lineHeight = itemHeight + separator;
+			int itemsHeight = nItems * lineHeight + separator;
+			int requiredHeight = Math.min(itemsHeight,  height);
+			return new Point(width, requiredHeight);
+		}
+		
 		return new Point (0, 0);
 	}
 
