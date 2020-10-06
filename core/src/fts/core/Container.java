@@ -8,11 +8,13 @@ import java.util.Map;
 import fts.core.Widget.Visibility;
 import fts.events.PaintEvent;
 import fts.events.TouchEvent;
+import fts.graphics.Align;
 import fts.graphics.Rectangle;
 
 public abstract class Container extends Widget {
 	List<Widget> children = new ArrayList<Widget>();
 	Map<String, Widget> knownWidgets = new HashMap<String, Widget>();
+	Align align = new Align();
 
 	public Container(NativeWindow w) {
 		super(w);
@@ -140,6 +142,14 @@ public abstract class Container extends Widget {
 		}
 		if (focusedView != null) return focusedView;
 		return isFocused() ? this : null;
+	}
+
+	public Align getAlign() {
+		return align;
+	}
+
+	public void setAlign(Align align) {
+		this.align = align;
 	}
 
 }
