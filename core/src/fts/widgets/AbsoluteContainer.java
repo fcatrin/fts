@@ -5,6 +5,8 @@ import fts.core.LayoutInfo;
 import fts.core.Widget;
 import fts.core.NativeWindow;
 import fts.graphics.Align;
+import fts.graphics.Align.HAlign;
+import fts.graphics.Align.VAlign;
 import fts.graphics.Point;
 
 public class AbsoluteContainer extends Container {
@@ -13,36 +15,40 @@ public class AbsoluteContainer extends Container {
 		super(w);
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void layout() {
 		int baseLeft = padding.left + bounds.x;
 		int baseTop  = padding.top  + bounds.y;
 		
-		Point paddingSize = getPaddingSize();
 		for (Widget child : getChildren()) {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
 			Align containerAlign = child.getContainerAlign();
 			
-			int left   = layoutInfo.x;
-			int top    = layoutInfo.y;
-			int width  = layoutInfo.measuredWidth;
-			int height = layoutInfo.measuredHeight;
+			int left   = baseLeft + layoutInfo.x;
+			int top    = baseTop  + layoutInfo.y;
+			int width  = layoutInfo.measuredWidth  + layoutInfo.margins.left + layoutInfo.margins.right;
+			int height = layoutInfo.measuredHeight + layoutInfo.margins.top  + layoutInfo.margins.bottom;
 			
-			switch(containerAlign.h) {
-			case Center : left = (bounds.width - paddingSize.x - width ) / 2; break;
-			case Left   : left = padding.left; break;
-			case Right  : left = (bounds.width - padding.right - width); break;
+			HAlign hAlign = containerAlign.h;
+			if (hAlign == HAlign.Undefined) hAlign = getAlign().h;
+
+			VAlign vAlign = containerAlign.v;
+			if (vAlign == VAlign.Undefined) vAlign = getAlign().v;
+
+			switch(hAlign) {
+			case Center : left += (getInternalWidth() - width ) / 2; break;
+			case Right  : left += (getInternalWidth() - width); break;
 			case Undefined : break;
 			}
 			
-			switch(containerAlign.v) {
-			case Center : top = (bounds.height - paddingSize.y - height) / 2; break;
-			case Top    : top = padding.top;
-			case Bottom : top = bounds.height - padding.bottom - height;
+			switch(vAlign) {
+			case Center : top += (getInternalHeight() - height) / 2; break;
+			case Bottom : top += (getInternalHeight() - height); break;
 			case Undefined : break;
 			}
 			
-			child.setBounds(baseLeft + left, baseTop + top, width, height);
+			child.setBounds(left + layoutInfo.margins.left, top + layoutInfo.margins.top, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
 			child.layout();
 		}
 	}
