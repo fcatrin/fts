@@ -53,6 +53,7 @@ public abstract class NativeWindow {
 			measure();
 			view.layout();
 			view.setLayoutDone();
+			view.invalidate();
 		}
 	}
 	
