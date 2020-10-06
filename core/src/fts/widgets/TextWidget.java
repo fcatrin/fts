@@ -1,6 +1,8 @@
 package fts.widgets;
 
 import fts.core.Widget;
+import fts.core.Widget.Visibility;
+import fts.core.LayoutInfo;
 import fts.core.NativeWindow;
 import fts.events.PaintEvent;
 import fts.graphics.Align;
@@ -39,10 +41,18 @@ public class TextWidget extends Widget {
 		textDrawable.setColor(color);
 		invalidate();
 	}
+	
+	public void setFontSize(int size) {
+		textDrawable.setFontSize(size);
+	}
 
 	public void setMaxLines(int lines) {
 		textDrawable.setMaxLines(lines);
 		invalidate();
+	}
+	
+	public void setFontName(String name) {
+		textDrawable.setFontName(name);
 	}
 	
 	@Override
@@ -81,4 +91,13 @@ public class TextWidget extends Widget {
 		super.onMeasure(parentWidth, parentHeight);
 	}
 	
+	@Override
+	protected Object resolvePropertyValue(String propertyName, String value) {
+		if (propertyName.equals("fontSize")) {
+			return resolvePropertyValueDimen(propertyName, value);
+		} else if (propertyName.equals("fontName")) {
+			return value;
+		}
+		return super.resolvePropertyValue(propertyName, value);
+	}
 }

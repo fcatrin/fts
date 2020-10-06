@@ -109,6 +109,18 @@ public class TextDrawable extends Drawable {
 		this.text = text;
 		textWrapper = null; // force text re-layout
 	}
+	
+	public void setFontSize(int size) {
+		if (font == null) return;
+		font.size = size;
+		textWrapper = null;
+	}
+
+	public void setFontName(String name) {
+		if (font == null) return;
+		font.name = name;
+		textWrapper = null;
+	}
 
 	public Color getColor() {
 		return color;
@@ -121,4 +133,5 @@ public class TextDrawable extends Drawable {
 	public void setMaxLines(int lines) {
 		this.maxLines = lines;
 	}
+
 }
