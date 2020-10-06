@@ -314,22 +314,25 @@ public abstract class Widget extends Component {
 		MeasureSpec w = new MeasureSpec();
 		MeasureSpec h = new MeasureSpec();
 		
+		int maxWidth  = parentWidth  - layoutInfo.margins.left - layoutInfo.margins.right;
+		int maxHeight = parentHeight - layoutInfo.margins.top  - layoutInfo.margins.bottom;
+		
 		if (layoutInfo.width == LayoutInfo.MATCH_PARENT || layoutInfo.width == 0) {
 			w.type  = MeasureSpec.Type.Exact;
-			w.value = parentWidth;
+			w.value = maxWidth;
 		} else if (layoutInfo.width == LayoutInfo.WRAP_CONTENT) {
 			w.type  = MeasureSpec.Type.AtMost;
-			w.value = parentWidth;
+			w.value = maxWidth;
 		} else {
 			w.type  = MeasureSpec.Type.Exact;
 			w.value = layoutInfo.width;
 		}
 		if (layoutInfo.height == LayoutInfo.MATCH_PARENT || layoutInfo.height == 0) {
 			h.type  = MeasureSpec.Type.Exact;
-			h.value = parentHeight;
+			h.value = maxHeight;
 		} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
 			h.type  = MeasureSpec.Type.AtMost;
-			h.value = parentHeight;
+			h.value = maxHeight;
 		} else {
 			h.type  = MeasureSpec.Type.Exact;
 			h.value = layoutInfo.height;
