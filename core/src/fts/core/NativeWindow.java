@@ -37,16 +37,20 @@ public abstract class NativeWindow {
 		return view.findWidget(id);
 	}
 	
-	public void layout() {
+	public void requestLayout() {
+		view.requestLayout();
+	}
+	
+	public void measure() {
 		Point bounds = getBounds();
 		view.onMeasure(bounds.x, bounds.y);
 		LayoutInfo layoutInfo = view.getLayoutInfo();
 		view.setBounds(0, 0, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
-		view.requestLayout();
 	}
 	
 	public void doPendingLayout() {
 		if (view.needsLayout()) {
+			measure();
 			view.layout();
 			view.setLayoutDone();
 		}

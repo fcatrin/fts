@@ -24,7 +24,7 @@ public class GLWindow extends NativeWindow {
 		setCanvas(canvas);
 		
 		createAllFonts();
-		layout();
+		requestLayout();
 	}
 	
 	public void render() {
