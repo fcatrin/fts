@@ -153,7 +153,7 @@ public abstract class Widget extends Component {
 		if (this.visibility == visibility) return;
 		
 		this.visibility = visibility;
-		invalidate();
+		requestLayout();
 	}
 
 	public boolean isSelected() {
