@@ -9,13 +9,17 @@ import java.util.Set;
 
 import fts.core.LayoutInfo;
 import fts.core.ListAdapter;
+import fts.core.Log;
 import fts.core.NativeWindow;
 import fts.core.Widget;
+import fts.core.Widget.Visibility;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
 
 public class ListWidget<T> extends Widget {
+	private static final String LOGTAG = ListWidget.class.getSimpleName();
+
 	ListAdapter<T> adapter;
 	
 	private int itemHeight = -1;
@@ -30,7 +34,7 @@ public class ListWidget<T> extends Widget {
 	
 	public void setAdapter(ListAdapter<T> adapter) {
 		this.adapter = adapter;
-		offsetY = 0;
+		offsetY = -1;
 		itemHeight = -1;
 		destroyAllWidgets();
 		
@@ -52,6 +56,8 @@ public class ListWidget<T> extends Widget {
 		}
 
 		Set<Integer> usedWidgetIndexes = new HashSet<Integer>();
+		int baseTop  = padding.top  + bounds.y;
+		int baseLeft = padding.left + bounds.x;
 		
 		int y = offsetY;
 		int nItems = (internalHeight + itemHeight - 1) / itemHeight;
@@ -71,11 +77,16 @@ public class ListWidget<T> extends Widget {
 			layoutWidget(w);
 			
 			Rectangle childBounds = w.getBounds();
+			childBounds.width = getInternalWidth();
 			childBounds.height = itemHeight;
-			childBounds.y = y;
-			
+			childBounds.y = y + baseTop;
+			childBounds.x = baseLeft;
+			w.setBounds(childBounds.x, childBounds.y, childBounds.width, childBounds.height);
+			Log.d(LOGTAG, "set child y=" + childBounds.y + " w=" + childBounds.width);
+			w.layout();
+
 			usedWidgetIndexes.add(index);
-			
+
 			y += itemHeight;
 		}
 		
@@ -91,10 +102,10 @@ public class ListWidget<T> extends Widget {
 	private void layoutWidget(Widget w) {
 		LayoutInfo wLayoutInfo = w.getLayoutInfo();
 		wLayoutInfo.width = LayoutInfo.MATCH_PARENT;
-		wLayoutInfo.height = itemHeight < 0 ? LayoutInfo.MATCH_PARENT : itemHeight;
+		wLayoutInfo.height = wLayoutInfo.height > 0 ? wLayoutInfo.height :
+			(itemHeight < 0 ? LayoutInfo.WRAP_CONTENT : itemHeight);
 		
 		w.onMeasure(getInternalWidth(), itemHeight < 0 ? getInternalHeight() : itemHeight);
-		w.layout();
 	}
 	
 	@Override

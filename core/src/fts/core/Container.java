@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fts.core.Widget.Visibility;
 import fts.events.PaintEvent;
 import fts.events.TouchEvent;
 import fts.graphics.Rectangle;

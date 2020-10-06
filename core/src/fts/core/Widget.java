@@ -34,7 +34,7 @@ public abstract class Widget extends Component {
 	NativeWindow window;
 	
 	private Align containerAlign = new Align();
-	private Visibility visibility = Visibility.Visible;
+	protected Visibility visibility = Visibility.Visible;
 	
 	protected Drawable background;
 	
