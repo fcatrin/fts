@@ -107,6 +107,7 @@ public class TextDrawable extends Drawable {
 
 	public void setText(String text) {
 		this.text = text;
+		textWrapper = null; // force text re-layout
 	}
 
 	public Color getColor() {
