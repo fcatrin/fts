@@ -13,6 +13,8 @@ import fts.core.ListAdapter;
 import fts.core.NativeWindow;
 import fts.core.Widget;
 import fts.events.KeyEvent;
+import fts.events.OnItemSelectedListener;
+import fts.events.OnItemSelectionChangedListener;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
@@ -26,6 +28,9 @@ public class ListWidget<T> extends Widget {
 	private int offsetY = -1;
 	private int selectedIndex = -1;
 	
+	private OnItemSelectedListener<T> onItemSelectedListener;
+	private OnItemSelectionChangedListener<T> onItemSelectionChangedListener;
+	
 	Map<Integer, Widget> knownWidgets = new HashMap<Integer, Widget>();
 	List<Widget> unusedWidgets = new ArrayList<Widget>();
 	
@@ -35,6 +40,14 @@ public class ListWidget<T> extends Widget {
 		super(window);
 	}
 	
+	public void setOnItemSelectedListener(OnItemSelectedListener<T> onItemSelectedListener) {
+		this.onItemSelectedListener = onItemSelectedListener;
+	}
+
+	public void setOnItemSelectionChangedListener(OnItemSelectionChangedListener<T> onItemSelectionChangedListener) {
+		this.onItemSelectionChangedListener = onItemSelectionChangedListener;
+	}
+
 	public void setAdapter(ListAdapter<T> adapter) {
 		this.adapter = adapter;
 		offsetY = 0;
@@ -112,6 +125,9 @@ public class ListWidget<T> extends Widget {
 			widget.setState(State.Selected, selectedIndex == index);
 		}
 		invalidate();
+		
+		T item = selectedIndex < 0 ? null : adapter.getItem(selectedIndex);
+		if (onItemSelectionChangedListener != null) onItemSelectionChangedListener.onItemSelectionChanged(this, item, selectedIndex);
 	}
 	
 	@Override
@@ -121,6 +137,9 @@ public class ListWidget<T> extends Widget {
 			return true;
 		} else if (keyEvent.keyCode == KeyEvent.KEY_DPAD_DOWN) {
 			selectDown();
+			return true;
+		} else if (keyEvent.keyCode == KeyEvent.KEY_ENTER) {
+			selectItem();
 			return true;
 		}
 		return super.onKeyUp(keyEvent);
@@ -140,6 +159,13 @@ public class ListWidget<T> extends Widget {
 		selectedIndex++;
 		if (selectedIndex >= adapter.getCount()) selectedIndex = 0;
 		updateSelected();
+	}
+	
+	private void selectItem() {
+		if (onItemSelectedListener == null) return;
+		
+		T item = selectedIndex < 0 ? null : adapter.getItem(selectedIndex);
+		onItemSelectedListener.onItemSelected(this, item, selectedIndex);
 	}
 
 	private void measureItemHeight() {
