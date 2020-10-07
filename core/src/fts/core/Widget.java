@@ -480,11 +480,11 @@ public abstract class Widget extends Component {
 		else return onKeyUp(keyEvent);
 	}
 	
-	protected boolean onKeyUp(KeyEvent keyEvent) {
+	public boolean onKeyUp(KeyEvent keyEvent) {
 		return false;
 	}
 	
-	protected boolean onKeyDown(KeyEvent keyEvent) {
+	public boolean onKeyDown(KeyEvent keyEvent) {
 		return false;
 	}
 }

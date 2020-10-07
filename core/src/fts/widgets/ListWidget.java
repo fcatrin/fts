@@ -5,13 +5,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import fts.core.LayoutInfo;
 import fts.core.ListAdapter;
-import fts.core.Log;
 import fts.core.NativeWindow;
 import fts.core.Widget;
+import fts.events.KeyEvent;
 import fts.events.PaintEvent;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
@@ -23,6 +24,7 @@ public class ListWidget<T> extends Widget {
 	
 	private int itemHeight = -1;
 	private int offsetY = -1;
+	private int selectedIndex = -1;
 	
 	Map<Integer, Widget> knownWidgets = new HashMap<Integer, Widget>();
 	List<Widget> unusedWidgets = new ArrayList<Widget>();
@@ -38,6 +40,13 @@ public class ListWidget<T> extends Widget {
 		offsetY = 0;
 		itemHeight = -1;
 		destroyAllWidgets();
+		
+		if (adapter == null || adapter.getCount() == 0) {
+			selectedIndex = -1;
+		} else {
+			selectedIndex = 0;
+		}
+		
 		requestLayout();
 	}
 	
@@ -69,6 +78,9 @@ public class ListWidget<T> extends Widget {
 				w = adapter.getWidget(w, index, this);
 				knownWidgets.put(index,  w);
 			}
+			
+			w.setState(State.Selected, selectedIndex == index);
+			
 			layoutWidget(w);
 			
 			Rectangle childBounds = w.getBounds();
@@ -77,7 +89,6 @@ public class ListWidget<T> extends Widget {
 			childBounds.y = y + baseTop;
 			childBounds.x = baseLeft;
 			w.setBounds(childBounds.x, childBounds.y, childBounds.width, childBounds.height);
-			Log.d(LOGTAG, "set child y=" + childBounds.y + " w=" + childBounds.width);
 			w.layout();
 
 			usedWidgetIndexes.add(index);
@@ -91,9 +102,46 @@ public class ListWidget<T> extends Widget {
 			knownWidgets.remove(knownWidgetIndex);
 		}
 		
+		updateSelected();
+	}
+	
+	private void updateSelected() {
+		for(Entry<Integer, Widget> entry : knownWidgets.entrySet()) {
+			int index = entry.getKey();
+			Widget widget = entry.getValue();
+			widget.setState(State.Selected, selectedIndex == index);
+		}
 		invalidate();
 	}
 	
+	@Override
+	public boolean onKeyUp(KeyEvent keyEvent) {
+		if (keyEvent.keyCode == KeyEvent.KEY_DPAD_UP) {
+			selectUp();
+			return true;
+		} else if (keyEvent.keyCode == KeyEvent.KEY_DPAD_DOWN) {
+			selectDown();
+			return true;
+		}
+		return super.onKeyUp(keyEvent);
+	}
+	
+	private void selectUp() {
+		if (adapter == null) return;
+		
+		selectedIndex--;
+		if (selectedIndex < 0) selectedIndex = adapter.getCount() - 1;
+		updateSelected();
+	}
+	
+	private void selectDown() {
+		if (adapter == null) return;
+
+		selectedIndex++;
+		if (selectedIndex >= adapter.getCount()) selectedIndex = 0;
+		updateSelected();
+	}
+
 	private void measureItemHeight() {
 		if (itemHeight > 0) return;
 		
