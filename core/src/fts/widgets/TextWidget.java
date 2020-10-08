@@ -57,14 +57,10 @@ public class TextWidget extends Widget {
 	
 	@Override
 	protected void onPaint(PaintEvent e) {
-		Canvas canvas = e.canvas;
-		if (background!=null) {
-			background.setBounds(getPaintBounds());
-			background.draw(canvas);
-		}
-
+		super.onPaint(e);
 		Rectangle textBounds = getInternalPaintBounds(bounds.width, bounds.height);
-		
+
+		Canvas canvas = e.canvas;
 		textDrawable.setBounds(textBounds);
 		textDrawable.draw(canvas);
 	}
