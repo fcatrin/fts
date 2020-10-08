@@ -44,8 +44,8 @@ public class GLCanvas extends Canvas {
 	}
 
 	@Override
-	public void drawRect(int x, int y, int width, int height, int radius) {
-		GLNativeInterface.drawRect(x, y, width, height, radius);
+	public void drawRoundedRect(int x, int y, int width, int height, int radius, int strokeWidth) {
+		GLNativeInterface.drawRect(x, y, width, height, radius, strokeWidth);
 	}
 
 	@Override

@@ -65,11 +65,11 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawText
 
 /*
  * Class:     fts_gl_GLNativeInterface
- * Method:    drawRect
- * Signature: (IIIII)V
+ * Method:    drawRoundedRect
+ * Signature: (IIIIII)V
  */
-JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawRect
-  (JNIEnv *, jclass, jint, jint, jint, jint, jint);
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawRoundedRect
+  (JNIEnv *, jclass, jint, jint, jint, jint, jint, jint);
 
 /*
  * Class:     fts_gl_GLNativeInterface

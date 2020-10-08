@@ -59,10 +59,11 @@ void graphics_draw_filled_rect(int x, int y, int width, int height, int radius) 
 	nvgFill(vg);
 }
 
-void graphics_draw_rect(int x, int y, int width, int height, int radius) {
+void graphics_draw_rect(int x, int y, int width, int height, int radius, int strokeWidth) {
 	nvgBeginPath(vg);
-	nvgRoundedRect(vg, x, y, width, height, radius);
+	nvgRoundedRect(vg, x + strokeWidth, y + strokeWidth, width - strokeWidth*2, height - strokeWidth*2, radius);
 	nvgStrokeColor(vg, nvgRGBA(r, g, b, a));
+	nvgStrokeWidth(vg, strokeWidth);
 	nvgStroke(vg);
 }
 

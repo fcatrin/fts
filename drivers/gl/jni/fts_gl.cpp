@@ -24,12 +24,12 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawText
 
 
 JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawRect
-  (JNIEnv *env, jclass thiz, jint x, jint y, jint width, jint height, int radius) {
-	graphics_draw_rect(x, y, width, height, radius);
+  (JNIEnv *env, jclass thiz, jint x, jint y, jint width, jint height, jint radius, jint strokeWidth) {
+	graphics_draw_rect(x, y, width, height, radius, strokeWidth);
 }
 
 JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawFilledRect
-  (JNIEnv *env, jclass thiz, jint x, jint y, jint width, jint height, int radius) {
+  (JNIEnv *env, jclass thiz, jint x, jint y, jint width, jint height, jint radius) {
 	graphics_draw_filled_rect(x, y, width, height, radius);
 }
 

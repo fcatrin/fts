@@ -8,7 +8,7 @@ public class Shape extends Drawable {
 	
 	Color fillColor = null;
 	Color strokeColor = null;
-	int strokeWidth = 1;
+	int strokeWidth = 4;
 	int radius = 0;
 	
 	// gradient attributes
@@ -48,7 +48,11 @@ public class Shape extends Drawable {
 		
 		if (strokeColor!=null && strokeWidth>0) {
 			canvas.setColor(strokeColor);
-			canvas.drawRect(0, 0, bounds.width, bounds.height, radius);
+			if (radius == 0) {
+				canvas.drawRect(0, 0, bounds.width, bounds.height, strokeWidth);
+			} else {
+				canvas.drawRoundedRect(0, 0, bounds.width, bounds.height, radius, strokeWidth);
+			}
 		}
 	}
 
