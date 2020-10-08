@@ -112,8 +112,6 @@ public class LinearContainer extends Container {
 			if (widget.getVisibility() == Visibility.Gone) continue;
 			
 			LayoutInfo layoutInfo = widget.getLayoutInfo();
-
-			int width  = layoutInfo.measuredWidth  + layoutInfo.margins.left + layoutInfo.margins.right;
 			int height = layoutInfo.measuredHeight + layoutInfo.margins.top  + layoutInfo.margins.bottom;
 			
 			switch (widget.getContainerAlign().v) {
@@ -124,7 +122,7 @@ public class LinearContainer extends Container {
 			
 			left += layoutInfo.margins.left;
 			widget.setBounds(left, top + layoutInfo.margins.top, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
-			left += width + layoutInfo.margins.right;
+			left += layoutInfo.measuredWidth + layoutInfo.margins.right;
 			
 			widget.layout();
 		}
@@ -189,7 +187,7 @@ public class LinearContainer extends Container {
 				Point marginSize = layoutInfo.getMarginSize();
 				
 				if (layoutInfo.width == LayoutInfo.MATCH_PARENT || layoutInfo.width == 0) {
-					contentWidth = width;
+					contentWidth = availableWidth;
 					break;
 				} else if (layoutInfo.width == LayoutInfo.WRAP_CONTENT) {
 					Point childSize = child.getContentSize(availableWidth, availableHeight);
@@ -202,7 +200,7 @@ public class LinearContainer extends Container {
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				Point marginSize = layoutInfo.getMarginSize();
 				if (layoutInfo.height == LayoutInfo.MATCH_PARENT) {
-					contentHeight = height;
+					contentHeight = availableHeight;
 					break;
 				} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
 					Point childSize = child.getContentSize(contentWidth, availableHeight); // TODO not all height is available
@@ -226,13 +224,13 @@ public class LinearContainer extends Container {
 				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
-					size.x = width - paddingSize.x;
-					contentWidth = width - paddingSize.x;
+					size.x = availableWidth;
+					contentWidth = availableWidth;
 					availableWidth = 0;
 				} else if (layoutInfo.width > 0) {
 					int childWidth = layoutInfo.width + layoutInfo.margins.left + layoutInfo.margins.right; 
 					size.x = childWidth;
-					contentWidth += childWidth;
+					contentWidth   += childWidth;
 					availableWidth -= childWidth;
 				} else if (layoutInfo.width == 0) {
 					totalWeight += layoutInfo.weight;
@@ -247,11 +245,11 @@ public class LinearContainer extends Container {
 				Point size = sizeInfo.get(i++);
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				if (layoutInfo.width == LayoutInfo.WRAP_CONTENT) {
-					Point childSize = child.getContentSize(availableWidth, height);
+					Point childSize = child.getContentSize(availableWidth, availableHeight);
 					childSize.x += layoutInfo.margins.left + layoutInfo.margins.right;
 					size.x = childSize.x;
 					
-					contentWidth += childSize.x;
+					contentWidth   += childSize.x;
 					availableWidth -= childSize.x;
 				}
 			}			
@@ -264,7 +262,7 @@ public class LinearContainer extends Container {
 				Point size = sizeInfo.get(i++);
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				if (layoutInfo.width == 0) {
-					contentWidth = width;
+					contentWidth = availableWidth;
 					size.x = availableWidth * layoutInfo.weight / totalWeight;
 				}				
 			}
@@ -276,17 +274,17 @@ public class LinearContainer extends Container {
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				int marginSize = layoutInfo.margins.top + layoutInfo.margins.bottom;
 				if (layoutInfo.height == LayoutInfo.MATCH_PARENT || layoutInfo.height == 0) {
-					contentHeight = height;
+					contentHeight = availableHeight;
 					break;
 				} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
-					Point childSize = child.getContentSize(size.x, height);
+					Point childSize = child.getContentSize(size.x, availableHeight);
 					contentHeight = Math.max(contentHeight, childSize.y + marginSize);
 				} else if (layoutInfo.height>0) {
 					contentHeight = Math.max(contentHeight, layoutInfo.height + marginSize);
 				}
 			}			
 		}
-		return new Point(contentWidth, contentHeight);
+		return new Point(contentWidth + paddingSize.x, contentHeight + paddingSize.y);
 	}
 
 	@Override
