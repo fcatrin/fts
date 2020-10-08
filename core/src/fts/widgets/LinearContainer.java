@@ -15,9 +15,14 @@ public class LinearContainer extends Container {
 	enum Orientation {Vertical, Horizontal};
 	
 	private Orientation orientation = Orientation.Vertical;
+	int separator = 0;
 
 	public LinearContainer(NativeWindow w) {
 		super(w);
+	}
+	
+	public void setSeparator(int separator) {
+		this.separator = separator;
 	}
 	
 	public Orientation getOrientation() {
@@ -175,6 +180,8 @@ public class LinearContainer extends Container {
 		Point paddingSize = getPaddingSize();
 		int availableWidth  = width  - paddingSize.x;
 		int availableHeight = height - paddingSize.y;
+		
+		int separator
 
 		for (Widget child : getChildren()) {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
@@ -183,6 +190,8 @@ public class LinearContainer extends Container {
 		
 		if (orientation == Orientation.Vertical) {
 			for (Widget child : getChildren()) {
+				if (child.getVisibility() == Visibility.Gone) continue;
+				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				Point marginSize = layoutInfo.getMarginSize();
 				
@@ -197,6 +206,8 @@ public class LinearContainer extends Container {
 				}
 			}
 			for (Widget child : getChildren()) {
+				if (child.getVisibility() == Visibility.Gone) continue;
+				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				Point marginSize = layoutInfo.getMarginSize();
 				if (layoutInfo.height == LayoutInfo.MATCH_PARENT) {
@@ -220,6 +231,8 @@ public class LinearContainer extends Container {
 			// first check: match parent and fixed width
 			int i=0;
 			for (Widget child : getChildren()) {
+				if (child.getVisibility() == Visibility.Gone) continue;
+				
 				Point size = sizeInfo.get(i++);
 				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
@@ -240,6 +253,7 @@ public class LinearContainer extends Container {
 			// now check wrap content elements
 			i=0;
 			for (Widget child : getChildren()) {
+				if (child.getVisibility() == Visibility.Gone) continue;
 				if (availableWidth <= 0) break;
 
 				Point size = sizeInfo.get(i++);
@@ -259,6 +273,8 @@ public class LinearContainer extends Container {
 			// use max width if there is any proportional width
 			i=0;
 			for (Widget child : getChildren()) {
+				if (child.getVisibility() == Visibility.Gone) continue;
+				
 				Point size = sizeInfo.get(i++);
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				if (layoutInfo.width == 0) {
@@ -270,6 +286,8 @@ public class LinearContainer extends Container {
 			// now check height 
 			i=0;
 			for (Widget child : getChildren()) {
+				if (child.getVisibility() == Visibility.Gone) continue;
+				
 				Point size = sizeInfo.get(i++);
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				int marginSize = layoutInfo.margins.top + layoutInfo.margins.bottom;
@@ -301,6 +319,8 @@ public class LinearContainer extends Container {
 			int totalWeight = 0;
 			int height = 0;
 			for (Widget child : getChildren()) {
+				if (child.getVisibility() == Visibility.Gone) continue;
+				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				Point marginSize = layoutInfo.getMarginSize();
 				child.onMeasure(wspec.value - paddingSize.x, hspec.value - paddingSize.y);
@@ -320,6 +340,8 @@ public class LinearContainer extends Container {
 			if (availableHeight <= 0) availableHeight = 0;
 			
 			for (Widget child : getChildren()) {
+				if (child.getVisibility() == Visibility.Gone) continue;
+				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				Point marginSize = layoutInfo.getMarginSize();
 				if (layoutInfo.height == 0) {
@@ -333,6 +355,8 @@ public class LinearContainer extends Container {
 			
 			// first processs all fixed size children
 			for (Widget child : getChildren()) {
+				if (child.getVisibility() == Visibility.Gone) continue;
+				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				Point marginSize = layoutInfo.getMarginSize();
 				
@@ -352,6 +376,7 @@ public class LinearContainer extends Container {
 			
 			// now process all wrap_content with the available space
 			for (Widget child : getChildren()) {
+				if (child.getVisibility() == Visibility.Gone) continue;
 				if (availableWidth < 0) availableWidth = 0;
 				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
@@ -366,6 +391,8 @@ public class LinearContainer extends Container {
 			if (availableWidth < 0) availableWidth = 0;
 			
 			for (Widget child : getChildren()) {
+				if (child.getVisibility() == Visibility.Gone) continue;
+				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				if (layoutInfo.width == 0) {
 					int childWidth = (availableWidth / totalWeight) * layoutInfo.weight;
