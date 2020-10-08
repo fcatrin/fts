@@ -57,6 +57,7 @@ public class TextWrapper {
 						lastSize = nextSize;
 						advance++;
 					} while (position + advance < text.length());
+					position += advance;
 				} else {
 					addLine(textWrap, lastSize);
 				}
