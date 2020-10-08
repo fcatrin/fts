@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fts.core.Widget.Visibility;
 import fts.events.PaintEvent;
 import fts.events.TouchEvent;
 import fts.graphics.Align;
@@ -129,21 +128,6 @@ public abstract class Container extends Widget {
 		}
 	}
 	
-	public Widget findFocusedView() {
-		Widget focusedView = null;
-		for(Widget child : children) {
-			if (child instanceof Container) {
-				Container container = (Container)child;
-				focusedView = container.findFocusedView();
-			} else {
-				if (child.isFocused()) focusedView = child;
-			}
-			if (focusedView != null) break;
-		}
-		if (focusedView != null) return focusedView;
-		return isFocused() ? this : null;
-	}
-
 	public Align getAlign() {
 		return align;
 	}

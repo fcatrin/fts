@@ -2,6 +2,7 @@ package fts.core;
 
 import fts.events.KeyEvent;
 import fts.events.OnClickListener;
+import fts.events.OnFocusChangedListener;
 import fts.events.OnStateListener;
 import fts.events.PaintEvent;
 import fts.events.TouchEvent;
@@ -42,6 +43,7 @@ public abstract class Widget extends Component {
 	private boolean isClickable = false;
 	private OnClickListener onClickListener;
 	private OnStateListener onStateListener;
+	private OnFocusChangedListener onFocusChangedListener;
 	
 	protected BackBuffer backBuffer = null;
 	protected boolean isDirty = true;
@@ -94,9 +96,7 @@ public abstract class Widget extends Component {
 	
 	protected void onTouchUp(TouchEvent e) {
 		setPressed(false);
-		if (isClickable && onClickListener!=null) {
-			onClickListener.onClick(this);
-		}
+		fireClick();
 	}
 	
 	protected void onTouchExit(TouchEvent e) {
@@ -109,6 +109,10 @@ public abstract class Widget extends Component {
 
 	public void setOnStateListener(OnStateListener onStateListener) {
 		this.onStateListener = onStateListener;
+	}
+
+	public void setOnFocusChangedListener(OnFocusChangedListener onFocusChangedListener) {
+		this.onFocusChangedListener = onFocusChangedListener;
 	}
 
 	protected void onKeyPressed(KeyEvent e) {
@@ -486,5 +490,19 @@ public abstract class Widget extends Component {
 	
 	public boolean onKeyDown(KeyEvent keyEvent) {
 		return false;
+	}
+	
+	public void requestFocus() {
+		window.requestFocus(this);
+	}
+	
+	public void fireFocusChanged(boolean focused) {
+		if (onFocusChangedListener != null) onFocusChangedListener.onFocusChanged(this, focused);
+	}
+	
+	public void fireClick() {
+		if (isClickable && onClickListener!=null) {
+			onClickListener.onClick(this);
+		}
 	}
 }

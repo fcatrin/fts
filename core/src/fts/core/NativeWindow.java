@@ -14,6 +14,9 @@ public abstract class NativeWindow {
 	private Canvas canvas;
 	
 	protected NativeWindowListener windowListener;
+	
+	private Widget focusedWidgetRequest = null;
+	private Widget focusedWidget = null;
 
 	public abstract void mainLoop();
 	
@@ -80,17 +83,8 @@ public abstract class NativeWindow {
 	}
 	
 	public boolean dispatchKeyEvent(KeyEvent keyEvent) {
-		Widget focusedView;
-		
-		if (view instanceof Container) {
-			Container containerView = (Container)view;
-			focusedView = containerView.findFocusedView();
-		} else {
-			focusedView = view.isFocused() ? view : null;
-		}
-		
-		if (focusedView!=null) {
-			if (view.dispatchKeyEvent(keyEvent)) return true;
+		if (focusedWidget != null) {
+			if (focusedWidget.dispatchKeyEvent(keyEvent)) return true;
 		}
 		
 		if (keyEvent.down) return windowListener.onKeyDown(keyEvent);
@@ -117,6 +111,20 @@ public abstract class NativeWindow {
 
 	public Point getBounds() {
 		return windowListener.getBounds();
+	}
+	
+	public void requestFocus(Widget widget) {
+		focusedWidgetRequest = widget;
+	}
+	
+	public void updateFocus() {
+		if (focusedWidgetRequest != null && focusedWidgetRequest != focusedWidget) {
+			if (focusedWidget != null) focusedWidget.fireFocusChanged(false);
+			if (focusedWidgetRequest != null) focusedWidgetRequest.fireFocusChanged(true);
+			focusedWidget = focusedWidgetRequest;
+		}
+		
+		focusedWidgetRequest = null;
 	}
 
 }
