@@ -16,9 +16,10 @@ import fts.graphics.TextDrawable;
 
 public abstract class CoreComponentFactory implements ComponentFactory {
 
-	private static Map<String, File>  fonts = new HashMap<String, File>();
-	private static Map<String, Color> colors = new HashMap<String, Color>();
+	private static Map<String, File>   fonts   = new HashMap<String, File>();
+	private static Map<String, Color>  colors  = new HashMap<String, Color>();
 	private static Map<String, String> strings = new HashMap<String, String>();
+	private static Map<String, String> dimen   = new HashMap<String, String>();
 
 	@Override
 	public Widget createWidget(Element node) {
@@ -84,5 +85,17 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 		return strings.get(alias);
 	}
 	
+	@Override
+	public void registerDimen(String alias, String value) {
+		dimen.put(alias,  value);
+	}
+
+	@Override
+	public String getDimen(String alias) {
+		if (!dimen.containsKey(alias)) {
+			throw new RuntimeException("Dimen " + alias + " not found");
+		}
+		return dimen.get(alias);
+	}
 	
 }

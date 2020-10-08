@@ -24,5 +24,8 @@ public interface ComponentFactory {
 	
 	public void registerString(String alias, String string);
 	public String getString(String string);
+	
+	public void registerDimen(String alias, String dimen);
+	public String getDimen(String alias);
 
 }

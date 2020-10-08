@@ -34,6 +34,7 @@ public class Application {
 		loadFonts();
 		loadColors();
 		loadStrings();
+		loadDimen();
 	}
 	
 	public static NativeWindow createNativeWindow(String title, int width, int height) {
@@ -114,6 +115,22 @@ public class Application {
 			String name = stringDescriptor.getAttribute("name");
 			String value = stringDescriptor.getTextContent();
 			factory.registerString(name, value);
+		}
+	}
+
+	public static void loadDimen() {
+		Document stringResources;
+		try  {
+			stringResources = loadResource("values", "dimen");
+		} catch (Exception e) {
+			return;
+		}
+		
+		List<Element> dimenDescriptors = SimpleXML.getElements(stringResources.getDocumentElement(), "dimen");
+		for(Element dimenDescriptor : dimenDescriptors) {
+			String name = dimenDescriptor.getAttribute("name");
+			String value = dimenDescriptor.getTextContent();
+			factory.registerDimen(name, value);
 		}
 	}
 

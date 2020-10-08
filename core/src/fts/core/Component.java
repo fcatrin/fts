@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.management.RuntimeErrorException;
+
 import org.w3c.dom.Element;
 
 import fts.graphics.Align;
@@ -177,6 +179,18 @@ public abstract class Component {
 	}
 	
 	protected int resolvePropertyValueDimen(String propertyName, String value) {
+		if (value.startsWith("@dimen/")) {
+			String alias = value.substring("@dimen/".length());
+			String knownDimen = Application.factory.getDimen(alias);
+			if (knownDimen == null) {
+				throw new RuntimeException("Unknown dimension " + value + " " + getClass().getName() + "::" + propertyName);
+			}
+			try {
+				return Dimension.parse(knownDimen);
+			} catch (Exception e) {
+				throw new RuntimeException("Invalid dimension " + value + " as " + knownDimen + " for " + getClass().getName() + "::" + propertyName +": " + e.getMessage(), e);
+			}
+		}
 		try {
 			return Dimension.parse(value);
 		} catch (Exception e) {
