@@ -41,6 +41,7 @@ public abstract class Component {
 		dimensionProperties.add("marginRight");
 		dimensionProperties.add("marginTop");
 		dimensionProperties.add("marginBottom");
+		dimensionProperties.add("separator");
 		
 		intProperties.add("maxLines");
 	}

@@ -190,6 +190,10 @@ public class ListWidget<T> extends Widget {
 		w.onMeasure(getInternalWidth(), itemHeight < 0 ? getInternalHeight() : itemHeight);
 	}
 	
+	public void setSeparator(int separator) {
+		this.separator = separator;
+	}
+
 	@Override
 	public void render(PaintEvent e) {
 		for(Widget child : knownWidgets.values()) {

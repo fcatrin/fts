@@ -127,7 +127,7 @@ public class LinearContainer extends Container {
 			
 			left += layoutInfo.margins.left;
 			widget.setBounds(left, top + layoutInfo.margins.top, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
-			left += layoutInfo.measuredWidth + layoutInfo.margins.right;
+			left += layoutInfo.measuredWidth + layoutInfo.margins.right + separator;
 			
 			widget.layout();
 		}
@@ -166,7 +166,7 @@ public class LinearContainer extends Container {
 			
 			top += layoutInfo.margins.top;
 			widget.setBounds(left + layoutInfo.margins.left, top, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
-			top += layoutInfo.measuredHeight + layoutInfo.margins.bottom;
+			top += layoutInfo.measuredHeight + layoutInfo.margins.bottom + separator;
 			
 			widget.layout();
 		}
@@ -176,12 +176,13 @@ public class LinearContainer extends Container {
 	public Point getContentSize(int width, int height) {
 		int contentWidth = 0;
 		int contentHeight = 0;
+
+		int separatorWidth  = orientation == Orientation.Vertical   ? 0 : getSeparatorSize();
+		int separatorHeight = orientation == Orientation.Horizontal ? 0 : getSeparatorSize();
 		
 		Point paddingSize = getPaddingSize();
-		int availableWidth  = width  - paddingSize.x;
-		int availableHeight = height - paddingSize.y;
-		
-		int separator
+		int availableWidth  = width  - paddingSize.x - separatorWidth;
+		int availableHeight = height - paddingSize.y - separatorHeight;
 
 		for (Widget child : getChildren()) {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
@@ -302,7 +303,7 @@ public class LinearContainer extends Container {
 				}
 			}			
 		}
-		return new Point(contentWidth + paddingSize.x, contentHeight + paddingSize.y);
+		return new Point(contentWidth + paddingSize.x + separatorWidth, contentHeight + paddingSize.y + separatorHeight);
 	}
 
 	@Override
@@ -316,8 +317,10 @@ public class LinearContainer extends Container {
 		Point paddingSize = getPaddingSize();
 
 		if (orientation == Orientation.Vertical) {
+			int availableHeight = hspec.value - paddingSize.y;
+			int autoHeight = 0;
 			int totalWeight = 0;
-			int height = 0;
+			
 			for (Widget child : getChildren()) {
 				if (child.getVisibility() == Visibility.Gone) continue;
 				
@@ -326,18 +329,22 @@ public class LinearContainer extends Container {
 				child.onMeasure(wspec.value - paddingSize.x, hspec.value - paddingSize.y);
 				
 				if (layoutInfo.height == LayoutInfo.MATCH_PARENT) {
-					height += hspec.value - paddingSize.y - marginSize.y;
+					availableHeight -= 0;
 				} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
-					height += layoutInfo.measuredHeight + marginSize.y;
+					availableHeight -= layoutInfo.measuredHeight + marginSize.y - separator;
 				} else if (layoutInfo.height > 0) {
-					height += layoutInfo.height + marginSize.y;
+					availableHeight -= layoutInfo.height + marginSize.y - separator;
 				} else if (layoutInfo.height == 0) {
 					totalWeight += layoutInfo.weight;
+					autoHeight++;
 				}
+				availableHeight = Math.max(0,  availableHeight);
 			}
 			
-			int availableHeight = hspec.value - height - paddingSize.y;
-			if (availableHeight <= 0) availableHeight = 0;
+			if (autoHeight > 1) {
+				availableHeight -= separator * (autoHeight -1);
+				availableHeight = Math.max(0,  availableHeight);
+			}
 			
 			for (Widget child : getChildren()) {
 				if (child.getVisibility() == Visibility.Gone) continue;
@@ -350,8 +357,9 @@ public class LinearContainer extends Container {
 				}
 			}
 		} else {
+			int availableWidth = wspec.value - paddingSize.x;
 			int totalWeight = 0;
-			int width = 0;
+			int autoWidth = 0;
 			
 			// first processs all fixed size children
 			for (Widget child : getChildren()) {
@@ -361,35 +369,38 @@ public class LinearContainer extends Container {
 				Point marginSize = layoutInfo.getMarginSize();
 				
 				if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
-					child.onMeasure(wspec.value - paddingSize.x, hspec.value - paddingSize.y);
-					width += wspec.value - paddingSize.x;
+					child.onMeasure(availableWidth, hspec.value - paddingSize.y);
+					availableWidth = 0;
 				} else 	if (layoutInfo.width > 0) {
 					child.onMeasure(layoutInfo.width + marginSize.x, hspec.value - paddingSize.y);
-					width += layoutInfo.width + marginSize.x;
+					availableWidth -= layoutInfo.width + marginSize.x - separator;
 				} else if (layoutInfo.width == 0) {
 					totalWeight += layoutInfo.weight;
+					autoWidth++;
 				}
+				
+				availableWidth = Math.max(0,  availableWidth);
 			}
-			
-			int availableWidth = wspec.value - width - paddingSize.x;
-			availableWidth = Math.max(0,  availableWidth);
 			
 			// now process all wrap_content with the available space
 			for (Widget child : getChildren()) {
 				if (child.getVisibility() == Visibility.Gone) continue;
-				if (availableWidth < 0) availableWidth = 0;
-				
+
 				LayoutInfo layoutInfo = child.getLayoutInfo();
+				if (layoutInfo.width != LayoutInfo.WRAP_CONTENT) continue;
+				
 				Point marginSize = layoutInfo.getMarginSize();
-				if (layoutInfo.width == LayoutInfo.WRAP_CONTENT) {
-					child.onMeasure(availableWidth, hspec.value);
-					width          += layoutInfo.measuredWidth + marginSize.x;
-					availableWidth -= layoutInfo.measuredWidth + marginSize.x;
-				}
+				child.onMeasure(availableWidth, hspec.value);
+				availableWidth -= layoutInfo.measuredWidth + marginSize.x + separator;
+				
+				availableWidth = Math.max(0,  availableWidth);
+			}
+			
+			if (autoWidth > 1) {
+				availableWidth -= separator * (autoWidth -1);
+				availableWidth = Math.max(0,  availableWidth);
 			}
 
-			if (availableWidth < 0) availableWidth = 0;
-			
 			for (Widget child : getChildren()) {
 				if (child.getVisibility() == Visibility.Gone) continue;
 				
@@ -400,6 +411,19 @@ public class LinearContainer extends Container {
 				}
 			}
 		}
+	}
+	
+	private int getSeparatorSize() {
+		if (separator == 0) return 0;
+		
+		int childrenCount = 0;
+		for (Widget child : getChildren()) {
+			if (child.getVisibility() == Visibility.Gone) continue;
+			childrenCount++;
+		}
+		
+		if (childrenCount <= 1) return 0;
+		return separator * (childrenCount - 1);
 	}
 
 }
