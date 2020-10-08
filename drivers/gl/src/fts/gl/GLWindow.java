@@ -31,6 +31,7 @@ public class GLWindow extends NativeWindow {
 		paintEvent.canvas = getCanvas();
 		paintEvent.clip = null;
 
+		updateFocus();
 		doPendingLayout();
 		doRender(paintEvent);
 		
