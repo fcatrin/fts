@@ -154,7 +154,6 @@ public class LinearContainer extends Container {
 
 			LayoutInfo layoutInfo = widget.getLayoutInfo();
 			int width  = layoutInfo.measuredWidth  + layoutInfo.margins.left + layoutInfo.margins.right;
-			int height = layoutInfo.measuredHeight + layoutInfo.margins.top  + layoutInfo.margins.bottom;
 			
 			switch (widget.getContainerAlign().h) {
 			case Center : left = containerLeft + (getInternalWidth() - width) / 2; break;
@@ -164,7 +163,7 @@ public class LinearContainer extends Container {
 			
 			top += layoutInfo.margins.top;
 			widget.setBounds(left + layoutInfo.margins.left, top, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
-			top += height + layoutInfo.margins.bottom;
+			top += layoutInfo.measuredHeight + layoutInfo.margins.bottom;
 			
 			widget.layout();
 		}
@@ -174,6 +173,7 @@ public class LinearContainer extends Container {
 	public Point getContentSize(int width, int height) {
 		int contentWidth = 0;
 		int contentHeight = 0;
+		
 		Point paddingSize = getPaddingSize();
 		int availableWidth  = width  - paddingSize.x;
 		int availableHeight = height - paddingSize.y;
@@ -305,7 +305,7 @@ public class LinearContainer extends Container {
 			for (Widget child : getChildren()) {
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				Point marginSize = layoutInfo.getMarginSize();
-				child.onMeasure(wspec.value - paddingSize.x - marginSize.x, hspec.value - paddingSize.y - marginSize.y);
+				child.onMeasure(wspec.value - paddingSize.x, hspec.value - paddingSize.y);
 				
 				if (layoutInfo.height == LayoutInfo.MATCH_PARENT) {
 					height += hspec.value - paddingSize.y - marginSize.y;
@@ -339,10 +339,10 @@ public class LinearContainer extends Container {
 				Point marginSize = layoutInfo.getMarginSize();
 				
 				if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
-					child.onMeasure(wspec.value - paddingSize.x - marginSize.x, hspec.value - paddingSize.y - marginSize.y);
+					child.onMeasure(wspec.value - paddingSize.x, hspec.value - paddingSize.y);
 					width += wspec.value - paddingSize.x;
 				} else 	if (layoutInfo.width > 0) {
-					child.onMeasure(layoutInfo.width, hspec.value - marginSize.y - paddingSize.y);
+					child.onMeasure(layoutInfo.width + marginSize.x, hspec.value - paddingSize.y);
 					width += layoutInfo.width + marginSize.x;
 				} else if (layoutInfo.width == 0) {
 					totalWeight += layoutInfo.weight;
@@ -359,8 +359,8 @@ public class LinearContainer extends Container {
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				Point marginSize = layoutInfo.getMarginSize();
 				if (layoutInfo.width == LayoutInfo.WRAP_CONTENT) {
-					child.onMeasure(availableWidth - marginSize.x, hspec.value - marginSize.y);
-					width += layoutInfo.measuredWidth + marginSize.x;
+					child.onMeasure(availableWidth, hspec.value);
+					width          += layoutInfo.measuredWidth + marginSize.x;
 					availableWidth -= layoutInfo.measuredWidth + marginSize.x;
 				}
 			}
@@ -369,10 +369,9 @@ public class LinearContainer extends Container {
 			
 			for (Widget child : getChildren()) {
 				LayoutInfo layoutInfo = child.getLayoutInfo();
-				Point marginSize = layoutInfo.getMarginSize();
 				if (layoutInfo.width == 0) {
 					int childWidth = (availableWidth / totalWeight) * layoutInfo.weight;
-					child.onMeasure(childWidth - marginSize.x, hspec.value - marginSize.y);
+					child.onMeasure(childWidth, hspec.value);
 				}
 			}
 		}
