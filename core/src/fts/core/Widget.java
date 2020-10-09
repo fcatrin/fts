@@ -45,6 +45,16 @@ public abstract class Widget extends Component {
 	private OnStateListener onStateListener;
 	private OnFocusChangedListener onFocusChangedListener;
 	
+	private String focusLeft;
+	private String focusRight;
+	private String focusUp;
+	private String focusDown;
+	
+	private Widget widgetFocusLeft;
+	private Widget widgetFocusRight;
+	private Widget widgetFocusUp;
+	private Widget widgetFocusDown;
+	
 	protected BackBuffer backBuffer = null;
 	protected boolean isDirty = true;
 	
@@ -505,4 +515,70 @@ public abstract class Widget extends Component {
 			onClickListener.onClick(this);
 		}
 	}
+
+	public String getFocusLeft() {
+		return focusLeft;
+	}
+
+	public void setFocusLeft(String focusLeft) {
+		this.focusLeft = focusLeft;
+	}
+
+	public String getFocusRight() {
+		return focusRight;
+	}
+
+	public void setFocusRight(String focusRight) {
+		this.focusRight = focusRight;
+	}
+
+	public String getFocusUp() {
+		return focusUp;
+	}
+
+	public void setFocusUp(String focusUp) {
+		this.focusUp = focusUp;
+	}
+
+	public String getFocusDown() {
+		return focusDown;
+	}
+
+	public void setFocusDown(String focusDown) {
+		this.focusDown = focusDown;
+	}
+
+	public Widget getWidgetFocusLeft() {
+		return widgetFocusLeft;
+	}
+
+	public void setWidgetFocusLeft(Widget widgetFocusLeft) {
+		this.widgetFocusLeft = widgetFocusLeft;
+	}
+
+	public Widget getWidgetFocusRight() {
+		return widgetFocusRight;
+	}
+
+	public void setWidgetFocusRight(Widget widgetFocusRight) {
+		this.widgetFocusRight = widgetFocusRight;
+	}
+
+	public Widget getWidgetFocusUp() {
+		return widgetFocusUp;
+	}
+
+	public void setWidgetFocusUp(Widget widgetFocusUp) {
+		this.widgetFocusUp = widgetFocusUp;
+	}
+
+	public Widget getWidgetFocusDown() {
+		return widgetFocusDown;
+	}
+
+	public void setWidgetFocusDown(Widget widgetFocusDown) {
+		this.widgetFocusDown = widgetFocusDown;
+	}
+	
+	
 }

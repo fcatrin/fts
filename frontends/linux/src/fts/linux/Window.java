@@ -145,13 +145,13 @@ public class Window implements GLWindowListener {
 	}
 
 	@Override
-	public boolean onKeyDown(KeyEvent event) {
-		return false;
+	public boolean onKeyDown(KeyEvent keyEvent) {
+		return nativeWindow.onKeyDown(keyEvent);
 	}
 
 	@Override
-	public boolean onKeyUp(KeyEvent event) {
-		return false;
+	public boolean onKeyUp(KeyEvent keyEvent) {
+		return nativeWindow.onKeyUp(keyEvent);
 	}
 
 }

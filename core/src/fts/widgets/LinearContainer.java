@@ -50,6 +50,7 @@ public class LinearContainer extends Container {
 		} else {
 			layoutHorizontal();
 		}
+		bindFocusWidgets();
 	}
 
 	private int getChildrenWidth() {
@@ -424,6 +425,46 @@ public class LinearContainer extends Container {
 		
 		if (childrenCount <= 1) return 0;
 		return separator * (childrenCount - 1);
+	}
+	
+	private void bindFocusWidgets() {
+		for (Widget child : getChildren()) {
+			child.setWidgetFocusLeft(null);
+			child.setWidgetFocusRight(null);
+			child.setWidgetFocusUp(null);
+			child.setWidgetFocusDown(null);
+		}
+
+		// build list of visible children
+		List<Widget> visible = new ArrayList<Widget>();
+		for(Widget child : getChildren()) {
+			if (child.getVisibility() == Visibility.Visible) visible.add(child);
+		}
+
+		if (orientation == Orientation.Vertical) {
+			for(int i=0; i<visible.size(); i++) {
+				Widget child = visible.get(i);
+				if (i>0) {
+					child.setWidgetFocusUp(visible.get(i-1));
+				}
+				if (i<visible.size()-1) {
+					child.setWidgetFocusDown(visible.get(i+1));
+				}
+			}
+		}
+		
+		if (orientation == Orientation.Horizontal) {
+			for(int i=0; i<visible.size(); i++) {
+				Widget child = visible.get(i);
+				if (i>0) {
+					child.setWidgetFocusLeft(visible.get(i-1));
+				}
+				if (i<visible.size()-1) {
+					child.setWidgetFocusRight(visible.get(i+1));
+				}
+			}
+		}
+
 	}
 
 }

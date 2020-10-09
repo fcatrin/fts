@@ -82,6 +82,13 @@ public abstract class NativeWindow {
 		return true;
 	}
 	
+	/*
+	 * if the focused widget doesn't handle the event, it is redirected
+	 * to the main window key up / down handlers
+	 * Those handlers may call this native window key up / down handlers
+	 * if the events are not managed by the window
+	 */
+	
 	public boolean dispatchKeyEvent(KeyEvent keyEvent) {
 		if (focusedWidget != null) {
 			if (focusedWidget.dispatchKeyEvent(keyEvent)) return true;
@@ -91,6 +98,44 @@ public abstract class NativeWindow {
 		else return windowListener.onKeyUp(keyEvent);
 	}
 	
+	public boolean onKeyDown(KeyEvent keyEvent) {
+		return false;
+	}
+	
+	public boolean onKeyUp(KeyEvent keyEvent) {
+		switch (keyEvent.keyCode) {
+		case KeyEvent.KEY_DPAD_LEFT  : focusLeft(); return true;
+		case KeyEvent.KEY_DPAD_RIGHT : focusRight(); return true;
+		case KeyEvent.KEY_DPAD_UP    : focusUp(); return true;
+		case KeyEvent.KEY_DPAD_DOWN  : focusDown(); return true;
+		default: return false;
+		}
+	}
+	
+	private void focusLeft() {
+		if (focusedWidget!=null && focusedWidget.getWidgetFocusLeft()!=null) {
+			requestFocus(focusedWidget.getWidgetFocusLeft());
+		}
+	}
+
+	private void focusRight() {
+		if (focusedWidget!=null && focusedWidget.getWidgetFocusRight()!=null) {
+			requestFocus(focusedWidget.getWidgetFocusRight());
+		}
+	}
+
+	private void focusUp() {
+		if (focusedWidget!=null && focusedWidget.getWidgetFocusUp()!=null) {
+			requestFocus(focusedWidget.getWidgetFocusUp());
+		}
+	}
+
+	private void focusDown() {
+		if (focusedWidget!=null && focusedWidget.getWidgetFocusDown()!=null) {
+			requestFocus(focusedWidget.getWidgetFocusDown());
+		}
+	}
+
 	protected void onTouchEvent(TouchEvent touchEvent) {}
 	
 	public void destroy() {
