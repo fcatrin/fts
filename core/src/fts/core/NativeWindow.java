@@ -118,7 +118,7 @@ public abstract class NativeWindow {
 	}
 	
 	public void updateFocus() {
-		if (focusedWidgetRequest != null && focusedWidgetRequest != focusedWidget) {
+		if (focusedWidgetRequest != null) {
 			if (focusedWidget != null) {
 				focusedWidget.setFocused(false);
 				focusedWidget.fireFocusChanged(false);
