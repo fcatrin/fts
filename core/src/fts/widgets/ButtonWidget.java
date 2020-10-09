@@ -1,6 +1,7 @@
 package fts.widgets;
 
 import fts.core.NativeWindow;
+import fts.events.KeyEvent;
 
 public class ButtonWidget extends TextWidget {
 
@@ -8,6 +9,15 @@ public class ButtonWidget extends TextWidget {
 		super(w);
 		setClickable(true);
 		setPressed(true);
+	}
+
+	@Override
+	public boolean onKeyUp(KeyEvent keyEvent) {
+		if (keyEvent.keyCode == KeyEvent.KEY_ENTER) {
+			fireClick();
+			return true;
+		}
+		return super.onKeyUp(keyEvent);
 	}
 
 }
