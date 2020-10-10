@@ -27,7 +27,9 @@ public class Window implements GLWindowListener {
 		this.width = width;
 		this.height = height;
 		this.title = title;
-		
+	}
+	
+	public void openWindow() {
 		nativeWindow = (GLWindow)Application.createNativeWindow(title, width, height);
 		nativeWindow.setWindowListener(this);
 	}
@@ -131,6 +133,7 @@ public class Window implements GLWindowListener {
 	public void onFrame() {}
 
 	public void run() {
+		openWindow();
 		onCreate();
 		open();
 		onStart();
