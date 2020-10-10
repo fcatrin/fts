@@ -11,6 +11,11 @@ public class LinuxUtils {
 
 	private LinuxUtils() {}
 	
+	public static String getUserName() {
+		String cmd[] = {"id", "-nu"};
+		return exec(cmd);
+	}
+	
 	public static String getIPAddress() throws JSONException {
 		String cmd[] = {"ip", "-j", "-o", "-f", "inet", "addr"};
 		String json = exec(cmd);
@@ -36,8 +41,8 @@ public class LinuxUtils {
             p = Runtime.getRuntime().exec(args);
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             while ((s = br.readLine()) != null)  {
+            	if (result.length()>0) result.append("\n");
             	result.append(s);
-            	result.append("\n");
             }
             p.waitFor();
             p.destroy();
