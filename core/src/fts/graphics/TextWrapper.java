@@ -21,16 +21,23 @@ public class TextWrapper {
 		this.text = text;
 	}
 	
+	private Point processAsSingleLines() {
+		String parts[] = text.split("\n");
+		for(String part : parts) {
+			TextMetrics metrics = canvas.getTextSize(part);
+			addLine(part, metrics);
+			size.x = Math.max(metrics.width, size.x);
+		}
+		return size;
+	}
+	
 	public Point wrap(int width, int maxLines) {
 		lines.clear();
 		lineMetrics.clear();
 		
 		TextMetrics oneLineMetrics = canvas.getTextSize(text);
 		if (oneLineMetrics.width <= width) {
-			addLine(text, oneLineMetrics);
-			size.x = oneLineMetrics.width;
-			size.y = oneLineMetrics.height - oneLineMetrics.descent;
-			return size;
+			return processAsSingleLines();
 		}
 		
 		position = 0;
@@ -41,6 +48,11 @@ public class TextWrapper {
 		TextMetrics lastSize = null;
 		do {
 			String nextWord = getNextWord();
+			if (nextWord.equals("\n")) {
+				hasMoreLines = true;
+				break;
+			}
+
 			TextMetrics nextSize = canvas.getTextSize((textWrap + nextWord).trim());
 			if (nextSize.width > width) { // TODO handle case where text just don't fi
 				if (lastSize == null) {
