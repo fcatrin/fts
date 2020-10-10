@@ -24,7 +24,6 @@ public class GLWindow extends NativeWindow {
 		setCanvas(canvas);
 		
 		createAllFonts();
-		requestLayout();
 	}
 	
 	public void render() {
@@ -46,6 +45,7 @@ public class GLWindow extends NativeWindow {
 	
 	@Override
 	public void mainLoop() {
+		requestLayout();
 		while (running) {
 			render();
 		}

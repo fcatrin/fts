@@ -37,8 +37,8 @@ public class Application {
 		loadDimen();
 	}
 	
-	public static NativeWindow createNativeWindow(String title, int width, int height) {
-		return factory.createNativeWindow(title, width, height);
+	public static NativeWindow createNativeWindow(String title, int width, int height, int flags) {
+		return factory.createNativeWindow(title, width, height, flags);
 	}
 	
 	public static Drawable createDrawable(Element node) {

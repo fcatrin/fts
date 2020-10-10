@@ -4,6 +4,7 @@ import fts.core.Application;
 import fts.core.Context;
 import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
+import fts.core.NativeWindow;
 import fts.core.Widget;
 import fts.events.KeyEvent;
 import fts.events.TouchEvent;
@@ -17,6 +18,10 @@ public class Window implements GLWindowListener {
 	
 	private int height;
 	private int width;
+	private int flags;
+	private int x;
+	private int y;
+	
 	private String title;
 	
 	static {
@@ -28,10 +33,17 @@ public class Window implements GLWindowListener {
 		this.height = height;
 		this.title = title;
 	}
+
+	public void setWindowFlags(int flags) {
+		this.flags = flags;
+	}
 	
-	public void openWindow() {
-		nativeWindow = (GLWindow)Application.createNativeWindow(title, width, height);
-		nativeWindow.setWindowListener(this);
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 
 	@Override
@@ -41,7 +53,10 @@ public class Window implements GLWindowListener {
 
 	@Override
 	public void open() {
-		NativeInterface.windowOpen(title, width, height);
+		nativeWindow = (GLWindow)Application.createNativeWindow(title, width, height, flags); // TODO are those parameters needed really?
+		nativeWindow.setWindowListener(this);
+		
+		NativeInterface.windowOpen(title, x, y, width, height, flags);
 		nativeWindow.init();
 	}
 
@@ -133,9 +148,8 @@ public class Window implements GLWindowListener {
 	public void onFrame() {}
 
 	public void run() {
-		openWindow();
-		onCreate();
 		open();
+		onCreate();
 		onStart();
 		nativeWindow.mainLoop();
 		onStop();

@@ -26,18 +26,38 @@ enum {
 	FTS_KEY_UP
 };
 
+#define NATIVE_FLAGS_BORDERLESS    1
+#define NATIVE_FLAGS_CENTER        2
+#define NATIVE_FLAGS_FULLSCREEN    4
+#define NATIVE_FLAGS_CAN_RESIZE    8
+#define NATIVE_FLAGS_CAN_MINIMIZE 16
+#define NATIVE_FLAGS_CAN_MAXIMIZE 32
+
+
 #define MAX_EVENT_QUEUE 100
 
 struct event event_queue[MAX_EVENT_QUEUE];
 int event_queue_index;
 
-void window_open(const char *title, int req_width, int req_height) {
+void window_open(const char *title, int x, int y, int req_width, int req_height, int req_flags) {
 	width  = req_width;
 	height = req_height;
 
 	uint32 window_flags = SDL_WINDOW_OPENGL;
-	window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, window_flags);
-	SDL_GLContext context = SDL_GL_CreateContext(window);
+	if (req_flags & NATIVE_FLAGS_BORDERLESS)   window_flags |= SDL_WINDOW_BORDERLESS;
+	if (req_flags & NATIVE_FLAGS_FULLSCREEN)   window_flags |= SDL_WINDOW_FULLSCREEN;
+	if (req_flags & NATIVE_FLAGS_CAN_RESIZE)   window_flags |= SDL_WINDOW_RESIZABLE;
+	if (req_flags & NATIVE_FLAGS_CAN_MINIMIZE) window_flags |= SDL_WINDOW_MINIMIZED;
+	if (req_flags & NATIVE_FLAGS_CAN_MAXIMIZE) window_flags |= SDL_WINDOW_MAXIMIZED;
+
+	if (req_flags & NATIVE_FLAGS_CENTER) {
+		x = SDL_WINDOWPOS_CENTERED;
+		y = SDL_WINDOWPOS_CENTERED;
+	}
+
+	window = SDL_CreateWindow(title, x, y, width, height, window_flags);
+	// SDL_GLContext context =
+	SDL_GL_CreateContext(window);
 }
 
 static void push_event_window(int type) {

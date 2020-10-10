@@ -11,6 +11,8 @@ extern "C" {
 #define fts_linux_NativeInterface_FTS_WINDOW_EVENT 1L
 #undef fts_linux_NativeInterface_FTS_TOUCH_EVENT
 #define fts_linux_NativeInterface_FTS_TOUCH_EVENT 2L
+#undef fts_linux_NativeInterface_FTS_KEY_EVENT
+#define fts_linux_NativeInterface_FTS_KEY_EVENT 3L
 #undef fts_linux_NativeInterface_FTS_WINDOW_CLOSE
 #define fts_linux_NativeInterface_FTS_WINDOW_CLOSE 1L
 #undef fts_linux_NativeInterface_FTS_MOUSE_DOWN
@@ -19,13 +21,17 @@ extern "C" {
 #define fts_linux_NativeInterface_FTS_MOUSE_UP 3L
 #undef fts_linux_NativeInterface_FTS_MOUSE_MOVE
 #define fts_linux_NativeInterface_FTS_MOUSE_MOVE 4L
+#undef fts_linux_NativeInterface_FTS_KEY_DOWN
+#define fts_linux_NativeInterface_FTS_KEY_DOWN 5L
+#undef fts_linux_NativeInterface_FTS_KEY_UP
+#define fts_linux_NativeInterface_FTS_KEY_UP 6L
 /*
  * Class:     fts_linux_NativeInterface
  * Method:    windowOpen
- * Signature: (Ljava/lang/String;II)V
+ * Signature: (Ljava/lang/String;IIIII)V
  */
 JNIEXPORT void JNICALL Java_fts_linux_NativeInterface_windowOpen
-  (JNIEnv *, jclass, jstring, jint, jint);
+  (JNIEnv *, jclass, jstring, jint, jint, jint, jint, jint);
 
 /*
  * Class:     fts_linux_NativeInterface

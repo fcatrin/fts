@@ -10,7 +10,7 @@ import fts.graphics.Color;
 import fts.graphics.Drawable;
 
 public interface ComponentFactory {
-	public NativeWindow createNativeWindow(String title, int width, int height);
+	public NativeWindow createNativeWindow(String title, int width, int height, int flags);
 	public Widget createWidget(Element element);
 	public Drawable createDrawable(Element element);
 	public BackBuffer createBackBuffer(int width, int height);

@@ -9,10 +9,10 @@ extern "C" {
 #include "window.h"
 
 JNIEXPORT void JNICALL Java_fts_linux_NativeInterface_windowOpen
-  (JNIEnv *env , jclass thiz, jstring sTitle, jint width, jint height) {
+  (JNIEnv *env , jclass thiz, jstring sTitle, jint x, jint y, jint width, jint height, jint flags) {
 
 	const char* title = env->GetStringUTFChars(sTitle, 0);
-	window_open(title, width, height);
+	window_open(title, x ,y, width, height, flags);
 	env->ReleaseStringUTFChars(sTitle, title);
 }
 

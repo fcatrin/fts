@@ -16,7 +16,7 @@ public class NativeInterface {
 	public static final int FTS_KEY_DOWN   = 5;
 	public static final int FTS_KEY_UP     = 6;
 	
-	public static native void windowOpen(String title, int width, int height);
+	public static native void windowOpen(String title, int x, int y, int width, int height, int flags);
 	public static native void windowSwapBuffers();
 	public static native void windowClose();
 	public static native int[] windowGetEvents();

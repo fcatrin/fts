@@ -8,6 +8,14 @@ import fts.graphics.Point;
 import fts.widgets.AbsoluteContainer;
 
 public abstract class NativeWindow {
+	
+	public static final int FLAGS_BORDERLESS = 1;
+	public static final int FLAGS_CENTER = 2;
+	public static final int FLAGS_FULLSCREEN = 4;
+	public static final int FLAGS_CAN_RESIZE = 8;
+	public static final int FLAGS_CAN_MINIMIZE = 16;
+	public static final int FLAGS_CAN_MAXIMIZE = 32;
+	
 	private Widget view;
 	private Widget contentView;
 	
