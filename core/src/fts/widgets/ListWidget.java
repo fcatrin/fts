@@ -11,6 +11,7 @@ import java.util.Set;
 import fts.core.LayoutInfo;
 import fts.core.ListAdapter;
 import fts.core.NativeWindow;
+import fts.core.Utils;
 import fts.core.Widget;
 import fts.events.KeyEvent;
 import fts.events.OnItemSelectedListener;
@@ -25,8 +26,9 @@ public class ListWidget<T> extends Widget {
 	ListAdapter<T> adapter;
 	
 	private int itemHeight = -1;
-	private int offsetY = -1;
 	private int selectedIndex = -1;
+	private int maxItems = 100;
+	private int firstItem = 0;
 	
 	private OnItemSelectedListener<T> onItemSelectedListener;
 	private OnItemSelectionChangedListener<T> onItemSelectionChangedListener;
@@ -47,10 +49,13 @@ public class ListWidget<T> extends Widget {
 	public void setOnItemSelectionChangedListener(OnItemSelectionChangedListener<T> onItemSelectionChangedListener) {
 		this.onItemSelectionChangedListener = onItemSelectionChangedListener;
 	}
+	
+	public void setMaxItems(int maxItems) {
+		this.maxItems = maxItems;
+	}
 
 	public void setAdapter(ListAdapter<T> adapter) {
 		this.adapter = adapter;
-		offsetY = 0;
 		itemHeight = -1;
 		destroyAllWidgets();
 		
@@ -76,9 +81,11 @@ public class ListWidget<T> extends Widget {
 		int baseLeft = padding.left + bounds.x;
 		
 		int lineHeight = itemHeight + separator;
-		int y = offsetY + separator;
+		int y = separator;
+		
 		int nItems = (internalHeight + lineHeight - 1 - separator) / lineHeight;
-		int firstItem = offsetY / lineHeight;
+		if (nItems > maxItems) nItems = maxItems;
+		
 		for(int i=0; i < nItems && (i + firstItem) < adapter.getCount(); i++) {
 			int index = i + firstItem;
 			
@@ -109,9 +116,14 @@ public class ListWidget<T> extends Widget {
 			y += itemHeight + separator;
 		}
 		
+		Set<Integer> widgetIndexToRemove = new HashSet<Integer>();
 		for(Integer knownWidgetIndex : knownWidgets.keySet()) {
 			if (usedWidgetIndexes.contains(knownWidgetIndex)) continue;
 			unusedWidgets.add(knownWidgets.get(knownWidgetIndex));
+			widgetIndexToRemove.add(knownWidgetIndex);
+		}
+		
+		for(Integer knownWidgetIndex : widgetIndexToRemove) {
 			knownWidgets.remove(knownWidgetIndex);
 		}
 		
@@ -149,7 +161,11 @@ public class ListWidget<T> extends Widget {
 		if (adapter == null) return;
 		
 		selectedIndex--;
-		if (selectedIndex < 0) selectedIndex = adapter.getCount() - 1;
+		if (selectedIndex < 0) selectedIndex = 0;
+		if (selectedIndex < firstItem) {
+			firstItem = selectedIndex;
+			layout();
+		}
 		updateSelected();
 	}
 	
@@ -157,7 +173,13 @@ public class ListWidget<T> extends Widget {
 		if (adapter == null) return;
 
 		selectedIndex++;
-		if (selectedIndex >= adapter.getCount()) selectedIndex = 0;
+		if (selectedIndex >= adapter.getCount()) selectedIndex = adapter.getCount() - 1;
+		
+		if (selectedIndex - firstItem >= maxItems) {
+			firstItem = selectedIndex - maxItems + 1;
+			layout();
+		}
+		
 		updateSelected();
 	}
 	
@@ -217,6 +239,8 @@ public class ListWidget<T> extends Widget {
 		if (adapter != null) {
 			measureItemHeight();
 			int nItems = adapter.getCount();
+			if (nItems > maxItems) nItems = maxItems;
+			
 			int lineHeight = itemHeight + separator;
 			int itemsHeight = nItems * lineHeight + separator;
 			int requiredHeight = Math.min(itemsHeight,  height);
@@ -243,6 +267,14 @@ public class ListWidget<T> extends Widget {
 		
 		knownWidgets.clear();
 		unusedWidgets.clear();
+	}
+
+	@Override
+	protected Object resolvePropertyValue(String propertyName, String value) {
+		if (propertyName.equals("maxItems")) {
+			return Utils.str2i(value);
+		}
+		return super.resolvePropertyValue(propertyName, value);
 	}
 
 }
