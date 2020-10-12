@@ -5,6 +5,10 @@
 #include <utils.h>
 #include <window.h>
 
+#ifdef RPI4FB
+#include "rpi4fb.h"
+#endif
+
 static bool running;
 
 static int width;
@@ -39,7 +43,13 @@ enum {
 struct event event_queue[MAX_EVENT_QUEUE];
 int event_queue_index;
 
+
 void window_open(const char *title, int x, int y, int req_width, int req_height, int req_flags) {
+
+#ifdef RPI4_FB
+	rpi4fb_init(req_width, req_height);
+#else
+
 	width  = req_width;
 	height = req_height;
 
@@ -58,6 +68,7 @@ void window_open(const char *title, int x, int y, int req_width, int req_height,
 	window = SDL_CreateWindow(title, x, y, width, height, window_flags);
 	// SDL_GLContext context =
 	SDL_GL_CreateContext(window);
+#endif
 }
 
 static void push_event_window(int type) {
@@ -120,9 +131,17 @@ struct event *window_get_events() {
 }
 
 void window_swap_buffers() {
-   SDL_GL_SwapWindow(window);
+#ifdef RPI4FB
+	rpi4fb_swap_buffers();
+#else
+	SDL_GL_SwapWindow(window);
+#endif
 }
 
 void window_close() {
+#ifdef RPI4FB
+	rpi4fb_done();
+#else
 	running = false;
+#endif
 }
