@@ -22,10 +22,11 @@ UNAME_S := $(shell uname -s)
 UNAME_P := $(shell uname -p)
 UNAME_M := $(shell uname -m)
 ifeq ($(UNAME_S),Linux)
-   ifeq ($(UNAME_M),armv7l) // assume RPI4
+   ifeq ($(UNAME_M),armv7l)
       JAVA_HOME = /usr/lib/jvm/java-11-openjdk-armhf
       LIBARCH = armv7l
-      CFLAGS += -DRPI4FB -ldrm -lgbm -I/usr/include/libdrm -lEGL
+      CFLAGS += -DRPI4FB -I/usr/include/libdrm
+      LDFLAGS += -ldrm -lgbm -lEGL
       OBJS += rpi4fb.o
    else
       JAVA_HOME = /usr/lib/jvm/java-8-oracle

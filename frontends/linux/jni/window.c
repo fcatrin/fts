@@ -9,11 +9,10 @@
 #include "rpi4fb.h"
 #else
 static bool running;
-#endif
-
 static int width;
 static int height;
 static SDL_Window *window;
+#endif
 
 enum {
 	FTS_WINDOW_EVENT = 1,
@@ -46,7 +45,7 @@ int event_queue_index;
 
 void window_open(const char *title, int x, int y, int req_width, int req_height, int req_flags) {
 
-#ifdef RPI4_FB
+#ifdef RPI4FB
 	rpi4fb_init(req_width, req_height);
 #else
 
