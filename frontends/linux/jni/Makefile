@@ -14,6 +14,10 @@ FTS_GL_DRIVER = ../../../drivers/gl
 
 FTS_GL_LIB = $(FTS_GL_DRIVER)/libs/libfts-gl.so
 
+OBJS = main.o \
+    window.o
+
+
 UNAME_S := $(shell uname -s)
 UNAME_P := $(shell uname -p)
 UNAME_M := $(shell uname -m)
@@ -22,6 +26,7 @@ ifeq ($(UNAME_S),Linux)
       JAVA_HOME = /usr/lib/jvm/java-11-openjdk-armhf
       LIBARCH = armv7l
       CFLAGS += -DRPI4FB -ldrm -lgbm -I/usr/include/libdrm -lEGL
+      OBJS += rpi4fb.o
    else
       JAVA_HOME = /usr/lib/jvm/java-8-oracle
       ifeq ($(UNAME_P),x86_64)
@@ -44,10 +49,7 @@ CFLAGS += \
  
 CFLAGS_ONLY = -std=gnu99
   
-OBJS = $(addprefix $(OBJDIR)/, \
-	main.o \
-	window.o \
-	)
+ALL_OBJS = $(addprefix $(OBJDIR)/, $(OBJS))
 		
 $(OBJDIR)/%.o: %.c 
 	$(CC) -c $(CFLAGS) $(CFLAGS_ONLY) -o $@ $< 
@@ -57,7 +59,7 @@ $(OBJDIR)/%.o: %.cpp
 
 all : prepare corebuild $(FTS_GL_LIB)  $(LINK_TARGET)
 
-$(LINK_TARGET) : $(OBJS)
+$(LINK_TARGET) : $(ALL_OBJS)
 	$(LD) -o $@ $^ $(LDFLAGS) 
 
 prepare :

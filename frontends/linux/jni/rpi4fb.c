@@ -3,7 +3,10 @@
 #include <gbm.h>
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 /*
  * original code from https://github.com/matusnovak/rpi-opengl-without-x
@@ -18,6 +21,19 @@ static uint32_t connectorId;
 
 static EGLDisplay display;
 static EGLSurface surface;
+static EGLContext context;
+
+static const EGLint configAttribs[] = {
+    EGL_RED_SIZE, 8,
+    EGL_GREEN_SIZE, 8,
+    EGL_BLUE_SIZE, 8,
+    EGL_DEPTH_SIZE, 8,
+    EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
+    EGL_NONE};
+
+static const EGLint contextAttribs[] = {
+    EGL_CONTEXT_CLIENT_VERSION, 2,
+    EGL_NONE};
 
 static drmModeConnector *getConnector(drmModeRes *resources) {
     for (int i = 0; i < resources->count_connectors; i++) {
@@ -184,8 +200,6 @@ int rpi4fb_init(int width, int height) {
 
 	// Other variables we will need further down the code.
 	int major, minor;
-	GLuint program, vert, frag, vbo;
-	GLint posLoc, colorLoc, result;
 
 	if (eglInitialize(display, &major, &minor) == EGL_FALSE) {
 		fprintf(stderr, "Failed to get EGL version! Error: %s\n",
@@ -223,8 +237,7 @@ int rpi4fb_init(int width, int height) {
 		return EXIT_FAILURE;
 	}
 
-	EGLContext context =
-		eglCreateContext(display, configs[configIndex], EGL_NO_CONTEXT, contextAttribs);
+	context = eglCreateContext(display, configs[configIndex], EGL_NO_CONTEXT, contextAttribs);
 	if (context == EGL_NO_CONTEXT) {
 		fprintf(stderr, "Failed to create EGL context! Error: %s\n", eglGetErrorStr());
 		eglTerminate(display);
@@ -262,6 +275,7 @@ int rpi4fb_init(int width, int height) {
 		gbmClean();
 		return EXIT_FAILURE;
 	}
+	return EXIT_SUCCESS;
 }
 
 void rpi4fb_swap_buffers() {

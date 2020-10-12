@@ -7,9 +7,9 @@
 
 #ifdef RPI4FB
 #include "rpi4fb.h"
-#endif
-
+#else
 static bool running;
+#endif
 
 static int width;
 static int height;
