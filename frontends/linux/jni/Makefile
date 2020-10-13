@@ -3,7 +3,7 @@ USE_FB = false
 CC = gcc
 LD = gcc
 
-CFLAGS = -g -Wall -I../../..
+CFLAGS = -O2 -g -Wall -I . -I../../..
 
 LDFLAGS = -lm -shared -lSDL2 -lGL
 LIBARCH =
@@ -49,8 +49,7 @@ LIBSDIR = ../libs
 
 LINK_TARGET = $(LIBSDIR)/$(LIBARCH)/$(LIBPREFIX)fts-linux.$(LIBEXT)
 
-CFLAGS += \
- -O2 -Wall -I . -g -I$(JAVA_HOME)/include/ 
+CFLAGS += -I$(JAVA_HOME)/include/ 
  
 CFLAGS_ONLY = -std=gnu99
   
