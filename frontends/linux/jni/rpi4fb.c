@@ -81,6 +81,12 @@ static int getDisplay(EGLDisplay *display) {
     }
 
     crtc = drmModeGetCrtc(device, encoder->crtc_id);
+drmModeModeInfo *modeInfo = &crtc->mode;
+printf("clock %d refresh %d\n", modeInfo->clock, modeInfo->vrefresh);
+printf("hdisplay %d hsync start %d hsync end %d htotal %d skew  %d\n", modeInfo->hdisplay, modeInfo->hsync_start, modeInfo->hsync_end, modeInfo->htotal, modeInfo->hskew);
+printf("vdisplay %d vsync start %d vsync end %d vtotal %d vscan %d\n", modeInfo->vdisplay, modeInfo->vsync_start, modeInfo->vsync_end, modeInfo->vtotal, modeInfo->vscan);
+
+
     drmModeFreeEncoder(encoder);
     drmModeFreeConnector(connector);
     drmModeFreeResources(resources);
