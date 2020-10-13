@@ -1,3 +1,5 @@
+USE_FB = false
+
 CC = gcc
 LD = gcc
 
@@ -18,7 +20,6 @@ OBJS = main.o \
     window.o \
     utils.o
 
-
 UNAME_S := $(shell uname -s)
 UNAME_P := $(shell uname -p)
 UNAME_M := $(shell uname -m)
@@ -26,9 +27,11 @@ ifeq ($(UNAME_S),Linux)
    ifeq ($(UNAME_M),armv7l)
       JAVA_HOME = /usr/lib/jvm/java-11-openjdk-armhf
       LIBARCH = armv7l
-      CFLAGS += -DRPI4FB -I/usr/include/libdrm
-      LDFLAGS += -ldrm -lgbm -lEGL
-      OBJS += rpi4fb.o
+      ifeq ($(USE_FB),true)
+      	CFLAGS += -DRPI4FB -I/usr/include/libdrm
+      	LDFLAGS += -ldrm -lgbm -lEGL
+      	OBJS += rpi4fb.o
+      endif
    else
       JAVA_HOME = /usr/lib/jvm/java-8-oracle
       ifeq ($(UNAME_P),x86_64)
