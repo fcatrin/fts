@@ -15,7 +15,8 @@ FTS_GL_DRIVER = ../../../drivers/gl
 FTS_GL_LIB = $(FTS_GL_DRIVER)/libs/libfts-gl.so
 
 OBJS = main.o \
-    window.o
+    window.o \
+    utils.o
 
 
 UNAME_S := $(shell uname -s)

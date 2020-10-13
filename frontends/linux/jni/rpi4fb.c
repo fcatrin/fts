@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include "utils.h"
 
 /*
  * original code from https://github.com/matusnovak/rpi-opengl-without-x
@@ -275,11 +276,12 @@ int rpi4fb_init(int width, int height) {
 		gbmClean();
 		return EXIT_FAILURE;
 	}
+	log_debug("init done\n");
 	return EXIT_SUCCESS;
 }
 
 void rpi4fb_swap_buffers() {
-	gbmSwapBuffers(display, surface);
+	gbmSwapBuffers(&display, &surface);
 }
 
 void rpi4fb_done() {
