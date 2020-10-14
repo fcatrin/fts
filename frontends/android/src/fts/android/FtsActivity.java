@@ -11,7 +11,7 @@ import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
 import fts.graphics.Point;
 
-public abstract class FtsActivity extends Activity implements GLWindowListener {
+public class FtsActivity extends Activity implements GLWindowListener {
 	private GLWindow nativeWindow;
 	private Point bounds = new Point();
 
@@ -33,9 +33,6 @@ public abstract class FtsActivity extends Activity implements GLWindowListener {
 		nativeWindow = (GLWindow)Application.createNativeWindow("", 0, 0, 0);
 		nativeWindow.setWindowListener(this);
 				
-		Widget rootView = Application.inflate(nativeWindow, getRootLayout());
-		setContentView(rootView);
-		
 		onWindowCreate();
 		
 		GLRenderer renderer = new GLRenderer(nativeWindow);
@@ -43,8 +40,6 @@ public abstract class FtsActivity extends Activity implements GLWindowListener {
 		surface.setRenderer(renderer);
 		surface.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 	}
-	
-	protected abstract String getRootLayout();
 	
 	public GLWindow getNativeWindow() {
 		return nativeWindow;

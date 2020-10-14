@@ -1,12 +1,18 @@
 package fts.android.demo;
 
 import fts.android.FtsActivity;
+import fts.core.Context;
+import fts.core.Widget;
 
 public class DemoActivity extends FtsActivity {
 
 	@Override
-	protected String getRootLayout() {
-		return "main";
+	public void onWindowCreate() {
+		Context.pointsPerPixel = 2;
+		
+		Widget rootView = inflate("main");
+		setContentView(rootView);
+
 	}
 
 }
