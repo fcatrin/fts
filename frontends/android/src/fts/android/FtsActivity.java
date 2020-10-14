@@ -64,6 +64,7 @@ public abstract class FtsActivity extends Activity implements GLWindowListener {
 
 	@Override
 	public void setTitle(String title) {
+		// this is weird, the compiler complains if not defined in some way
 		super.setTitle(title);
 	}
 	
