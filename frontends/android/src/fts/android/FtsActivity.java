@@ -16,7 +16,7 @@ public abstract class FtsActivity extends Activity implements GLWindowListener {
 	private Point bounds = new Point();
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	final protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		Display display = getWindowManager().getDefaultDisplay();
@@ -57,6 +57,10 @@ public abstract class FtsActivity extends Activity implements GLWindowListener {
 	public Widget inflate(String layoutName) {
 		return Application.inflate(nativeWindow, layoutName);
 	}
+	
+	public Widget findWidget(String id) {
+		return nativeWindow.findWidget(id);
+	}
 
 	@Override
 	public void setTitle(String title) {
@@ -64,19 +68,19 @@ public abstract class FtsActivity extends Activity implements GLWindowListener {
 	}
 	
 	@Override
-	protected void onDestroy() {
+	final protected void onDestroy() {
 		super.onDestroy();
 		onWindowDestroy();
 	}
 
 	@Override
-	protected void onStart() {
+	final protected void onStart() {
 		super.onStart();
 		onWindowStart();
 	}
 
 	@Override
-	protected void onStop() {
+	final protected void onStop() {
 		super.onStop();
 		onWindowStop();
 	}
@@ -119,5 +123,8 @@ public abstract class FtsActivity extends Activity implements GLWindowListener {
 	@Override
 	public void open() {}
 
-
+	@Override
+	public boolean sync() {
+		return false;
+	}
 }
