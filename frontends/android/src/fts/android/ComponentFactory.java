@@ -7,7 +7,7 @@ import fts.graphics.BackBuffer;
 public class ComponentFactory extends GLFactory {
 
 	@Override
-	public NativeWindow createNativeWindow(String title, int width, int height) {
+	public NativeWindow createNativeWindow(String title, int width, int height, int flags) {
 		return new AndroidWindow();
 	}
 

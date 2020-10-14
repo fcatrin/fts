@@ -12,7 +12,7 @@ public class AndroidWindow extends GLWindow {
 	Point bounds = new Point();
 	
 	public AndroidWindow() {
-		nativeWindow = (GLWindow)Application.createNativeWindow("", 0, 0);
+		nativeWindow = (GLWindow)Application.createNativeWindow("", 0, 0, 0);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class AndroidWindow extends GLWindow {
 	public void setSize(int width, int height) {
 		bounds.x = width;
 		bounds.y = height;
-		layout();
+		requestLayout();
 	}
 
 }
