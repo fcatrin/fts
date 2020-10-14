@@ -4,10 +4,10 @@ import fts.events.KeyEvent;
 import fts.graphics.Point;
 
 public interface NativeWindowListener {
-	public void onCreate();
-	public void onStart();
-	public void onStop();
-	public void onDestroy();
+	public void onWindowCreate();
+	public void onWindowStart();
+	public void onWindowStop();
+	public void onWindowDestroy();
 	
 	public void onFrame();
 	

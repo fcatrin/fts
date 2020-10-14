@@ -10,7 +10,7 @@ public class MainFTSLinuxDemo extends Window {
 	}
 	
 	@Override
-	public void onCreate() {
+	public void onWindowCreate() {
 		Widget rootView = inflate("main");
 		setContentView(rootView);
 	}

@@ -133,27 +133,27 @@ public class Window implements GLWindowListener {
 	}
 	
 	@Override
-	public void onCreate() {}
+	public void onWindowCreate() {}
 
 	@Override
-	public void onStart() {}
+	public void onWindowStart() {}
 
 	@Override
-	public void onStop() {}
+	public void onWindowStop() {}
 
 	@Override
-	public void onDestroy() {}
+	public void onWindowDestroy() {}
 
 	@Override
 	public void onFrame() {}
 
 	public void run() {
 		open();
-		onCreate();
-		onStart();
+		onWindowCreate();
+		onWindowStart();
 		nativeWindow.mainLoop();
-		onStop();
-		onDestroy();
+		onWindowStop();
+		onWindowDestroy();
 	}
 
 	@Override
