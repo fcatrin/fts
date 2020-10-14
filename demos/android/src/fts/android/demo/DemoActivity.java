@@ -9,9 +9,4 @@ public class DemoActivity extends FtsActivity {
 		return "main";
 	}
 
-	@Override
-	public boolean sync() {
-		return false;
-	}
-	
 }
