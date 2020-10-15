@@ -5,6 +5,7 @@ import java.util.List;
 
 import fts.core.Container;
 import fts.core.LayoutInfo;
+import fts.core.Log;
 import fts.core.Widget;
 import fts.core.NativeWindow;
 import fts.graphics.Align.HAlign;
@@ -63,17 +64,6 @@ public class LinearContainer extends Container {
 		return totalWidth;
 	}
 
-	private int getChildrenMaxWidth() {
-		int maxWidth = 0;
-		for (Widget widget : getChildren()) {
-			if (widget.getVisibility() == Visibility.Gone) continue;
-			LayoutInfo wl = widget.getLayoutInfo();
-			int width = wl.margins.left + wl.margins.right + wl.measuredWidth;
-			maxWidth = Math.max(maxWidth, width);
-		}
-		return maxWidth;
-	}
-
 	private int getChildrenHeight() {
 		int totalHeight = 0;
 		for (Widget widget : getChildren()) {
@@ -82,17 +72,6 @@ public class LinearContainer extends Container {
 			totalHeight += wl.margins.top + wl.margins.bottom + wl.measuredHeight;
 		}
 		return totalHeight;
-	}
-
-	private int getChildrenMaxHeight() {
-		int maxHeight = 0;
-		for (Widget widget : getChildren()) {
-			if (widget.getVisibility() == Visibility.Gone) continue;
-			LayoutInfo wl = widget.getLayoutInfo();
-			int height = wl.margins.top + wl.margins.bottom + wl.measuredHeight;
-			maxHeight = Math.max(maxHeight, height);
-		}
-		return maxHeight;
 	}
 
 	private void layoutHorizontal() {
@@ -107,20 +86,17 @@ public class LinearContainer extends Container {
 			left += (getInternalWidth() - getChildrenWidth());
 		}
 		
-		VAlign vAlign = getAlign().v;		
-		if (vAlign == VAlign.Center) {
-			top += (getInternalHeight() - getChildrenMaxHeight()) / 2;
-		} else if (vAlign == VAlign.Bottom) {
-			top += (getInternalHeight() - getChildrenMaxHeight());
-		}
-
 		for (Widget widget : getChildren()) {
 			if (widget.getVisibility() == Visibility.Gone) continue;
 			
 			LayoutInfo layoutInfo = widget.getLayoutInfo();
 			int height = layoutInfo.measuredHeight + layoutInfo.margins.top  + layoutInfo.margins.bottom;
 			
-			switch (widget.getContainerAlign().v) {
+			VAlign vAlign = getAlign().v;
+			VAlign vAlignWidget = widget.getContainerAlign().v;
+			if (vAlignWidget != VAlign.Undefined) vAlign = vAlignWidget;
+			
+			switch (vAlign) {
 			case Center : top = containerTop + (getInternalHeight() - height) / 2; break;
 			case Bottom : top = containerTop + (getInternalHeight() - height); break;
 			default     : break;
@@ -139,13 +115,6 @@ public class LinearContainer extends Container {
 		int top  = padding.top  + bounds.y;
 		int containerLeft = left;
 
-		HAlign hAlign = getAlign().h;
-		if (hAlign == HAlign.Center) {
-			left += (getInternalWidth() - getChildrenMaxWidth()) / 2;
-		} else if (hAlign == HAlign.Right) {
-			left += (getInternalWidth() - getChildrenMaxWidth());
-		}
-		
 		VAlign vAlign = getAlign().v;		
 		if (vAlign == VAlign.Center) {
 			top += (getInternalHeight() - getChildrenHeight()) / 2;
@@ -159,7 +128,11 @@ public class LinearContainer extends Container {
 			LayoutInfo layoutInfo = widget.getLayoutInfo();
 			int width  = layoutInfo.measuredWidth  + layoutInfo.margins.left + layoutInfo.margins.right;
 			
-			switch (widget.getContainerAlign().h) {
+			HAlign hAlign = getAlign().h;
+			HAlign hAlignWidget = widget.getContainerAlign().h; 
+			if (hAlignWidget != HAlign.Undefined) hAlign = hAlignWidget;
+			
+			switch (hAlign) {
 			case Center : left = containerLeft + (getInternalWidth() - width) / 2; break;
 			case Right  : left = containerLeft + (getInternalWidth() - width); break;
 			default     : break;
@@ -168,7 +141,7 @@ public class LinearContainer extends Container {
 			top += layoutInfo.margins.top;
 			widget.setBounds(left + layoutInfo.margins.left, top, layoutInfo.measuredWidth, layoutInfo.measuredHeight);
 			top += layoutInfo.measuredHeight + layoutInfo.margins.bottom + separator;
-			
+
 			widget.layout();
 		}
 	}
