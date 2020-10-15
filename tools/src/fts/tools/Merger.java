@@ -67,7 +67,11 @@ public class Merger {
 				File dstFile = new File(destinationDir, packagePath + "/" + path + "/" + file.getName());
 				if (path.contains("/values") && dstFile.exists()) {
 					System.out.println("merge " + dstFile.getCanonicalPath());
-					mergeFile(packagePath, path, file, dstFile);
+					if (fileName.equals("styles.xml")) {
+						appendFile(packagePath, path, file, dstFile);
+					} else {
+						mergeFile(packagePath, path, file, dstFile);
+					}
 				} else {
 					System.out.println("create " + dstFile.getCanonicalPath());
 					dstFile.getParentFile().mkdirs();
@@ -108,6 +112,21 @@ public class Merger {
 				
 				oldRoot.appendChild(newElement);
 			}
+		}
+		
+		SimpleXML.write(oldDoc, new FileOutputStream(dstFile));
+	}
+
+	private void appendFile(String packagePath, String path, File srcFile, File dstFile) throws ParserException, IOException, TransformerFactoryConfigurationError, TransformerException {
+		Document oldDoc = SimpleXML.parse(srcFile);
+		Document newDoc = SimpleXML.parse(dstFile);
+		
+		Element oldRoot = oldDoc.getDocumentElement();
+		Element newRoot = newDoc.getDocumentElement();
+		
+		List<Element> elements = SimpleXML.getElements(newRoot);
+		for(Element element : elements) {
+			oldRoot.appendChild(element.cloneNode(true));
 		}
 		
 		SimpleXML.write(oldDoc, new FileOutputStream(dstFile));

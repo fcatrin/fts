@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,6 +37,7 @@ public class Application {
 		loadColors();
 		loadStrings();
 		loadDimen();
+		loadStyles();
 	}
 	
 	public static NativeWindow createNativeWindow(String title, int width, int height, int flags) {
@@ -102,6 +105,41 @@ public class Application {
 		}
 	}
 
+	public static void loadStyles() {
+		Document styleResources;
+		try  {
+			styleResources = loadResource("values", "styles");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		
+		List<Element> styleDescriptors = SimpleXML.getElements(styleResources.getDocumentElement(), "style");
+		for(Element styleDescriptor : styleDescriptors) {
+			String name = styleDescriptor.getAttribute("name");
+			Style style = getExistingStyle(name);
+			if (style == null) style = new Style(name);
+
+			String parentName = SimpleXML.getAttribute(styleDescriptor, "parent"); 
+			if (parentName != null) style.setParent(parentName);
+			
+			List<Element> attributeDescriptors = SimpleXML.getElements(styleDescriptor, "item");
+			for(Element attributeDescriptor : attributeDescriptors) {
+				String itemName = attributeDescriptor.getAttribute("name");
+				String itemValue = attributeDescriptor.getTextContent();
+				style.setAttribute(itemName, itemValue);
+			}
+			factory.registerStyle(name, style);
+		}
+	}
+	
+	private static Style getExistingStyle(String name) {
+		try {
+			return factory.getStyle(name);
+		} catch (Exception e) {}
+		return null;
+	}
+
 	public static void loadStrings() {
 		Document stringResources;
 		try  {
@@ -158,9 +196,22 @@ public class Application {
 			throw new RuntimeException("Cannot create widget " + name);
 		}
 		
+		// first set properties via styles
+		String styleName = SimpleXML.getAttribute(node, "style");
+		if (styleName!=null) {
+			Style style = factory.getStyle(styleName);
+			Map<String, String> attributes = style.getAttributes();
+			for(Entry<String, String> attribute : attributes.entrySet()) {
+				widget.setProperty(attribute.getKey(), attribute.getValue());
+			}
+		}
+		
 		NamedNodeMap attributes = node.getAttributes();
 		for(int i=0; i<attributes.getLength(); i++) {
 			Node item = attributes.item(i);
+			String itemName = item.getNodeName();
+			if (itemName.equals("style")) continue;
+			
 			widget.setProperty(item.getNodeName(), item.getNodeValue());
 		}
 		

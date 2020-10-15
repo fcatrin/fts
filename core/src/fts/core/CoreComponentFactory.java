@@ -20,6 +20,7 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 	private static Map<String, Color>  colors  = new HashMap<String, Color>();
 	private static Map<String, String> strings = new HashMap<String, String>();
 	private static Map<String, String> dimen   = new HashMap<String, String>();
+	private static Map<String, Style>  styles  = new HashMap<String, Style>();
 
 	@Override
 	public Widget createWidget(Element node) {
@@ -70,6 +71,19 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 			throw new RuntimeException("Color alias " + alias + " not found");
 		}
 		return colors.get(alias);
+	}
+
+	@Override
+	public void registerStyle(String alias, Style style) {
+		styles.put(alias, style);
+	}
+
+	@Override
+	public Style getStyle(String alias) {
+		if (!styles.containsKey(alias)) {
+			throw new RuntimeException("Style alias " + alias + " not found");
+		}
+		return styles.get(alias);
 	}
 
 	@Override
