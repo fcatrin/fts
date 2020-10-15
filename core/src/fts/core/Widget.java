@@ -216,8 +216,10 @@ public abstract class Widget extends Component {
 			selectorDrawable.setState(state.ordinal(), value);
 		}
 		
-		if (changed && onStateListener!=null) onStateListener.onStateChanged(this, state, value);
-		
+		if (changed) {
+			if (onStateListener!=null) onStateListener.onStateChanged(this, state, value);
+			invalidate();
+		}
 		return changed;
 	}
 	

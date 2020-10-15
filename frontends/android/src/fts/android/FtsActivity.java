@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.MotionEvent;
 import fts.core.Application;
 import fts.core.Widget;
 import fts.events.KeyEvent;
+import fts.events.TouchEvent;
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
 import fts.graphics.Point;
@@ -81,6 +83,20 @@ public class FtsActivity extends Activity implements GLWindowListener {
 		onWindowStop();
 	}
 	
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent ev) {
+		TouchEvent event = new TouchEvent();
+		switch(ev.getAction()) {
+		case MotionEvent.ACTION_DOWN : event.action = TouchEvent.Action.DOWN; break;
+		case MotionEvent.ACTION_MOVE : event.action = TouchEvent.Action.MOVE; break;
+		case MotionEvent.ACTION_UP : event.action = TouchEvent.Action.UP; break;
+		}
+		event.button = TouchEvent.Button.LEFT;
+		event.x = (int)ev.getX();
+		event.y = (int)ev.getY();
+		return nativeWindow.dispatchTouchEvent(event);
+	}
+
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent keyEvent) {
 		return nativeWindow.dispatchKeyEvent(keyEvent);
