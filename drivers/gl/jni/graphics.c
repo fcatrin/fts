@@ -212,3 +212,27 @@ void graphics_backbuffer_draw(int handle, int x, int y, int width, int height) {
 	nvgFill(vg);
 	nvgRestore(vg);
 }
+
+int graphics_image_create(unsigned char *data, int len) {
+	return nvgCreateImageMem(vg, 0, data, len);
+}
+
+void graphics_image_get_size(int handle, int *width, int *height) {
+	nvgImageSize(vg, handle, width, height);
+}
+
+void graphics_image_destroy(int handle) {
+	nvgDeleteImage(vg, handle);
+}
+
+void graphics_image_draw(int handle, int x, int y, int width, int height) {
+	NVGpaint img = nvgImagePattern(vg, x, y, width, height, 0, handle, 1.0f);
+
+	nvgSave(vg);
+	nvgBeginPath(vg);
+	nvgRect(vg, x, y, width, height);
+	nvgFillPaint(vg, img);
+	nvgFill(vg);
+	nvgRestore(vg);
+}
+

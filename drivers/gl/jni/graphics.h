@@ -30,5 +30,10 @@ void graphics_backbuffer_bind(int handle);
 void graphics_backbuffer_unbind(int handle);
 void graphics_backbuffer_draw(int handle, int x, int y, int width, int height);
 
+int  graphics_image_create(unsigned char *data, int len);
+void graphics_image_get_size(int handle, int *width, int *height);
+void graphics_image_destroy(int handle);
+void graphics_image_draw(int handle, int x, int y, int width, int height);
+
 
 #endif

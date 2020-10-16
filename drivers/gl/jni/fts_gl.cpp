@@ -135,8 +135,38 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawBackBuffer
 	graphics_backbuffer_draw(handle, x, y, width, height);
 }
 
+JNIEXPORT jint JNICALL Java_fts_gl_GLNativeInterface_createImage
+  (JNIEnv *env, jclass clazz, jbyteArray jData) {
 
+	int size = env->GetArrayLength(jData);
+	jbyte *data  = env->GetByteArrayElements(jData, NULL);
 
+	int handle = graphics_image_create((unsigned char *)data, size);
+
+	env->ReleaseByteArrayElements(jData, data, 0);
+
+	return handle;
+}
+
+JNIEXPORT jintArray JNICALL Java_fts_gl_GLNativeInterface_getImageSize
+  (JNIEnv *env, jclass clazz, jint handle) {
+	int size[2];
+	graphics_image_get_size(handle, &size[0], &size[1]);
+
+	jintArray result = env->NewIntArray(2);
+	env->SetIntArrayRegion(result, 0, 2, size);
+	return result;
+}
+
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_destroyImage
+  (JNIEnv *env, jclass clazz, jint handle){
+	graphics_image_destroy(handle);
+}
+
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drwawImage
+  (JNIEnv *env, jclass clazz, jint handle, jint x, jint y, jint width, jint height){
+	graphics_image_draw(handle, x, y, width, height);
+}
 
 #ifdef __cplusplus
 }

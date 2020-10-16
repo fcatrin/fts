@@ -45,4 +45,9 @@ public class GLNativeInterface {
 		setFontName(font.name);
 	}
 	
+	public static native int   createImage(byte data[]);
+	public static native int[] getImageSize(int handle);
+	public static native void  destroyImage(int handle);
+	public static native void  drwawImage(int handle, int x, int y, int width, int height);
+	
 }

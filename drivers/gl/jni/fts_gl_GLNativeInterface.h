@@ -65,10 +65,10 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawText
 
 /*
  * Class:     fts_gl_GLNativeInterface
- * Method:    drawRoundedRect
+ * Method:    drawRect
  * Signature: (IIIIII)V
  */
-JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawRoundedRect
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawRect
   (JNIEnv *, jclass, jint, jint, jint, jint, jint, jint);
 
 /*
@@ -166,6 +166,38 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_setFontSize
  */
 JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_setFontName
   (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    createImage
+ * Signature: ([B)I
+ */
+JNIEXPORT jint JNICALL Java_fts_gl_GLNativeInterface_createImage
+  (JNIEnv *, jclass, jbyteArray);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    getImageSize
+ * Signature: (I)[I
+ */
+JNIEXPORT jintArray JNICALL Java_fts_gl_GLNativeInterface_getImageSize
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    destroyImage
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_destroyImage
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     fts_gl_GLNativeInterface
+ * Method:    drwawImage
+ * Signature: (IIIII)V
+ */
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drwawImage
+  (JNIEnv *, jclass, jint, jint, jint, jint, jint);
 
 #ifdef __cplusplus
 }
