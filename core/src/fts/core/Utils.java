@@ -53,6 +53,9 @@ public final class Utils {
 	private static final long SIZE_MEGABYTE = 1024*1024;
 	private static final long SIZE_KILOBYTE = 1024;
 	
+	public static int httpReadTimeout = HTTP_READ_TIMEOUT;
+	public static int httpConnectTimeout = HTTP_CONNECT_TIMEOUT;
+	
 	private Utils() {}
 
 	public static int str2i(String value) {
@@ -274,8 +277,8 @@ public final class Utils {
 			Log.d(LOGTAG, "Download start " + sUrl + " headers " + headers);
 			URL url = new URL(sUrl);
 			connection = url.openConnection();
-			connection.setConnectTimeout(HTTP_CONNECT_TIMEOUT);
-			connection.setReadTimeout(HTTP_READ_TIMEOUT);
+			connection.setConnectTimeout(httpConnectTimeout);
+			connection.setReadTimeout(httpReadTimeout);
 			
 			if (headers!=null) for(Entry<String, String> entry : headers.entrySet())
 				connection.addRequestProperty(entry.getKey(), entry.getValue());
@@ -326,8 +329,8 @@ public final class Utils {
 		try {
 			url = new URL(resource);
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-			urlConnection.setConnectTimeout(HTTP_CONNECT_TIMEOUT);
-			urlConnection.setReadTimeout(HTTP_READ_TIMEOUT);
+			urlConnection.setConnectTimeout(httpConnectTimeout);
+			urlConnection.setReadTimeout(httpReadTimeout);
 
 			fillHeaders(urlConnection, headers);
 			urlConnection.setRequestMethod("POST");
@@ -361,8 +364,8 @@ public final class Utils {
 		try {
 			url = new URL(resource);
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-			urlConnection.setConnectTimeout(HTTP_CONNECT_TIMEOUT);
-			urlConnection.setReadTimeout(HTTP_READ_TIMEOUT);
+			urlConnection.setConnectTimeout(httpConnectTimeout);
+			urlConnection.setReadTimeout(httpReadTimeout);
 
 			fillHeaders(urlConnection, headers);
 			urlConnection.setRequestMethod("PUT");
