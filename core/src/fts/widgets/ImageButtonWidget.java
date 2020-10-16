@@ -3,7 +3,7 @@ package fts.widgets;
 import fts.core.NativeWindow;
 import fts.events.KeyEvent;
 
-public class ImageButtonWidget extends TextWidget {
+public class ImageButtonWidget extends ImageWidget {
 
 	public ImageButtonWidget(NativeWindow w) {
 		super(w);
