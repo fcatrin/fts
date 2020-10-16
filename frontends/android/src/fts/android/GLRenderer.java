@@ -9,14 +9,17 @@ import fts.graphics.Point;
 
 public class GLRenderer implements Renderer {
 	GLWindow window;
+	private FtsActivity activity;
 
-	public GLRenderer(GLWindow window) {
-		this.window = window;
+	public GLRenderer(FtsActivity activity, GLWindow nativeWindow) {
+		this.activity = activity;
+		this.window = nativeWindow;
 	}
 	
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		window.init();
+		activity.onWindowCreate();
 	}
 
 	@Override

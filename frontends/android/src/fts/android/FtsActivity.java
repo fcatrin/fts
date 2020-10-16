@@ -35,9 +35,7 @@ public class FtsActivity extends Activity implements GLWindowListener {
 		nativeWindow = (GLWindow)Application.createNativeWindow("", 0, 0, 0);
 		nativeWindow.setWindowListener(this);
 				
-		onWindowCreate();
-		
-		GLRenderer renderer = new GLRenderer(nativeWindow);
+		GLRenderer renderer = new GLRenderer(this, nativeWindow);
 		GLSurface surface = (GLSurface)findViewById(R.id.fts_view);
 		surface.setRenderer(renderer);
 		surface.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
