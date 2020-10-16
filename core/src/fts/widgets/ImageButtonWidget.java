@@ -3,9 +3,9 @@ package fts.widgets;
 import fts.core.NativeWindow;
 import fts.events.KeyEvent;
 
-public class ButtonWidget extends TextWidget {
+public class ImageButtonWidget extends TextWidget {
 
-	public ButtonWidget(NativeWindow w) {
+	public ImageButtonWidget(NativeWindow w) {
 		super(w);
 		setClickable(true);
 	}
