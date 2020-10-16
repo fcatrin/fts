@@ -27,7 +27,7 @@ public class FtsActivity extends Activity implements GLWindowListener {
 		bounds.x = size.x;
 		bounds.y = size.y;
 		
-		AndroidUtils.configureAsFullscreen(this);
+		configureScreen();
 		setContentView(R.layout.main);
 		
 		Application.init(new ComponentFactory(), new AndroidResourceLocator(this), new AndroidLogger(), new fts.core.Context());
@@ -39,6 +39,10 @@ public class FtsActivity extends Activity implements GLWindowListener {
 		GLSurface surface = (GLSurface)findViewById(R.id.fts_view);
 		surface.setRenderer(renderer);
 		surface.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+	}
+	
+	protected void configureScreen() {
+		AndroidUtils.configureAsFullscreen(this);
 	}
 	
 	public GLWindow getNativeWindow() {
