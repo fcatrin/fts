@@ -2,6 +2,7 @@ package fts.gl;
 
 import java.io.File;
 
+import fts.core.Log;
 import fts.graphics.Canvas;
 import fts.graphics.Color;
 import fts.graphics.Font;
@@ -10,18 +11,22 @@ import fts.graphics.TextMetrics;
 import fts.graphics.TextWrapper;
 
 public class GLCanvas extends Canvas {
-
+	private static final String LOGTAG = GLCanvas.class.getSimpleName();
+	
 	public GLCanvas(int width, int height) {
 		super(width, height);
 	}
 
 	@Override
-	protected Image createImage(int width, int height) {
-		return null;
-	}
-
-	@Override
-	public void drawImage(Image srcImage, int x, int y) {
+	public void drawImage(Image image, int x, int y, int width, int height) {
+		if (image instanceof GLImage) {
+			GLImage glImage = (GLImage)image;
+			if (!glImage.isValid()) {
+				Log.d(LOGTAG, "Invalid image " + image.getName());
+				return;
+			}
+			GLNativeInterface.drwawImage(glImage.getHandle(), x, y, width, height);
+		}
 	}
 
 	@Override

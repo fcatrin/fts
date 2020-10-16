@@ -18,6 +18,7 @@ import fts.core.xml.SimpleXML;
 import fts.graphics.BackBuffer;
 import fts.graphics.Color;
 import fts.graphics.Drawable;
+import fts.graphics.Image;
 
 public class Application {
 	static ComponentFactory factory;
@@ -51,7 +52,11 @@ public class Application {
 	public static BackBuffer createBackBuffer(int width, int height) {
 		return factory.createBackBuffer(width, height);
 	}
-	
+
+	public static Image createImage(String src) {
+		return factory.createImage(src);
+	}
+
 	public static ComponentFactory getFactory() {
 		return factory;
 	}
@@ -70,21 +75,29 @@ public class Application {
 			String name = fontDescriptor.getAttribute("name");
 			String file = fontDescriptor.getTextContent();
 			String location = "resources/fonts/" + file;
-			if (!resourceLocator.exists(location)) {
+			if (!resourceExists(location)) {
 				throw new RuntimeException("Font " + name + " not found on " + location);
 			}
 			
-			try {
-				File fontFile = resourceLocator.extract(location);
-				
-				factory.registerFont(name, fontFile);
-				if (!defaultHasBeenRegistered) {
-					factory.registerFont("default", fontFile);
-					defaultHasBeenRegistered = true;
-				}
-			} catch (IOException e) {
-				throw new RuntimeException("Cannot extract font " + location, e);
+			File fontFile = resourceExtract(location);
+			
+			factory.registerFont(name, fontFile);
+			if (!defaultHasBeenRegistered) {
+				factory.registerFont("default", fontFile);
+				defaultHasBeenRegistered = true;
 			}
+		}
+	}
+	
+	public static boolean resourceExists(String path) {
+		return resourceLocator.exists(path);
+	}
+	
+	public static File resourceExtract(String path) {
+		try {
+			return resourceLocator.extract(path);
+		} catch (IOException e) {
+			throw new RuntimeException("Cannot extract resource " + path, e);
 		}
 	}
 
@@ -280,4 +293,5 @@ public class Application {
 		Element root = doc.getDocumentElement();
 		return createWidget(w, root);
 	}
+
 }

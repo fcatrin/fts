@@ -8,12 +8,14 @@ import org.w3c.dom.Element;
 import fts.graphics.BackBuffer;
 import fts.graphics.Color;
 import fts.graphics.Drawable;
+import fts.graphics.Image;
 
 public interface ComponentFactory {
 	public NativeWindow createNativeWindow(String title, int width, int height, int flags);
 	public Widget createWidget(Element element);
 	public Drawable createDrawable(Element element);
 	public BackBuffer createBackBuffer(int width, int height);
+	public Image createImage(String src);
 	
 	public void registerFont(String alias, File file);
 	public File getFont(String alias);
