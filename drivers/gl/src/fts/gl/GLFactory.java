@@ -56,7 +56,7 @@ public abstract class GLFactory extends CoreComponentFactory {
 			byte data[] = Utils.loadBytes(imageFile);
 			return new GLImage(name, data);
 		} catch (IOException e) {
-			throw new RuntimeException("Cannot load image from " + imageFile.getAbsolutePath());
+			throw new RuntimeException("Cannot load image from " + imageFile.getAbsolutePath(), e);
 		}
 	}
 

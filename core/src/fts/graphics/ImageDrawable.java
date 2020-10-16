@@ -6,7 +6,10 @@ import fts.core.Application;
 import fts.core.xml.SimpleXML;
 
 public class ImageDrawable extends Drawable {
+	public enum ScaleType {fitCenter, cropCenter, fitXY}
 	Image image;
+	
+	ScaleType scaleType = ScaleType.cropCenter;
 	
 	public ImageDrawable() {}
 
@@ -22,10 +25,60 @@ public class ImageDrawable extends Drawable {
 	public void setSrc(String src) {
 		image = Application.createImage(src);
 	}
+
+	public void setScaleType(ScaleType scaleType) {
+		this.scaleType = scaleType;
+	}
 	
 	@Override
 	public void draw(Canvas canvas) {
-		canvas.drawImage(image, bounds.x, bounds.y, bounds.width, bounds.height);
+		int width = bounds.width;
+		int height = bounds.height;
+		if (width == 0 || height == 0) return;
+		
+		int x = bounds.x;
+		int y = bounds.y;
+		int imageWidth = image.getWidth();
+		int imageHeight = image.getHeight();
+		
+		if (scaleType == ScaleType.fitCenter) {
+			float imageRatio = (float)imageWidth / imageHeight;
+			float rectRatio  = (float)width / height;
+			if (imageRatio >= rectRatio) {
+				if (imageWidth != width) {
+					imageWidth = width;
+					imageHeight = (int)(width / imageRatio);
+				}
+			} else {
+				if (imageHeight != height) {
+					imageHeight = height;
+					imageWidth = (int)(imageRatio * imageHeight);
+				}
+			}
+		} else if (scaleType == ScaleType.cropCenter) {
+			float imageRatio = (float)imageWidth / imageHeight;
+			float rectRatio  = (float)width / height;
+			if (imageRatio <= rectRatio) {
+				if (imageWidth != width) {
+					imageWidth = width;
+					imageHeight = (int)(width / imageRatio);
+				}
+			} else {
+				if (imageHeight != height) {
+					imageHeight = height;
+					imageWidth = (int)(imageRatio * imageHeight);
+				}
+			}			
+		}
+		
+		if (scaleType == ScaleType.fitCenter || scaleType == ScaleType.cropCenter) {
+			y += (height - imageHeight) / 2;
+			x += (width - imageWidth) / 2;
+		}
+		
+		canvas.viewStart(bounds.x, bounds.y, bounds.width, bounds.height);
+		canvas.drawImage(image, x, y, imageWidth, imageHeight);
+		canvas.viewEnd();
 	}
 	
 	public Image getImage() {
@@ -36,5 +89,6 @@ public class ImageDrawable extends Drawable {
 	public void destroy() {
 		image.destroy();
 	}
+
 	
 }

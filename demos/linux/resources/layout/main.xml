@@ -34,4 +34,12 @@
         height="40pt"
         text="@string/demo"/>
 	<include layout="actions" />
+	<ImageWidget
+	    width="200pt"
+	    height="400pt"
+	    marginTop="20pt"
+	    containerAlign="center_horizontal"
+	    background="#000000"
+	    src="/home/fcatrin/Descargas/2012-02-29 15.05.16-3.png"
+	    />
 </LinearContainer>

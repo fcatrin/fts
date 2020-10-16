@@ -16,7 +16,7 @@ public class MainFTSLinuxDemo extends Window {
 	}
 
 	public static void main(String[] args) {
-		MainFTSLinuxDemo window = new MainFTSLinuxDemo("Linux FTS window", 820, 240);
+		MainFTSLinuxDemo window = new MainFTSLinuxDemo("Linux FTS window", 800, 640);
 		
 		window.run();
 	}

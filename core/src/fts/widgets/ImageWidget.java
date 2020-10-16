@@ -6,6 +6,7 @@ import fts.events.PaintEvent;
 import fts.graphics.Canvas;
 import fts.graphics.Image;
 import fts.graphics.ImageDrawable;
+import fts.graphics.ImageDrawable.ScaleType;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
 
@@ -22,13 +23,16 @@ public class ImageWidget extends Widget {
 		invalidate();
 	}
 	
+	public void setScaleType(ScaleType scaleType) {
+		imageDrawable.setScaleType(scaleType);
+		invalidate();
+	}
+	
 	@Override
 	protected void onPaint(PaintEvent e) {
 		super.onPaint(e);
 		Rectangle paintBounds = getInternalPaintBounds(bounds.width, bounds.height);
-		
-		// TODO consider scaling on paintBounds vs image size
-		
+
 		Canvas canvas = e.canvas;
 		imageDrawable.setBounds(paintBounds);
 		imageDrawable.draw(canvas);
@@ -51,4 +55,19 @@ public class ImageWidget extends Widget {
 	public void onMeasure(int parentWidth, int parentHeight) {
 		super.onMeasure(parentWidth, parentHeight);
 	}
+	
+	@Override
+	protected Object resolvePropertyValue(String propertyName, String value) {
+		if (propertyName.equals("scaleType")) {
+			try {
+				return ScaleType.valueOf(value);
+			} catch (Exception e) {
+				throw new RuntimeException("Invalid ScaleType value " + value);
+			}
+		} else if (propertyName.equals("src")) {
+			return value;
+		}
+		return super.resolvePropertyValue(propertyName, value);
+	}
+
 }

@@ -123,7 +123,6 @@ public class Application {
 		try  {
 			styleResources = loadResource("values", "styles");
 		} catch (Exception e) {
-			e.printStackTrace();
 			return;
 		}
 		
