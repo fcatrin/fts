@@ -1,4 +1,5 @@
 <dimens>
     <dimen name="text_normal">14pt</dimen>
     <dimen name="text_title">22pt</dimen>
+    <dimen name="modal_width">300pt</dimen>
 </dimens>

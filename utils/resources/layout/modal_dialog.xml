@@ -6,7 +6,7 @@
     visibility="gone">
     <LinearContainer
         id="dialogContainer"
-        width="300pt"
+        width="@dimen/modal_width"
         height="wrap_content"
         background="@drawable/modal_background"
         containerAlign="center"
@@ -31,7 +31,7 @@
                 id="btnYes"
                 height="wrap_content"
                 background="@drawable/modal_button_background"
-                color="#808080"
+                color="@color/modal_background"
                 padding="6pt"
                 align="center"
                 fontSize="@dimen/text_normal"/>
@@ -42,7 +42,7 @@
                 background="@drawable/modal_button_background"
                 padding="6pt"
                 align="center"
-                color="#808080"/>
+                color="@color/modal_background"/>
         </LinearContainer>
             
     </LinearContainer>

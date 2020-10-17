@@ -6,7 +6,7 @@
     visibility="gone">
     <LinearContainer
         id="listContainer"
-        width="300pt"
+        width="@dimen/modal_width"
         height="wrap_content"
         background="@drawable/modal_background"
         containerAlign="center"
