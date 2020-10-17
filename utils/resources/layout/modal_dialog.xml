@@ -31,20 +31,10 @@
             orientation="horizontal">
             <ButtonWidget 
                 id="btnYes"
-                height="wrap_content"
-                background="@drawable/modal_button_background"
-                color="@color/modal_background"
-                padding="6pt"
-                align="center"
-                fontSize="@dimen/text_normal"/>
+                style="modal_button"/>
             <ButtonWidget 
                 id="btnNo"
-                height="wrap_content"
-                fontSize="@dimen/text_normal"
-                background="@drawable/modal_button_background"
-                padding="6pt"
-                align="center"
-                color="@color/modal_background"/>
+                style="modal_button"/>
         </LinearContainer>
             
     </LinearContainer>

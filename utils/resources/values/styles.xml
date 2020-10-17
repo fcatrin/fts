@@ -1,0 +1,10 @@
+<styles>
+	<style name="modal_button">
+	    <item name="height">wrap_content</item>
+	    <item name="background">@drawable/modal_button_background</item>
+	    <item name="color">@color/modal_background</item>
+	    <item name="padding">6pt</item>
+	    <item name="align">center</item>
+	    <item name="fontSize">@dimen/text_normal</item>
+	</style>    
+</styles>
