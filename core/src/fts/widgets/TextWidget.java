@@ -69,11 +69,8 @@ public class TextWidget extends Widget {
 	public Point getContentSize(int width, int height) {
 		Canvas canvas = getWindow().getCanvas();
 		
-		Rectangle textBounds = getInternalPaintBounds(width, height);
-		textDrawable.setBounds(textBounds);
-		
 		Point paddingSize = getPaddingSize();
-		Point textSize = textDrawable.getSize(canvas, textDrawable.getText(), width);
+		Point textSize = textDrawable.getSize(canvas, textDrawable.getText(), width - paddingSize.x);
 
 		Point contentSize = new Point(
 			textSize.x + paddingSize.x,
