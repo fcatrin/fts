@@ -26,9 +26,9 @@ public abstract class GLFactory extends CoreComponentFactory {
 	}
 
 	@Override
-	public BackBuffer createBackBuffer(int width, int height) {
+	public BackBuffer createBackBuffer(String id, int width, int height) {
 		GLBackBuffer glBackBuffer = new GLBackBuffer();
-		glBackBuffer.create(width, height);
+		glBackBuffer.create(id, width, height);
 		return glBackBuffer;
 	}
 

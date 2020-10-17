@@ -137,7 +137,7 @@ public abstract class Widget extends Component {
 	
 	protected BackBuffer getBackBuffer(int width, int height) {
 		if (backBuffer == null || backBuffer.getWidth() != width || backBuffer.getHeight() != height) {
-			backBuffer = Application.createBackBuffer(width, height);
+			backBuffer = Application.createBackBuffer(id, width, height);
 		}
 		return backBuffer;
 	}

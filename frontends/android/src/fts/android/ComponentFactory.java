@@ -13,8 +13,8 @@ public class ComponentFactory extends GLFactory {
 	}
 
 	@Override
-	public BackBuffer createBackBuffer(int width, int height) {
-		return super.createBackBuffer(width, height);
+	public BackBuffer createBackBuffer(String id, int width, int height) {
+		return super.createBackBuffer(id, width, height);
 	}
 
 }

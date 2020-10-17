@@ -49,8 +49,8 @@ public class Application {
 		return factory.createDrawable(node);
 	}
 	
-	public static BackBuffer createBackBuffer(int width, int height) {
-		return factory.createBackBuffer(width, height);
+	public static BackBuffer createBackBuffer(String id, int width, int height) {
+		return factory.createBackBuffer(id, width, height);
 	}
 
 	public static Image createImage(String src) {

@@ -10,7 +10,7 @@ public class GLBackBuffer extends BackBuffer {
 	int handle;
 	
 	@Override
-	public void create(int width, int height) {
+	public void create(String id, int width, int height) {
 		destroy();
 
 		setWidth(width);
@@ -19,7 +19,7 @@ public class GLBackBuffer extends BackBuffer {
 		if (width == 0 || height == 0) return;
 		
 		handle = GLNativeInterface.createBackBuffer(width, height);
-		Log.d(LOGTAG, "Create backbuffer " + width + "x" + height);
+		Log.d(LOGTAG, "Create backbuffer " + width + "x" + height + " for " + id);
 	}
 
 	@Override

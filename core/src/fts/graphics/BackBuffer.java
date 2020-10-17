@@ -4,7 +4,7 @@ public abstract class BackBuffer {
 	int width;
 	int height;
 	
-	public abstract void create(int width, int height);
+	public abstract void create(String id, int width, int height);
 	public abstract void bind();
 	public abstract void draw(Canvas canvas, int x, int y);
 	public abstract void unbind();

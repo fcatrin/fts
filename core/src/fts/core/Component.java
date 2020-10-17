@@ -199,4 +199,8 @@ public abstract class Component {
 		}
 	}
 	
+	public int getDimen(String dimen) {
+		return resolvePropertyValueDimen("auto", dimen);
+	}
+	
 }

@@ -14,7 +14,7 @@ public interface ComponentFactory {
 	public NativeWindow createNativeWindow(String title, int width, int height, int flags);
 	public Widget createWidget(Element element);
 	public Drawable createDrawable(Element element);
-	public BackBuffer createBackBuffer(int width, int height);
+	public BackBuffer createBackBuffer(String id, int width, int height);
 	public Image createImage(String src);
 	public Image createImage(String name, byte data[]);
 	
