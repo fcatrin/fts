@@ -8,6 +8,7 @@ public class ButtonWidget extends TextWidget {
 	public ButtonWidget(NativeWindow w) {
 		super(w);
 		setClickable(true);
+		setFocusable(true);
 	}
 
 	@Override

@@ -8,6 +8,7 @@ public class ImageButtonWidget extends ImageWidget {
 	public ImageButtonWidget(NativeWindow w) {
 		super(w);
 		setClickable(true);
+		setFocusable(true);
 	}
 
 	@Override

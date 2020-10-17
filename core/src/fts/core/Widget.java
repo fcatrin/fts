@@ -41,6 +41,8 @@ public abstract class Widget extends Component {
 	protected Drawable background;
 	
 	private boolean isClickable = false;
+	private boolean isFocusable = false;
+	
 	private OnClickListener onClickListener;
 	private OnStateListener onStateListener;
 	private OnFocusChangedListener onFocusChangedListener;
@@ -98,6 +100,7 @@ public abstract class Widget extends Component {
 
 	protected void onTouchDown(TouchEvent e) {
 		setPressed(true);
+		if (isFocusable) requestFocus();
 	}
 	
 	protected void onTouchMove(TouchEvent e) {
@@ -233,6 +236,14 @@ public abstract class Widget extends Component {
 
 	public void setClickable(boolean isClickable) {
 		this.isClickable = isClickable;
+	}
+
+	public boolean isFocusable() {
+		return isFocusable;
+	}
+
+	public void setFocusable(boolean isFocusable) {
+		this.isFocusable = isFocusable;
 	}
 
 	public void setMargin(int margin) {
