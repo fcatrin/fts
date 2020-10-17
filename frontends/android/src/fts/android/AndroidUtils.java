@@ -67,6 +67,10 @@ public class AndroidUtils {
 		return Build.MODEL.contains("XT1032") || Build.MODEL.contains("XT1058");
 	}
     
+    public static boolean isEmulator() {
+    	return Build.MODEL.equals("sdk_google_atv_x86");
+    }
+    
 	public static void unpackAssets(Context ctx, String dir, File dstDir) throws IOException {
 		unpackAssets(ctx, dir, dstDir, null);
 	}
