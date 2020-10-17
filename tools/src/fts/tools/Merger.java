@@ -126,7 +126,8 @@ public class Merger {
 		
 		List<Element> elements = SimpleXML.getElements(newRoot);
 		for(Element element : elements) {
-			oldRoot.appendChild(element.cloneNode(true));
+			Node importedNode = oldDoc.importNode(element, true);
+			oldRoot.appendChild(importedNode);
 		}
 		
 		SimpleXML.write(oldDoc, new FileOutputStream(dstFile));
