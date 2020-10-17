@@ -54,10 +54,14 @@ public abstract class GLFactory extends CoreComponentFactory {
 		
 		try {
 			byte data[] = Utils.loadBytes(imageFile);
-			return new GLImage(name, data);
+			return createImage(name, data);
 		} catch (IOException e) {
 			throw new RuntimeException("Cannot load image from " + imageFile.getAbsolutePath(), e);
 		}
 	}
 
+	@Override
+	public Image createImage(String name, byte[] data) {
+		return new GLImage(name, data);
+	}
 }

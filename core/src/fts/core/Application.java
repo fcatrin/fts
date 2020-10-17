@@ -57,6 +57,10 @@ public class Application {
 		return factory.createImage(src);
 	}
 
+	public static Image createImage(String name, byte data[]) {
+		return factory.createImage(name, data);
+	}
+
 	public static ComponentFactory getFactory() {
 		return factory;
 	}

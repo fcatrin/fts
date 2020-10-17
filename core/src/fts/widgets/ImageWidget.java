@@ -23,6 +23,11 @@ public class ImageWidget extends Widget {
 		invalidate();
 	}
 	
+	public void setImage(Image image) {
+		imageDrawable.setImage(image);
+		invalidate();
+	}
+	
 	public void setScaleType(ScaleType scaleType) {
 		imageDrawable.setScaleType(scaleType);
 		invalidate();
@@ -42,6 +47,8 @@ public class ImageWidget extends Widget {
 	public Point getContentSize(int width, int height) {
 		Point paddingSize = getPaddingSize();
 		Image image = imageDrawable.getImage();
+		if (image == null) return paddingSize;
+		
 		Point imageSize = new Point(image.getWidth(), image.getHeight());
 
 		Point contentSize = new Point(

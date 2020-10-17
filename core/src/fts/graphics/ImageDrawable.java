@@ -23,15 +23,23 @@ public class ImageDrawable extends Drawable {
 	}
 
 	public void setSrc(String src) {
+		destroyCurrentImage();
 		image = Application.createImage(src);
 	}
-
+	
+	public void setImage(Image image) {
+		destroyCurrentImage();
+		this.image = image;
+	}
+	
 	public void setScaleType(ScaleType scaleType) {
 		this.scaleType = scaleType;
 	}
 	
 	@Override
 	public void draw(Canvas canvas) {
+		if (image == null) return;
+		
 		int width = bounds.width;
 		int height = bounds.height;
 		if (width == 0 || height == 0) return;
@@ -87,8 +95,13 @@ public class ImageDrawable extends Drawable {
 	
 	@Override
 	public void destroy() {
-		image.destroy();
+		destroyCurrentImage();
 	}
 
+	private void destroyCurrentImage() {
+		if (this.image==null) return;
+		this.image.destroy();
+		this.image = null;
+	}
 	
 }

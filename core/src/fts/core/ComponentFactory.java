@@ -16,6 +16,7 @@ public interface ComponentFactory {
 	public Drawable createDrawable(Element element);
 	public BackBuffer createBackBuffer(int width, int height);
 	public Image createImage(String src);
+	public Image createImage(String name, byte data[]);
 	
 	public void registerFont(String alias, File file);
 	public File getFont(String alias);
