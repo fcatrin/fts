@@ -16,7 +16,7 @@
             width="match_parent"
             height="wrap_content"
             align="center"
-            fontSize="14pt"
+            fontSize="@dimen/text_normal"
             padding="10pt"
             color="@color/modal_foreground"
             />
