@@ -16,10 +16,10 @@ public class GLBackBuffer extends BackBuffer {
 		setWidth(width);
 		setHeight(height);
 		
-		if (width == 0 || height == 0) return;
+		if (width <= 0 || height <= 0) return;
 		
-		handle = GLNativeInterface.createBackBuffer(width, height);
 		Log.d(LOGTAG, "Create backbuffer " + width + "x" + height + " for " + id);
+		handle = GLNativeInterface.createBackBuffer(width, height);
 	}
 
 	@Override
