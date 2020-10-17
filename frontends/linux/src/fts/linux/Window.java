@@ -171,4 +171,7 @@ public class Window implements GLWindowListener {
 		return nativeWindow.onKeyUp(keyEvent);
 	}
 
+	public NativeWindow getNativeWindow() {
+		return nativeWindow;
+	}
 }

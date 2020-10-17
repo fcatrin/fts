@@ -1,0 +1,49 @@
+<AbsoluteContainer
+    id="modalDialogPanel"
+    width="match_parent"
+    height="match_parent"
+    background="@color/modal_smoke"
+    visibility="gone">
+    <LinearContainer
+        id="dialogContainer"
+        width="300pt"
+        height="wrap_content"
+        background="@drawable/modal_background"
+        containerAlign="center"
+        orientation="vertical">
+        <TextWidget
+            id="text"
+            width="match_parent"
+            height="wrap_content"
+            align="center"
+            fontSize="14pt"
+            padding="10pt"
+            color="@color/modal_foreground"
+            />
+        <LinearContainer
+            id ="actions"
+            width="match_parent"
+            height="wrap_content"
+            padding="10pt"
+            separator="10pt"
+            orientation="horizontal">
+            <ButtonWidget 
+                id="btnYes"
+                height="wrap_content"
+                background="@drawable/modal_button_background"
+                color="#808080"
+                padding="6pt"
+                align="center"
+                fontSize="@dimen/text_normal"/>
+            <ButtonWidget 
+                id="btnNo"
+                height="wrap_content"
+                fontSize="@dimen/text_normal"
+                background="@drawable/modal_button_background"
+                padding="6pt"
+                align="center"
+                color="#808080"/>
+        </LinearContainer>
+            
+    </LinearContainer>
+</AbsoluteContainer>
