@@ -89,9 +89,13 @@ public class AbsoluteContainer extends Container {
 	@Override
 	public void onMeasureChildren(MeasureSpec wspec, MeasureSpec hspec) {
 		Point paddingSize = getPaddingSize();
+		int width = wspec.value - paddingSize.x;
+		int height = hspec.value - paddingSize.y;
+		if (width <= 0 || height <= 0) return;
+		
 		for (Widget child : getChildren()) {
 			if (child.getVisibility() == Visibility.Gone) continue;
-			child.onMeasure(wspec.value - paddingSize.x, hspec.value - paddingSize.y);
+			child.onMeasure(width , height);
 		}
 	}
 
