@@ -146,7 +146,7 @@ public abstract class Widget extends Component {
 		if ((isDirty && visibility == Visibility.Visible) || backBuffer == null) {
 			getBackBuffer(bounds.width, bounds.height);
 			backBuffer.bind();
-			onPaint(e);
+			if (bounds.width > 0 && bounds.height > 0) onPaint(e);
 			backBuffer.unbind();
 		}
 		isDirty = false;
