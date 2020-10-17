@@ -9,19 +9,21 @@
         width="@dimen/modal_width"
         height="wrap_content"
         background="@drawable/modal_background"
+        padding="@dimen/modal_padding"
         containerAlign="center"
         orientation="vertical">
         <AbsoluteContainer
             id="dialogCustomArea"
             width="wrap_content"
             height="wrap_content"
-            padding="10pt"/>
+            padding="@dimen/modal_padding_text"/>
         <LinearContainer
             id ="actions"
             width="match_parent"
             height="wrap_content"
-            padding="10pt"
-            separator="10pt"
+            padding="@dimen/modal_padding_text"
+            separator="@dimen/spacing_small"
+            marginTop="@dimen/spacing_normal"
             orientation="horizontal">
             <ButtonWidget 
                 id="btnYes"
