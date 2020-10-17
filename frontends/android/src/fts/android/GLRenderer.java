@@ -20,6 +20,7 @@ public class GLRenderer implements Renderer {
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		window.init();
 		activity.onWindowCreate();
+		activity.onWindowStart();
 	}
 
 	@Override

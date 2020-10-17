@@ -35,10 +35,6 @@ public class FtsActivity extends Activity implements GLWindowListener {
 		nativeWindow = (GLWindow)Application.createNativeWindow("", 0, 0, 0);
 		nativeWindow.setWindowListener(this);
 				
-		GLRenderer renderer = new GLRenderer(this, nativeWindow);
-		GLSurface surface = (GLSurface)findViewById(R.id.fts_view);
-		surface.setRenderer(renderer);
-		surface.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 	}
 	
 	protected void configureScreen() {
@@ -76,7 +72,10 @@ public class FtsActivity extends Activity implements GLWindowListener {
 	@Override
 	final protected void onStart() {
 		super.onStart();
-		onWindowStart();
+		GLRenderer renderer = new GLRenderer(this, nativeWindow);
+		GLSurface surface = (GLSurface)findViewById(R.id.fts_view);
+		surface.setRenderer(renderer);
+		surface.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 	}
 
 	@Override
