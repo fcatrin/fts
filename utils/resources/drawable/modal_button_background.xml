@@ -1,0 +1,14 @@
+<selector>
+    <item focused="true" >
+        <shape 
+            fillColor="@color/modal_foreground"
+            radius="4pt"
+         />
+    </item>
+    <item>
+        <shape 
+          strokeColor="@color/modal_foreground"
+          strokeWidth="2pt"
+          radius="4pt" />
+    </item>
+</selector>

@@ -1,0 +1,8 @@
+<selector>
+    <item selected="true" >
+        <shape fillColor="@color/modal_foreground" />
+    </item>
+    <item>
+        <shape fillColor="@color/modal_background" />
+    </item>
+</selector>
