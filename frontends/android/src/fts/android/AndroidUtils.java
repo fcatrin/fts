@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -14,6 +15,7 @@ import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import fts.core.Log;
 import fts.core.ProgressListener;
 import fts.core.Utils;
 
@@ -64,12 +66,26 @@ public class AndroidUtils {
     }
     
     private static boolean isMotoXorG() {
-		return Build.MODEL.contains("XT1032") || Build.MODEL.contains("XT1058");
+    	String deviceName = buildDeviceNameLower();
+		return deviceName.contains("xt1032") || deviceName.contains("xt1058");
 	}
     
     public static boolean isEmulator() {
-    	return Build.MODEL.equals("sdk_google_atv_x86");
+    	Log.d("DEVICENAME", buildDeviceNameLower());
+    	return buildDeviceNameLower().contains("unknown android sdk");
     }
+
+	public static String buildDeviceNameLower() {
+		return buildDeviceName().toLowerCase(Locale.US);
+	}
+
+	public static String buildDeviceName() {
+		String man = Build.MANUFACTURER;
+		String model = Build.MODEL;
+		if (model.toLowerCase(Locale.US).contains(man.toLowerCase(Locale.US))) man = "";
+		
+		return (man + " " + model).trim();
+	}
     
 	public static void unpackAssets(Context ctx, String dir, File dstDir) throws IOException {
 		unpackAssets(ctx, dir, dstDir, null);
