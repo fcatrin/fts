@@ -3,6 +3,7 @@ package fts.widgets;
 import fts.core.Container;
 import fts.core.LayoutInfo;
 import fts.core.Widget;
+import fts.core.Widget.Visibility;
 import fts.core.NativeWindow;
 import fts.graphics.Align;
 import fts.graphics.Align.HAlign;
@@ -87,8 +88,10 @@ public class AbsoluteContainer extends Container {
 
 	@Override
 	public void onMeasureChildren(MeasureSpec wspec, MeasureSpec hspec) {
+		Point paddingSize = getPaddingSize();
 		for (Widget child : getChildren()) {
-			child.onMeasure(wspec.value, hspec.value);
+			if (child.getVisibility() == Visibility.Gone) continue;
+			child.onMeasure(wspec.value - paddingSize.x, hspec.value - paddingSize.y);
 		}
 	}
 
