@@ -3,6 +3,8 @@ package fts.graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import fts.core.Log;
+
 public class TextWrapper {
 	private Point size = new Point();
 	private List<String> lines = new ArrayList<String>();
@@ -48,13 +50,12 @@ public class TextWrapper {
 		TextMetrics lastSize = null;
 		do {
 			String nextWord = getNextWord();
-			if (nextWord.equals("\n")) {
-				hasMoreLines = true;
-				break;
-			}
-
-			TextMetrics nextSize = canvas.getTextSize((textWrap + nextWord).trim());
-			if (nextSize.width > width) { // TODO handle case where text just don't fi
+			boolean hasEOL = nextWord.endsWith("\n");
+			if (hasEOL) nextWord = nextWord.substring(0, nextWord.length()-1);
+			
+			String nextLine = (textWrap + nextWord).trim();
+			TextMetrics nextSize = canvas.getTextSize(nextLine);
+			if (nextSize.width > width) { // not enough space, need to wrap
 				if (lastSize == null) {
 					advance = 0;
 					do {
@@ -76,6 +77,12 @@ public class TextWrapper {
 				size.x = Math.max(lastSize.width, size.x);
 				lastSize = null;
 				textWrap = "";
+			} else if (hasEOL) {
+				addLine(nextLine, nextSize);
+				size.x = Math.max(nextSize.width, size.x);
+				lastSize = null;
+				textWrap = "";
+				position += advance + 1;
 			} else {
 				textWrap += nextWord;
 				lastSize = nextSize;
@@ -93,14 +100,18 @@ public class TextWrapper {
 	}
 	
 	private void addLine(String line, TextMetrics metrics) {
+		Log.d("TEXTWRAP", "add line " + line.trim() + "'height: " + metrics.height + " size.y=" + size.y);
 		lines.add(line.trim());
 		lineMetrics.add(metrics);
 		size.y += metrics.height - metrics.descent + (size.y == 0 ? 0 : lineSeparator);
-		System.out.println("add line '" + line.trim()  + "'height: " + metrics.height + " size.y=" + size.y);
 	}
 	
 	private boolean isSpacer(String s) {
-		return s.equals(" ") || s.equals("\t") || s.equals("\n");
+		return s.equals(" ") || s.equals("\t");
+	}
+	
+	private boolean isEOL(String s) {
+		return s.equals("\n");
 	}
 	
 	private String getNextWord() {
@@ -110,7 +121,7 @@ public class TextWrapper {
 			int index = position + advance;
 			String c = text.substring(index, index+1);
 			word += c;
-			if (isSpacer(c)) {
+			if (isSpacer(c) || isEOL(c)) {
 				return word;
 			}
 			advance++;
