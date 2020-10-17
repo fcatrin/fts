@@ -111,7 +111,10 @@ public abstract class Container extends Widget {
 	
 	@Override
 	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
-		for(Widget child : children) {
+		for(int i=children.size()-1; i>=0; i--) {
+			Widget child = children.get(i);
+			if (child.getVisibility() != Visibility.Visible) continue;
+			
 			Rectangle childBounds = child.getBounds();
 			if (childBounds.contains(touchEvent.x, touchEvent.y)) {
 				if (child.dispatchTouchEvent(touchEvent)) return true;
