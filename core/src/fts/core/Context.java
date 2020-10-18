@@ -3,17 +3,13 @@ package fts.core;
 public class Context {
 	public static float pointsPerPixel = 1;
 	public static AsyncExecutor asyncExecutor = null;
+	public static BackgroundProcessor backgroundProcessor = null;
 	
 	public static Context getInstance() {
 		return Application.context;
 	}
 	
-	public static AsyncExecutor getAsyncExecutor() {
-		return asyncExecutor;
-	}
-	
 	public static void post(Runnable runnable) {
-		AsyncExecutor asyncExecutor = getAsyncExecutor();
 		asyncExecutor.asyncExec(runnable);
 	}
 

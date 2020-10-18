@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("rawtypes")
-public class AsyncProcessor extends Thread {
-	List<AsyncTask> tasks = new ArrayList<AsyncTask>();
+public class BackgroundProcessor extends Thread {
+	List<BackgroundTask> tasks = new ArrayList<BackgroundTask>();
 	boolean isRunning = true;
 	private AsyncExecutor executor;
 	
-	public AsyncProcessor(AsyncExecutor executor) {
+	public BackgroundProcessor(AsyncExecutor executor) {
 		this.executor = executor;
 	}
 	
-	public void exec(AsyncTask task) {
+	public void exec(BackgroundTask task) {
 		synchronized (tasks) {
 			tasks.add(task);
 			tasks.notify();
@@ -31,7 +31,7 @@ public class AsyncProcessor extends Thread {
 						break;
 					}
 				if (isRunning && tasks.size() >= 0) {
-					final AsyncTask task = tasks.get(0);
+					final BackgroundTask task = tasks.get(0);
 					tasks.remove(0);
 
 					try {
