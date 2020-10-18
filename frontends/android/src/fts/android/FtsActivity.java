@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
 import fts.core.Application;
+import fts.core.Context;
 import fts.core.Widget;
 import fts.events.KeyEvent;
 import fts.events.TouchEvent;
@@ -67,6 +68,7 @@ public class FtsActivity extends Activity implements GLWindowListener {
 	@Override
 	final protected void onDestroy() {
 		super.onDestroy();
+		Context.backgroundProcessor.shutdown();		
 		onWindowDestroy();
 	}
 

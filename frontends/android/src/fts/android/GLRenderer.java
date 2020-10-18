@@ -4,6 +4,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLSurfaceView.Renderer;
+import fts.core.Context;
 import fts.gl.GLWindow;
 import fts.graphics.Point;
 
@@ -19,6 +20,8 @@ public class GLRenderer implements Renderer {
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		window.init();
+		Context.backgroundProcessor.start();
+
 		activity.onWindowCreate();
 		activity.onWindowStart();
 	}
