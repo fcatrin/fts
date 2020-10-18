@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="fts-utils">
+    <property environment="env"/>
+    <property name="fts-core.location" value="../core"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <import file="build-fts.xml"/>
+    <path id="fts-core.classpath">
+        <pathelement location="${fts-core.location}/bin"/>
+        <pathelement location="${fts-core.location}/lib/json.jar"/>
+    </path>
+    <path id="fts-utils.classpath">
+        <pathelement location="bin"/>
+        <path refid="fts-core.classpath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="build.xml" dir="${fts-core.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-fts,build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="build.xml" dir="${fts-core.location}" inheritAll="false" target="build-project"/>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="fts-utils.classpath"/>
+        </javac>
+    </target>
+</project>
