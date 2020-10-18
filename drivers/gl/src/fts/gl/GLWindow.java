@@ -48,6 +48,8 @@ public class GLWindow extends NativeWindow {
 		running = sync();
 		
 		windowListener.onFrame();
+		
+		Context.asyncExecutor.process();
 	}
 	
 	@Override
@@ -57,7 +59,6 @@ public class GLWindow extends NativeWindow {
 		requestLayout();
 		while (running) {
 			render();
-			Context.asyncExecutor.process();
 		}
 		
 		Context.backgroundProcessor.shutdown();
