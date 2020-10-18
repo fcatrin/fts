@@ -9,8 +9,13 @@ public class Context {
 		return Application.context;
 	}
 	
+
 	public static void post(Runnable runnable) {
-		asyncExecutor.asyncExec(runnable);
+		post(runnable, 0);
+	}
+	
+	public static void post(Runnable runnable, long delay) {
+		asyncExecutor.asyncExec(runnable, delay);
 	}
 
 	public int pt2px(int value) {
