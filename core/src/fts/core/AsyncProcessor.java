@@ -41,7 +41,8 @@ public class AsyncProcessor extends Thread {
 							@Override
 							public void run() {
 								try {
-									task.onResult(result);
+									task.onSuccess(result);
+									task.onFinally();
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
@@ -54,7 +55,8 @@ public class AsyncProcessor extends Thread {
 							@Override
 							public void run() {
 								try {
-									task.onError(fe);
+									task.onFailure(fe);
+									task.onFinally();
 								} catch (Exception ne) {
 									ne.printStackTrace();
 								}

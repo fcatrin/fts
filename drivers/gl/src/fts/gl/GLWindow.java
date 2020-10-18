@@ -5,6 +5,8 @@ import java.util.List;
 
 import fts.core.Application;
 import fts.core.ComponentFactory;
+import fts.core.Context;
+import fts.core.CoreAsyncExecutor;
 import fts.core.NativeWindow;
 import fts.events.PaintEvent;
 import fts.graphics.Canvas;
@@ -16,6 +18,8 @@ public class GLWindow extends NativeWindow {
 	boolean running;
 	
 	public void init() {
+		Context.asyncExecutor = new CoreAsyncExecutor();
+		
 		running = true;
 		GLNativeInterface.uiInit();
 		
@@ -41,6 +45,8 @@ public class GLWindow extends NativeWindow {
 		running = sync();
 		
 		windowListener.onFrame();
+		
+		Context.asyncExecutor.process();
 	}
 	
 	@Override
