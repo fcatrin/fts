@@ -28,7 +28,7 @@ public class ImageDrawable extends Drawable {
 	}
 	
 	public void setImage(Image image) {
-		destroyCurrentImage();
+		// TODO find a way to detroy de image if it was created from code and not from the factory
 		this.image = image;
 	}
 	
