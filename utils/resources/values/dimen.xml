@@ -1,9 +1,11 @@
 <dimens>
     <dimen name="text_normal">14pt</dimen>
     <dimen name="text_title">22pt</dimen>
+    <dimen name="spacing_tiny">3pt</dimen>
     <dimen name="spacing_small">6pt</dimen>
     <dimen name="spacing_normal">10pt</dimen>
     <dimen name="spacing_double">20pt</dimen>
+    <dimen name="spacing_medium">40pt</dimen>
     <dimen name="modal_width">300pt</dimen>
     <dimen name="modal_padding">10pt</dimen>
     <dimen name="modal_padding_text">10pt</dimen>
