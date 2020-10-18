@@ -16,7 +16,6 @@ public abstract class BackgroundTask<T> extends AsyncTask<Void, Void, Exception>
 			result = onBackground();
 			return null;
 		} catch (Exception e) {
-			Log.e(LOGTAG, "Error processing background task", e);
 			return e;
 		}
 	}
@@ -33,7 +32,9 @@ public abstract class BackgroundTask<T> extends AsyncTask<Void, Void, Exception>
 	
 	public abstract T onBackground() throws Exception;
 	public abstract void onSuccess(T result);
-	public void onFailure(Exception e) {}
+	public void onFailure(Exception e) {
+		Log.e(LOGTAG, "Error processing background task", e);
+	}
 	public void onFinally() {}
 	
 }
