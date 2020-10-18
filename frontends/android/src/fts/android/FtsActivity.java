@@ -16,7 +16,8 @@ import fts.graphics.Point;
 public class FtsActivity extends Activity implements GLWindowListener {
 	private GLWindow nativeWindow;
 	private Point bounds = new Point();
-
+	private boolean started = false;
+	
 	@Override
 	final protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,7 +35,7 @@ public class FtsActivity extends Activity implements GLWindowListener {
 
 		nativeWindow = (GLWindow)Application.createNativeWindow("", 0, 0, 0);
 		nativeWindow.setWindowListener(this);
-				
+		started = false;
 	}
 	
 	protected void configureScreen() {
@@ -72,10 +73,13 @@ public class FtsActivity extends Activity implements GLWindowListener {
 	@Override
 	final protected void onStart() {
 		super.onStart();
+		
+		if (started) return;
 		GLRenderer renderer = new GLRenderer(this, nativeWindow);
 		GLSurface surface = (GLSurface)findViewById(R.id.fts_view);
 		surface.setRenderer(renderer);
 		surface.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+		started = true;
 	}
 
 	@Override
