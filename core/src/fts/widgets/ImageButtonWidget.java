@@ -9,6 +9,7 @@ public class ImageButtonWidget extends ImageWidget {
 		super(w);
 		setClickable(true);
 		setFocusable(true);
+		setFocusableInTouchMode(true);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ public class ButtonWidget extends TextWidget {
 		super(w);
 		setClickable(true);
 		setFocusable(true);
+		setFocusableInTouchMode(true);
 	}
 
 	@Override
