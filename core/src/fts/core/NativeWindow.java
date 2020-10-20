@@ -26,6 +26,8 @@ public abstract class NativeWindow {
 	private Widget focusedWidgetRequest = null;
 	private Widget focusedWidget = null;
 
+	private Widget lastTouchedWidget = null;
+	
 	public abstract void mainLoop();
 	
 	public void setContentView(Widget view) {
@@ -85,8 +87,15 @@ public abstract class NativeWindow {
 	}
 
 	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
-		if (view.dispatchTouchEvent(touchEvent)) return true;
-		onTouchEvent(touchEvent);
+		touchEvent.widget = null;
+		
+		if (!view.dispatchTouchEvent(touchEvent)) {
+			onTouchEvent(touchEvent);
+		}
+		
+		if (lastTouchedWidget != touchEvent.widget && lastTouchedWidget!=null) lastTouchedWidget.onTouchExit(touchEvent);
+		lastTouchedWidget = touchEvent.widget;
+		
 		return true;
 	}
 	

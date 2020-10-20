@@ -495,6 +495,8 @@ public abstract class Widget extends Component {
 	}
 
 	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
+		touchEvent.widget = this;
+		
 		onTouchEvent(touchEvent);
 		return true;
 	}

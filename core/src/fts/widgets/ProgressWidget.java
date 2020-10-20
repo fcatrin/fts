@@ -3,16 +3,24 @@ package fts.widgets;
 import fts.core.NativeWindow;
 import fts.core.Utils;
 import fts.core.Widget;
+import fts.events.OnProgressChangedListener;
 import fts.events.PaintEvent;
+import fts.events.TouchEvent;
 import fts.graphics.Drawable;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
 
 public class ProgressWidget extends Widget {
+	private static final int TOUCH_DELAY = 200;
 
 	private int minHeight;
 	private long progress;
 	private long total;
+	
+	long touchTime = 0;
+	boolean tracking = false;
+	
+	private OnProgressChangedListener onProgressChangedListener;
 	
 	private Drawable drawable;
 	
@@ -26,10 +34,16 @@ public class ProgressWidget extends Widget {
 		invalidate();
 	}
 	
+	public void setOnProgressChangedListener(OnProgressChangedListener onProgressChangedListener) {
+		this.onProgressChangedListener = onProgressChangedListener;
+	}
+
 	public void setProgress(long progress) {
-		if (this.progress == progress) return;
+		if (this.progress == progress || tracking) return;
 		this.progress = progress;
 		invalidate();
+		
+		if (onProgressChangedListener!=null) onProgressChangedListener.onProgressChanged(this, progress, total, false, false);
 	}
 
 	public void setTotal(long total) {
@@ -50,6 +64,54 @@ public class ProgressWidget extends Widget {
 		
 		drawable.setBounds(paintBounds);
 		drawable.draw(e.canvas);
+	}
+	
+	@Override
+	protected void onTouchDown(TouchEvent e) {
+		super.onTouchDown(e);
+		touchTime = System.currentTimeMillis();
+		tracking = true;
+	}
+
+	@Override
+	protected void onTouchMove(TouchEvent e) {
+		super.onTouchMove(e);
+		if (System.currentTimeMillis() - touchTime > TOUCH_DELAY && tracking) {
+			adjustProgress(e.x, false);
+		}
+	}
+
+	@Override
+	protected void onTouchUp(TouchEvent e) {
+		super.onTouchUp(e);
+		if (!tracking) return;
+		tracking = false;
+		adjustProgress(e.x, true);
+	}
+
+	@Override
+	protected void onTouchExit(TouchEvent e) {
+		super.onTouchExit(e);
+		if (!tracking) return;
+		tracking = false;
+		adjustProgress(e.x, true);
+	}
+
+	private void adjustProgress(int x, boolean forceUpdate) {
+		int traversalWidth = bounds.width - padding.left - padding.right;
+		if (traversalWidth <= 0) return;
+		
+		x -= bounds.x + padding.left;
+
+		if (x < 0) x = 0;
+		if (x > traversalWidth) x = traversalWidth;
+		
+		int newProgress = (int)(((float)x / traversalWidth) * total);
+		if (!forceUpdate && progress == newProgress) return;
+		
+		progress = newProgress;
+		invalidate();
+		if (onProgressChangedListener!=null) onProgressChangedListener.onProgressChanged(this, progress, total, true, tracking);
 	}
 
 	@Override

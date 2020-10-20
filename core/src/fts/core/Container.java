@@ -109,6 +109,10 @@ public abstract class Container extends Widget {
 		return false;
 	}
 	
+	
+	// subclasses must fill touchEvent.widget when handling the event
+	// otherwise onTouchExit will not work
+	
 	@Override
 	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
 		for(int i=children.size()-1; i>=0; i--) {
@@ -117,7 +121,10 @@ public abstract class Container extends Widget {
 			
 			Rectangle childBounds = child.getBounds();
 			if (childBounds.contains(touchEvent.x, touchEvent.y)) {
-				if (child.dispatchTouchEvent(touchEvent)) return true;
+				if (child.dispatchTouchEvent(touchEvent)) {
+					if (touchEvent.widget == null) touchEvent.widget = this;
+					return true;
+				}
 			}
 		}
 		return super.dispatchTouchEvent(touchEvent);
