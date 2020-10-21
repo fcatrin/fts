@@ -6,6 +6,8 @@ public class KeyEvent {
 	public long timestamp;
 	public boolean down;
 	
+	public static final int KEY_MOD_SHIFT = 1;
+	
 	public static final int KEY_A = 97;
 	public static final int KEY_B = 98;
 	public static final int KEY_C = 99;

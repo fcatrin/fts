@@ -3,6 +3,7 @@ package fts.android;
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import fts.core.Application;
@@ -15,6 +16,8 @@ import fts.gl.GLWindowListener;
 import fts.graphics.Point;
 
 public class FtsActivity extends Activity implements GLWindowListener {
+	private static final String LOGTAG = FtsActivity.class.getSimpleName();
+	
 	private GLWindow nativeWindow;
 	private Point bounds = new Point();
 	private boolean started = false;
@@ -105,6 +108,18 @@ public class FtsActivity extends Activity implements GLWindowListener {
 	}
 
 	@Override
+	public boolean dispatchKeyEvent(android.view.KeyEvent event) {
+		Log.d(LOGTAG, "dispatchKeyEvent keyCode " + event.getKeyCode() + ", mod:" + event.getModifiers());
+		if (event.getKeyCode() == 59 && event.getModifiers() == 65) {
+			// SHIFT+1 dumps the layout
+			// dumpLayout();
+		}
+		KeyEvent ftsEvent = AndroidKeyMap.translate(event);
+		if (ftsEvent == null) return super.dispatchKeyEvent(event);
+		return dispatchKeyEvent(ftsEvent);
+	}
+
+	@Override
 	public boolean dispatchKeyEvent(KeyEvent keyEvent) {
 		return nativeWindow.dispatchKeyEvent(keyEvent);
 	}
@@ -116,8 +131,11 @@ public class FtsActivity extends Activity implements GLWindowListener {
 
 	@Override
 	public boolean onKeyUp(KeyEvent keyEvent) {
+		Log.d(LOGTAG, "onKeyUp keyCode " + keyEvent.keyCode + ", mod:" + keyEvent.modifiers);
 		return nativeWindow.onKeyUp(keyEvent);
 	}
+	
+	
 
 	@Override
 	public Point getBounds() {
