@@ -202,7 +202,11 @@ public class Application {
 		if (widget == null) {
 			widget = (Widget)createComponentInstance(w, name);
 		}
-		
+
+		if (name.equals("Widget")) {
+			widget = (Widget)createComponentInstance(w, "fts.core.Widget");
+		}
+
 		if (widget == null) {
 			String viewClassName = "fts.widgets." + name;
 			widget = (Widget)createComponentInstance(w, viewClassName);

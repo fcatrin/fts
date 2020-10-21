@@ -17,7 +17,7 @@ import fts.graphics.Rectangle;
 import fts.graphics.SelectorDrawable;
 import fts.graphics.Sides;
 
-public abstract class Widget extends Component {
+public class Widget extends Component {
 	public enum State {Selected, Focused, Enabled, Pressed}
 	public enum Visibility {Visible, Invisible, Gone}
 	
@@ -417,7 +417,9 @@ public abstract class Widget extends Component {
 		layoutInfo.measuredHeight = height;
 	}
 
-	public abstract Point getContentSize(int width, int height);
+	public Point getContentSize(int width, int height) {
+		return new Point(0, 0);
+	}
 
 	public static class MeasureSpec {
 		public enum Type {Free, Exact, AtMost};
