@@ -1,5 +1,10 @@
 package fts.core;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import fts.events.KeyEvent;
 import fts.events.PaintEvent;
 import fts.events.TouchEvent;
@@ -8,6 +13,7 @@ import fts.graphics.Point;
 import fts.widgets.AbsoluteContainer;
 
 public abstract class NativeWindow {
+	private static final String LOGTAG = NativeWindow.class.getSimpleName();
 	
 	public static final int FLAGS_BORDERLESS = 1;
 	public static final int FLAGS_CENTER = 2;
@@ -191,6 +197,21 @@ public abstract class NativeWindow {
 		}
 		
 		focusedWidgetRequest = null;
+	}
+	
+	public void dumpLayout() {
+		File dumpFile = new File(windowListener.getDataDir(), "fts_layout_dump.txt");
+		PrintWriter pw = null;
+		try {
+			pw = new PrintWriter(new FileWriter(dumpFile));
+			view.dumpLayout(pw);
+			
+			Log.d(LOGTAG, "FTS layout dump on " + dumpFile.getAbsolutePath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (pw!=null) pw.close();
+		}
 	}
 
 }

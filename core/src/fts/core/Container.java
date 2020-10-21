@@ -1,5 +1,6 @@
 package fts.core;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -146,4 +147,11 @@ public abstract class Container extends Widget {
 		this.align = align;
 	}
 
+	@Override
+	public void dumpLayout(PrintWriter writer, String spacer) {
+		super.dumpLayout(writer, spacer);
+		for(Widget widget : getChildren()) {
+			widget.dumpLayout(writer, spacer + "  ");
+		}
+	}
 }

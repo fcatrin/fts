@@ -1,5 +1,7 @@
 package fts.core;
 
+import java.io.PrintWriter;
+
 import fts.events.KeyEvent;
 import fts.events.OnClickListener;
 import fts.events.OnFocusChangedListener;
@@ -604,5 +606,26 @@ public abstract class Widget extends Component {
 		this.widgetFocusDown = widgetFocusDown;
 	}
 	
+	public void dumpLayout(PrintWriter writer) {
+		dumpLayout(writer, "");
+	}
 	
+	public void dumpLayout(PrintWriter writer, String spacer) {
+		String info = String.format("%s[%s id:%s (%d,%d)-(%d,%d) %dx%d w:%s h:%s mw:%d, mh:%d]",
+				spacer,
+				getClass().getSimpleName(), getId(),
+				bounds.x, bounds.y,
+				bounds.x + bounds.width, bounds.y + bounds.height,
+				bounds.width, bounds.height,
+				getSizeDescriptor(layoutInfo.width), getSizeDescriptor(layoutInfo.height),
+				layoutInfo.measuredWidth, layoutInfo.measuredHeight);
+		writer.println(info);
+	}
+	
+	private String getSizeDescriptor(int size) {
+		if (size == LayoutInfo.MATCH_PARENT) return "match_parent";
+		else if (size == LayoutInfo.WRAP_CONTENT) return "wrap_content";
+		else if (size == 0) return String.valueOf(size);
+		else return "weight " + layoutInfo.weight;
+	}
 }

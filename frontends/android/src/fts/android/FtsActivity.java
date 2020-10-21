@@ -1,5 +1,7 @@
 package fts.android;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -112,7 +114,7 @@ public class FtsActivity extends Activity implements GLWindowListener {
 		Log.d(LOGTAG, "dispatchKeyEvent keyCode " + event.getKeyCode() + ", mod:" + event.getModifiers());
 		if (event.getKeyCode() == 59 && event.getModifiers() == 65) {
 			// SHIFT+1 dumps the layout
-			// dumpLayout();
+			nativeWindow.dumpLayout();
 		}
 		KeyEvent ftsEvent = AndroidKeyMap.translate(event);
 		if (ftsEvent == null) return super.dispatchKeyEvent(event);
@@ -135,8 +137,6 @@ public class FtsActivity extends Activity implements GLWindowListener {
 		return nativeWindow.onKeyUp(keyEvent);
 	}
 	
-	
-
 	@Override
 	public Point getBounds() {
 		return bounds;
@@ -163,5 +163,10 @@ public class FtsActivity extends Activity implements GLWindowListener {
 	@Override
 	public boolean sync() {
 		return false;
+	}
+	
+	@Override
+	public File getDataDir() {
+		return this.getFilesDir();
 	}
 }

@@ -1,5 +1,7 @@
 package fts.linux;
 
+import java.io.File;
+
 import fts.core.Application;
 import fts.core.Context;
 import fts.core.DesktopLogger;
@@ -174,4 +176,9 @@ public class Window implements GLWindowListener {
 	public NativeWindow getNativeWindow() {
 		return nativeWindow;
 	}
+	
+	public File getDataDir() {
+		return new File(System.getProperty("user.home"), ".ftsapp");
+	}
+
 }
