@@ -148,7 +148,7 @@ public class LinearContainer extends Container {
 	
 	@Override
 	public Point getContentSize(int width, int height) {
-		int contentWidth = 0;
+		int contentWidth  = 0;
 		int contentHeight = 0;
 
 		int separatorWidth  = orientation == Orientation.Vertical   ? 0 : getSeparatorSize();
@@ -257,23 +257,26 @@ public class LinearContainer extends Container {
 					size.x = availableWidth * layoutInfo.weight / totalWeight;
 				}				
 			}
-			
+
 			// now check height 
+			LayoutInfo layoutInfo = getLayoutInfo();
+
 			i=0;
 			for (Widget child : getChildren()) {
 				if (child.getVisibility() == Visibility.Gone) continue;
 				
 				Point size = sizeInfo.get(i++);
-				LayoutInfo layoutInfo = child.getLayoutInfo();
-				int marginSize = layoutInfo.margins.top + layoutInfo.margins.bottom;
-				if (layoutInfo.height == LayoutInfo.MATCH_PARENT || layoutInfo.height == 0) {
+				LayoutInfo childLayoutInfo = child.getLayoutInfo();
+				int marginSize = childLayoutInfo.margins.top + childLayoutInfo.margins.bottom;
+				if ((childLayoutInfo.height == LayoutInfo.MATCH_PARENT || childLayoutInfo.height == 0) && layoutInfo.height != LayoutInfo.WRAP_CONTENT) {
+					// if this container has wrap content as height, don't consider childs matching parent
 					contentHeight = availableHeight;
 					break;
-				} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
+				} else if (childLayoutInfo.height == LayoutInfo.WRAP_CONTENT) {
 					Point childSize = child.getContentSize(size.x, availableHeight);
 					contentHeight = Math.max(contentHeight, childSize.y + marginSize);
-				} else if (layoutInfo.height>0) {
-					contentHeight = Math.max(contentHeight, layoutInfo.height + marginSize);
+				} else if (childLayoutInfo.height>0) {
+					contentHeight = Math.max(contentHeight, childLayoutInfo.height + marginSize);
 				}
 			}			
 		}
@@ -331,7 +334,8 @@ public class LinearContainer extends Container {
 				}
 			}
 		} else {
-			int availableWidth = wspec.value - paddingSize.x;
+			int availableWidth  = wspec.value - paddingSize.x;
+			int availableHeight = hspec.value - paddingSize.y;
 			int totalWeight = 0;
 			int autoWidth = 0;
 			
@@ -339,17 +343,17 @@ public class LinearContainer extends Container {
 			for (Widget child : getChildren()) {
 				if (child.getVisibility() == Visibility.Gone) continue;
 				
-				LayoutInfo layoutInfo = child.getLayoutInfo();
-				Point marginSize = layoutInfo.getMarginSize();
+				LayoutInfo childLayoutInfo = child.getLayoutInfo();
+				Point marginSize = childLayoutInfo.getMarginSize();
 				
-				if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
-					child.onMeasure(availableWidth, hspec.value - paddingSize.y);
+				if (childLayoutInfo.width == LayoutInfo.MATCH_PARENT) {
+					child.onMeasure(availableWidth, availableHeight);
 					availableWidth = 0;
-				} else 	if (layoutInfo.width > 0) {
-					child.onMeasure(layoutInfo.width + marginSize.x, hspec.value - paddingSize.y);
-					availableWidth -= layoutInfo.width + marginSize.x - separator;
-				} else if (layoutInfo.width == 0) {
-					totalWeight += layoutInfo.weight;
+				} else 	if (childLayoutInfo.width > 0) {
+					child.onMeasure(childLayoutInfo.width + marginSize.x, availableHeight);
+					availableWidth -= childLayoutInfo.width + marginSize.x - separator;
+				} else if (childLayoutInfo.width == 0) {
+					totalWeight += childLayoutInfo.weight;
 					autoWidth++;
 				}
 				
@@ -360,12 +364,12 @@ public class LinearContainer extends Container {
 			for (Widget child : getChildren()) {
 				if (child.getVisibility() == Visibility.Gone) continue;
 
-				LayoutInfo layoutInfo = child.getLayoutInfo();
-				if (layoutInfo.width != LayoutInfo.WRAP_CONTENT) continue;
+				LayoutInfo childLayoutInfo = child.getLayoutInfo();
+				if (childLayoutInfo.width != LayoutInfo.WRAP_CONTENT) continue;
 				
-				Point marginSize = layoutInfo.getMarginSize();
-				child.onMeasure(availableWidth, hspec.value);
-				availableWidth -= layoutInfo.measuredWidth + marginSize.x + separator;
+				Point marginSize = childLayoutInfo.getMarginSize();
+				child.onMeasure(availableWidth, availableHeight);
+				availableWidth -= childLayoutInfo.measuredWidth + marginSize.x + separator;
 				
 				availableWidth = Math.max(0,  availableWidth);
 			}
@@ -381,7 +385,7 @@ public class LinearContainer extends Container {
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				if (layoutInfo.width == 0) {
 					int childWidth = (availableWidth / totalWeight) * layoutInfo.weight;
-					child.onMeasure(childWidth, hspec.value);
+					child.onMeasure(childWidth, availableHeight);
 				}
 			}
 		}

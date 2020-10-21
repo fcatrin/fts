@@ -398,6 +398,7 @@ public class Widget extends Component {
 			break;
 		case AtMost:
 			width = Math.min(width, w.value);
+			w.value = width;
 		default:
 			break;
 		}
@@ -408,6 +409,7 @@ public class Widget extends Component {
 			break;
 		case AtMost:
 			height = Math.min(height, h.value);
+			h.value = height;
 			break;
 		default:
 			break;
