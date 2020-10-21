@@ -300,10 +300,10 @@ public class LinearContainer extends Container {
 				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				Point marginSize = layoutInfo.getMarginSize();
-				child.onMeasure(wspec.value - paddingSize.x, hspec.value - paddingSize.y);
+				child.onMeasure(wspec.value - paddingSize.x, availableHeight);
 				
 				if (layoutInfo.height == LayoutInfo.MATCH_PARENT) {
-					availableHeight -= 0;
+					availableHeight = 0;
 				} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
 					availableHeight -= layoutInfo.measuredHeight + marginSize.y - separator;
 				} else if (layoutInfo.height > 0) {
