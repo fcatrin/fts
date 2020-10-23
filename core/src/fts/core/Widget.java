@@ -460,7 +460,15 @@ public class Widget extends Component {
 	public void setHeight(int height) {
 		layoutInfo.height = height;
 	}
+
+	public void setLeft(int x) {
+		layoutInfo.x = x;
+	}
 	
+	public void setTop(int y) {
+		layoutInfo.y = y;
+	}
+
 	public void setBackground(Drawable background) {
 		this.background = background;
 	}
