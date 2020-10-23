@@ -1,6 +1,8 @@
 package fts.core;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import fts.events.KeyEvent;
 import fts.events.OnClickListener;
@@ -62,6 +64,9 @@ public class Widget extends Component {
 	
 	protected BackBuffer backBuffer = null;
 	protected boolean isDirty = true;
+	
+	private Object tag;
+	private Map<Integer, Object> tags = new HashMap<Integer, Object>();
 	
 	public Widget(NativeWindow window) {
 		this.window = window;
@@ -640,4 +645,37 @@ public class Widget extends Component {
 		else if (size == 0) return String.valueOf(size);
 		else return "weight " + layoutInfo.weight;
 	}
+	
+	public void setTag(Object tag) {
+		this.tag = tag;
+	}
+	
+	public Object getTag() {
+		return tag;
+	}
+	
+	public Integer getTagInt() {
+		return (Integer)tag;
+	}
+	
+	public String getTagString() {
+		return (String)tag;
+	}
+
+	public void setTag(int id, Object tag) {
+		tags.put(id, tag);
+	}
+	
+	public Object getTag(int id) {
+		return tags.get(id);
+	}
+	
+	public Integer getTagInt(int id) {
+		return (Integer)getTag(id);
+	}
+	
+	public String getTagString(int id) {
+		return (String)getTag(id);
+	}
+
 }
