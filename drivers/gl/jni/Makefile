@@ -22,7 +22,6 @@ ALL_OBJS = $(addprefix $(OBJDIR)/, $(OBJS))
 TARGET = ../libs/$(LIBPREFIX)fts-gl.so
 
 UNAME_S := $(shell uname -s)
-UNAME_P := $(shell uname -p)
 UNAME_M := $(shell uname -m)
 ifeq ($(UNAME_S),Linux)
 	ifeq ($(UNAME_M),armv7l)
