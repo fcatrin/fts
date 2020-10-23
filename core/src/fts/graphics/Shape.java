@@ -40,18 +40,18 @@ public class Shape extends Drawable {
 	public void draw(Canvas canvas) {
 		if (fillColor!=null) {
 			canvas.setColor(fillColor);
-			canvas.drawFilledRect(0, 0, bounds.width, bounds.height, radius);
+			canvas.drawFilledRect(bounds.x, bounds.y, bounds.width, bounds.height, radius);
 		} else if (startColor != null && endColor != null) {
-			canvas.drawGradientRect(0, 0, bounds.width, bounds.height, radius, 
+			canvas.drawGradientRect(bounds.x, bounds.y, bounds.width, bounds.height, radius, 
 					angle, startColor, endColor);
 		}
 		
 		if (strokeColor!=null && strokeWidth>0) {
 			canvas.setColor(strokeColor);
 			if (radius == 0) {
-				canvas.drawRect(0, 0, bounds.width, bounds.height, strokeWidth);
+				canvas.drawRect(bounds.x, bounds.y, bounds.width, bounds.height, strokeWidth);
 			} else {
-				canvas.drawRoundedRect(0, 0, bounds.width, bounds.height, radius, strokeWidth);
+				canvas.drawRoundedRect(bounds.x, bounds.y, bounds.width, bounds.height, radius, strokeWidth);
 			}
 		}
 	}
