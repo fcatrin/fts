@@ -61,29 +61,32 @@ public class AbsoluteContainer extends Container {
 		
 		for (Widget child : getChildren()) {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
+			Point marginSize = layoutInfo.getMarginSize();
 			if (layoutInfo.width == LayoutInfo.MATCH_PARENT) {
 				contentWidth = width;
 				break;
 			} else if (layoutInfo.width == LayoutInfo.WRAP_CONTENT) {
-				Point childSize = child.getContentSize(width, height);
+				Point childSize = child.getContentSize(width - marginSize.x - layoutInfo.x, height - marginSize.y - layoutInfo.y);
 				contentWidth = Math.max(contentWidth, childSize.x);
 			} else {
-				contentWidth = Math.max(contentWidth, layoutInfo.width);
+				contentWidth = Math.max(contentWidth, layoutInfo.width + layoutInfo.x + marginSize.x);
 			}
 		}
 		for (Widget child : getChildren()) {
 			LayoutInfo layoutInfo = child.getLayoutInfo();
+			Point marginSize = layoutInfo.getMarginSize();
 			if (layoutInfo.height == LayoutInfo.MATCH_PARENT) {
 				contentHeight = height;
 				break;
 			} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
-				Point childSize = child.getContentSize(contentWidth, height);
+				Point childSize = child.getContentSize(contentWidth, height - marginSize.y - layoutInfo.y);
 				contentHeight = Math.max(contentHeight, childSize.y);
 			} else if (layoutInfo.height > 0) {
-				contentHeight = Math.max(contentHeight, layoutInfo.height);
+				contentHeight = Math.max(contentHeight, layoutInfo.height + marginSize.y + layoutInfo.y);
 			}
-		}			
-		return new Point(contentWidth, contentHeight);
+		}
+		Point paddingSize = getPaddingSize();
+		return new Point(contentWidth + paddingSize.x, contentHeight + paddingSize.y);
 	}
 
 	@Override
