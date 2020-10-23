@@ -1,5 +1,6 @@
 package fts.widgets;
 
+import fts.core.Log;
 import fts.core.NativeWindow;
 import fts.core.Utils;
 import fts.core.Widget;
@@ -22,18 +23,24 @@ public class ProgressWidget extends Widget {
 	
 	private OnProgressChangedListener onProgressChangedListener;
 	
-	private Drawable drawable;
+	private Drawable progressDrawable;
+	private Drawable progressBackgroundDrawable;
 	
 	public ProgressWidget(NativeWindow window) {
 		super(window);
-		minHeight = this.resolvePropertyValueDimen("minHeight", "10pt");
+		minHeight = this.resolvePropertyValueDimen("minHeight", "20pt");
 	}
 	
-	public void setDrawable(Drawable drawable) {
-		this.drawable = drawable;
+	public void setProgressDrawable(Drawable drawable) {
+		this.progressDrawable = drawable;
 		invalidate();
 	}
-	
+
+	public void setProgressBackgroundDrawable(Drawable drawable) {
+		this.progressBackgroundDrawable = drawable;
+		invalidate();
+	}
+
 	public void setOnProgressChangedListener(OnProgressChangedListener onProgressChangedListener) {
 		this.onProgressChangedListener = onProgressChangedListener;
 	}
@@ -55,15 +62,25 @@ public class ProgressWidget extends Widget {
 	@Override
 	protected void onPaint(PaintEvent e) {
 		super.onPaint(e);
-		if (drawable == null || total <= 0 || progress <= 0) return;
+
+		Rectangle paintBounds = getPaintBounds().clone();
+		paintBounds.x += padding.left;
+		paintBounds.y += padding.top;
+		paintBounds.width  -= padding.left + padding.right;
+		paintBounds.height -= padding.top + padding.bottom;
+		
+		if (progressBackgroundDrawable!=null) {
+			progressBackgroundDrawable.setBounds(paintBounds);
+			progressBackgroundDrawable.draw(e.canvas);
+		}
+		
+		if (progressDrawable == null || total <= 0 || progress <= 0) return;
 		
 		float ratio = (float)progress / total;
 		
-		Rectangle paintBounds = getPaintBounds().clone();
 		paintBounds.width *= ratio;
-		
-		drawable.setBounds(paintBounds);
-		drawable.draw(e.canvas);
+		progressDrawable.setBounds(paintBounds);
+		progressDrawable.draw(e.canvas);
 	}
 	
 	@Override
@@ -121,7 +138,7 @@ public class ProgressWidget extends Widget {
 	
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {
-		if (propertyName.equals("drawable")) {
+		if (propertyName.equals("progressDrawable") || propertyName.equals("progressBackgroundDrawable") ) {
 			return resolveBackground(value);
 		} else if (propertyName.equals("progress") || propertyName.equals("total")) {
 			return Utils.str2l(value);
