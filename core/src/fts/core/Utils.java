@@ -56,6 +56,9 @@ public final class Utils {
 	public static int httpReadTimeout = HTTP_READ_TIMEOUT;
 	public static int httpConnectTimeout = HTTP_CONNECT_TIMEOUT;
 	
+	public static int httpConnectTimeoutOnce = 0;
+	public static int httpReadTimeoutOnce = 0;
+	
 	private Utils() {}
 
 	public static int str2i(String value) {
@@ -277,8 +280,11 @@ public final class Utils {
 			Log.d(LOGTAG, "Download start " + sUrl + " headers " + headers);
 			URL url = new URL(sUrl);
 			connection = url.openConnection();
-			connection.setConnectTimeout(httpConnectTimeout);
-			connection.setReadTimeout(httpReadTimeout);
+			connection.setConnectTimeout(httpConnectTimeoutOnce > 0 ? httpConnectTimeoutOnce : httpConnectTimeout);
+			connection.setReadTimeout(httpReadTimeoutOnce > 0 ? httpReadTimeoutOnce : httpReadTimeout);
+			
+			httpConnectTimeoutOnce = 0;
+			httpReadTimeoutOnce    = 0;
 			
 			if (headers!=null) for(Entry<String, String> entry : headers.entrySet())
 				connection.addRequestProperty(entry.getKey(), entry.getValue());
