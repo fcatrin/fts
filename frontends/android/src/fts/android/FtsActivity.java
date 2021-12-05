@@ -135,7 +135,7 @@ public class FtsActivity extends Activity implements GLWindowListener {
 	public boolean onKeyUp(KeyEvent keyEvent) {
 		Log.d(LOGTAG, "onKeyUp keyCode " + keyEvent.keyCode + ", mod:" + keyEvent.modifiers);
 		if (keyEvent.keyCode == KeyEvent.KEY_BACKSPACE) {
-			super.onBackPressed();
+			onBackPressed();
 			return true;
 		}
 		return nativeWindow.onKeyUp(keyEvent);
