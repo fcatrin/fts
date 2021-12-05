@@ -100,7 +100,7 @@ public class TextWrapper {
 	}
 	
 	private void addLine(String line, TextMetrics metrics) {
-		Log.d("TEXTWRAP", "add line " + line.trim() + "'height: " + metrics.height + " size.y=" + size.y);
+		Log.d("TEXTWRAP", "add line " + line.trim() + ", height: " + metrics.height + " size.y=" + size.y);
 		lines.add(line.trim());
 		lineMetrics.add(metrics);
 		size.y += metrics.height - metrics.descent + (size.y == 0 ? 0 : lineSeparator);
