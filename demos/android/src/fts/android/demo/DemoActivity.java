@@ -15,7 +15,7 @@ public class DemoActivity extends FtsActivity {
 
 	@Override
 	public void onWindowCreate() {
-		Context.pointsPerPixel = 2;
+		Context.pointsPerPixel = getBounds().y / 540.0f;
 		
 		Widget rootView = inflate("main");
 		setContentView(rootView);
