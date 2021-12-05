@@ -175,13 +175,17 @@ public class DialogUtils {
 	}
 	
 	public static boolean onKeyUp(KeyEvent event) {
-		if (hasVisiblePanel()) {
-			if (event.keyCode == KeyEvent.KEY_ESC) {
-				dismissVisiblePanel();
-				return true;
-			}
-		}		
+		if (event.keyCode == KeyEvent.KEY_ESC) {
+			return dispatchCancelKey();
+		}
 		return false;
 	}
-
+	
+	public static boolean dispatchCancelKey() {
+		if (hasVisiblePanel()) {
+			dismissVisiblePanel();
+			return true;
+		}
+		return false;
+	}
 }
