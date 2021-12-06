@@ -7,6 +7,7 @@ import fts.android.FtsActivity;
 import fts.core.Context;
 import fts.core.ListOption;
 import fts.core.Widget;
+import fts.events.KeyEvent;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogListCallback;
 import fts.utils.dialogs.DialogUtils;
@@ -22,6 +23,18 @@ public class DemoActivity extends FtsActivity {
 
 	}
 
+	@Override
+	public boolean onKeyDown(KeyEvent event) {
+		if (DialogUtils.onKeyDown(event)) return true;
+		return super.onKeyDown(event);
+	}
+
+	@Override
+	public boolean onKeyUp(KeyEvent event) {
+		if (DialogUtils.onKeyUp(event)) return true;
+		return super.onKeyUp(event);
+	}
+	
 	@Override
 	public void onBackPressed() {
 		
@@ -57,7 +70,7 @@ public class DemoActivity extends FtsActivity {
 	}
 	
 	private void askForQuit() {
-		DialogUtils.openDialog(getNativeWindow(), "Simple Dialog test", "OK", "Cancel", new DialogCallback() {
+		DialogUtils.openDialog(getNativeWindow(), "Quit app", "OK", "Cancel", new DialogCallback() {
 			
 			@Override
 			public void onYes() {
