@@ -11,6 +11,7 @@ import fts.core.Widget.Visibility;
 import fts.core.adapters.ListOptionAdapter;
 import fts.events.OnStateListener;
 import fts.graphics.Color;
+import fts.graphics.ColorListSelector;
 import fts.widgets.TextWidget;
 
 public class DialogListAdapter extends ListOptionAdapter {
@@ -46,8 +47,8 @@ public class DialogListAdapter extends ListOptionAdapter {
 			@Override
 			public void onStateChanged(Widget widget, State state, boolean value) {
 				if (state != State.Selected) return;
-				Color colorBg = widget.resolveColor("@color/modal_background");
-				Color colorFg = widget.resolveColor("@color/modal_foreground");
+				ColorListSelector colorBg = widget.resolveColor("@color/modal_background");
+				ColorListSelector colorFg = widget.resolveColor("@color/modal_foreground");
 				txtText.setColor(value ? colorBg : colorFg);
 				txtValue.setColor(value ? colorBg : colorFg);
 			}

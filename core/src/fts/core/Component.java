@@ -12,6 +12,7 @@ import org.w3c.dom.Element;
 
 import fts.graphics.Align;
 import fts.graphics.Color;
+import fts.graphics.ColorListSelector;
 import fts.graphics.Dimension;
 import fts.graphics.Drawable;
 import fts.graphics.Font;
@@ -160,14 +161,13 @@ public abstract class Component {
 		}
 	}
 
-	public Color resolveColor(String value) {
+	public ColorListSelector resolveColor(String value) {
 		return resolvePropertyValueColor("color", value);
 	}
 	
-	public Color resolvePropertyValueColor(String propertyName, String value) {
+	public ColorListSelector resolvePropertyValueColor(String propertyName, String value) {
 		if (value.startsWith("#")) {
-			Color color = Color.load(value);
-			return color;
+			return new ColorListSelector(Color.load(value));
 		} else if (value.startsWith("@color/")) {
 			String alias = value.substring("@color/".length());
 			return Application.factory.getColor(alias);

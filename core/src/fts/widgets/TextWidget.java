@@ -8,6 +8,7 @@ import fts.events.PaintEvent;
 import fts.graphics.Align;
 import fts.graphics.Canvas;
 import fts.graphics.Color;
+import fts.graphics.ColorListSelector;
 import fts.graphics.Font;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
@@ -36,8 +37,8 @@ public class TextWidget extends Widget {
 		textDrawable.setAlign(align);
 		invalidate();
 	}
-	
-	public void setColor(Color color) {
+
+	public void setColor(ColorListSelector color) {
 		textDrawable.setColor(color);
 		invalidate();
 	}

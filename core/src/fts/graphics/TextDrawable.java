@@ -13,7 +13,7 @@ public class TextDrawable extends Drawable {
 	Align align = new Align();
 	Font font;
 	String text;
-	Color color;
+	ColorListSelector color;
 	
 	int maxLines = -1;
 	
@@ -39,7 +39,7 @@ public class TextDrawable extends Drawable {
 		if (text == null || text.trim().isEmpty()) return;
 		
 		canvas.setFont(font);
-		canvas.setColor(color);
+		canvas.setColor(color.getSelectedItem());
 		
 		if (textWrapper == null) {
 			getSize(canvas, text, bounds.width);
@@ -122,11 +122,11 @@ public class TextDrawable extends Drawable {
 		textWrapper = null;
 	}
 
-	public Color getColor() {
+	public ColorListSelector getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(ColorListSelector color) {
 		this.color = color;
 	}
 	

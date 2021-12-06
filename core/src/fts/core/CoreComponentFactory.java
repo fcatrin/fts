@@ -9,6 +9,7 @@ import java.util.Map;
 import org.w3c.dom.Element;
 
 import fts.graphics.Color;
+import fts.graphics.ColorListSelector;
 import fts.graphics.Drawable;
 import fts.graphics.SelectorDrawable;
 import fts.graphics.Shape;
@@ -17,7 +18,7 @@ import fts.graphics.TextDrawable;
 public abstract class CoreComponentFactory implements ComponentFactory {
 
 	private static Map<String, File>   fonts   = new HashMap<String, File>();
-	private static Map<String, Color>  colors  = new HashMap<String, Color>();
+	private static Map<String, ColorListSelector>  colors  = new HashMap<String, ColorListSelector>();
 	private static Map<String, String> strings = new HashMap<String, String>();
 	private static Map<String, String> dimen   = new HashMap<String, String>();
 	private static Map<String, Style>  styles  = new HashMap<String, Style>();
@@ -61,12 +62,12 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 	}
 
 	@Override
-	public void registerColor(String alias, Color color) {
+	public void registerColor(String alias, ColorListSelector color) {
 		colors.put(alias, color);
 	}
 
 	@Override
-	public Color getColor(String alias) {
+	public ColorListSelector getColor(String alias) {
 		if (!colors.containsKey(alias)) {
 			throw new RuntimeException("Color alias " + alias + " not found");
 		}

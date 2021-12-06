@@ -6,14 +6,14 @@ import fts.core.xml.SimpleXML;
 
 public class Shape extends Drawable {
 	
-	Color fillColor = null;
-	Color strokeColor = null;
+	ColorListSelector fillColor = null;
+	ColorListSelector strokeColor = null;
 	int strokeWidth = 4;
 	int radius = 0;
 	
 	// gradient attributes
-	Color startColor = null;
-	Color endColor = null;
+	ColorListSelector startColor = null;
+	ColorListSelector endColor = null;
 	int angle;
 	
 	public Shape() {}
@@ -39,15 +39,15 @@ public class Shape extends Drawable {
 	@Override
 	public void draw(Canvas canvas) {
 		if (fillColor!=null) {
-			canvas.setColor(fillColor);
+			canvas.setColor(fillColor.getSelectedItem());
 			canvas.drawFilledRect(bounds.x, bounds.y, bounds.width, bounds.height, radius);
 		} else if (startColor != null && endColor != null) {
 			canvas.drawGradientRect(bounds.x, bounds.y, bounds.width, bounds.height, radius, 
-					angle, startColor, endColor);
+					angle, startColor.getSelectedItem(), endColor.getSelectedItem());
 		}
 		
 		if (strokeColor!=null && strokeWidth>0) {
-			canvas.setColor(strokeColor);
+			canvas.setColor(strokeColor.getSelectedItem());
 			if (radius == 0) {
 				canvas.drawRect(bounds.x, bounds.y, bounds.width, bounds.height, strokeWidth);
 			} else {
@@ -56,19 +56,19 @@ public class Shape extends Drawable {
 		}
 	}
 
-	public Color getFillColor() {
+	public ColorListSelector getFillColor() {
 		return fillColor;
 	}
 
-	public void setFillColor(Color fillColor) {
+	public void setFillColor(ColorListSelector fillColor) {
 		this.fillColor = fillColor;
 	}
 
-	public Color getStrokeColor() {
+	public ColorListSelector getStrokeColor() {
 		return strokeColor;
 	}
 
-	public void setStrokeColor(Color strokeColor) {
+	public void setStrokeColor(ColorListSelector strokeColor) {
 		this.strokeColor = strokeColor;
 	}
 
@@ -88,19 +88,19 @@ public class Shape extends Drawable {
 		this.radius = radius;
 	}
 
-	public Color getStartColor() {
+	public ColorListSelector getStartColor() {
 		return startColor;
 	}
 
-	public void setStartColor(Color startColor) {
+	public void setStartColor(ColorListSelector startColor) {
 		this.startColor = startColor;
 	}
 
-	public Color getEndColor() {
+	public ColorListSelector getEndColor() {
 		return endColor;
 	}
 
-	public void setEndColor(Color endColor) {
+	public void setEndColor(ColorListSelector endColor) {
 		this.endColor = endColor;
 	}
 

@@ -17,6 +17,7 @@ import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
 import fts.graphics.BackBuffer;
 import fts.graphics.Color;
+import fts.graphics.ColorListSelector;
 import fts.graphics.Drawable;
 import fts.graphics.Image;
 
@@ -118,7 +119,7 @@ public class Application {
 			String name = colorDescriptor.getAttribute("name");
 			String value = colorDescriptor.getTextContent();
 			Color color = new Color(value);
-			factory.registerColor(name, color);
+			factory.registerColor(name, new ColorListSelector(color));
 		}
 	}
 

@@ -13,9 +13,15 @@ public abstract class StateListSelector<T> {
 
 	List<String> filters = new ArrayList<String>();
 	List<T> items = new ArrayList<T>();
+	
+	T singleValue;
 
 	public StateListSelector() {}
-	
+
+	public StateListSelector(T value) {
+		this.singleValue = value;
+	}
+
 	public StateListSelector(Element node) {
 		load(node);
 	}
@@ -42,6 +48,8 @@ public abstract class StateListSelector<T> {
 	}
 	
 	public T getSelectedItem() {
+		if (items.isEmpty()) return singleValue;
+		
 		String mask = createFilterMask();
 		int i=0;
 		for(String filter : filters) {
