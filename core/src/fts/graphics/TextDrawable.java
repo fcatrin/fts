@@ -135,8 +135,8 @@ public class TextDrawable extends Drawable {
 		this.maxLines = lines;
 	}
 
-	public void setState(State state, boolean value) {
-		color.setState(state.ordinal(), value);
+	public void setState(boolean[] stateFlags) {
+		color.setState(stateFlags);
 	}
 
 }

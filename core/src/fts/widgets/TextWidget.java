@@ -44,12 +44,6 @@ public class TextWidget extends Widget {
 		invalidate();
 	}
 	
-	@Override
-	public boolean setState(State state, boolean value) {
-		textDrawable.setState(state, value);
-		return super.setState(state, value);
-	}
-
 	public void setFontSize(int size) {
 		textDrawable.setFontSize(size);
 	}
@@ -70,6 +64,7 @@ public class TextWidget extends Widget {
 
 		Canvas canvas = e.canvas;
 		textDrawable.setBounds(textBounds);
+		textDrawable.setState(getStateFlags());
 		textDrawable.draw(canvas);
 	}
 

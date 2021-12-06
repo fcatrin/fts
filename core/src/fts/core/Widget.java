@@ -238,6 +238,10 @@ public class Widget extends Component {
 		return this.state[state.ordinal()];
 	}
 
+	public boolean[] getStateFlags() {
+		return state;
+	}
+
 	public boolean isClickable() {
 		return isClickable;
 	}
