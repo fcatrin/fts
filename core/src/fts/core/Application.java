@@ -22,7 +22,7 @@ import fts.graphics.Drawable;
 import fts.graphics.Image;
 
 public class Application {
-	static ComponentFactory factory;
+	public static ComponentFactory factory;
 	static ResourceLocator resourceLocator;
 	static Context context;
 	static Logger logger;
@@ -121,6 +121,11 @@ public class Application {
 			Color color = new Color(value);
 			factory.registerColor(name, new ColorListSelector(color));
 		}
+	}
+	
+	public static ColorListSelector loadColorResource(String name) {
+		Document colorResource = loadResource("color", name);
+		return new ColorListSelector(colorResource.getDocumentElement());
 	}
 
 	public static void loadStyles() {

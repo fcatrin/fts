@@ -5,6 +5,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 
 import fts.core.Utils;
+import fts.core.Widget.State;
 import fts.core.xml.SimpleXML;
 import fts.graphics.Align.HAlign;
 import fts.graphics.Align.VAlign;
@@ -132,6 +133,10 @@ public class TextDrawable extends Drawable {
 	
 	public void setMaxLines(int lines) {
 		this.maxLines = lines;
+	}
+
+	public void setState(State state, boolean value) {
+		color.setState(state.ordinal(), value);
 	}
 
 }

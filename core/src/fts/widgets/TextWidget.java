@@ -1,6 +1,7 @@
 package fts.widgets;
 
 import fts.core.Widget;
+import fts.core.Widget.State;
 import fts.core.Widget.Visibility;
 import fts.core.LayoutInfo;
 import fts.core.NativeWindow;
@@ -43,6 +44,12 @@ public class TextWidget extends Widget {
 		invalidate();
 	}
 	
+	@Override
+	public boolean setState(State state, boolean value) {
+		textDrawable.setState(state, value);
+		return super.setState(state, value);
+	}
+
 	public void setFontSize(int size) {
 		textDrawable.setFontSize(size);
 	}

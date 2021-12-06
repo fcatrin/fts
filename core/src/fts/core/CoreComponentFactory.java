@@ -67,11 +67,19 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 	}
 
 	@Override
-	public ColorListSelector getColor(String alias) {
-		if (!colors.containsKey(alias)) {
-			throw new RuntimeException("Color alias " + alias + " not found");
+	public ColorListSelector getColor(String value) {
+		if (value.startsWith("#")) {
+			return new ColorListSelector(new Color(value));
+		} else if (value.startsWith("@color/")) {
+			String alias = value.substring("@color/".length());
+			if (!colors.containsKey(alias)) {
+				ColorListSelector colorResource = Application.loadColorResource(alias);
+				if (colorResource!=null) return colorResource;
+			} else {
+				return colors.get(alias);
+			}
 		}
-		return colors.get(alias);
+		throw new RuntimeException("Invalid color value " + value);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package fts.graphics;
 
 import org.w3c.dom.Element;
 
+import fts.core.Application;
 import fts.core.xml.SimpleXML;
 
 public class ColorListSelector extends StateListSelector<Color> {
@@ -20,7 +21,7 @@ public class ColorListSelector extends StateListSelector<Color> {
 	@Override
 	protected Color createItem(Element element) {
 		String colorSpec = SimpleXML.getAttribute(element, "color");
-		return new Color(colorSpec);
+		return Application.factory.getColor(colorSpec).getSelectedItem();
 	}
 
 }

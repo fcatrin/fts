@@ -166,13 +166,11 @@ public abstract class Component {
 	}
 	
 	public ColorListSelector resolvePropertyValueColor(String propertyName, String value) {
-		if (value.startsWith("#")) {
-			return new ColorListSelector(Color.load(value));
-		} else if (value.startsWith("@color/")) {
-			String alias = value.substring("@color/".length());
-			return Application.factory.getColor(alias);
+		try {
+			return Application.factory.getColor(value);
+		} catch (RuntimeException e) {
+			throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": Invalid format " + value);
 		}
-		throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": Invalid format " + value);
 	}
 	
 	protected Font resolvePropertyValueFont(Element element) {
