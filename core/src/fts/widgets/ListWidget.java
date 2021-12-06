@@ -13,10 +13,12 @@ import fts.core.ListAdapter;
 import fts.core.NativeWindow;
 import fts.core.Utils;
 import fts.core.Widget;
+import fts.core.Widget.Visibility;
 import fts.events.KeyEvent;
 import fts.events.OnItemSelectedListener;
 import fts.events.OnItemSelectionChangedListener;
 import fts.events.PaintEvent;
+import fts.events.TouchEvent;
 import fts.graphics.Point;
 import fts.graphics.Rectangle;
 
@@ -27,6 +29,7 @@ public class ListWidget<T> extends Widget {
 	
 	private int itemHeight = -1;
 	private int selectedIndex = -1;
+	private int pressedIndex = -1;
 	private int maxItems = 100;
 	private int firstItem = 0;
 	
@@ -151,7 +154,7 @@ public class ListWidget<T> extends Widget {
 			selectDown();
 			return true;
 		} else if (keyEvent.keyCode == KeyEvent.KEY_ENTER) {
-			selectItem();
+			selectItem(selectedIndex);
 			return true;
 		}
 		return super.onKeyUp(keyEvent);
@@ -183,11 +186,11 @@ public class ListWidget<T> extends Widget {
 		updateSelected();
 	}
 	
-	private void selectItem() {
+	private void selectItem(int index) {
 		if (onItemSelectedListener == null) return;
 		
-		T item = selectedIndex < 0 ? null : adapter.getItem(selectedIndex);
-		onItemSelectedListener.onItemSelected(this, item, selectedIndex);
+		T item = index < 0 ? null : adapter.getItem(index);
+		onItemSelectedListener.onItemSelected(this, item, index);
 	}
 
 	private void measureItemHeight() {
@@ -276,5 +279,30 @@ public class ListWidget<T> extends Widget {
 		}
 		return super.resolvePropertyValue(propertyName, value);
 	}
+	
+	@Override
+	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
+		if (touchEvent.action == TouchEvent.Action.DOWN) {
+			pressedIndex = -1;
+			for(Entry<Integer, Widget> entry : knownWidgets.entrySet()) {
+				int index = entry.getKey();
+				Widget widget = entry.getValue();
+				
+				Rectangle listItemBounds = widget.getBounds();
+				if (listItemBounds.contains(touchEvent.x, touchEvent.y)) {
+					pressedIndex = index;
+					selectedIndex = index;
+					updateSelected();
+					break;
+				}
+			}
+		} else if (touchEvent.action == TouchEvent.Action.UP) {
+			selectedIndex = -1;
+			updateSelected();
+			selectItem(pressedIndex);
+		}
+		return true;
+	}
+
 
 }
