@@ -52,6 +52,14 @@ public class DialogUtils {
 		listWidget.requestFocus();
 	}
 
+	public static void openDialog(NativeWindow window, String text) {
+		openDialog(window, text, "OK", null, null);
+	}
+
+	public static void openDialog(NativeWindow window, String text, String optYes) {
+		openDialog(window, text, optYes, null, null);
+	}
+
 	public static void openDialog(NativeWindow window, String text, String optYes, DialogCallback callback) {
 		openDialog(window, text, optYes, null, callback);
 	}

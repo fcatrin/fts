@@ -32,6 +32,7 @@ public abstract class DatabaseManager {
 	private void closeConnection() {
 		if (con == null) return;
 		con.close();
+		con = null;
 	}
 
 	private void init(int version) throws SQLException {
