@@ -1,0 +1,4 @@
+<selector>
+    <item color="@color/modal_background" selected="true" />
+    <item color="@color/modal_foreground" />
+</selector>

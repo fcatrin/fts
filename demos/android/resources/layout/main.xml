@@ -39,6 +39,7 @@
 		
 	</LinearContainer>
    <include layout="modal_list" />
+   <include layout="modal_files" />
    <include layout="modal_dialog" />
-   <include layout="modal_custom" />    
+   <include layout="modal_custom" />   
 </AbsoluteContainer>

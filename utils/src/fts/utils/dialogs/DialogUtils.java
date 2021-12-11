@@ -1,7 +1,9 @@
 package fts.utils.dialogs;
 
+import java.io.File;
 import java.util.List;
 
+import fts.core.Callback;
 import fts.core.Container;
 import fts.core.ListOption;
 import fts.core.NativeWindow;
@@ -155,6 +157,20 @@ public class DialogUtils {
 		visiblePanel = panel;
 	}
 
+	public static void openFileBrowser(NativeWindow window, File folder, Callback<File> onSelectedFileCallback, DialogCallback callback) {
+		dismissCallback = callback;
+		
+		Widget panel = window.findWidget("modalFilesPanel");
+		FileListWidget fileList = (FileListWidget)panel.findWidget("filesList");
+		TextWidget fileListTitle = (TextWidget)panel.findWidget("filesTitle");
+		FileListPanel fileListPanel = new FileListPanel(fileListTitle, fileList);
+		
+		fileListPanel.browse(folder);
+		fileList.requestFocus();
+		
+		panel.setVisibility(Visibility.Visible);
+		visiblePanel = panel;
+	}
 	
 	public static void setOnItemSelectionChangedListener(OnItemSelectionChangedListener<ListOption> listener) {
 		listWidget.setOnItemSelectionChangedListener(listener);
