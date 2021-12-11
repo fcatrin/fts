@@ -1,10 +1,12 @@
-package fts.core;
+package fts.core.db;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import fts.core.SharedPreferences;
 
 public abstract class DatabaseManager {
 	private static final String KEY_VERSION = "version";
@@ -53,5 +55,21 @@ public abstract class DatabaseManager {
 
 	public abstract void onUpgrade(DatabaseWrapper con, int lastVersion, int version);
 	public abstract void onCreate(DatabaseWrapper con);
+
+	public <T> T run(DatabaseRunnable<T> runnable) throws SQLException {
+		try {
+			return runnable.run(getConnection());
+		} finally {
+			closeConnection();
+		}
+	}
+	
+	public void runSimple(SimpleDatabaseRunnable runnable) throws SQLException {
+		try {
+			runnable.run(getConnection());
+		} finally {
+			closeConnection();
+		}
+	}
 
 }

@@ -1,4 +1,4 @@
-package fts.core;
+package fts.core.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.SQLType;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseWrapper {
 
@@ -30,17 +32,67 @@ public class DatabaseWrapper {
 	}
 
 	public void exec(String sql, Object params[]) {
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = con.prepareStatement(sql);
+			ps = con.prepareStatement(sql);
 			setParameters(ps, params);
 			
 			ps.execute();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		} finally {
+			safeClose(ps);
 		}
 	}
 	
-	public Integer getOneInt(String sql, Object[] params) {
+	public <T> List<T> getRows(String sql, Object[] params, RowMapper<T> rowMapper) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement(sql);
+			setParameters(ps, params);
+			
+			rs = ps.executeQuery();
+			if (rs.first()) {
+				List<T> result = new ArrayList<T>();
+				int index = 0;
+				while (rs.next()) {
+					result.add(rowMapper.map(rs, index++));
+				}
+				return result;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			safeClose(ps);
+			safeClose(rs);
+		}
+		
+		return null;
+	}
+	
+	public <T> T getRow(String sql, Object[] params, RowMapper<T> rowMapper) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement(sql);
+			setParameters(ps, params);
+			
+			rs = ps.executeQuery();
+			if (rs.first()) {
+				return rowMapper.map(rs, 0);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			safeClose(ps);
+			safeClose(rs);
+		}
+		
+		return null;
+	}
+
+	public Object getOneObject(String sql, Object[] params, int type) {
 		ResultSet rs = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -48,7 +100,8 @@ public class DatabaseWrapper {
 			
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				return rs.getInt(1);
+				if (type == Types.INTEGER) return rs.getInt(1);
+				return rs.getString(1);
 			}
 
 			return null;
@@ -59,6 +112,21 @@ public class DatabaseWrapper {
 		}
 	}
 
+	public boolean exists(String sql) {
+		return exists(sql, null);
+	}
+
+	public boolean exists(String sql, Object[] params) {
+		return getOne(sql, params) != null;
+	}
+
+	public String getOne(String sql, Object[] params) {
+		return (String)getOneObject(sql, params, Types.VARCHAR);
+	}
+	
+	public Integer getOneInt(String sql, Object[] params) {
+		return (Integer)getOneObject(sql, params, Types.INTEGER);
+	}
 	
 	public int insert(String sql, Object params[]) {
 		ResultSet rs = null;
