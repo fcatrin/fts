@@ -174,6 +174,22 @@ public class DialogUtils {
 			
 		};
 		
+		final Callback<VirtualFile> onDialogSelectedFileCallback = new Callback<VirtualFile>() {
+			
+			@Override
+			public void onResult(VirtualFile file) {
+				closeVisiblePanel();
+				onSelectedFileCallback.onResult(file);
+			}
+
+			@Override
+			public void onError(Exception e) {
+				closeVisiblePanel();
+				onSelectedFileCallback.onError(e);
+			}
+			
+		};
+		
 		Widget panel = window.findWidget("modalFilesPanel");
 		final FileListWidget fileList = (FileListWidget)panel.findWidget("filesList");
 		final TextWidget fileListTitle = (TextWidget)panel.findWidget("filesTitle");
@@ -194,7 +210,7 @@ public class DialogUtils {
 			@Override
 			public void onSuccess() {
 				FileListPanel fileListPanel = new FileListPanel(window, fileListTitle, fileList, sysRoot, 
-						config, onSelectedFileCallback);
+						config, onDialogSelectedFileCallback);
 				
 				fileListPanel.refresh();
 			}

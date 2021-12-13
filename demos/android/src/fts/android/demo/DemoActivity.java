@@ -7,6 +7,7 @@ import fts.android.FtsActivity;
 import fts.core.Callback;
 import fts.core.Context;
 import fts.core.ListOption;
+import fts.core.Log;
 import fts.core.Widget;
 import fts.events.KeyEvent;
 import fts.utils.dialogs.DialogCallback;
@@ -17,6 +18,7 @@ import fts.vfile.VirtualFile;
 import fts.vfile.handlers.LocalFileHandler;
 
 public class DemoActivity extends FtsActivity {
+	private static final String LOGTAG = DemoActivity.class.getSimpleName();
 
 	@Override
 	public void onWindowCreate() {
@@ -77,9 +79,8 @@ public class DemoActivity extends FtsActivity {
 		DialogUtils.openFileBrowser(getNativeWindow(), folder, config, new Callback<VirtualFile>() {
 
 			@Override
-			public void onResult(VirtualFile result) {
-				// TODO Auto-generated method stub
-				
+			public void onResult(VirtualFile folder) {
+				Log.d(LOGTAG, "Selected folder :" + folder);
 			}
 		});
 		
