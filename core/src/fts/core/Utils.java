@@ -39,6 +39,9 @@ import org.json.JSONArray;
 
 public final class Utils {
 	private static final String LOGTAG = Utils.class.getSimpleName();
+	
+	public enum Compact {Start, Middle, End}
+	
 	private static final int HTTP_CONNECT_TIMEOUT = 15000;
 	private static final int HTTP_READ_TIMEOUT = 20000;
 	private static final int BYTE_PAD = 256;
@@ -667,6 +670,15 @@ public final class Utils {
 
 	public static boolean isEmptyString(String text) {
 		return text==null || text.trim().length()==0;
+	}
+	
+	public static String compact(String text, Compact compact, int length) {
+		if (Utils.isEmptyString(text) || text.length() <= length) return text;
+		switch (compact) {
+		case Start : return "..." + text.substring(text.length() - length);
+		case End : return text.substring(0, length) + "...";
+		default : return text.substring(0, length/2) + "..." + text.substring(text.length() - length/2);
+		}
 	}
 	
 	public static String genOid() {

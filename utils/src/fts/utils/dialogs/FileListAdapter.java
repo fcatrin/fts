@@ -30,16 +30,24 @@ public class FileListAdapter extends ListAdapter<VirtualFile> {
 		
 		VirtualFile item = getItem(index);
 		
+		boolean isParent = item.isParent();
+		
+		String name = item.getFriendlyName();
+		if (isParent) {
+			if (name == null || name.isEmpty())	name = "..";
+		} else if (name == null) {
+			name = item.getName();
+		}
+		
 		final TextWidget txtText = (TextWidget)widget.findWidget("text");
-		txtText.setText(item.getFriendlyName());
+		txtText.setText(name);
 		
 		final TextWidget txtValue = (TextWidget)widget.findWidget("value");
 		if (item.isDirectory()) {
-			txtValue.setText("[DIR]");
-			txtValue.setVisibility(Visibility.Visible);
+			txtValue.setVisibility(Visibility.Gone);
 		} else {
 			txtValue.setText(Utils.size2human(item.getSize()));
-			txtValue.setVisibility(Visibility.Gone);
+			txtValue.setVisibility(Visibility.Visible);
 		}
 		
 		widget.setOnStateListener(new OnStateListener() {

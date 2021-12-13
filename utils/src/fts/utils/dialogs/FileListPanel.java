@@ -10,6 +10,8 @@ import fts.core.Callback;
 import fts.core.Log;
 import fts.core.NativeWindow;
 import fts.core.SimpleBackgroundTask;
+import fts.core.Utils;
+import fts.core.Utils.Compact;
 import fts.events.OnItemSelectedListener;
 import fts.vfile.VirtualFile;
 import fts.widgets.ListWidget;
@@ -102,13 +104,14 @@ public class FileListPanel {
 		if (path.equals("/")) {
 			path = "";
 		} else {
-			path = " - " + path;
+			path = Utils.compact(path, Compact.Middle, 32);
 		}
 		
 		currentStorage = dir.getStorage();
 		if (currentStorage == null) currentStorage = sysRoot;
 		
-		title.setText(currentStorage.getFriendlyName() + path);
+		// title.setText(currentStorage.getFriendlyName() + path);
+		title.setText(path);
 
 		List<VirtualFile> loadingList = new ArrayList<VirtualFile>();
 		VirtualFile loadingFileDummy = new VirtualFile(VirtualFile.ROOT_LOCAL + VirtualFile.TYPE_SEPARATOR);
@@ -130,12 +133,6 @@ public class FileListPanel {
 				if (config.browseCallback!=null) config.browseCallback.onResult(dir);
 				
                 Log.d("FILES", "size " + folderInfo.list.size());
-                long size = 0;
-                for(VirtualFile file : folderInfo.list) {
-                	Log.d("FILES", "file " + file);
-                	size += file.getSize();
-                }
-                
                 
 				FileListAdapter adapter = new FileListAdapter(nativeWindow, folderInfo.list);
 				list.setAdapter(adapter);
@@ -173,7 +170,7 @@ public class FileListPanel {
 		VirtualFile parent = dir.getParent();
 		if (parent!=null) {
 			parent.setIsParent(true);
-			parent.setFriendlyName("Back to parent...");
+			parent.setFriendlyName("Go to parent folder");
 			list.add(parent);
 		}
 
