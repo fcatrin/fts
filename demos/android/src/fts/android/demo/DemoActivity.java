@@ -1,6 +1,5 @@
 package fts.android.demo;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +12,9 @@ import fts.events.KeyEvent;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogListCallback;
 import fts.utils.dialogs.DialogUtils;
+import fts.utils.dialogs.FileListPanel.FileChooserConfig;
+import fts.vfile.VirtualFile;
+import fts.vfile.handlers.LocalFileHandler;
 
 public class DemoActivity extends FtsActivity {
 
@@ -23,6 +25,7 @@ public class DemoActivity extends FtsActivity {
 		Widget rootView = inflate("main");
 		setContentView(rootView);
 
+		VirtualFile.addHandler("local", new LocalFileHandler());
 	}
 
 	@Override
@@ -66,19 +69,15 @@ public class DemoActivity extends FtsActivity {
 	}
 	
 	protected void browseFolders() {
-		File folder = getFilesDir().getParentFile();
+		FileChooserConfig config = new FileChooserConfig();
+		config.isDirOnly = true;
 		
-		DialogUtils.openFileBrowser(getNativeWindow(), folder, new Callback<File>() {
-			
+		VirtualFile folder = new VirtualFile(getFilesDir().getParentFile());
+		
+		DialogUtils.openFileBrowser(getNativeWindow(), folder, config, new Callback<VirtualFile>() {
+
 			@Override
-			public void onResult(File result) {
-				// TODO Auto-generated method stub
-				
-			}
-		}, new DialogCallback() {
-			
-			@Override
-			public void onYes() {
+			public void onResult(VirtualFile result) {
 				// TODO Auto-generated method stub
 				
 			}

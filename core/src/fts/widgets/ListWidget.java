@@ -71,6 +71,12 @@ public class ListWidget<T> extends Widget {
 		requestLayout();
 	}
 	
+	public T getItem(int index) {
+		if (adapter == null) return null;
+		if (index < 0 || index >= adapter.getCount()) return null;
+		return adapter.getItem(index);
+	}
+	
 	@Override
 	public void layout() {
 		if (adapter == null || adapter.getCount() == 0) return;

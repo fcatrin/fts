@@ -1,12 +1,14 @@
 package fts.utils.dialogs;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import fts.core.Callback;
 import fts.core.Container;
 import fts.core.ListOption;
 import fts.core.NativeWindow;
+import fts.core.SimpleBackgroundTask;
 import fts.core.SimpleCallback;
 import fts.core.Utils;
 import fts.core.Widget;
@@ -15,6 +17,8 @@ import fts.events.KeyEvent;
 import fts.events.OnClickListener;
 import fts.events.OnItemSelectedListener;
 import fts.events.OnItemSelectionChangedListener;
+import fts.utils.dialogs.FileListPanel.FileChooserConfig;
+import fts.vfile.VirtualFile;
 import fts.widgets.ButtonWidget;
 import fts.widgets.ListWidget;
 import fts.widgets.TextWidget;
@@ -157,16 +161,47 @@ public class DialogUtils {
 		visiblePanel = panel;
 	}
 
-	public static void openFileBrowser(NativeWindow window, File folder, Callback<File> onSelectedFileCallback, DialogCallback callback) {
-		dismissCallback = callback;
+	public static void openFileBrowser(final NativeWindow window, final VirtualFile sysRoot,
+			final FileChooserConfig config,
+			final Callback<VirtualFile> onSelectedFileCallback) {
+		
+		dismissCallback = new SimpleDialogCallback() {
+
+			@Override
+			public void onDismiss() {
+				onSelectedFileCallback.onError(null);
+			}
+			
+		};
 		
 		Widget panel = window.findWidget("modalFilesPanel");
-		FileListWidget fileList = (FileListWidget)panel.findWidget("filesList");
-		TextWidget fileListTitle = (TextWidget)panel.findWidget("filesTitle");
-		FileListPanel fileListPanel = new FileListPanel(fileListTitle, fileList);
+		final FileListWidget fileList = (FileListWidget)panel.findWidget("filesList");
+		final TextWidget fileListTitle = (TextWidget)panel.findWidget("filesTitle");
 		
-		fileListPanel.browse(folder);
-		fileList.requestFocus();
+		SimpleBackgroundTask task = new SimpleBackgroundTask() {
+			
+			@Override
+			public void onBackgroundTask() throws Exception {
+				if (config.initialDir == null) return;
+				try {
+					if (config.initialDir.exists()) return;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				config.initialDir = null;
+			}
+
+			@Override
+			public void onSuccess() {
+				FileListPanel fileListPanel = new FileListPanel(window, fileListTitle, fileList, sysRoot, 
+						config, onSelectedFileCallback);
+				
+				fileListPanel.refresh();
+			}
+			
+		};
+		
+		task.execute();
 		
 		panel.setVisibility(Visibility.Visible);
 		visiblePanel = panel;

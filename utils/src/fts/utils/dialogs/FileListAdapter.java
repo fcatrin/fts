@@ -1,6 +1,5 @@
 package fts.utils.dialogs;
 
-import java.io.File;
 import java.util.List;
 
 import fts.core.Application;
@@ -11,14 +10,14 @@ import fts.core.Widget;
 import fts.core.Widget.State;
 import fts.core.Widget.Visibility;
 import fts.events.OnStateListener;
-import fts.graphics.ColorListSelector;
+import fts.vfile.VirtualFile;
 import fts.widgets.TextWidget;
 
-public class FileListAdapter extends ListAdapter<File> {
+public class FileListAdapter extends ListAdapter<VirtualFile> {
 
 	private NativeWindow window;
 
-	public FileListAdapter(NativeWindow window, List<File> files) {
+	public FileListAdapter(NativeWindow window, List<VirtualFile> files) {
 		setItems(files);
 		this.window = window;
 	}
@@ -29,17 +28,17 @@ public class FileListAdapter extends ListAdapter<File> {
 			widget = Application.inflate(window, "modal_files_item");
 		}
 		
-		File item = getItem(index);
+		VirtualFile item = getItem(index);
 		
 		final TextWidget txtText = (TextWidget)widget.findWidget("text");
-		txtText.setText(item.getName());
+		txtText.setText(item.getFriendlyName());
 		
 		final TextWidget txtValue = (TextWidget)widget.findWidget("value");
 		if (item.isDirectory()) {
 			txtValue.setText("[DIR]");
 			txtValue.setVisibility(Visibility.Visible);
 		} else {
-			txtValue.setText(Utils.size2human(item.length()));
+			txtValue.setText(Utils.size2human(item.getSize()));
 			txtValue.setVisibility(Visibility.Gone);
 		}
 		
