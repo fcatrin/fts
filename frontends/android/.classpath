@@ -7,5 +7,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/fts-gl"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/fts-core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fts-utils"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

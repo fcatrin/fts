@@ -10,16 +10,23 @@ import java.util.Locale;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import fts.core.Log;
 import fts.core.ProgressListener;
+import fts.core.SimpleCallback;
 import fts.core.Utils;
+import fts.utils.dialogs.DialogCallback;
+import fts.utils.dialogs.DialogUtils;
 
 public class AndroidUtils {
+	private static int permissionsRequest = 0;
 	
     public static void configureAsFullscreen(Activity activity) {
     	configureAsFullscreen(activity, true);
@@ -116,4 +123,47 @@ public class AndroidUtils {
 		}
 	}
 
+	
+	public static void checkPermissions(final WithPermissions target, String reason, final String permission, final PermissionsHandler handler) {
+		final Activity activity = target.getActivity();
+		if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
+			
+			String optYes = "Continue";
+			String optNo  = "Cancel";
+			DialogUtils.openDialog(target.getNativeWindow(), reason, optYes, optNo, new DialogCallback(){
+
+				@Override
+				public void onYes() {
+					permissionsRequest++;
+					target.setPermissionHandler(permissionsRequest, handler);
+					ActivityCompat.requestPermissions(activity,
+							new String[]{permission},
+							permissionsRequest);
+				}
+				
+				@Override
+				public void onNo() {
+					handler.onDenied();
+				}
+				
+				@Override
+				public void onDismiss() {
+					onNo();
+				}
+				
+			}); 
+		} else {
+			handler.onGranted();
+		}
+		
+	}
+	
+    public static void handlePermissionsResult(String permissions[], int[] grantResults, PermissionsHandler handler) {
+		if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+			handler.onGranted();
+		} else {
+			handler.onDenied();
+		}
+    }
+	
 }

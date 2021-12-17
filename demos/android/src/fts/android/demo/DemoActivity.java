@@ -3,11 +3,15 @@ package fts.android.demo;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.Manifest;
+import fts.android.AndroidUtils;
 import fts.android.FtsActivity;
+import fts.android.PermissionsHandler;
 import fts.core.Callback;
 import fts.core.Context;
 import fts.core.ListOption;
 import fts.core.Log;
+import fts.core.SimpleCallback;
 import fts.core.Widget;
 import fts.events.KeyEvent;
 import fts.utils.dialogs.DialogCallback;
@@ -106,6 +110,23 @@ public class DemoActivity extends FtsActivity {
 			}
 		});
 		
+	}
+
+	@Override
+	public void onWindowStart() {
+		super.onWindowStart();
+		
+		AndroidUtils.checkPermissions(this, "This app needs to read your storage", Manifest.permission.READ_EXTERNAL_STORAGE, new PermissionsHandler(){
+
+			@Override
+			public void onGranted() {
+				Log.d(LOGTAG, "granted");
+			}
+
+			@Override
+			public void onDenied() {
+				Log.d(LOGTAG, "denied");
+			}});
 	}
 
 }

@@ -1,6 +1,8 @@
 package fts.android;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
@@ -10,6 +12,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import fts.core.Application;
 import fts.core.Context;
+import fts.core.SimpleCallback;
 import fts.core.Widget;
 import fts.events.KeyEvent;
 import fts.events.TouchEvent;
@@ -17,7 +20,7 @@ import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
 import fts.graphics.Point;
 
-public class FtsActivity extends Activity implements GLWindowListener {
+public class FtsActivity extends Activity implements GLWindowListener, WithPermissions {
 	private static final String LOGTAG = FtsActivity.class.getSimpleName();
 	
 	private GLWindow nativeWindow;
@@ -173,4 +176,25 @@ public class FtsActivity extends Activity implements GLWindowListener {
 	public File getDataDir() {
 		return this.getFilesDir();
 	}
+
+	private Map<Integer, PermissionsHandler> permissionHandlers = new HashMap<Integer, PermissionsHandler>(); 
+	
+	@Override
+	public void setPermissionHandler(int request, PermissionsHandler handler) {
+		permissionHandlers.put(request,  handler);
+	}
+	
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    	PermissionsHandler handler = permissionHandlers.get(requestCode);
+    	if (handler == null) return;
+    	
+    	AndroidUtils.handlePermissionsResult(permissions, grantResults, handler);
+    }
+
+	@Override
+	public Activity getActivity() {
+		return this;
+	}
+	
 }
