@@ -19,7 +19,7 @@ import fts.vfile.handlers.LocalFileHandler;
 
 public class DemoActivity extends FtsActivity {
 	private static final String LOGTAG = DemoActivity.class.getSimpleName();
-
+	
 	@Override
 	public void onWindowCreate() {
 		Context.pointsPerPixel = getBounds().y / 540.0f;
@@ -27,7 +27,10 @@ public class DemoActivity extends FtsActivity {
 		Widget rootView = inflate("main");
 		setContentView(rootView);
 
-		VirtualFile.addHandler("local", new LocalFileHandler());
+		VirtualFile.addHandler(SystemRootHandler.ROOT_FS, new LocalFileHandler("/"));
+		VirtualFile.addHandler(SystemRootHandler.ROOT_HOME, new LocalFileHandler(getFilesDir().getAbsolutePath()));
+		VirtualFile.addHandler(SystemRootHandler.ROOT_SDCARD, new LocalFileHandler("/sdcard"));
+		VirtualFile.addHandler(SystemRootHandler.ROOT_SYSTEM, new SystemRootHandler());
 	}
 
 	@Override
@@ -74,7 +77,7 @@ public class DemoActivity extends FtsActivity {
 		FileChooserConfig config = new FileChooserConfig();
 		config.isDirOnly = true;
 		
-		VirtualFile folder = new VirtualFile(getFilesDir().getParentFile());
+		VirtualFile folder = SystemRootHandler.getSysRoot();
 		
 		DialogUtils.openFileBrowser(getNativeWindow(), folder, config, new Callback<VirtualFile>() {
 

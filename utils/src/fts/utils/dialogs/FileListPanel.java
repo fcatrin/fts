@@ -1,5 +1,6 @@
 package fts.utils.dialogs;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -96,6 +97,8 @@ public class FileListPanel {
 	}
 	
 	public void browse(final VirtualFile browseDir, final int selectItem) {
+		Log.d(LOGTAG, "browse dir " + browseDir);
+		
 		setBusy(true);
 		final VirtualFile dir = browseDir == null ? sysRoot : browseDir;
 		currentFolder = dir;
@@ -110,11 +113,13 @@ public class FileListPanel {
 		currentStorage = dir.getStorage();
 		if (currentStorage == null) currentStorage = sysRoot;
 		
-		// title.setText(currentStorage.getFriendlyName() + path);
-		title.setText(path);
+		String storageName = currentStorage.getFriendlyName();
+		if (Utils.isEmptyString(storageName)) storageName = currentStorage.getName(); 
+		
+		title.setText(storageName + " - " + path);
 
 		List<VirtualFile> loadingList = new ArrayList<VirtualFile>();
-		VirtualFile loadingFileDummy = new VirtualFile(VirtualFile.ROOT_LOCAL + VirtualFile.TYPE_SEPARATOR);
+		VirtualFile loadingFileDummy = new VirtualFile(new File("/"));
 		loadingFileDummy.setIsLoading(true);
 		loadingList.add(loadingFileDummy);
 		FileListAdapter adapter = new FileListAdapter(nativeWindow, loadingList);
@@ -132,7 +137,7 @@ public class FileListPanel {
 			public void onSuccess() {
 				if (config.browseCallback!=null) config.browseCallback.onResult(dir);
 				
-                Log.d("FILES", "size " + folderInfo.list.size());
+                Log.d("LIST FILES", "size " + folderInfo.list);
                 
 				FileListAdapter adapter = new FileListAdapter(nativeWindow, folderInfo.list);
 				list.setAdapter(adapter);

@@ -7,14 +7,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import fts.vfile.handlers.LocalFileHandler;
+
 public class VirtualFile {
-	public static final String ROOT_LOCAL = "local";
+	private static final String ROOT_LOCAL = "local";
 	public static final String TYPE_SEPARATOR = "://";
 	public static final String CONTAINER_SEPARATOR = ":";
 	public static final String PATH_SEPARATOR = "/";
 	private static final String LOGTAG = VirtualFile.class.getSimpleName();
 	
 	private static Map<String, VirtualFileHandler> handlers = new HashMap<String, VirtualFileHandler>();
+	private static final VirtualFileHandler LOCAL_HANDLER = new LocalFileHandler("/");
 	
 	private String type;
 	private String container;
@@ -95,7 +98,7 @@ public class VirtualFile {
 		this.container = normalizePath(container);
 		this.path = normalizePath(path);
 		
-		if (!handlers.containsKey(type)) throw new RuntimeException("Unknown file handler " + type);
+		if (!handlers.containsKey(type) && !ROOT_LOCAL.equals(type)) throw new RuntimeException("Unknown file handler " + type);
 	}
 	
 	private static String normalizePath(String path) {
@@ -156,6 +159,7 @@ public class VirtualFile {
 	}
 	
 	public VirtualFileHandler getHandler() {
+		if (ROOT_LOCAL.equals(type)) return LOCAL_HANDLER; 
 		return handlers.get(type);
 	}
 
@@ -322,8 +326,8 @@ public class VirtualFile {
 		boolean supportsInnerCopy = isSameHandler && srcHandler.supportsInnerCopy();
 		
 		// one of both is local
-		boolean srcIsLocal = isType(ROOT_LOCAL);
-		boolean dstIsLocal = dstFolder.isType(ROOT_LOCAL);
+		boolean srcIsLocal = srcHandler.isLocal();
+		boolean dstIsLocal = dstHandler.isLocal();
 		
 		if (!srcIsLocal && !dstIsLocal && !supportsInnerCopy) {
 			throw new RuntimeException("Source or destination must be local");
@@ -509,7 +513,7 @@ public class VirtualFile {
 	}
 
 	public boolean isLocal() {
-		return isType(ROOT_LOCAL);
+		return getHandler().isLocal();
 	}
 	
 	public static String extractName(String path) {

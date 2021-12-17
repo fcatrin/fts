@@ -16,8 +16,10 @@ import fts.vfile.VirtualFileOperationProgressListener;
 public class LocalFileHandler implements VirtualFileHandler {
 
 	private static final String LOGTAG = LocalFileHandler.class.getSimpleName();
+	private final File root;
 
-	public LocalFileHandler() {
+	public LocalFileHandler(String path) {
+		this.root = new File(path);
 	}
 	
 	@Override
@@ -32,14 +34,14 @@ public class LocalFileHandler implements VirtualFileHandler {
 		return virtualFiles;
 	}
 	
-	public List<VirtualFile> listTreeRecursive(VirtualFile virtualFile, List<VirtualFile> list) {
+	private List<VirtualFile> listTreeRecursive(VirtualFile virtualFile, List<VirtualFile> list) {
 		List<VirtualFile> virtualFiles = new ArrayList<VirtualFile>();
 		
-		File dir = new File(virtualFile.getPath());
+		File dir = getRelativeFile(virtualFile.getPath());
 		File[] files = dir.listFiles();
 		if (files!=null) {
 			for(File file : files) {
-				VirtualFile vf = new VirtualFile(virtualFile.getType(), null, file.getAbsolutePath());
+				VirtualFile vf = new VirtualFile(virtualFile.getType(), null, getRelativePath(file));
 				stat(vf, file);
 				if (file.isDirectory()) {
 					// vf.setIconResourceId(R.drawable.ic_folder_white_36dp);
@@ -58,7 +60,7 @@ public class LocalFileHandler implements VirtualFileHandler {
 	
 	@Override
 	public void stat(VirtualFile virtualFile) throws IOException {
-		File file = new File(virtualFile.getPath());
+		File file = getRelativeFile(virtualFile.getPath());
 		stat(virtualFile, file);
 	}
 
@@ -72,7 +74,7 @@ public class LocalFileHandler implements VirtualFileHandler {
 
 	@Override
 	public void mkdir(VirtualFile virtualFile) throws IOException {
-		File dir = new File(virtualFile.getPath());
+		File dir = getRelativeFile(virtualFile.getPath());
 		boolean success = (dir.exists() && dir.isDirectory()) || dir.mkdir(); 
 		if (!success) {
 			String msg = String.format("Cannot create directory %s", dir.getParent());
@@ -82,7 +84,7 @@ public class LocalFileHandler implements VirtualFileHandler {
 
 	@Override
 	public boolean delete(VirtualFile virtualFile) {
-		File dir = new File(virtualFile.getPath());
+		File dir = getRelativeFile(virtualFile.getPath());
 		if (dir.isDirectory()) {
 			FileUtils.delTree(dir);
 			return true;
@@ -103,7 +105,8 @@ public class LocalFileHandler implements VirtualFileHandler {
 
 	
 	private File getAllocationFile(VirtualFile virtualFile) {
-		String path = virtualFile.getPath();
+		File dir = getRelativeFile(virtualFile.getPath());
+		String path = dir.getAbsolutePath();
 		if (path.equals("/")) path = "/data";
 		return new File(path);
 	}
@@ -148,8 +151,8 @@ public class LocalFileHandler implements VirtualFileHandler {
 		stat(srcFile);
 		
 		String dstPath = srcFile.buildPathWith(dstFolder);
-		File srcPhysicalFile = new File(srcFile.getPath());
-		File dstPhysicalFile = new File(dstPath);
+		File srcPhysicalFile = getRelativeFile(srcFile.getPath());
+		File dstPhysicalFile = getRelativeFile(dstPath);
 		if (move & canMove(srcFile, dstFolder)) {
 			srcPhysicalFile.renameTo(dstPhysicalFile);
 			return;
@@ -161,7 +164,7 @@ public class LocalFileHandler implements VirtualFileHandler {
 		}
 		
 		if (srcPhysicalFile.isDirectory()) {
-			File dstRoot = new File(dstFolder.getPath());
+			File dstRoot = getRelativeFile(dstFolder.getPath());
 			int nFiles = srcFile.getTreeCount(progressListener);
 			FileUtils.copyTree(srcPhysicalFile, srcPhysicalFile, dstRoot, progressListener, 0, nFiles);
 			if (move) {
@@ -180,7 +183,7 @@ public class LocalFileHandler implements VirtualFileHandler {
 	
 	private boolean canWrite(VirtualFile dstFolder) {
 		String testFileName = "ftswr-" + System.currentTimeMillis();
-		File dstTestFile = new File(dstFolder.getPath(), testFileName);
+		File dstTestFile = getRelativeFile(new File(dstFolder.getPath(), testFileName));
 		try {
 			dstTestFile.delete();
 			dstTestFile.createNewFile();
@@ -190,11 +193,11 @@ public class LocalFileHandler implements VirtualFileHandler {
 			return false;
 		}
 	}
-
+	
 	private boolean canMove(VirtualFile srcFile, VirtualFile dstFolder) throws IOException {
 		String testFileName = "ftsfm-" + System.currentTimeMillis();
-		File srcTestFile = new File(srcFile.getParent().getPath(), testFileName);
-		File dstTestFile = new File(dstFolder.getPath(), testFileName);
+		File srcTestFile = getRelativeFile(new File(srcFile.getParent().getPath(), testFileName));
+		File dstTestFile = getRelativeFile(new File(dstFolder.getPath(), testFileName));
 
 		// create a test file and see if it can be simply moved
 		srcTestFile.createNewFile();
@@ -207,14 +210,14 @@ public class LocalFileHandler implements VirtualFileHandler {
 
 	@Override
 	public boolean exists(VirtualFile virtualFile) {
-		File file = new File(virtualFile.getPath());
+		File file = getRelativeFile(virtualFile.getPath());
 		return file.exists();
 	}
 
 	@Override
 	public void rename(VirtualFile virtualFile, String newName) {
-		File src = new File(virtualFile.getPath());
-		File dst = new File(src.getParent(), newName);
+		File src = getRelativeFile(virtualFile.getPath());
+		File dst = getRelativeFile(new File(src.getParent(), newName));
 		src.renameTo(dst);
 	}
 
@@ -222,5 +225,25 @@ public class LocalFileHandler implements VirtualFileHandler {
 	public boolean hasElements() {
 		return true;
 	}
+	
+	@Override
+	public final boolean isLocal() {
+		return true;
+	}
+	
+	private File getRelativeFile(File file) {
+		return getRelativeFile(file.getAbsolutePath());
+	}
 
+	private File getRelativeFile(String path) {
+		return new File(root, path);
+	}
+
+	private String getRelativePath(File file) {
+		String fullPath = file.getAbsolutePath();
+		String relativePath = fullPath.substring(root.getAbsolutePath().length());
+		if (!relativePath.startsWith("/")) relativePath = "/" + relativePath;
+		
+		return relativePath;
+	}
 }

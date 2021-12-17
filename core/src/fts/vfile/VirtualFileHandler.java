@@ -21,4 +21,5 @@ public interface VirtualFileHandler {
 	public void rename(VirtualFile virtualFile, String newName) throws IOException;
 	public List<VirtualFile> listTree(VirtualFile virtualFile) throws IOException;
 	public void stat(VirtualFile virtualFile) throws IOException;
+	public boolean isLocal();
 }
