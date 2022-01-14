@@ -154,9 +154,9 @@ public class FileListPanel {
 				list.requestFocus();
 				
 				if (folderInfo.error != null) {
-					DialogUtils.openDialog(nativeWindow, folderInfo.error);
+					DialogUtils.message(nativeWindow, folderInfo.error);
 				} else if (folderInfo.e != null) {
-					DialogUtils.openDialog(nativeWindow, folderInfo.e.toString());
+					DialogUtils.message(nativeWindow, folderInfo.e.toString());
 					folderInfo.e.printStackTrace();
 				}
 			}

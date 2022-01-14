@@ -11,13 +11,13 @@ import fts.core.Callback;
 import fts.core.Context;
 import fts.core.ListOption;
 import fts.core.Log;
-import fts.core.SimpleCallback;
 import fts.core.Widget;
 import fts.events.KeyEvent;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogListCallback;
 import fts.utils.dialogs.DialogUtils;
 import fts.utils.dialogs.FileListPanel.FileChooserConfig;
+import fts.utils.dialogs.SimpleDialogs;
 import fts.vfile.VirtualFile;
 import fts.vfile.handlers.LocalFileHandler;
 
@@ -27,6 +27,7 @@ public class DemoActivity extends FtsActivity {
 	@Override
 	public void onWindowCreate() {
 		Context.pointsPerPixel = getBounds().y / 540.0f;
+		DialogUtils.factory = new SimpleDialogs();
 		
 		Widget rootView = inflate("main");
 		setContentView(rootView);
@@ -66,7 +67,7 @@ public class DemoActivity extends FtsActivity {
 		options.add(new ListOption("folder", "Browse folders"));
 		options.add(new ListOption("dummy", "Dummy Option"));
 		options.add(new ListOption("quit", "Quit"));
-		DialogUtils.openListSelection(getNativeWindow(), options, "Demo Dialog", new DialogListCallback() {
+		DialogUtils.select(getNativeWindow(), options, "Demo Dialog", new DialogListCallback() {
 			
 			@Override
 			public void onItemSelected(String code) {
@@ -83,7 +84,7 @@ public class DemoActivity extends FtsActivity {
 		
 		VirtualFile folder = SystemRootHandler.getSysRoot();
 		
-		DialogUtils.openFileBrowser(getNativeWindow(), folder, config, new Callback<VirtualFile>() {
+		DialogUtils.browse(getNativeWindow(), folder, config, new Callback<VirtualFile>() {
 
 			@Override
 			public void onResult(VirtualFile folder) {
@@ -94,15 +95,11 @@ public class DemoActivity extends FtsActivity {
 	}
 
 	private void showTestMessage() {
-		DialogUtils.openDialog(getNativeWindow(), "Simple Dialog test", "OK", new DialogCallback() {
-			
-			@Override
-			public void onYes() {}
-		});
+		DialogUtils.message(getNativeWindow(), "Simple Dialog test");
 	}
 	
 	private void askForQuit() {
-		DialogUtils.openDialog(getNativeWindow(), "Quit app", "OK", "Cancel", new DialogCallback() {
+		DialogUtils.confirm(getNativeWindow(), "Quit app", "OK", "Cancel", new DialogCallback() {
 			
 			@Override
 			public void onYes() {

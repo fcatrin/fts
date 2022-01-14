@@ -24,6 +24,7 @@ import fts.core.SimpleCallback;
 import fts.core.Utils;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogUtils;
+import fts.utils.dialogs.SimpleDialogs;
 
 public class AndroidUtils {
 	private static int permissionsRequest = 0;
@@ -130,7 +131,7 @@ public class AndroidUtils {
 			
 			String optYes = "Continue";
 			String optNo  = "Cancel";
-			DialogUtils.openDialog(target.getNativeWindow(), reason, optYes, optNo, new DialogCallback(){
+			DialogUtils.confirm(target.getNativeWindow(), reason, optYes, optNo, new DialogCallback(){
 
 				@Override
 				public void onYes() {
