@@ -29,7 +29,7 @@ public class SimpleDialogs implements DialogFactory {
 	
 	public SimpleDialogs() {}
 	
-	public void select(NativeWindow window, List<ListOption> options, String title, final DialogListCallback callback) {
+	public void select(final NativeWindow window, List<ListOption> options, String title, final DialogListCallback callback) {
 		dismissCallback = callback;
 		
 		Widget panel = window.findWidget("modalListPanel");
@@ -40,7 +40,7 @@ public class SimpleDialogs implements DialogFactory {
 		listWidget.setOnItemSelectedListener(new OnItemSelectedListener<ListOption>() {
 			@Override
 			public void onItemSelected(ListWidget<ListOption> widget, ListOption item, int index) {
-				closeVisiblePanel();
+				closeVisiblePanel(window);
 				callback.onItemSelected(item.getCode());
 			}
 		});
@@ -57,7 +57,7 @@ public class SimpleDialogs implements DialogFactory {
 	}
 
 	
-	public void confirm(NativeWindow window, String text, String optYes, String optNo, final DialogCallback callback) {
+	public void confirm(final NativeWindow window, String text, String optYes, String optNo, final DialogCallback callback) {
 		dismissCallback = callback;
 		
 		Widget panel = window.findWidget("modalDialogPanel");
@@ -82,7 +82,7 @@ public class SimpleDialogs implements DialogFactory {
 		btnYes.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(Widget w) {
-				closeVisiblePanel();
+				closeVisiblePanel(window);
 				if (callback!=null) callback.onYes();
 			}
 		});
@@ -90,7 +90,7 @@ public class SimpleDialogs implements DialogFactory {
 		btnNo.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(Widget w) {
-				closeVisiblePanel();
+				closeVisiblePanel(window);
 				if (callback!=null) callback.onNo();
 			}
 		});
@@ -101,7 +101,7 @@ public class SimpleDialogs implements DialogFactory {
 		visiblePanel = panel;
 	}
 
-	public void custom(NativeWindow window, Widget widget, String optYes, String optNo, final DialogCallback callback) {
+	public void custom(final NativeWindow window, Widget widget, String optYes, String optNo, final DialogCallback callback) {
 		dismissCallback = callback;
 		
 		Widget panel = window.findWidget("modalCustomDialogPanel");
@@ -123,7 +123,7 @@ public class SimpleDialogs implements DialogFactory {
 		btnYes.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(Widget w) {
-				closeVisiblePanel();
+				closeVisiblePanel(window);
 				if (callback!=null) callback.onYes();
 			}
 		});
@@ -131,7 +131,7 @@ public class SimpleDialogs implements DialogFactory {
 		btnNo.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(Widget w) {
-				closeVisiblePanel();
+				closeVisiblePanel(window);
 				if (callback!=null) callback.onNo();
 			}
 		});
@@ -165,13 +165,13 @@ public class SimpleDialogs implements DialogFactory {
 			
 			@Override
 			public void onResult(VirtualFile file) {
-				closeVisiblePanel();
+				closeVisiblePanel(window);
 				onSelectedFileCallback.onResult(file);
 			}
 
 			@Override
 			public void onError(Exception e) {
-				closeVisiblePanel();
+				closeVisiblePanel(window);
 				onSelectedFileCallback.onError(e);
 			}
 			
@@ -214,38 +214,38 @@ public class SimpleDialogs implements DialogFactory {
 		listWidget.setOnItemSelectionChangedListener(listener);
 	}
 	
-	public boolean hasVisiblePanel() {
+	public boolean hasVisiblePanel(NativeWindow window) {
 		return visiblePanel!=null;
 	}
 	
-	private void dismissVisiblePanel() {
-		closeVisiblePanel();
+	private void dismissVisiblePanel(NativeWindow window) {
+		closeVisiblePanel(window);
 		if (dismissCallback != null) {
 			dismissCallback.onDismiss();
 		}
 	}
 	
-	private void closeVisiblePanel() {
-		if (!hasVisiblePanel()) return;
+	private void closeVisiblePanel(NativeWindow window) {
+		if (!hasVisiblePanel(window)) return;
 		
 		visiblePanel.setVisibility(Visibility.Gone);
 		visiblePanel = null;
 	}
 	
-	public boolean onKeyDown(KeyEvent event) {
+	public boolean onKeyDown(NativeWindow window, KeyEvent event) {
 		return false;
 	}
 	
-	public boolean onKeyUp(KeyEvent event) {
+	public boolean onKeyUp(NativeWindow window, KeyEvent event) {
 		if (event.keyCode == KeyEvent.KEY_ESC) {
-			return dispatchCancelKey();
+			return dispatchCancelKey(window);
 		}
 		return false;
 	}
 	
-	public boolean dispatchCancelKey() {
-		if (hasVisiblePanel()) {
-			dismissVisiblePanel();
+	public boolean dispatchCancelKey(NativeWindow window) {
+		if (hasVisiblePanel(window)) {
+			dismissVisiblePanel(window);
 			return true;
 		}
 		return false;

@@ -36,18 +36,6 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/txtDialogActionTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/spacing_normal"
-                android:paddingLeft="@dimen/spacing_big"
-                android:paddingRight="@dimen/spacing_big"
-                android:paddingBottom="@dimen/spacing_normal"
-                android:textColor="@color/pal_text2"
-                android:gravity="center" />
-            
-           
-            <TextView
                 android:id="@+id/txtDialogAction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

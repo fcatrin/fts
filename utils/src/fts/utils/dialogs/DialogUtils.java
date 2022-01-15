@@ -50,19 +50,19 @@ public class DialogUtils {
 		factory.setOnItemSelectionChangedListener(listener);
 	}
 	
-	public static boolean hasVisiblePanel() {
-		return factory.hasVisiblePanel();
+	public static boolean hasVisiblePanel(NativeWindow window) {
+		return factory.hasVisiblePanel(window);
 	}
 	
-	public static boolean onKeyDown(KeyEvent event) {
-		return factory.onKeyDown(event);
+	public static boolean onKeyDown(NativeWindow window, KeyEvent event) {
+		return factory.onKeyDown(window, event);
 	}
-	public static boolean onKeyUp(KeyEvent event) {
-		return factory.onKeyUp(event);
+	public static boolean onKeyUp(NativeWindow window, KeyEvent event) {
+		return factory.onKeyUp(window, event);
 	}
 	
-	public static boolean dispatchCancelKey() {
-		return factory.dispatchCancelKey();
+	public static boolean dispatchCancelKey(NativeWindow window) {
+		return factory.dispatchCancelKey(window);
 	}
 
 }

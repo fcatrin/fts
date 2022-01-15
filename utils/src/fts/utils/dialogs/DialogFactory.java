@@ -22,10 +22,10 @@ public interface DialogFactory {
 	
 	public void setOnItemSelectionChangedListener(OnItemSelectionChangedListener<ListOption> listener);
 	
-	public boolean hasVisiblePanel();
+	public boolean hasVisiblePanel(NativeWindow window);
 	
-	public boolean onKeyDown(KeyEvent event);
-	public boolean onKeyUp(KeyEvent event);
+	public boolean onKeyDown(NativeWindow window,KeyEvent event);
+	public boolean onKeyUp(NativeWindow window,KeyEvent event);
 	
-	public boolean dispatchCancelKey();
+	public boolean dispatchCancelKey(NativeWindow window);
 }

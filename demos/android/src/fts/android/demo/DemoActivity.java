@@ -40,20 +40,20 @@ public class DemoActivity extends FtsActivity {
 
 	@Override
 	public boolean onKeyDown(KeyEvent event) {
-		if (DialogUtils.onKeyDown(event)) return true;
+		if (DialogUtils.onKeyDown(getNativeWindow(), event)) return true;
 		return super.onKeyDown(event);
 	}
 
 	@Override
 	public boolean onKeyUp(KeyEvent event) {
-		if (DialogUtils.onKeyUp(event)) return true;
+		if (DialogUtils.onKeyUp(getNativeWindow(), event)) return true;
 		return super.onKeyUp(event);
 	}
 	
 	@Override
 	public void onBackPressed() {
 		
-		if (DialogUtils.dispatchCancelKey()) {
+		if (DialogUtils.dispatchCancelKey(getNativeWindow())) {
 			return;
 		}
 
