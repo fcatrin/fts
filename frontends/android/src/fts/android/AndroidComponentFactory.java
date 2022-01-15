@@ -1,15 +1,21 @@
 package fts.android;
 
+import android.app.Activity;
 import fts.core.NativeWindow;
 import fts.gl.GLFactory;
-import fts.gl.GLWindow;
 import fts.graphics.BackBuffer;
 
-public class ComponentFactory extends GLFactory {
+public class AndroidComponentFactory extends GLFactory {
+	
+	Activity activity;
+	
+	public AndroidComponentFactory(Activity activity) {
+		this.activity = activity;
+	}
 
 	@Override
 	public NativeWindow createNativeWindow(String title, int width, int height, int flags) {
-		return new GLWindow();
+		return new AndroidWindow(activity);
 	}
 
 	@Override

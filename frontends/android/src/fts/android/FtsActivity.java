@@ -40,7 +40,7 @@ public class FtsActivity extends Activity implements GLWindowListener, WithPermi
 		configureScreen();
 		setContentView(R.layout.main);
 		
-		Application.init(new ComponentFactory(), new AndroidResourceLocator(this), new AndroidLogger(), new fts.core.Context());
+		Application.init(new AndroidComponentFactory(this), new AndroidResourceLocator(this), new AndroidLogger(), new fts.core.Context());
 
 		nativeWindow = (GLWindow)Application.createNativeWindow("", 0, 0, 0);
 		nativeWindow.setWindowListener(this);
