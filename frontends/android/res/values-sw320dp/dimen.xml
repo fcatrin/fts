@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_bigger">48dp</dimen>
+    <dimen name="text_big">26dp</dimen>
+    <dimen name="text_normal">12dp</dimen>
+    <dimen name="text_normal_pad">6dp</dimen> <!-- (text_big - text_normal) / 2 used for button padding -->
+    <dimen name="text_medium">11dp</dimen>
+    <dimen name="text_small">10dp</dimen>
+    <dimen name="spacing_bigger">24dp</dimen>
+    <dimen name="spacing_big">16dp</dimen>
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="spacing_small">4dp</dimen>
+    <dimen name="spacing_tiny">2dp</dimen>
+    <dimen name="spacing_fine">1dp</dimen>
+    
+    <dimen name="button_bar_stroke_width">1dp</dimen>
+    <dimen name="button_bar_radius">2dp</dimen>
+    <dimen name="button_bar_padding">2dp</dimen>
+    
+</resources>

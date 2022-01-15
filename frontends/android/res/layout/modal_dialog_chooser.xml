@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/modal_dialog_chooser"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/modal_background"
+    android:clickable="true"
+    android:orientation="horizontal"
+    android:visibility="invisible"
+    android:focusable="true">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/modal_dialog_chooser_border"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/spacing_normal"
+        android:layout_weight="4"
+        android:background="@color/pal_base2"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_fine"
+        android:focusable="true">
+
+        <LinearLayout
+            android:id="@+id/modal_dialog_chooser_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/pal_base1"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txtDialogChooserTitle"
+                style="@style/NormalFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/pal_base2"
+                android:gravity="center"
+                android:padding="@dimen/spacing_normal" 
+                android:textColor="@color/pal_text3" />
+
+            <LinearLayout
+                android:id="@+id/modal_dialog_chooser_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/pal_base15"
+                android:padding="@dimen/spacing_small" >
+
+                <ImageView
+                    android:id="@+id/imgStorage"
+                    android:layout_width="@dimen/text_normal"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="fitCenter"
+                    android:alpha="0.8"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/txtStorage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/spacing_tiny"
+                    android:textColor="@color/pal_text1"
+                    android:gravity="center_horizontal"
+                    android:textSize="@dimen/text_medium" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtDialogChooserInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_small"
+                android:textColor="@color/pal_text_dim"
+                android:background="@color/pal_base15"
+                android:textSize="@dimen/text_small" />
+
+            <ListView
+                android:id="@+id/lstDialogChooser"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:listSelector="@drawable/listitem_selector"
+                android:nextFocusDown="@id/lstDialogChooser"
+                android:nextFocusLeft="@id/lstDialogChooser"
+                android:nextFocusRight="@id/lstDialogChooser"
+                android:nextFocusUp="@id/lstDialogChooser" />
+
+            <LinearLayout
+                android:id="@+id/modal_dialog_chooser_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/pal_base2"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_small" >
+
+                <TextView
+                    android:id="@+id/txtPanelStatus1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/pal_text_dim"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/txtPanelStatus2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/pal_text_dim"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+</LinearLayout>

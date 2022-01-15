@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_normal"
+    android:orientation="horizontal" >
+    <ImageView android:id="@+id/optionIcon"
+        android:layout_height="@dimen/text_normal"
+        android:layout_width="@dimen/text_normal"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/spacing_normal"
+        tools:ignore="ContentDescription" />
+    <TextView android:id="@+id/optionName"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textColor="@color/pal_text3"
+        android:textSize="@dimen/text_normal" />
+    <TextView android:id="@+id/optionValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_marginLeft="@dimen/spacing_normal"
+        android:textColor="@color/pal_text1"
+        android:textSize="@dimen/text_normal"/>
+</LinearLayout>
+    

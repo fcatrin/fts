@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/modal_dialog_actions"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/modal_background"
+    android:orientation="horizontal"
+    android:clickable="true"
+    android:visibility="invisible"
+    android:focusable="true">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/modal_dialog_actions_border"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="2"
+        android:background="@color/pal_base2"
+        android:gravity="center"
+        android:clickable="true"
+        android:padding="@dimen/spacing_fine"
+        android:orientation="horizontal"
+        android:focusable="true">
+
+        <LinearLayout
+            android:id="@+id/modal_dialog_actions_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/pal_base2"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txtDialogActionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/spacing_normal"
+                android:paddingLeft="@dimen/spacing_big"
+                android:paddingRight="@dimen/spacing_big"
+                android:paddingBottom="@dimen/spacing_normal"
+                android:textColor="@color/pal_text2"
+                android:gravity="center" />
+            
+           
+            <TextView
+                android:id="@+id/txtDialogAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_big"
+                android:background="@color/pal_base1"
+                android:gravity="center" />
+
+            <LinearLayout
+				android:id="@+id/modal_dialog_actions_buttons"                
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/pal_base1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_normal" >
+
+                <Button
+                    android:id="@+id/btnDialogActionPositive"
+                    style="@style/ActionButton"
+                    android:layout_width="wrap_content"
+                    android:paddingLeft="@dimen/spacing_normal"
+                    android:paddingRight="@dimen/spacing_normal"
+                    android:nextFocusRight="@+id/btnDialogActionNegative"
+                    android:nextFocusDown="@id/btnDialogActionNegative"
+                    android:nextFocusLeft="@id/btnDialogActionNegative"
+                    android:nextFocusUp="@id/btnDialogActionNegative"
+                 	/>
+                <Button
+                    android:id="@id/btnDialogActionNegative"
+                    style="@style/ActionButton"
+                    android:layout_width="wrap_content"
+                    android:paddingLeft="@dimen/spacing_normal"
+                    android:paddingRight="@dimen/spacing_normal"
+                    android:nextFocusRight="@id/btnDialogActionPositive"
+                    android:nextFocusDown="@id/btnDialogActionPositive"
+                    android:nextFocusLeft="@id/btnDialogActionPositive"
+                    android:nextFocusUp="@id/btnDialogActionPositive"
+                     />
+                </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+</LinearLayout>

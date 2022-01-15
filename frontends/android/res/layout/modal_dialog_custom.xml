@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/modal_dialog_custom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/modal_background"
+    android:orientation="horizontal"
+    android:clickable="true"
+    android:visibility="invisible"
+    android:focusable="true">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/modal_dialog_custom_border"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="2"
+        android:background="@color/pal_base2"
+        android:gravity="center"
+        android:clickable="true"
+        android:padding="@dimen/spacing_fine"
+        android:orientation="horizontal"
+        android:focusable="true">
+
+        <LinearLayout
+            android:id="@+id/modal_dialog_custom_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/pal_base1"
+            android:padding="@dimen/spacing_big"
+            android:gravity="center"
+            android:orientation="vertical" >
+            <FrameLayout 
+               android:id="@+id/modal_dialog_custom_container"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" />
+
+            <LinearLayout
+				android:id="@+id/modal_dialog_custom_buttons"                
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btnDialogCustomPositive"
+                    style="@style/ActionButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/spacing_normal"
+                    android:paddingRight="@dimen/spacing_normal"
+                    android:nextFocusRight="@+id/btnDialogCustomNegative"
+                    android:nextFocusDown="@id/btnDialogCustomNegative"
+                    android:nextFocusLeft="@id/btnDialogCustomNegative"
+                 	/>
+                <Button
+                    android:id="@id/btnDialogCustomNegative"
+                    style="@style/ActionButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/spacing_normal"
+                    android:paddingRight="@dimen/spacing_normal"
+                    android:nextFocusRight="@id/btnDialogCustomPositive"
+                    android:nextFocusDown="@id/btnDialogCustomPositive"
+                    android:nextFocusLeft="@id/btnDialogCustomPositive"
+                     />
+                </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+</LinearLayout>

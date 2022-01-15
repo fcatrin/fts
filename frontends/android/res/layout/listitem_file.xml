@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/spacing_normal" >
+
+    <xtvapps.core.android.TintableImageView
+        android:id="@+id/listFileIcon"
+        android:layout_width="@dimen/text_normal"
+        android:layout_height="@dimen/text_normal"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/spacing_normal" />
+
+    <ProgressBar
+        android:id="@+id/listFileLoading"
+        style="@android:style/Widget.ProgressBar"
+        android:layout_width="@dimen/text_normal"
+        android:layout_height="@dimen/text_normal"
+        android:layout_marginRight="@dimen/spacing_normal"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/listFileName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/pal_text3"
+        android:textSize="@dimen/text_normal" />
+
+    <TextView
+        android:id="@+id/listFileSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_normal"
+        android:ellipsize="end"
+        android:lines="1"
+        android:singleLine="true"
+        android:textColor="@color/pal_text1"
+        android:textSize="@dimen/text_normal" />
+
+</LinearLayout>
