@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.Manifest;
+import fts.android.AndroidDialogFactory;
 import fts.android.AndroidUtils;
 import fts.android.FtsActivity;
 import fts.android.PermissionsHandler;
@@ -27,7 +28,7 @@ public class DemoActivity extends FtsActivity {
 	@Override
 	public void onWindowCreate() {
 		Context.pointsPerPixel = getBounds().y / 540.0f;
-		DialogUtils.factory = new SimpleDialogs();
+		DialogUtils.factory = new AndroidDialogFactory();
 		
 		Widget rootView = inflate("main");
 		setContentView(rootView);

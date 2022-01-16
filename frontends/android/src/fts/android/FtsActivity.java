@@ -40,6 +40,9 @@ public class FtsActivity extends Activity implements GLWindowListener, WithPermi
 		configureScreen();
 		setContentView(R.layout.main);
 		
+		GLSurface glSurface = (GLSurface)findViewById(R.id.fts_view);
+		glSurface.setFtsActivity(this);
+		
 		Application.init(new AndroidComponentFactory(this), new AndroidResourceLocator(this), new AndroidLogger(), new fts.core.Context());
 
 		nativeWindow = (GLWindow)Application.createNativeWindow("", 0, 0, 0);
@@ -98,32 +101,6 @@ public class FtsActivity extends Activity implements GLWindowListener, WithPermi
 		onWindowStop();
 	}
 	
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent ev) {
-		TouchEvent event = new TouchEvent();
-		switch(ev.getAction()) {
-		case MotionEvent.ACTION_DOWN : event.action = TouchEvent.Action.DOWN; break;
-		case MotionEvent.ACTION_MOVE : event.action = TouchEvent.Action.MOVE; break;
-		case MotionEvent.ACTION_UP : event.action = TouchEvent.Action.UP; break;
-		}
-		event.button = TouchEvent.Button.LEFT;
-		event.x = (int)ev.getX();
-		event.y = (int)ev.getY();
-		return nativeWindow.dispatchTouchEvent(event);
-	}
-
-	@Override
-	public boolean dispatchKeyEvent(android.view.KeyEvent event) {
-		Log.d(LOGTAG, "dispatchKeyEvent keyCode " + event.getKeyCode() + ", mod:" + event.getModifiers());
-		if (event.getKeyCode() == 59 && event.getModifiers() == 65) {
-			// SHIFT+1 dumps the layout
-			nativeWindow.dumpLayout();
-		}
-		KeyEvent ftsEvent = AndroidKeyMap.translate(event);
-		if (ftsEvent == null) return super.dispatchKeyEvent(event);
-		return dispatchKeyEvent(ftsEvent);
-	}
-
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent keyEvent) {
 		return nativeWindow.dispatchKeyEvent(keyEvent);

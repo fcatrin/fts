@@ -6,4 +6,8 @@
         android:id="@+id/fts_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    
+    <include layout="@layout/modal_dialog_chooser" />
+    <include layout="@layout/modal_dialog_list" />
+    <include layout="@layout/modal_dialog_actions" />
 </FrameLayout>
