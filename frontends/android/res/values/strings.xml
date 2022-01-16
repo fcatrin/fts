@@ -1,0 +1,12 @@
+<resources>
+    <string name="folder_loading">Loading folder</string>
+    
+    <string name="folder_elements_0">Empty folder</string>
+    <string name="folder_elements_1">1 element</string>
+    <string name="folder_elements_n">{n} elements</string>
+    
+    <string name="folder_free">{free} free of {total} ({percent}%)</string>
+    <string name="folder_parent">Go to parent folder</string>
+    <string name="folder_select">Select this folder</string>
+    
+</resources>

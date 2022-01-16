@@ -10,7 +10,7 @@ import java.util.Map;
 import fts.vfile.handlers.LocalFileHandler;
 
 public class VirtualFile {
-	private static final String ROOT_LOCAL = "local";
+	public static final String ROOT_LOCAL = "local";
 	public static final String TYPE_SEPARATOR = "://";
 	public static final String CONTAINER_SEPARATOR = ":";
 	public static final String PATH_SEPARATOR = "/";
