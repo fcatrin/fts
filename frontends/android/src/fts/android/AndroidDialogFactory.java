@@ -1,5 +1,6 @@
 package fts.android;
 
+import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
@@ -12,11 +13,14 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import fts.android.fileselector.FilesPanel;
 import fts.core.Callback;
 import fts.core.ListOption;
 import fts.core.NativeWindow;
+import fts.core.SimpleBackgroundTask;
 import fts.core.SimpleCallback;
 import fts.core.Utils;
 import fts.core.Widget;
@@ -149,10 +153,89 @@ public class AndroidDialogFactory implements DialogFactory {
 	}
 
 	@Override
-	public void browse(NativeWindow window, VirtualFile sysRoot, FileChooserConfig config,
-			Callback<VirtualFile> onSelectedFileCallback) {
-		// TODO Auto-generated method stub
+	public void browse(final NativeWindow window, final VirtualFile sysRoot, final FileChooserConfig config, Callback<VirtualFile> onSelectedFileCallback) {
+		final Activity activity = ((AndroidWindow)window).getActivity();
+		final Callback<VirtualFile> listCallback = new Callback<VirtualFile>() {
+			@Override
+			public void onResult(final VirtualFile result) {
+				closeDialog(activity, R.id.modal_dialog_chooser, new SimpleCallback() {
+					@Override
+					public void onResult() {
+						config.callback.onResult(result);
+						config.callback.onFinally();
+					}
+				});
+			}
+			
+			@Override
+			public void onError(final Exception e) {
+				closeDialog(activity, R.id.modal_dialog_chooser, new SimpleCallback(){
+					@Override
+					public void onResult() {
+						config.callback.onError(e);
+						config.callback.onFinally();
+					}
+				});
+			}
+		};
 		
+		activity.findViewById(R.id.modal_dialog_chooser).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				listCallback.onError(null);
+			}
+		});
+
+		TextView txtTitle = activity.findViewById(R.id.txtDialogChooserTitle);
+		if (Utils.isEmptyString(config.title)) {
+			txtTitle.setVisibility(View.GONE);
+		} else {
+			txtTitle.setText(config.title);
+			txtTitle.setVisibility(View.VISIBLE);
+		}
+
+		SimpleBackgroundTask task = new SimpleBackgroundTask() {
+			@Override
+			public void onBackgroundTask() throws Exception {
+				if (config.initialDir == null) return;
+				try {
+					if (config.initialDir.exists()) return;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				config.initialDir = null;
+			}
+
+			@Override
+			public void onSuccess() {
+				final ListView lv = activity.findViewById(R.id.lstDialogChooser);
+
+				TextView txtStatus1 = activity.findViewById(R.id.txtPanelStatus1);
+				TextView txtStatus2 = activity.findViewById(R.id.txtPanelStatus2);
+
+				TextView  txtStorage = activity.findViewById(R.id.txtStorage);
+				ImageView imgStorage = activity.findViewById(R.id.imgStorage);
+
+				FilesPanel filesPanel = new FilesPanel(window, sysRoot, lv, txtStorage, imgStorage,
+						txtStatus1, txtStatus2, listCallback, config);
+				filesPanel.refresh();
+
+				openDialog(activity, R.id.modal_dialog_chooser, new SimpleCallback() {
+					@Override
+					public void onResult() {
+						if (lv.getChildCount()>0) {
+							lv.setSelection(0);
+						}
+
+						lv.setFocusable(true);
+						lv.setFocusableInTouchMode(true);
+						lv.requestFocus();
+					}
+				});
+			}
+		};
+		task.execute();
 	}
 
 	@Override
