@@ -26,6 +26,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    externalNativeBuild {
+        ndkBuild {
+            path file('src/main/jni/Android.mk')
+        }
+    }
 }
 
 afterEvaluate {
@@ -49,4 +54,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-core-ui:1.0.0'
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
     implementation project(path: ':fts-core')
+    implementation project(path: ':fts-gl')
+    implementation project(path: ':fts-utils')
 }
