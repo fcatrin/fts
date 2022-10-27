@@ -13,18 +13,16 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Build;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import fts.core.Log;
 import fts.core.ProgressListener;
-import fts.core.SimpleCallback;
 import fts.core.Utils;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogUtils;
-import fts.utils.dialogs.SimpleDialogs;
 
 public class AndroidUtils {
 	private static int permissionsRequest = 0;
