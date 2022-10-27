@@ -1,8 +1,0 @@
-<project name="build-fts-android" default="build" basedir=".">
-<property file="../../../fts.local.properties"/>
-
-<target name="build">
-    <exec executable="${fts.dir}/tools/package-android.sh" failonerror="true"/>
-</target>
-
-</project>

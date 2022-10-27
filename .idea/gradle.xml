@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/fts-android" />
+            <option value="$PROJECT_DIR$/fts-android-demo" />
+            <option value="$PROJECT_DIR$/fts-core" />
+            <option value="$PROJECT_DIR$/fts-gl" />
+            <option value="$PROJECT_DIR$/fts-linux" />
+            <option value="$PROJECT_DIR$/fts-swt" />
+            <option value="$PROJECT_DIR$/fts-tools" />
+            <option value="$PROJECT_DIR$/fts-utils" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

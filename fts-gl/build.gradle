@@ -1,0 +1,28 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                groupId = 'fts'
+                artifactId = 'gl'
+                version = '1.0.0'
+            }
+        }
+    }
+}
+
+task install(dependsOn: publishToMavenLocal)
+
+dependencies {
+    implementation 'org.jetbrains:annotations:15.0'
+}
