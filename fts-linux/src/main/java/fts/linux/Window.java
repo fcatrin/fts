@@ -26,10 +26,6 @@ public class Window implements GLWindowListener {
 	
 	private String title;
 	
-	static {
-		Application.init(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new AppContext());
-	}
-
 	public Window(String title, int width, int height) {
 		this.width = width;
 		this.height = height;
