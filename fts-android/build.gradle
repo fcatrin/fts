@@ -42,6 +42,17 @@ afterEvaluate {
     }
 }
 
+task ftsPackage(type:Exec) {
+    workingDir '.'
+    commandLine '../fts-tools/package-android.sh'
+}
+
+tasks.whenTaskAdded { task ->
+    if(task.name.equals("generateDebugAssets")){
+        task.dependsOn(ftsPackage)
+    }
+}
+
 dependencies {
     implementation 'androidx.legacy:legacy-support-core-ui:1.0.0'
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'

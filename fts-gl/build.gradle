@@ -23,6 +23,13 @@ afterEvaluate {
 
 task install(dependsOn: publishToMavenLocal)
 
+task ftsPackage(type:Exec) {
+    workingDir '.'
+    commandLine '../fts-tools/package.sh'
+}
+
+processResources.dependsOn ftsPackage
+
 dependencies {
     implementation 'org.jetbrains:annotations:15.0'
     implementation project(path: ':fts-core')

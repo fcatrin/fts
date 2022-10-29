@@ -19,7 +19,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class Merger {
-	private static final String GEN_DIR_NAME = "fts.res";
+	private static final String GEN_DIR_NAME = "fts";
 	
 	private File destinationDir;
 	private File projectDir;
