@@ -8,10 +8,10 @@ dependencyResolutionManagement {
 }
 rootProject.name = "fts"
 include ':fts-core'
+include ':fts-tools'
 include ':fts-gl'
-// include ':fts-linux'
+include ':fts-swt'
+include ':fts-linux'
+include ':fts-utils'
 include ':fts-android'
 include ':fts-android-demo'
-include ':fts-utils'
-include ':fts-tools'
-include ':fts-swt'
