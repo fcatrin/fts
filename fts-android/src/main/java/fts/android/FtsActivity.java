@@ -9,13 +9,11 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
-import android.view.MotionEvent;
+
 import fts.core.Application;
-import fts.core.Context;
-import fts.core.SimpleCallback;
+import fts.core.AppContext;
 import fts.core.Widget;
 import fts.events.KeyEvent;
-import fts.events.TouchEvent;
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
 import fts.graphics.Point;
@@ -43,7 +41,7 @@ public class FtsActivity extends Activity implements GLWindowListener, WithPermi
 		GLSurface glSurface = (GLSurface)findViewById(R.id.fts_view);
 		glSurface.setFtsActivity(this);
 		
-		Application.init(new AndroidComponentFactory(this), new AndroidResourceLocator(this), new AndroidLogger(), new fts.core.Context());
+		Application.init(new AndroidComponentFactory(this), new AndroidResourceLocator(this), new AndroidLogger(), new AppContext());
 
 		nativeWindow = (GLWindow)Application.createNativeWindow("", 0, 0, 0);
 		nativeWindow.setWindowListener(this);
@@ -79,7 +77,7 @@ public class FtsActivity extends Activity implements GLWindowListener, WithPermi
 	@Override
 	final protected void onDestroy() {
 		super.onDestroy();
-		Context.backgroundProcessor.shutdown();		
+		AppContext.backgroundProcessor.shutdown();
 		onWindowDestroy();
 	}
 

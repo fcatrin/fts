@@ -1,14 +1,14 @@
 package fts.graphics;
 
-import fts.core.Context;
+import fts.core.AppContext;
 
 public class Dimension {
 	public static int pt2px(int pt) {
-		return Context.getInstance().pt2px(pt);
+		return AppContext.getInstance().pt2px(pt);
 	}
 	
 	public static int px2pt(int px) {
-		return Context.getInstance().px2pt(px);
+		return AppContext.getInstance().px2pt(px);
 	}
 	
 	public static int parse(String spec) {

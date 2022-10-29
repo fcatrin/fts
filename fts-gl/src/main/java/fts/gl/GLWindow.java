@@ -5,9 +5,8 @@ import java.util.List;
 
 import fts.core.Application;
 import fts.core.BackgroundProcessor;
-import fts.core.BackgroundTask;
 import fts.core.ComponentFactory;
-import fts.core.Context;
+import fts.core.AppContext;
 import fts.core.CoreAsyncExecutor;
 import fts.core.NativeWindow;
 import fts.events.PaintEvent;
@@ -20,8 +19,8 @@ public class GLWindow extends NativeWindow {
 	boolean running;
 	
 	public void init() {
-		Context.asyncExecutor = new CoreAsyncExecutor();
-		Context.backgroundProcessor = new BackgroundProcessor(Context.asyncExecutor);
+		AppContext.asyncExecutor = new CoreAsyncExecutor();
+		AppContext.backgroundProcessor = new BackgroundProcessor(AppContext.asyncExecutor);
 		
 		running = true;
 		GLNativeInterface.uiInit();
@@ -49,19 +48,19 @@ public class GLWindow extends NativeWindow {
 		
 		windowListener.onFrame();
 		
-		Context.asyncExecutor.process();
+		AppContext.asyncExecutor.process();
 	}
 	
 	@Override
 	public void mainLoop() {
-		Context.backgroundProcessor.start();
+		AppContext.backgroundProcessor.start();
 		
 		requestLayout();
 		while (running) {
 			render();
 		}
 		
-		Context.backgroundProcessor.shutdown();
+		AppContext.backgroundProcessor.shutdown();
 	}
 	
 	protected boolean sync() {

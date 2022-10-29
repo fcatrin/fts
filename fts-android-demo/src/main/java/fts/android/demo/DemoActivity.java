@@ -9,7 +9,7 @@ import fts.android.AndroidUtils;
 import fts.android.FtsActivity;
 import fts.android.PermissionsHandler;
 import fts.core.Callback;
-import fts.core.Context;
+import fts.core.AppContext;
 import fts.core.ListOption;
 import fts.core.Log;
 import fts.core.Widget;
@@ -18,7 +18,6 @@ import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogListCallback;
 import fts.utils.dialogs.DialogUtils;
 import fts.utils.dialogs.FileListPanel.FileChooserConfig;
-import fts.utils.dialogs.SimpleDialogs;
 import fts.vfile.VirtualFile;
 import fts.vfile.handlers.LocalFileHandler;
 
@@ -27,7 +26,7 @@ public class DemoActivity extends FtsActivity {
 	
 	@Override
 	public void onWindowCreate() {
-		Context.pointsPerPixel = getBounds().y / 540.0f;
+		AppContext.pointsPerPixel = getBounds().y / 540.0f;
 		DialogUtils.factory = new AndroidDialogFactory();
 		
 		Widget rootView = inflate("main");

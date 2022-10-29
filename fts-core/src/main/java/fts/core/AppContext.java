@@ -1,11 +1,11 @@
 package fts.core;
 
-public class Context {
+public class AppContext {
 	public static float pointsPerPixel = 1;
 	public static AsyncExecutor asyncExecutor = null;
 	public static BackgroundProcessor backgroundProcessor = null;
 	
-	public static Context getInstance() {
+	public static AppContext getInstance() {
 		return Application.context;
 	}
 	

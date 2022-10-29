@@ -7,6 +7,6 @@ public abstract class BackgroundTask<T> {
 	public void onFinally() {}
 	
 	public void execute() {
-		Context.backgroundProcessor.exec(this);
+		AppContext.backgroundProcessor.exec(this);
 	}
 }

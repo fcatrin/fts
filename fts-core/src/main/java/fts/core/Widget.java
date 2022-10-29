@@ -328,11 +328,11 @@ public class Widget extends Component {
 	}
 	
 	public void postInvalidate() {
-		if (!isDisposed()) Context.post(invalidateTask);
+		if (!isDisposed()) AppContext.post(invalidateTask);
 	}
 	
 	public void post(Runnable runnable) {
-		if (!isDisposed()) Context.post(runnable);
+		if (!isDisposed()) AppContext.post(runnable);
 	}
 	
 	protected boolean isDisposed() {

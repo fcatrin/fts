@@ -24,12 +24,12 @@ import fts.graphics.Image;
 public class Application {
 	public static ComponentFactory factory;
 	static ResourceLocator resourceLocator;
-	static Context context;
+	static AppContext context;
 	static Logger logger;
 	
 	private Application() {};
 	
-	public static void init(ComponentFactory factory, ResourceLocator resourceLocator, Logger logger, Context context) {
+	public static void init(ComponentFactory factory, ResourceLocator resourceLocator, Logger logger, AppContext context) {
 		Application.factory = factory;
 		Application.context = context;
 		Application.resourceLocator = resourceLocator;

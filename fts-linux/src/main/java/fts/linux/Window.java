@@ -3,7 +3,7 @@ package fts.linux;
 import java.io.File;
 
 import fts.core.Application;
-import fts.core.Context;
+import fts.core.AppContext;
 import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
 import fts.core.NativeWindow;
@@ -27,7 +27,7 @@ public class Window implements GLWindowListener {
 	private String title;
 	
 	static {
-		Application.init(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new Context());
+		Application.init(new ComponentFactory(), new DesktopResourceLocator(), new DesktopLogger(), new AppContext());
 	}
 
 	public Window(String title, int width, int height) {
