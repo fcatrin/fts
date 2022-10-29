@@ -50,11 +50,11 @@ public class Merger {
 		deps.add(packageName);
 		
 		System.out.println("process " + projectDir.getCanonicalPath());
-        mergeFiles(GEN_DIR_NAME, "resources");
+        mergeFiles(GEN_DIR_NAME, "src/main/fts", "resources");
 	}
 	
-	private void mergeFiles(String packagePath, String path) throws IOException, ParserException, TransformerFactoryConfigurationError, TransformerException {
-		File dir = new File(projectDir, path);
+	private void mergeFiles(String packagePath, String srcPath, String path) throws IOException, ParserException, TransformerFactoryConfigurationError, TransformerException {
+		File dir = new File(projectDir, srcPath + "/" + path);
 		File files[] = dir.listFiles();
 		
 		if (files == null) return;
@@ -62,7 +62,7 @@ public class Merger {
 		for(File file : files) {
 			String fileName = file.getName();
 			if (file.isDirectory()) {
-				mergeFiles(packagePath, path + "/" + fileName);
+				mergeFiles(packagePath, srcPath,path + "/" + fileName);
 			} else {
 				File dstFile = new File(destinationDir, packagePath + "/" + path + "/" + file.getName());
 				if (path.contains("/values") && dstFile.exists()) {
