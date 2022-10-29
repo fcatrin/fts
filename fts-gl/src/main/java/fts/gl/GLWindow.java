@@ -19,9 +19,6 @@ public class GLWindow extends NativeWindow {
 	boolean running;
 	
 	public void init() {
-		AppContext.asyncExecutor = new CoreAsyncExecutor();
-		AppContext.backgroundProcessor = new BackgroundProcessor(AppContext.asyncExecutor);
-		
 		running = true;
 		GLNativeInterface.uiInit();
 		

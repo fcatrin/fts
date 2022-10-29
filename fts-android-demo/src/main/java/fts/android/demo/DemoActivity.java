@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.Manifest;
+
+import fts.android.AndroidApplication;
 import fts.android.AndroidDialogFactory;
 import fts.android.AndroidUtils;
 import fts.android.FtsActivity;
@@ -112,7 +114,16 @@ public class DemoActivity extends FtsActivity {
 	@Override
 	public void onWindowStart() {
 		super.onWindowStart();
-		
+
+		AndroidApplication.post(new Runnable() {
+			@Override
+			public void run() {
+				checkPermissions();
+			}
+		});
+	}
+
+	private void checkPermissions() {
 		AndroidUtils.checkPermissions(this, "This app needs to read your storage", Manifest.permission.READ_EXTERNAL_STORAGE, new PermissionsHandler(){
 
 			@Override
