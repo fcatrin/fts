@@ -14,8 +14,8 @@ afterEvaluate {
             mavenJava(MavenPublication) {
                 from components.java
 
-                groupId = 'xtvapps'
-                artifactId = 'core.desktop'
+                groupId = 'fts'
+                artifactId = 'linux'
                 version = '1.0.0'
             }
         }
@@ -23,6 +23,7 @@ afterEvaluate {
 }
 
 dependencies {
-    implementation project(path: ':fts-core')
     implementation 'org.json:json:20220320'
+    implementation project(path: ':fts-core')
+    implementation project(path: ':fts-gl')
 }
