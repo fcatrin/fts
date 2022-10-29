@@ -1,0 +1,19 @@
+plugins {
+    id 'application'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+application {
+    mainClass = 'fts.linux.demo.LinuxDemo'
+}
+
+dependencies {
+    implementation 'org.json:json:20220320'
+    implementation project(path: ':fts-core')
+    implementation project(path: ':fts-gl')
+    implementation project(path: ':fts-linux')
+}
