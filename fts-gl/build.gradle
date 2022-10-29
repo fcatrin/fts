@@ -28,7 +28,13 @@ task ftsPackage(type:Exec) {
     commandLine '../fts-tools/package.sh'
 }
 
+task jniBuild(type:Exec) {
+    workingDir 'src/main/jni'
+    commandLine 'make'
+}
+
 processResources.dependsOn ftsPackage
+processResources.dependsOn jniBuild
 
 dependencies {
     implementation 'org.jetbrains:annotations:15.0'

@@ -4,6 +4,7 @@ AR = ar
 ARFLAGS =
 LIBS =
 LDFLAGS = -shared
+BUILD_DIR = ../../../build/jni
 
 CFLAGS  += $(shell pkg-config --cflags freetype2)
 LDFLAGS += $(shell pkg-config --libs freetype2 glesv2)
@@ -15,11 +16,11 @@ OBJS += fts_gl.o \
 	utils.o \
 	libs/nanovg/nanovg.o
 
-OBJDIR = ../obj
+OBJDIR = $(BUILD_DIR)/obj
 
 ALL_OBJS = $(addprefix $(OBJDIR)/, $(OBJS))
 
-TARGET = ../libs/$(LIBPREFIX)fts-gl.so
+TARGET = $(BUILD_DIR)/libs/$(LIBPREFIX)fts-gl.so
 
 UNAME_S := $(shell uname -s)
 UNAME_M := $(shell uname -m)
