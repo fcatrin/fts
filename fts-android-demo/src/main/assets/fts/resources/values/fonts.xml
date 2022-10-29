@@ -1,0 +1,5 @@
+<fonts>
+    <font name="default">ubuntu-r.ttf</font>
+    <font name="condensed">ubuntu-c.ttf</font>
+    <font name="bold">ubuntu-b.ttf</font>
+</fonts>

@@ -1,0 +1,24 @@
+<LinearContainer
+    width="match_parent"
+    height="30pt"
+    background="@drawable/modal_list_item_background"
+    align="center_vertical"
+    orientation="horizontal">
+    <TextWidget
+        id="text"
+        width="0pt"
+        height="wrap_content"
+        padding="4pt"
+        color="@color/modal_foreground"
+        fontSize="@dimen/text_normal"
+        />
+    <TextWidget
+        id="value"
+        width="wrap_content"
+        height="wrap_content"
+        padding="4pt"
+        color="@color/modal_foreground"
+        fontSize="@dimen/text_normal"
+        fontName="condensed"
+        />
+</LinearContainer>

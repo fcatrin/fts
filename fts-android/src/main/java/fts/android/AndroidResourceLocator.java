@@ -19,7 +19,7 @@ public class AndroidResourceLocator extends ResourceLocator {
 	
 	@Override
 	public InputStream getResource(String location) throws IOException {
-		String path = "fts.res/" + location;
+		String path = "fts/" + location;
 		return context.getAssets().open(path);
 	}
 
@@ -28,7 +28,7 @@ public class AndroidResourceLocator extends ResourceLocator {
 		InputStream is = getResource(location);
 		if (is == null) return null;
 		
-		File localResDir = new File(context.getFilesDir(), "fts.res");
+		File localResDir = new File(context.getFilesDir(), "fts");
 		File localResFile = new File(localResDir, location);
 		localResFile.getParentFile().mkdirs();
 		localResFile.delete();

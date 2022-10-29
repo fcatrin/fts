@@ -1,0 +1,45 @@
+<AbsoluteContainer
+   width="match_parent"
+   height="match_parent">
+	<LinearContainer
+	    background="@color/window_background"
+	    orientation="vertical"
+	    width="match_parent"
+	    height="match_parent">
+	    <TextWidget
+		    background="#FF8080A0"
+	        width="match_parent"
+	        height="wrap_content"
+	        maxLines="10"
+	        align="left"
+	        color="@color/white"
+	        text="First line that is now a longer text and more longer"/>
+	    <TextWidget
+	    	background="@drawable/test_background"
+	        width="match_parent"
+	        height="wrap_content"
+	        align="center"
+	        color="#CCCCCC"
+	        text="First line that is now a longer text and more longer"/>
+	    <TextWidget
+	    	background="@drawable/test_gradient"
+	    	color="@color/white"
+	    	align="right|bottom"
+	        width="match_parent"
+	        height="40pt"
+	        text="First line that is now a longer text and more longer"/>
+	    <TextWidget
+	    	background="#202020"
+	    	color="@color/white"
+	    	align="center"
+	        width="match_parent"
+	        height="40pt"
+	        text="@string/demo"/>
+		<include layout="actions" />
+		
+	</LinearContainer>
+   <include layout="modal_list" />
+   <include layout="modal_files" />
+   <include layout="modal_dialog" />
+   <include layout="modal_custom" />   
+</AbsoluteContainer>
