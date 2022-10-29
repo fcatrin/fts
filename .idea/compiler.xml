@@ -4,9 +4,6 @@
     <bytecodeTargetLevel target="1.7">
       <module name="fts.fts-android" target="11" />
       <module name="fts.fts-android-demo" target="11" />
-      <module name="fts.fts-gl" target="1.8" />
-      <module name="fts.fts-gl.main" target="1.8" />
-      <module name="fts.fts-gl.test" target="1.8" />
       <module name="fts.retrox-utils-android" target="11" />
       <module name="fts.xtv-core-android" target="11" />
       <module name="fts.xtv-vfile" target="1.8" />
