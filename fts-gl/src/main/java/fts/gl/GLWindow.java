@@ -8,12 +8,14 @@ import fts.core.BackgroundProcessor;
 import fts.core.ComponentFactory;
 import fts.core.AppContext;
 import fts.core.CoreAsyncExecutor;
+import fts.core.Log;
 import fts.core.NativeWindow;
 import fts.events.PaintEvent;
 import fts.graphics.Canvas;
 import fts.graphics.Point;
 
 public class GLWindow extends NativeWindow {
+	private static final String LOGTAG = GLWindow.class.getSimpleName();
 
 	PaintEvent paintEvent = new PaintEvent();
 	boolean running;
@@ -67,6 +69,9 @@ public class GLWindow extends NativeWindow {
 	protected void createAllFonts() {
 		ComponentFactory factory = Application.getFactory();
 		List<String> aliases = factory.getAllFontAliases();
+		if (aliases.isEmpty()) {
+			Log.e(LOGTAG, "No fonts found on resources (fonts/ values/fonts.xml)");
+		}
 		GLCanvas canvas = (GLCanvas)getCanvas();
 		for(String alias : aliases) {
 			File fontFile = factory.getFont(alias);
