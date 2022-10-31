@@ -53,22 +53,19 @@ public class DatabaseWrapper {
 			setParameters(ps, params);
 			
 			rs = ps.executeQuery();
-			if (rs.first()) {
-				List<T> result = new ArrayList<T>();
-				int index = 0;
-				while (rs.next()) {
-					result.add(rowMapper.map(rs, index++));
-				}
-				return result;
+
+			List<T> result = new ArrayList<T>();
+			int index = 0;
+			while(rs.next()) {
+				result.add(rowMapper.map(rs, index++));
 			}
+			return result;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
 			safeClose(ps);
 			safeClose(rs);
 		}
-		
-		return null;
 	}
 	
 	public <T> T getRow(String sql, Object[] params, RowMapper<T> rowMapper) {
