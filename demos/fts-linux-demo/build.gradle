@@ -36,6 +36,6 @@ processResources.dependsOn jniDeps
 dependencies {
     implementation 'org.json:json:20220320'
     implementation project(path: ':fts-core')
-    implementation project(path: ':fts-gl')
-    implementation project(path: ':fts-linux')
+    implementation project(path: ':drivers:fts-gl')
+    implementation project(path: ':frontends:fts-linux')
 }

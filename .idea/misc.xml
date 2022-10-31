@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="frontends/fts-android/src/main/res/layout/modal_dialog_chooser.xml" value="0.1" />
         <entry key="fts-android-demo/src/main/res/layout/main.xml" value="0.1" />
         <entry key="retrox-utils-android/src/main/res/layout/modal_dialog_actions.xml" value="0.1" />
       </map>
