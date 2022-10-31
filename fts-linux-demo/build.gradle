@@ -9,7 +9,29 @@ java {
 
 application {
     mainClass = 'fts.linux.demo.LinuxDemo'
+    applicationDefaultJvmArgs = ['-Djava.library.path=build/jni/libs/x86_64', '-Dfts.resources.dir=build/fts']
 }
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "build/fts/"
+        }
+    }
+}
+
+task jniDeps(type:Exec) {
+    workingDir '.'
+    commandLine './copy_native_libraries.sh'
+}
+
+task ftsPackage(type:Exec) {
+    workingDir '.'
+    commandLine '../fts-tools/package.sh'
+}
+
+processResources.dependsOn ftsPackage
+processResources.dependsOn jniDeps
 
 dependencies {
     implementation 'org.json:json:20220320'

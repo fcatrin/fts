@@ -1,4 +1,6 @@
 USE_FB = false
+BASE_DIR = ../../..
+BUILD_DIR = $(BASE_DIR)/build/jni
 
 CC = gcc
 LD = gcc
@@ -12,7 +14,7 @@ LIBPREFIX = lib
 LDFLAGS += -lstdc++
 LDFLAGS += $(shell pkg-config --libs freetype2)
 
-FTS_GL_DRIVER = ../../../drivers/gl
+FTS_GL_DRIVER = $(BASE_DIR)/../fts-gl/build/jni
 
 FTS_GL_LIB = $(FTS_GL_DRIVER)/libs/libfts-gl.so
 
@@ -43,8 +45,8 @@ ifeq ($(UNAME_S),Linux)
    endif
 endif
  
-OBJDIR = ../obj
-LIBSDIR = ../libs
+OBJDIR = $(BUILD_DIR)/obj
+LIBSDIR = $(BUILD_DIR)/libs
 
 LINK_TARGET = $(LIBSDIR)/$(LIBARCH)/$(LIBPREFIX)fts-linux.$(LIBEXT)
 
@@ -70,10 +72,8 @@ prepare :
 	@mkdir -p $(OBJDIR)
 
 corebuild:
-	cd $(FTS_GL_DRIVER)/jni && $(MAKE)
 	cp $(FTS_GL_LIB) $(LIBSDIR)/$(LIBARCH)
 
 clean :
 	find $(OBJDIR) -name "*.o" -exec rm {} \;
 	find $(LIBSDIR) -name "*.$(LIBEXT)" -exec rm {} \;
-	cd $(FTS_GL_DRIVER)/jni && $(MAKE) clean
