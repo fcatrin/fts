@@ -23,7 +23,7 @@ android {
 
 task ftsPackage(type:Exec) {
     workingDir '.'
-    commandLine '../fts-tools/package-android.sh'
+    commandLine '../../fts-tools/package-android.sh'
 }
 
 tasks.whenTaskAdded { task ->
