@@ -27,7 +27,7 @@ task jniDeps(type:Exec) {
 
 task ftsPackage(type:Exec) {
     workingDir '.'
-    commandLine '../fts-tools/package.sh'
+    commandLine '../../fts-tools/package.sh'
 }
 
 processResources.dependsOn ftsPackage
