@@ -2,8 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
-      <module name="fts.demos.fts-android-demo" target="11" />
-      <module name="fts.frontends.fts-android" target="11" />
       <module name="fts.fts-android" target="11" />
       <module name="fts.fts-android-demo" target="11" />
       <module name="fts.retrox-utils-android" target="11" />
