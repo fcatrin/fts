@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="1.7">
+      <module name="fts.demos.fts-android-demo" target="11" />
+      <module name="fts.frontends.fts-android" target="11" />
+      <module name="fts.fts-android" target="11" />
+      <module name="fts.fts-android-demo" target="11" />
+      <module name="fts.retrox-utils-android" target="11" />
+      <module name="fts.xtv-core-android" target="11" />
+      <module name="fts.xtv-vfile" target="1.8" />
+      <module name="fts.xtv-vfile.main" target="1.8" />
+      <module name="fts.xtv-vfile.test" target="1.8" />
+      <module name="retroxlibs.app" target="11" />
+      <module name="retroxlibs.retrox-utils-android" target="11" />
+      <module name="retroxlibs.xtv-core-android" target="11" />
+      <module name="retroxlibs.xtv-vfile" target="1.8" />
+      <module name="retroxlibs.xtv-vfile.main" target="1.8" />
+      <module name="retroxlibs.xtv-vfile.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

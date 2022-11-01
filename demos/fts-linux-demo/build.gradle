@@ -1,0 +1,41 @@
+plugins {
+    id 'application'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+application {
+    mainClass = 'fts.linux.demo.LinuxDemo'
+    applicationDefaultJvmArgs = ['-Djava.library.path=build/jni/libs/x86_64', '-Dfts.resources.dir=build/fts']
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "build/fts/"
+        }
+    }
+}
+
+task jniDeps(type:Exec) {
+    workingDir '.'
+    commandLine './copy_native_libraries.sh'
+}
+
+task ftsPackage(type:Exec) {
+    workingDir '.'
+    commandLine '../../fts-tools/package.sh'
+}
+
+processResources.dependsOn ftsPackage
+processResources.dependsOn jniDeps
+
+dependencies {
+    implementation 'org.json:json:20220320'
+    implementation project(path: ':fts-core')
+    implementation project(path: ':drivers:fts-gl')
+    implementation project(path: ':frontends:fts-linux')
+}

@@ -1,0 +1,13 @@
+<LinearContainer
+    background="#303030"
+    orientation="vertical"
+    width="match_parent"
+    height="match_parent">
+    <TextWidget
+        width="match_parent"
+        height="wrap_content"
+        text="FTS Linux Demo"
+        color="#FFFFFF"
+        fontSize="20px"
+	/>
+</LinearContainer>

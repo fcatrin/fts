@@ -1,0 +1,36 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+
+                groupId = 'fts'
+                artifactId = 'linux'
+                version = '1.0.0'
+            }
+        }
+    }
+}
+
+task jniBuild(type:Exec) {
+    workingDir 'src/main/jni'
+    commandLine 'make'
+}
+
+processResources.dependsOn jniBuild
+
+dependencies {
+    implementation 'org.json:json:20220320'
+    implementation project(path: ':fts-core')
+    implementation project(path: ':drivers:fts-gl')
+}

@@ -1,0 +1,18 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
+    }
+}
+rootProject.name = "fts"
+include ':fts-core'
+include ':fts-tools'
+include ':fts-utils'
+include ':drivers:fts-gl'
+include ':drivers:fts-swt'
+include ':frontends:fts-linux'
+include ':frontends:fts-android'
+include ':demos:fts-linux-demo'
+include ':demos:fts-android-demo'

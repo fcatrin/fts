@@ -1,8 +1,0 @@
-<project name="build-fts-linux-demo" default="build-fts" basedir=".">
-<property file="../../../fts.local.properties"/>
-
-<target name="build-fts">
-    <exec executable="${fts.dir}/tools/package.sh" failonerror="true"/>
-</target>
-
-</project>
