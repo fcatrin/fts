@@ -5,7 +5,7 @@ import android.os.Handler;
 
 import fts.core.AppContext;
 import fts.core.Application;
-import fts.core.BackgroundProcessor;
+import fts.core.CoreBackgroundProcessor;
 import fts.core.CoreAsyncExecutor;
 
 public class AndroidApplication {
@@ -16,7 +16,7 @@ public class AndroidApplication {
         handler = new Handler();
         
         AppContext.asyncExecutor = new CoreAsyncExecutor();
-        AppContext.backgroundProcessor = new BackgroundProcessor(AppContext.asyncExecutor);
+        AppContext.backgroundProcessor = new CoreBackgroundProcessor(AppContext.asyncExecutor);
 
         Application.init(
                 new AndroidComponentFactory(activity),

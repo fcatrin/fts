@@ -8,7 +8,6 @@ public class AppContext {
 	public static AppContext getInstance() {
 		return Application.context;
 	}
-	
 
 	public static void post(Runnable runnable) {
 		post(runnable, 0);

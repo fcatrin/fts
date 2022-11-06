@@ -1,77 +1,8 @@
 package fts.core;
 
-import java.util.ArrayList;
-import java.util.List;
+public interface BackgroundProcessor {
+    <T> void exec(BackgroundTask<T> task);
 
-@SuppressWarnings("rawtypes")
-public class BackgroundProcessor extends Thread {
-	List<BackgroundTask> tasks = new ArrayList<BackgroundTask>();
-	boolean isRunning = true;
-	private AsyncExecutor executor;
-	
-	public BackgroundProcessor(AsyncExecutor executor) {
-		this.executor = executor;
-	}
-	
-	public void exec(BackgroundTask task) {
-		synchronized (tasks) {
-			tasks.add(task);
-			tasks.notify();
-		}
-	}
-	
-	@Override
-	public void run() {
-		while (isRunning) {
-			synchronized(tasks) {
-				if (tasks.size() == 0)
-					try {
-						tasks.wait();
-					} catch (InterruptedException e) {
-						break;
-					}
-				if (isRunning && tasks.size() >= 0) {
-					final BackgroundTask task = tasks.get(0);
-					tasks.remove(0);
-
-					try {
-						final Object result = task.onBackground();
-						executor.asyncExec(new Runnable() {
-							@SuppressWarnings("unchecked")
-							@Override
-							public void run() {
-								try {
-									task.onSuccess(result);
-									task.onFinally();
-								} catch (Exception e) {
-									e.printStackTrace();
-								}
-							}
-						});
-
-					} catch (Exception e) {
-						final Exception fe = e;
-						executor.asyncExec(new Runnable() {
-							@Override
-							public void run() {
-								try {
-									task.onFailure(fe);
-									task.onFinally();
-								} catch (Exception ne) {
-									ne.printStackTrace();
-								}
-							}
-						});
-					}
-				}
-			}
-		}
-	}
-	
-	public void shutdown() {
-		synchronized(tasks) {
-			isRunning = false;
-			interrupt();
-		}
-	}
+    void start();
+    void shutdown();
 }
