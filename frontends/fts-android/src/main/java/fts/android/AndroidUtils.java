@@ -77,8 +77,9 @@ public class AndroidUtils {
 	}
     
     public static boolean isEmulator() {
-    	Log.d("DEVICENAME", buildDeviceNameLower());
-    	return buildDeviceNameLower().contains("unknown android sdk");
+		String deviceName = buildDeviceNameLower();
+    	Log.d("DEVICENAME", deviceName);
+    	return deviceName.contains("unknown android sdk") ||  deviceName.equals("google aosp tv on x86");
     }
 
 	public static String buildDeviceNameLower() {
