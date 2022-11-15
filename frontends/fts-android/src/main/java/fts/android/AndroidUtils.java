@@ -5,19 +5,28 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Build;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+
+import androidx.core.content.FileProvider;
 import fts.core.Log;
 import fts.core.ProgressListener;
 import fts.core.Utils;
@@ -165,5 +174,81 @@ public class AndroidUtils {
 			handler.onDenied();
 		}
     }
-	
+
+	public static int getThisAPKInstalledVersionCode(Context ctx) {
+		return getAPKInstalledVersionCode(ctx, ctx.getPackageName());
+	}
+
+	public static boolean isAPKInstalled(Context ctx, String apkId) {
+		return getAPKInstalledVersionCode(ctx, apkId)>0;
+	}
+
+	public static int getAPKInstalledVersionCode(Context ctx, String apkId) {
+		PackageManager packageManager = ctx.getPackageManager();
+		try {
+			PackageInfo packageInfo = packageManager.getPackageInfo(apkId, 0);
+			return packageInfo.versionCode;
+		} catch (PackageManager.NameNotFoundException e) {
+			return 0;
+		}
+	}
+
+	public static void showSoftKeyboard(Context context, View view) {
+		InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (imm != null) {
+			imm.showSoftInput(view, 0);
+		}
+	}
+
+	public static void hideSoftKeyboard(Context context, View view) {
+		InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+		if (imm != null && view!=null) {
+			imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		}
+	}
+
+	public static void installApk(Context context, String fileProviderDomain, File apk) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+			Uri apkUri = FileProvider.getUriForFile(context, fileProviderDomain, apk);
+			Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+			intent.setData(apkUri);
+			intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+			context.startActivity(intent);
+		} else {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setDataAndType(Uri.fromFile(apk), "application/vnd.android.package-archive");
+			context.startActivity(intent);
+		}
+	}
+
+	public static String[] getSignatures(Context context) throws PackageManager.NameNotFoundException, NoSuchAlgorithmException {
+		PackageInfo packageInfo = context.getPackageManager().getPackageInfo(
+				context.getPackageName(), PackageManager.GET_SIGNATURES);
+
+		String[] signatures = new String[packageInfo.signatures.length];
+
+		for(int i=0; i<packageInfo.signatures.length; i++) {
+			Signature signature = packageInfo.signatures[i];
+			MessageDigest md = MessageDigest.getInstance("SHA");
+			md.update(signature.toByteArray());
+
+			signatures[i] = Utils.md5(md.digest());
+		}
+		return signatures;
+	}
+
+	public static boolean checkSignature(Context context, String targetSignature) {
+		try {
+			String[] signatures = getSignatures(context);
+			for (String signature : signatures) {
+				Log.d("Signature", "Include this string as a value for SIGNATURE:" + signature);
+
+				if (targetSignature.equals(signature)) return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }
