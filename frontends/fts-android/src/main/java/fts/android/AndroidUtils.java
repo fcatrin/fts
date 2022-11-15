@@ -7,8 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -21,6 +26,8 @@ import android.net.Uri;
 import android.os.Build;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -251,4 +258,40 @@ public class AndroidUtils {
 		}
 		return false;
 	}
+
+	public static String getUserEmail(Context context) {
+		AccountManager accountManager = AccountManager.get(context);
+		Account account = getAccount(context,  accountManager);
+		if (account == null) return null;
+		return account.name;
+	}
+
+	public static List<String> getGoogleUserEmails(Context context) {
+		AccountManager accountManager = AccountManager.get(context);
+		Account[] accounts = getGoogleAccounts(accountManager);
+		if (accounts == null || accounts.length == 0) return null;
+
+		List<String> emails = new ArrayList<>();
+		for(Account account : accounts) {
+			emails.add(account.name);
+		}
+		return emails;
+	}
+
+	public static Account[] getGoogleAccounts(AccountManager accountManager) {
+		return accountManager.getAccountsByType("com.google");
+	}
+
+	private static Account getAccount(Context context, AccountManager accountManager) {
+		Account[] accounts = getGoogleAccounts(accountManager);
+		if (accounts.length > 0) return accounts[0];
+
+		Pattern emailPattern = Patterns.EMAIL_ADDRESS;
+		accounts = AccountManager.get(context).getAccounts();
+		for (Account account : accounts) {
+			if (emailPattern.matcher(account.name).matches()) return account;
+		}
+		return null;
+	}
+
 }
