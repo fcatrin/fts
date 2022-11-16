@@ -76,16 +76,21 @@ public class AndroidDialogFactory implements DialogFactory {
 			btnNo.setVisibility(View.VISIBLE);
 			btnNo.setText(optNo);
 			btnNo.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					if (callback!=null) {
-						callback.onNo();
-						callback.onFinally();
-					}
+					closeDialog(activity, R.id.modal_dialog_actions, new SimpleCallback() {
+
+						@Override
+						public void onResult() {
+							if (callback != null) {
+								callback.onNo();
+								callback.onFinally();
+							}
+						}
+					});
 				}
 			});
-			
 		} else {
 			btnNo.setVisibility(View.GONE);
 		}
