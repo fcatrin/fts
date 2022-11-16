@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="2"
-        android:background="@color/pal_base2"
+        android:background="@color/pal_dialog_border"
         android:gravity="center"
         android:clickable="true"
         android:padding="@dimen/spacing_fine"
@@ -31,7 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/pal_base2"
             android:gravity="center"
             android:orientation="vertical" >
 

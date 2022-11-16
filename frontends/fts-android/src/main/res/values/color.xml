@@ -14,6 +14,7 @@
 	<color name="pal_base3">#FF2C2C2C</color>
 	<color name="pal_base4">#FF3C3C3C</color>
 	<color name="pal_base5">#FF4C4C4C</color>
+	<color name="pal_dialog_border">#FFACACAC</color>
 	
    <color name="pal_hl_background">#D0FF6600</color>
 	

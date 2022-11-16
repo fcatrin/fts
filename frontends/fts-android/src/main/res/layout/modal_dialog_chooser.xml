@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/spacing_normal"
         android:layout_weight="4"
-        android:background="@color/pal_base2"
+        android:background="@color/pal_dialog_border"
         android:clickable="true"
         android:orientation="vertical"
         android:padding="@dimen/spacing_fine"
