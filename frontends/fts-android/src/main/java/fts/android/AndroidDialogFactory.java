@@ -4,15 +4,18 @@ import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
+import android.telecom.Call;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.DecelerateInterpolator;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +31,7 @@ import fts.events.KeyEvent;
 import fts.events.OnItemSelectionChangedListener;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogFactory;
+import fts.utils.dialogs.DialogInputCallback;
 import fts.utils.dialogs.DialogListCallback;
 import fts.utils.dialogs.FileListPanel.FileChooserConfig;
 import fts.utils.dialogs.SimpleDialogCallback;
@@ -386,5 +390,71 @@ public class AndroidDialogFactory implements DialogFactory {
 		});
 	}
 
+	public void input(NativeWindow window, String text, String lastInput, DialogInputCallback callback) {
+		final Activity activity = ((AndroidWindow)window).getActivity();
+		setDismissCallback(activity, R.id.modal_dialog_input, callback);
+
+		final Button btnYes = activity.findViewById(R.id.btnDialogInputPositive);
+		final Button btnNo = activity.findViewById(R.id.btnDialogInputNegative);
+
+		TextView txtMessage = activity.findViewById(R.id.txtDialogInput);
+		txtMessage.setText(text);
+
+		EditText editor = activity.findViewById(R.id.editorDialogInput);
+		editor.setText(lastInput);
+		editor.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView textView, int actionId, android.view.KeyEvent keyEvent) {
+				if (actionId == EditorInfo.IME_ACTION_DONE) {
+					btnYes.performClick();
+					return true;
+				}
+				return false;
+			}
+		});
+
+		btnYes.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				closeDialog(activity, R.id.modal_dialog_input, new SimpleCallback() {
+
+					@Override
+					public void onResult() {
+						if (callback!=null) {
+							callback.onInput(editor.getText().toString());
+							callback.onFinally();
+						}
+					}
+				});
+			}
+		});
+
+		btnNo.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				closeDialog(activity, R.id.modal_dialog_input, new SimpleCallback() {
+
+					@Override
+					public void onResult() {
+						if (callback != null) {
+							callback.onNo();
+							callback.onFinally();
+						}
+					}
+				});
+			}
+		});
+
+		openDialog(activity, R.id.modal_dialog_input, new SimpleCallback(){
+			@Override
+			public void onResult() {
+				btnNo.setFocusable(true);
+				btnNo.setFocusableInTouchMode(true);
+				btnNo.requestFocus();
+			}
+		});
+
+	}
 
 }

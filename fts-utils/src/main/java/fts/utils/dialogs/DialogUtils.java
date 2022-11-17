@@ -21,6 +21,10 @@ public class DialogUtils {
 		confirm(window, text, "OK", null, null);
 	}
 
+	public static void message(NativeWindow window, String text, DialogCallback callback) {
+		confirm(window, text, "OK", null, callback);
+	}
+
 	public static void message(NativeWindow window, String text, String optYes) {
 		confirm(window, text, optYes, null, null);
 	}
