@@ -449,9 +449,7 @@ public class AndroidDialogFactory implements DialogFactory {
 		openDialog(activity, R.id.modal_dialog_input, new SimpleCallback(){
 			@Override
 			public void onResult() {
-				btnNo.setFocusable(true);
-				btnNo.setFocusableInTouchMode(true);
-				btnNo.requestFocus();
+				editor.requestFocus();
 			}
 		});
 

@@ -46,7 +46,10 @@
                 android:id="@+id/editorDialogInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_big"
+                android:padding="@dimen/spacing_small"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:lines="1"
                 android:gravity="center" />
 
             <LinearLayout
@@ -66,6 +69,7 @@
                     android:paddingRight="@dimen/spacing_normal"
                     android:nextFocusRight="@+id/btnDialogInputNegative"
                     android:nextFocusLeft="@id/btnDialogInputNegative"
+                    android:text="@string/dialog_ok"
                  	/>
                 <Button
                     android:id="@id/btnDialogInputNegative"
@@ -75,6 +79,7 @@
                     android:paddingRight="@dimen/spacing_normal"
                     android:nextFocusRight="@id/btnDialogInputPositive"
                     android:nextFocusLeft="@id/btnDialogInputPositive"
+                    android:text="@string/dialog_cancel"
                      />
                 </LinearLayout>
         </LinearLayout>
