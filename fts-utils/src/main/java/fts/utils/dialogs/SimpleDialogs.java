@@ -218,18 +218,25 @@ public class SimpleDialogs implements DialogFactory {
 		return visiblePanel!=null;
 	}
 	
-	private void dismissVisiblePanel(NativeWindow window) {
-		closeVisiblePanel(window);
-		if (dismissCallback != null) {
+	private boolean dismissVisiblePanel(NativeWindow window) {
+		boolean closed = closeVisiblePanel(window);
+		if (dismissCallback != null && closed) {
 			dismissCallback.onDismiss();
 		}
+		return closed;
 	}
 	
-	private void closeVisiblePanel(NativeWindow window) {
-		if (!hasVisiblePanel(window)) return;
+	private boolean closeVisiblePanel(NativeWindow window) {
+		if (!hasVisiblePanel(window)) return false;
 		
 		visiblePanel.setVisibility(Visibility.Gone);
 		visiblePanel = null;
+		return true;
+	}
+
+	@Override
+	public boolean cancelDialog(NativeWindow window) {
+		return dismissVisiblePanel(window);
 	}
 	
 	public boolean onKeyDown(NativeWindow window, KeyEvent event) {

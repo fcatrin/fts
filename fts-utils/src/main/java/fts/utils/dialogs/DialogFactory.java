@@ -28,4 +28,5 @@ public interface DialogFactory {
 	public boolean onKeyUp(NativeWindow window,KeyEvent event);
 	
 	public boolean dispatchCancelKey(NativeWindow window);
+	public boolean cancelDialog(NativeWindow window);
 }

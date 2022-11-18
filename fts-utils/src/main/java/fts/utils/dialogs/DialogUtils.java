@@ -69,4 +69,8 @@ public class DialogUtils {
 		return factory.dispatchCancelKey(window);
 	}
 
+	public static boolean cancelDialog(NativeWindow window) {
+		return factory.cancelDialog(window);
+	}
+
 }

@@ -347,12 +347,14 @@ public class AndroidDialogFactory implements DialogFactory {
 		View dialogList = activity.findViewById(R.id.modal_dialog_list);
 		View dialogChooser = activity.findViewById(R.id.modal_dialog_chooser);
 		View customDialog = activity.findViewById(R.id.modal_dialog_custom);
+		View inputDialog = activity.findViewById(R.id.modal_dialog_input);
 		
 		return
-			isVisible(dialogActions)? dialogActions :
-			isVisible(dialogList)   ? dialogList :
-			isVisible(dialogChooser)   ? dialogChooser :
-			isVisible(customDialog) ? customDialog : null;
+			isVisible(dialogActions) ? dialogActions :
+			isVisible(dialogList)    ? dialogList :
+			isVisible(dialogChooser) ? dialogChooser :
+			isVisible(inputDialog)   ? inputDialog :
+			isVisible(customDialog)  ? customDialog : null;
 	}
 	
 	private boolean isVisible(View v) {
