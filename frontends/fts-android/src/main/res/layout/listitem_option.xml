@@ -9,6 +9,7 @@
         android:layout_width="@dimen/text_normal"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="@dimen/spacing_normal"
+        android:visibility="gone"
         tools:ignore="ContentDescription" />
     <TextView android:id="@+id/optionName"
         android:layout_width="0dp"

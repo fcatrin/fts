@@ -22,7 +22,7 @@
         android:background="@color/pal_dialog_border"
         android:gravity="center"
         android:clickable="true"
-        android:padding="@dimen/spacing_fine"
+        android:padding="@dimen/dialog_border_size"
         android:layout_marginTop="@dimen/spacing_bigger"
         android:layout_marginBottom="@dimen/spacing_bigger"
         android:orientation="horizontal"
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/pal_base1"
+            android:background="@color/pal_dialog_background"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -46,8 +46,8 @@
                 android:paddingLeft="@dimen/spacing_big"
                 android:paddingRight="@dimen/spacing_big"
                 android:paddingBottom="@dimen/spacing_normal"
-                android:textColor="@color/pal_text2"
-                android:background="@color/pal_base2"
+                android:textColor="@color/pal_dialog_title_foreground"
+                android:background="@color/pal_dialog_title_background"
                 android:gravity="center" />
             <TextView
                 android:id="@+id/txtDialogListInfo"
@@ -60,7 +60,6 @@
                 android:paddingRight="@dimen/spacing_big"
                 android:paddingBottom="@dimen/spacing_normal"
                 android:textColor="@color/pal_text3"
-                android:background="@color/pal_base3"
                 android:textSize="@dimen/text_small"
                 android:gravity="center" />            
             <ListView

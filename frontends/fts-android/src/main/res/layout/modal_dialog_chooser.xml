@@ -23,7 +23,7 @@
         android:background="@color/pal_dialog_border"
         android:clickable="true"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_fine"
+        android:padding="@dimen/dialog_border_size"
         android:focusable="true">
 
         <LinearLayout
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:background="@color/pal_base1"
+            android:background="@color/pal_dialog_background"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -40,7 +40,6 @@
                 style="@style/NormalFont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/pal_base2"
                 android:gravity="center"
                 android:padding="@dimen/spacing_normal" 
                 android:textColor="@color/pal_text3" />

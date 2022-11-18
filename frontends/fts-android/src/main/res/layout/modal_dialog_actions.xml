@@ -22,7 +22,7 @@
         android:background="@color/pal_dialog_border"
         android:gravity="center"
         android:clickable="true"
-        android:padding="@dimen/spacing_fine"
+        android:padding="@dimen/dialog_border_size"
         android:orientation="horizontal"
         android:focusable="true">
 
@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
+            android:background="@color/pal_dialog_background"
             android:orientation="vertical" >
 
             <TextView
@@ -39,14 +40,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/spacing_big"
-                android:background="@color/pal_base1"
                 android:gravity="center" />
 
             <LinearLayout
 				android:id="@+id/modal_dialog_actions_buttons"                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/pal_base1"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/spacing_normal" >

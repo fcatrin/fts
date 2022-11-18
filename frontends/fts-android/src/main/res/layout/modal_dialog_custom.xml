@@ -22,7 +22,7 @@
         android:background="@color/pal_dialog_border"
         android:gravity="center"
         android:clickable="true"
-        android:padding="@dimen/spacing_fine"
+        android:padding="@dimen/dialog_border_size"
         android:orientation="horizontal"
         android:focusable="true">
 
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/pal_base1"
+            android:background="@color/pal_dialog_background"
             android:padding="@dimen/spacing_big"
             android:gravity="center"
             android:orientation="vertical" >
