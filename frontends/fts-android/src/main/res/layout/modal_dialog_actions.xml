@@ -33,13 +33,16 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:background="@color/pal_dialog_background"
+            android:paddingTop="@dimen/spacing_big"
+            android:paddingLeft="@dimen/spacing_big"
+            android:paddingRight="@dimen/spacing_big"
+            android:paddingBottom="@dimen/spacing_normal"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/txtDialogAction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_big"
                 android:gravity="center" />
 
             <LinearLayout
@@ -48,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="@dimen/spacing_normal" >
+                android:layout_marginTop="@dimen/spacing_normal" >
 
                 <Button
                     android:id="@+id/btnDialogActionPositive"
