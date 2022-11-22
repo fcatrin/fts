@@ -44,13 +44,7 @@
 
             <EditText
                 android:id="@+id/editorDialogInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_small"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:lines="1"
-                android:gravity="center" />
+                style="@style/InputDialogEditor" />
 
             <LinearLayout
 				android:id="@+id/modal_dialog_input_buttons"

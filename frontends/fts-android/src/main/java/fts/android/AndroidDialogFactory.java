@@ -408,6 +408,7 @@ public class AndroidDialogFactory implements DialogFactory {
 			@Override
 			public boolean onEditorAction(TextView textView, int actionId, android.view.KeyEvent keyEvent) {
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
+					AndroidUtils.hideSoftKeyboard(activity, editor);
 					btnYes.performClick();
 					return true;
 				}
@@ -419,6 +420,7 @@ public class AndroidDialogFactory implements DialogFactory {
 
 			@Override
 			public void onClick(View v) {
+				AndroidUtils.hideSoftKeyboard(activity, editor);
 				closeDialog(activity, R.id.modal_dialog_input, new SimpleCallback() {
 
 					@Override
@@ -435,6 +437,7 @@ public class AndroidDialogFactory implements DialogFactory {
 		btnNo.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				AndroidUtils.hideSoftKeyboard(activity, editor);
 				closeDialog(activity, R.id.modal_dialog_input, new SimpleCallback() {
 
 					@Override

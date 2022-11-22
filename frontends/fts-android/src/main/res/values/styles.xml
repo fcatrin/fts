@@ -13,5 +13,15 @@
       <item name="android:layout_marginLeft">@dimen/spacing_small</item>
       <item name="android:layout_marginRight">@dimen/spacing_small</item>
    </style>
+
+    <style name="InputDialogEditor">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">text</item>
+        <item name="android:lines">1</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>    
     
