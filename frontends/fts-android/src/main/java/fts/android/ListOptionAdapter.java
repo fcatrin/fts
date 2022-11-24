@@ -1,6 +1,7 @@
 package fts.android;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class ListOptionAdapter extends BaseAdapter {
 	static ViewCustomizer viewCustomizer = null;
 	
 	public static String fontName;
+	public static int fontSize;
 	
 	public ListOptionAdapter(List<ListOption> options) {
 		this.options = options;
@@ -61,6 +63,11 @@ public class ListOptionAdapter extends BaseAdapter {
 			txtValue.setVisibility(View.VISIBLE);
 		} else {
 			txtValue.setVisibility(View.GONE);
+		}
+
+		if (fontSize != 0) {
+			txtName.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize);
+			txtValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize);
 		}
 
 		if (viewCustomizer!=null) viewCustomizer.customize(txtName, txtValue);
