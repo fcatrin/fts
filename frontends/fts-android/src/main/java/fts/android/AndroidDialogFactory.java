@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
-import android.telecom.Call;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;

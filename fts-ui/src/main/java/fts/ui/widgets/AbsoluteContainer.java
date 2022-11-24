@@ -3,7 +3,6 @@ package fts.widgets;
 import fts.core.Container;
 import fts.core.LayoutInfo;
 import fts.core.Widget;
-import fts.core.Widget.Visibility;
 import fts.core.NativeWindow;
 import fts.graphics.Align;
 import fts.graphics.Align.HAlign;

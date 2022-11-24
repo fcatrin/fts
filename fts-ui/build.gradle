@@ -15,23 +15,13 @@ afterEvaluate {
                 from components.java
 
                 groupId = 'fts'
-                artifactId = 'linux'
+                artifactId = 'ui'
                 version = '1.0.0'
             }
         }
     }
 }
 
-task jniBuild(type:Exec) {
-    workingDir 'src/main/jni'
-    commandLine 'make'
-}
-
-processResources.dependsOn jniBuild
-
 dependencies {
-    implementation 'org.json:json:20220320'
     implementation project(path: ':fts-core')
-    implementation project(path: ':fts-ui')
-    implementation project(path: ':drivers:fts-gl')
 }

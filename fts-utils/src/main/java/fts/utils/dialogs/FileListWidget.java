@@ -1,7 +1,5 @@
 package fts.utils.dialogs;
 
-import java.io.File;
-
 import fts.core.NativeWindow;
 import fts.vfile.VirtualFile;
 import fts.widgets.ListWidget;

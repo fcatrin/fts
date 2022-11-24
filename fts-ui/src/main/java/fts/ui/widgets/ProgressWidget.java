@@ -1,6 +1,5 @@
 package fts.widgets;
 
-import fts.core.Log;
 import fts.core.NativeWindow;
 import fts.core.Utils;
 import fts.core.Widget;

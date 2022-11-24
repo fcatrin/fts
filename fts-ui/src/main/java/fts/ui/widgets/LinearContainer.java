@@ -5,7 +5,6 @@ import java.util.List;
 
 import fts.core.Container;
 import fts.core.LayoutInfo;
-import fts.core.Log;
 import fts.core.Widget;
 import fts.core.NativeWindow;
 import fts.graphics.Align.HAlign;

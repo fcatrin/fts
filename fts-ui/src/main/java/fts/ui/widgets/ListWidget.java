@@ -13,7 +13,6 @@ import fts.core.ListAdapter;
 import fts.core.NativeWindow;
 import fts.core.Utils;
 import fts.core.Widget;
-import fts.core.Widget.Visibility;
 import fts.events.KeyEvent;
 import fts.events.OnItemSelectedListener;
 import fts.events.OnItemSelectionChangedListener;

@@ -10,7 +10,6 @@ import fts.core.Widget.State;
 import fts.core.Widget.Visibility;
 import fts.core.adapters.ListOptionAdapter;
 import fts.events.OnStateListener;
-import fts.graphics.Color;
 import fts.graphics.ColorListSelector;
 import fts.widgets.TextWidget;
 

@@ -1,14 +1,10 @@
 package fts.widgets;
 
 import fts.core.Widget;
-import fts.core.Widget.State;
-import fts.core.Widget.Visibility;
-import fts.core.LayoutInfo;
 import fts.core.NativeWindow;
 import fts.events.PaintEvent;
 import fts.graphics.Align;
 import fts.graphics.Canvas;
-import fts.graphics.Color;
 import fts.graphics.ColorListSelector;
 import fts.graphics.Font;
 import fts.graphics.Point;

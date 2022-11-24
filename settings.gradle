@@ -9,6 +9,7 @@ dependencyResolutionManagement {
 rootProject.name = "fts"
 include ':fts-core'
 include ':fts-tools'
+include ':fts-ui'
 include ':fts-utils'
 include ':drivers:fts-gl'
 // include ':drivers:fts-swt'

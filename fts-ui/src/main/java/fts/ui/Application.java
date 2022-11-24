@@ -1,4 +1,4 @@
-package fts.core;
+package fts.ui;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,13 +13,23 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import fts.core.AppContext;
+import fts.core.Component;
+import fts.core.ComponentFactory;
+import fts.core.Container;
+import fts.core.Logger;
+import fts.core.NativeWindow;
+import fts.core.ResourceLocator;
+import fts.core.Style;
+import fts.core.Utils;
+import fts.core.Widget;
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
-import fts.graphics.BackBuffer;
-import fts.graphics.Color;
-import fts.graphics.ColorListSelector;
-import fts.graphics.Drawable;
-import fts.graphics.Image;
+import fts.ui.graphics.BackBuffer;
+import fts.ui.graphics.Color;
+import fts.ui.graphics.ColorListSelector;
+import fts.ui.graphics.Drawable;
+import fts.ui.graphics.Image;
 
 public class Application {
 	public static ComponentFactory factory;

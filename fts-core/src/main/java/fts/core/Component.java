@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.management.RuntimeErrorException;
-
 import org.w3c.dom.Element;
 
 import fts.graphics.Align;

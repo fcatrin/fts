@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/frontends/fts-linux" />
             <option value="$PROJECT_DIR$/fts-core" />
             <option value="$PROJECT_DIR$/fts-tools" />
+            <option value="$PROJECT_DIR$/fts-ui" />
             <option value="$PROJECT_DIR$/fts-utils" />
           </set>
         </option>

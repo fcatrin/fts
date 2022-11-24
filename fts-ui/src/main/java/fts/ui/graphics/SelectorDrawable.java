@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
-import fts.core.Application;
+import fts.ui.Application;
 import fts.core.xml.SimpleXML;
 
 public class SelectorDrawable extends Drawable {
