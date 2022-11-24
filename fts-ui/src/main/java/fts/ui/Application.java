@@ -217,7 +217,7 @@ public class Application {
 		}
 
 		if (widget == null) {
-			String viewClassName = "fts.widgets." + name;
+			String viewClassName = "fts.ui.widgets." + name;
 			widget = (Widget)createComponentInstance(w, viewClassName);
 		}
 		
