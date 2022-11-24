@@ -3,8 +3,8 @@ package fts.linux;
 import java.util.HashMap;
 import java.util.Map;
 
-import fts.core.Log;
-import fts.events.KeyEvent;
+import fts.ui.Log;
+import fts.ui.events.KeyEvent;
 
 public class KeyMap {
 	private static final String LOGTAG = KeyMap.class.getSimpleName();

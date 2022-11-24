@@ -1,4 +1,6 @@
-package fts.core;
+package fts.ui;
+
+import org.w3c.dom.Element;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -6,15 +8,12 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import org.w3c.dom.Element;
-
-import fts.graphics.Align;
-import fts.graphics.Color;
-import fts.graphics.ColorListSelector;
-import fts.graphics.Dimension;
-import fts.graphics.Drawable;
-import fts.graphics.Font;
-import fts.graphics.Shape;
+import fts.ui.graphics.Align;
+import fts.ui.graphics.ColorListSelector;
+import fts.ui.graphics.Dimension;
+import fts.ui.graphics.Drawable;
+import fts.ui.graphics.Font;
+import fts.ui.graphics.Shape;
 
 public abstract class Component {
 	static Set<String> colorProperties     = new HashSet<String>();

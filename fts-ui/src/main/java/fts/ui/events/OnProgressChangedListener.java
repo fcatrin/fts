@@ -1,6 +1,6 @@
-package fts.events;
+package fts.ui.events;
 
-import fts.core.Widget;
+import fts.ui.Widget;
 
 public interface OnProgressChangedListener {
 	public abstract void onProgressChanged(Widget w, long progress, long total, boolean userTriggered, boolean tracking);

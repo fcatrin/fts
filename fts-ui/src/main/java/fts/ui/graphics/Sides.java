@@ -1,4 +1,4 @@
-package fts.graphics;
+package fts.ui.graphics;
 
 public class Sides {
 	public int left, right, top, bottom;

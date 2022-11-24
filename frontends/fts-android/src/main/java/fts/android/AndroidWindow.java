@@ -1,6 +1,7 @@
 package fts.android;
 
 import android.app.Activity;
+
 import fts.gl.GLWindow;
 
 public class AndroidWindow extends GLWindow {

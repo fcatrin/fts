@@ -1,7 +1,9 @@
-package fts.core;
+package fts.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fts.core.AsyncExecutor;
 
 @SuppressWarnings("rawtypes")
 public class CoreBackgroundProcessor extends Thread implements BackgroundProcessor {

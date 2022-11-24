@@ -1,9 +1,9 @@
-package fts.graphics;
+package fts.ui.graphics;
+
+import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.w3c.dom.Element;
 
 import fts.core.xml.SimpleXML;
 

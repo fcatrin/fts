@@ -1,16 +1,16 @@
-package fts.core;
+package fts.ui;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import fts.events.KeyEvent;
-import fts.events.PaintEvent;
-import fts.events.TouchEvent;
-import fts.graphics.Canvas;
-import fts.graphics.Point;
-import fts.widgets.AbsoluteContainer;
+import fts.ui.events.KeyEvent;
+import fts.ui.events.PaintEvent;
+import fts.ui.events.TouchEvent;
+import fts.ui.graphics.Canvas;
+import fts.ui.graphics.Point;
+import fts.ui.widgets.AbsoluteContainer;
 
 public abstract class NativeWindow {
 	private static final String LOGTAG = NativeWindow.class.getSimpleName();

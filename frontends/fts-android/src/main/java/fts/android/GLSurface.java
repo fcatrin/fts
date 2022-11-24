@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
-import fts.events.TouchEvent;
+import fts.ui.events.TouchEvent;
 
 public class GLSurface extends GLSurfaceView {
 	private static final String LOGTAG = GLSurface.class.getSimpleName();
@@ -29,7 +29,7 @@ public class GLSurface extends GLSurfaceView {
 			// SHIFT+1 dumps the layout
 			ftsActivity.getNativeWindow().dumpLayout();
 		}
-		fts.events.KeyEvent ftsEvent = AndroidKeyMap.translate(event);
+		fts.ui.events.KeyEvent ftsEvent = AndroidKeyMap.translate(event);
 		if (ftsEvent == null) return super.dispatchKeyEvent(event);
 		return ftsActivity.dispatchKeyEvent(ftsEvent);
 	}

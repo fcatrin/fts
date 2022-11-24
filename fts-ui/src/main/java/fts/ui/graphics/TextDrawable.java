@@ -1,14 +1,13 @@
-package fts.graphics;
-
-import java.util.List;
+package fts.ui.graphics;
 
 import org.w3c.dom.Element;
 
+import java.util.List;
+
 import fts.core.Utils;
-import fts.core.Widget.State;
 import fts.core.xml.SimpleXML;
-import fts.graphics.Align.HAlign;
-import fts.graphics.Align.VAlign;
+import fts.ui.graphics.Align.HAlign;
+import fts.ui.graphics.Align.VAlign;
 
 public class TextDrawable extends Drawable {
 	Align align = new Align();

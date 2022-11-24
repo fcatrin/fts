@@ -1,6 +1,6 @@
-package fts.core.adapters;
+package fts.ui.core.adapters;
 
-import fts.core.ListAdapter;
+import fts.ui.ListAdapter;
 
 public abstract class StringAdapter extends ListAdapter<String> {
 

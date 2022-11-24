@@ -1,23 +1,23 @@
-package fts.core;
+package fts.ui;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import fts.events.KeyEvent;
-import fts.events.OnClickListener;
-import fts.events.OnFocusChangedListener;
-import fts.events.OnStateListener;
-import fts.events.PaintEvent;
-import fts.events.TouchEvent;
-import fts.events.TouchEvent.Action;
-import fts.graphics.Align;
-import fts.graphics.BackBuffer;
-import fts.graphics.Drawable;
-import fts.graphics.Point;
-import fts.graphics.Rectangle;
-import fts.graphics.SelectorDrawable;
-import fts.graphics.Sides;
+import fts.ui.events.KeyEvent;
+import fts.ui.events.OnClickListener;
+import fts.ui.events.OnFocusChangedListener;
+import fts.ui.events.OnStateListener;
+import fts.ui.events.PaintEvent;
+import fts.ui.events.TouchEvent;
+import fts.ui.events.TouchEvent.Action;
+import fts.ui.graphics.Align;
+import fts.ui.graphics.BackBuffer;
+import fts.ui.graphics.Drawable;
+import fts.ui.graphics.Point;
+import fts.ui.graphics.Rectangle;
+import fts.ui.graphics.SelectorDrawable;
+import fts.ui.graphics.Sides;
 
 public class Widget extends Component {
 	public enum State {Selected, Focused, Enabled, Pressed}

@@ -1,6 +1,6 @@
 package fts.gl;
 
-import fts.graphics.Font;
+import fts.ui.graphics.Font;
 
 public class GLNativeInterface {
 	

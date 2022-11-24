@@ -9,22 +9,23 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import fts.android.AndroidWindow;
-import fts.android.R;
-import fts.core.Callback;
-import fts.core.NativeWindow;
-import fts.core.SimpleBackgroundTask;
-import fts.core.UserVisibleException;
-import fts.core.Utils;
-import fts.utils.dialogs.DialogUtils;
-import fts.utils.dialogs.FileListPanel.FileChooserConfig;
-import fts.vfile.VirtualFile;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+
+import fts.android.AndroidWindow;
+import fts.android.R;
+import fts.core.Callback;
+import fts.core.UserVisibleException;
+import fts.core.Utils;
+import fts.ui.NativeWindow;
+import fts.ui.SimpleBackgroundTask;
+import fts.utils.dialogs.DialogUtils;
+import fts.utils.dialogs.FileListPanel.FileChooserConfig;
+import fts.vfile.VirtualFile;
 
 public class FilesPanel {
 	

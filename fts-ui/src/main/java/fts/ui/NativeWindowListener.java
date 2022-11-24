@@ -1,9 +1,9 @@
-package fts.core;
+package fts.ui;
 
 import java.io.File;
 
-import fts.events.KeyEvent;
-import fts.graphics.Point;
+import fts.ui.events.KeyEvent;
+import fts.ui.graphics.Point;
 
 public interface NativeWindowListener {
 	public void onWindowCreate();

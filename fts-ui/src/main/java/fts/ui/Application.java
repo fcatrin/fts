@@ -1,5 +1,10 @@
 package fts.ui;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,21 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-
-import fts.core.AppContext;
-import fts.core.Component;
-import fts.core.ComponentFactory;
-import fts.core.Container;
 import fts.core.Logger;
-import fts.core.NativeWindow;
 import fts.core.ResourceLocator;
-import fts.core.Style;
 import fts.core.Utils;
-import fts.core.Widget;
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
 import fts.ui.graphics.BackBuffer;
@@ -220,7 +213,7 @@ public class Application {
 		}
 
 		if (name.equals("Widget")) {
-			widget = (Widget)createComponentInstance(w, "fts.core.Widget");
+			widget = (Widget)createComponentInstance(w, "fts.ui.Widget");
 		}
 
 		if (widget == null) {

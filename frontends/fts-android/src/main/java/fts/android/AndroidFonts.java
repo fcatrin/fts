@@ -1,15 +1,15 @@
 package fts.android;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class AndroidFonts {
 	private static final String LOGTAG = AndroidFonts.class.getSimpleName();

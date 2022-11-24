@@ -1,4 +1,4 @@
-package fts.core;
+package fts.ui;
 
 public abstract class BackgroundTask<T> {
 	public abstract T onBackground() throws Exception;

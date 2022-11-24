@@ -1,6 +1,6 @@
-package fts.graphics;
+package fts.ui.graphics;
 
-import fts.core.AppContext;
+import fts.ui.AppContext;
 
 public class Dimension {
 	public static int pt2px(int pt) {

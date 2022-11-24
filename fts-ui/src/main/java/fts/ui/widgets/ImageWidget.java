@@ -1,14 +1,14 @@
-package fts.widgets;
+package fts.ui.widgets;
 
-import fts.core.NativeWindow;
-import fts.core.Widget;
-import fts.events.PaintEvent;
-import fts.graphics.Canvas;
-import fts.graphics.Image;
-import fts.graphics.ImageDrawable;
-import fts.graphics.ImageDrawable.ScaleType;
-import fts.graphics.Point;
-import fts.graphics.Rectangle;
+import fts.ui.NativeWindow;
+import fts.ui.Widget;
+import fts.ui.events.PaintEvent;
+import fts.ui.graphics.Canvas;
+import fts.ui.graphics.Image;
+import fts.ui.graphics.ImageDrawable;
+import fts.ui.graphics.ImageDrawable.ScaleType;
+import fts.ui.graphics.Point;
+import fts.ui.graphics.Rectangle;
 
 public class ImageWidget extends Widget {
 	ImageDrawable imageDrawable;

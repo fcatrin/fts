@@ -1,8 +1,8 @@
 package fts.gl;
 
-import fts.core.Log;
-import fts.graphics.BackBuffer;
-import fts.graphics.Canvas;
+import fts.ui.Log;
+import fts.ui.graphics.BackBuffer;
+import fts.ui.graphics.Canvas;
 
 public class GLBackBuffer extends BackBuffer {
 	private static final String LOGTAG = GLBackBuffer.class.getSimpleName();

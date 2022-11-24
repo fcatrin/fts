@@ -1,4 +1,4 @@
-package fts.core;
+package fts.ui;
 
 import java.util.HashMap;
 import java.util.Map;

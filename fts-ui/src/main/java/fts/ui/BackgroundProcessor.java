@@ -1,4 +1,4 @@
-package fts.core;
+package fts.ui;
 
 public interface BackgroundProcessor {
     <T> void exec(BackgroundTask<T> task);

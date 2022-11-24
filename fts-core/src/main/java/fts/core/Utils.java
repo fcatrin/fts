@@ -1,5 +1,7 @@
 package fts.core;
 
+import org.json.JSONArray;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -34,8 +36,6 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-
-import org.json.JSONArray;
 
 public final class Utils {
 	private static final String LOGTAG = Utils.class.getSimpleName();
@@ -280,7 +280,7 @@ public final class Utils {
 		URLConnection connection = null;
 		try {
 			long t0 = System.currentTimeMillis();
-			Log.d(LOGTAG, "Download start " + sUrl + " headers " + headers);
+			// Log.d(LOGTAG, "Download start " + sUrl + " headers " + headers);
 			URL url = new URL(sUrl);
 			connection = url.openConnection();
 			connection.setConnectTimeout(httpConnectTimeoutOnce > 0 ? httpConnectTimeoutOnce : httpConnectTimeout);
@@ -323,7 +323,7 @@ public final class Utils {
 			}
 			if (progressListener!=null) progressListener.onEnd();
 			long t = System.currentTimeMillis() - t0;
-			Log.d(LOGTAG, "Download end " + t + "[ms] " + sUrl);
+			// Log.d(LOGTAG, "Download end " + t + "[ms] " + sUrl);
 			return true;
 		} finally {
 			if (in != null)	in.close();

@@ -7,13 +7,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.util.List;
+
 import fts.android.AndroidFonts;
 import fts.android.R;
 import fts.android.TintableImageView;
 import fts.core.Utils;
 import fts.vfile.VirtualFile;
-
-import java.util.List;
 
 public class FileListAdapter extends BaseAdapter {
 	public static String fontName;

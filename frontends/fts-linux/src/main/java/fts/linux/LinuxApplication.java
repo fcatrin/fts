@@ -1,11 +1,11 @@
 package fts.linux;
 
-import fts.core.AppContext;
-import fts.core.Application;
-import fts.core.CoreBackgroundProcessor;
 import fts.core.CoreAsyncExecutor;
 import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
+import fts.ui.AppContext;
+import fts.ui.Application;
+import fts.ui.CoreBackgroundProcessor;
 
 public class LinuxApplication {
     public static void init() {

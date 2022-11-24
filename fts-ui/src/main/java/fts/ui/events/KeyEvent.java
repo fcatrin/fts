@@ -1,4 +1,4 @@
-package fts.events;
+package fts.ui.events;
 
 public class KeyEvent {
 	public int keyCode;

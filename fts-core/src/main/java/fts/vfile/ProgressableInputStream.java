@@ -3,8 +3,6 @@ package fts.vfile;
 import java.io.IOException;
 import java.io.InputStream;
 
-import fts.vfile.VirtualFileOperationProgressListener;
-
 public class ProgressableInputStream extends InputStream {
 
 	public InputStream pipedStream;

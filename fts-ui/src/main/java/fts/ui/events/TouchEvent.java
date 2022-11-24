@@ -1,6 +1,6 @@
-package fts.events;
+package fts.ui.events;
 
-import fts.core.Widget;
+import fts.ui.Widget;
 
 public class TouchEvent {
 	public enum Button {LEFT, MIDDLE, RIGHT};

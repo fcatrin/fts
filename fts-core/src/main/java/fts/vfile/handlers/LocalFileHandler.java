@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fts.core.FileUtils;
-import fts.core.Log;
 import fts.vfile.VirtualFile;
 import fts.vfile.VirtualFileHandler;
 import fts.vfile.VirtualFileOperationProgressListener;
@@ -204,7 +203,7 @@ public class LocalFileHandler implements VirtualFileHandler {
 		boolean canMove = srcTestFile.renameTo(dstTestFile);
 		dstTestFile.delete();
 		srcTestFile.delete();
-		Log.d(LOGTAG, "canMove " + srcTestFile.getAbsolutePath() + " -> " + dstTestFile.getAbsolutePath() + " returns " + canMove);
+		// Log.d(LOGTAG, "canMove " + srcTestFile.getAbsolutePath() + " -> " + dstTestFile.getAbsolutePath() + " returns " + canMove);
 		return canMove;
 	}
 

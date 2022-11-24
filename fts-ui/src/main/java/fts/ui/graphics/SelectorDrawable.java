@@ -1,11 +1,11 @@
-package fts.graphics;
-
-import java.util.List;
+package fts.ui.graphics;
 
 import org.w3c.dom.Element;
 
-import fts.ui.Application;
+import java.util.List;
+
 import fts.core.xml.SimpleXML;
+import fts.ui.Application;
 
 public class SelectorDrawable extends Drawable {
 	private final StateSelectorDrawable drawableSelector = new StateSelectorDrawable();

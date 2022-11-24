@@ -1,8 +1,8 @@
-package fts.graphics;
+package fts.ui.graphics;
 
 import org.w3c.dom.Element;
 
-import fts.core.Component;
+import fts.ui.Component;
 
 public abstract class Drawable extends Component {
 	protected Rectangle padding = new Rectangle();

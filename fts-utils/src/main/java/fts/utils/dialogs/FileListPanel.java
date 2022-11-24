@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Locale;
 
 import fts.core.Callback;
-import fts.core.Log;
-import fts.core.NativeWindow;
-import fts.core.SimpleBackgroundTask;
 import fts.core.Utils;
 import fts.core.Utils.Compact;
-import fts.events.OnItemSelectedListener;
+import fts.ui.Log;
+import fts.ui.NativeWindow;
+import fts.ui.SimpleBackgroundTask;
+import fts.ui.events.OnItemSelectedListener;
+import fts.ui.widgets.ListWidget;
+import fts.ui.widgets.TextWidget;
 import fts.vfile.VirtualFile;
-import fts.widgets.ListWidget;
-import fts.widgets.TextWidget;
 
 public class FileListPanel {
 	private static final String LOGTAG = FileListPanel.class.getSimpleName();

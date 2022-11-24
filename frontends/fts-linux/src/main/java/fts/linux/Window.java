@@ -2,14 +2,14 @@ package fts.linux;
 
 import java.io.File;
 
-import fts.core.Application;
-import fts.core.NativeWindow;
-import fts.core.Widget;
-import fts.events.KeyEvent;
-import fts.events.TouchEvent;
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
-import fts.graphics.Point;
+import fts.ui.Application;
+import fts.ui.NativeWindow;
+import fts.ui.Widget;
+import fts.ui.events.KeyEvent;
+import fts.ui.events.TouchEvent;
+import fts.ui.graphics.Point;
 
 public class Window implements GLWindowListener {
 

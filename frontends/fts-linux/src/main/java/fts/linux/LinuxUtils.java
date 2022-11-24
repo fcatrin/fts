@@ -1,11 +1,11 @@
 package fts.linux;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class LinuxUtils {
 

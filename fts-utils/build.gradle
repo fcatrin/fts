@@ -32,4 +32,5 @@ processResources.dependsOn ftsPackage
 
 dependencies {
    implementation project(path: ':fts-core')
+   implementation project(path: ':fts-ui')
 }

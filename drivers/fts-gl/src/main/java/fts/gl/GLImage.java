@@ -1,6 +1,6 @@
 package fts.gl;
 
-import fts.graphics.Image;
+import fts.ui.graphics.Image;
 
 public class GLImage extends Image {
 	private int handle;

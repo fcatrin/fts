@@ -1,9 +1,9 @@
 package fts.android.demo;
 
+import android.Manifest;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import android.Manifest;
 
 import fts.android.AndroidApplication;
 import fts.android.AndroidDialogFactory;
@@ -11,11 +11,11 @@ import fts.android.AndroidUtils;
 import fts.android.FtsActivity;
 import fts.android.PermissionsHandler;
 import fts.core.Callback;
-import fts.core.AppContext;
 import fts.core.ListOption;
-import fts.core.Log;
-import fts.core.Widget;
-import fts.events.KeyEvent;
+import fts.ui.AppContext;
+import fts.ui.Log;
+import fts.ui.Widget;
+import fts.ui.events.KeyEvent;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogListCallback;
 import fts.utils.dialogs.DialogUtils;

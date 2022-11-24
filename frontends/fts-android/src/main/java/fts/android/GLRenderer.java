@@ -1,12 +1,13 @@
 package fts.android;
 
+import android.opengl.GLSurfaceView.Renderer;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.opengl.GLSurfaceView.Renderer;
-import fts.core.AppContext;
 import fts.gl.GLWindow;
-import fts.graphics.Point;
+import fts.ui.AppContext;
+import fts.ui.graphics.Point;
 
 public class GLRenderer implements Renderer {
 	GLWindow window;

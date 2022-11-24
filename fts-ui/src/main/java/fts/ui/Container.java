@@ -1,4 +1,4 @@
-package fts.core;
+package fts.ui;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fts.events.PaintEvent;
-import fts.events.TouchEvent;
-import fts.graphics.Align;
-import fts.graphics.Rectangle;
+import fts.ui.events.PaintEvent;
+import fts.ui.events.TouchEvent;
+import fts.ui.graphics.Align;
+import fts.ui.graphics.Rectangle;
 
 public abstract class Container extends Widget {
 	List<Widget> children = new ArrayList<Widget>();

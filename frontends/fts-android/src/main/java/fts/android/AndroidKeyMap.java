@@ -1,10 +1,11 @@
 package fts.android;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import android.util.Log;
-import fts.events.KeyEvent;
+import fts.ui.events.KeyEvent;
 
 public class AndroidKeyMap {
 	private static final String LOGTAG = AndroidKeyMap.class.getSimpleName();

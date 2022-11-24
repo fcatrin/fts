@@ -1,22 +1,22 @@
 package fts.android;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 
-import fts.core.Application;
-import fts.core.AppContext;
-import fts.core.Widget;
-import fts.events.KeyEvent;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
-import fts.graphics.Point;
+import fts.ui.AppContext;
+import fts.ui.Application;
+import fts.ui.Widget;
+import fts.ui.events.KeyEvent;
+import fts.ui.graphics.Point;
 
 public class FtsActivity extends Activity implements GLWindowListener, WithPermissions {
 	private static final String LOGTAG = FtsActivity.class.getSimpleName();

@@ -1,9 +1,9 @@
-package fts.graphics;
+package fts.ui.graphics;
 
 import org.w3c.dom.Element;
 
-import fts.ui.Application;
 import fts.core.xml.SimpleXML;
+import fts.ui.Application;
 
 public class ImageDrawable extends Drawable {
 	public enum ScaleType {fitCenter, cropCenter, fitXY}

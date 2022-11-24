@@ -1,13 +1,13 @@
-package fts.widgets;
+package fts.ui.widgets;
 
-import fts.core.Container;
-import fts.core.LayoutInfo;
-import fts.core.Widget;
-import fts.core.NativeWindow;
-import fts.graphics.Align;
-import fts.graphics.Align.HAlign;
-import fts.graphics.Align.VAlign;
-import fts.graphics.Point;
+import fts.ui.Container;
+import fts.ui.LayoutInfo;
+import fts.ui.NativeWindow;
+import fts.ui.Widget;
+import fts.ui.graphics.Align;
+import fts.ui.graphics.Align.HAlign;
+import fts.ui.graphics.Align.VAlign;
+import fts.ui.graphics.Point;
 
 public class AbsoluteContainer extends Container {
 

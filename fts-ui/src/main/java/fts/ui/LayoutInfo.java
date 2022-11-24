@@ -1,7 +1,7 @@
-package fts.core;
+package fts.ui;
 
-import fts.graphics.Point;
-import fts.graphics.Sides;
+import fts.ui.graphics.Point;
+import fts.ui.graphics.Sides;
 
 public class LayoutInfo {
 	public static final int MATCH_PARENT = -1;

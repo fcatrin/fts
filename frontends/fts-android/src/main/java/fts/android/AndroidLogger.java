@@ -1,6 +1,7 @@
 package fts.android;
 
 import android.util.Log;
+
 import fts.core.Logger;
 
 public class AndroidLogger implements Logger {

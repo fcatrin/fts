@@ -1,8 +1,8 @@
 package fts.linux;
 
-import fts.core.NativeWindow;
 import fts.gl.GLFactory;
 import fts.gl.GLWindow;
+import fts.ui.NativeWindow;
 
 public class ComponentFactory extends GLFactory {
 

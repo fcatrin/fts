@@ -1,8 +1,5 @@
 package fts.android;
 
-import java.io.IOException;
-import java.util.List;
-
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,16 +15,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.io.IOException;
+import java.util.List;
+
 import fts.android.fileselector.FilesPanel;
 import fts.core.Callback;
 import fts.core.ListOption;
-import fts.core.NativeWindow;
-import fts.core.SimpleBackgroundTask;
 import fts.core.SimpleCallback;
 import fts.core.Utils;
-import fts.core.Widget;
-import fts.events.KeyEvent;
-import fts.events.OnItemSelectionChangedListener;
+import fts.ui.NativeWindow;
+import fts.ui.SimpleBackgroundTask;
+import fts.ui.Widget;
+import fts.ui.events.KeyEvent;
+import fts.ui.events.OnItemSelectionChangedListener;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogFactory;
 import fts.utils.dialogs.DialogInputCallback;

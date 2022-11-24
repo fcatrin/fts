@@ -1,4 +1,4 @@
-package fts.widgets;
+package fts.ui.widgets;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,18 +8,18 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import fts.core.LayoutInfo;
-import fts.core.ListAdapter;
-import fts.core.NativeWindow;
 import fts.core.Utils;
-import fts.core.Widget;
-import fts.events.KeyEvent;
-import fts.events.OnItemSelectedListener;
-import fts.events.OnItemSelectionChangedListener;
-import fts.events.PaintEvent;
-import fts.events.TouchEvent;
-import fts.graphics.Point;
-import fts.graphics.Rectangle;
+import fts.ui.LayoutInfo;
+import fts.ui.ListAdapter;
+import fts.ui.NativeWindow;
+import fts.ui.Widget;
+import fts.ui.events.KeyEvent;
+import fts.ui.events.OnItemSelectedListener;
+import fts.ui.events.OnItemSelectionChangedListener;
+import fts.ui.events.PaintEvent;
+import fts.ui.events.TouchEvent;
+import fts.ui.graphics.Point;
+import fts.ui.graphics.Rectangle;
 
 public class ListWidget<T> extends Widget {
 	private static final String LOGTAG = ListWidget.class.getSimpleName();

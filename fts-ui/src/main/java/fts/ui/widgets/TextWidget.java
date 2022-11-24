@@ -1,15 +1,15 @@
-package fts.widgets;
+package fts.ui.widgets;
 
-import fts.core.Widget;
-import fts.core.NativeWindow;
-import fts.events.PaintEvent;
-import fts.graphics.Align;
-import fts.graphics.Canvas;
-import fts.graphics.ColorListSelector;
-import fts.graphics.Font;
-import fts.graphics.Point;
-import fts.graphics.Rectangle;
-import fts.graphics.TextDrawable;
+import fts.ui.NativeWindow;
+import fts.ui.Widget;
+import fts.ui.events.PaintEvent;
+import fts.ui.graphics.Align;
+import fts.ui.graphics.Canvas;
+import fts.ui.graphics.ColorListSelector;
+import fts.ui.graphics.Font;
+import fts.ui.graphics.Point;
+import fts.ui.graphics.Rectangle;
+import fts.ui.graphics.TextDrawable;
 
 public class TextWidget extends Widget {
 	TextDrawable textDrawable;

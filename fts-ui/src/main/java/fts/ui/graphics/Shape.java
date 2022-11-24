@@ -1,4 +1,4 @@
-package fts.graphics;
+package fts.ui.graphics;
 
 import org.w3c.dom.Element;
 

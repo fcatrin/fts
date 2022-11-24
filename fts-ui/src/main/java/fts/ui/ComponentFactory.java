@@ -1,15 +1,14 @@
-package fts.core;
+package fts.ui;
+
+import org.w3c.dom.Element;
 
 import java.io.File;
 import java.util.List;
 
-import org.w3c.dom.Element;
-
-import fts.graphics.BackBuffer;
-import fts.graphics.Color;
-import fts.graphics.ColorListSelector;
-import fts.graphics.Drawable;
-import fts.graphics.Image;
+import fts.ui.graphics.BackBuffer;
+import fts.ui.graphics.ColorListSelector;
+import fts.ui.graphics.Drawable;
+import fts.ui.graphics.Image;
 
 public interface ComponentFactory {
 	public NativeWindow createNativeWindow(String title, int width, int height, int flags);

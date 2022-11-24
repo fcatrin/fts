@@ -1,9 +1,10 @@
 package fts.android;
 
 import android.app.Activity;
-import fts.core.NativeWindow;
+
 import fts.gl.GLFactory;
-import fts.graphics.BackBuffer;
+import fts.ui.NativeWindow;
+import fts.ui.graphics.BackBuffer;
 
 public class AndroidComponentFactory extends GLFactory {
 	

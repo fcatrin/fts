@@ -1,6 +1,6 @@
-package fts.events;
+package fts.ui.events;
 
-import fts.core.Widget;
+import fts.ui.Widget;
 
 public interface OnFocusChangedListener {
 	public void onFocusChanged(Widget widget, boolean focused);

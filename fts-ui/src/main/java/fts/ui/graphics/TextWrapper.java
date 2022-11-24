@@ -1,9 +1,9 @@
-package fts.graphics;
+package fts.ui.graphics;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fts.core.Log;
+import fts.ui.Log;
 
 public class TextWrapper {
 	private Point size = new Point();

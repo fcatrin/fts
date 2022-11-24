@@ -2,9 +2,9 @@ package fts.linux.demo;
 
 import java.io.IOException;
 
-import fts.core.Widget;
 import fts.linux.LinuxApplication;
 import fts.linux.Window;
+import fts.ui.Widget;
 
 public class LinuxDemo extends Window {
 

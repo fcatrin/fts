@@ -1,7 +1,7 @@
-package fts.widgets;
+package fts.ui.widgets;
 
-import fts.core.NativeWindow;
-import fts.events.KeyEvent;
+import fts.ui.NativeWindow;
+import fts.ui.events.KeyEvent;
 
 public class ImageButtonWidget extends ImageWidget {
 

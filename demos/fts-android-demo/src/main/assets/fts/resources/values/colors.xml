@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><colors>
+<colors>
     <color name="modal_smoke">#A0000000</color>
     <color name="modal_background">#E4E5E6</color>
     <color name="modal_foreground">#7982A5</color>
-<color name="text">#F0F0F0</color><color name="window_background">#4040C0</color><color name="white">#F0F0F0</color><color name="black">#000000</color></colors>
+</colors>

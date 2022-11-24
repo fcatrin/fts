@@ -2,16 +2,16 @@ package fts.utils.dialogs;
 
 import java.util.List;
 
-import fts.core.Application;
-import fts.core.ListAdapter;
-import fts.core.NativeWindow;
 import fts.core.Utils;
-import fts.core.Widget;
-import fts.core.Widget.State;
-import fts.core.Widget.Visibility;
-import fts.events.OnStateListener;
+import fts.ui.Application;
+import fts.ui.ListAdapter;
+import fts.ui.NativeWindow;
+import fts.ui.Widget;
+import fts.ui.Widget.State;
+import fts.ui.Widget.Visibility;
+import fts.ui.events.OnStateListener;
+import fts.ui.widgets.TextWidget;
 import fts.vfile.VirtualFile;
-import fts.widgets.TextWidget;
 
 public class FileListAdapter extends ListAdapter<VirtualFile> {
 

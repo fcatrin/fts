@@ -3,10 +3,10 @@ package fts.android;
 import android.app.Activity;
 import android.os.Handler;
 
-import fts.core.AppContext;
-import fts.core.Application;
-import fts.core.CoreBackgroundProcessor;
 import fts.core.CoreAsyncExecutor;
+import fts.ui.AppContext;
+import fts.ui.Application;
+import fts.ui.CoreBackgroundProcessor;
 
 public class AndroidApplication {
 

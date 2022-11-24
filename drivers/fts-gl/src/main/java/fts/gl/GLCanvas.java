@@ -2,13 +2,13 @@ package fts.gl;
 
 import java.io.File;
 
-import fts.core.Log;
-import fts.graphics.Canvas;
-import fts.graphics.Color;
-import fts.graphics.Font;
-import fts.graphics.Image;
-import fts.graphics.TextMetrics;
-import fts.graphics.TextWrapper;
+import fts.ui.Log;
+import fts.ui.graphics.Canvas;
+import fts.ui.graphics.Color;
+import fts.ui.graphics.Font;
+import fts.ui.graphics.Image;
+import fts.ui.graphics.TextMetrics;
+import fts.ui.graphics.TextWrapper;
 
 public class GLCanvas extends Canvas {
 	private static final String LOGTAG = GLCanvas.class.getSimpleName();

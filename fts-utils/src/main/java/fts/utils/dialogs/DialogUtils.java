@@ -4,10 +4,10 @@ import java.util.List;
 
 import fts.core.Callback;
 import fts.core.ListOption;
-import fts.core.NativeWindow;
-import fts.core.Widget;
-import fts.events.KeyEvent;
-import fts.events.OnItemSelectionChangedListener;
+import fts.ui.NativeWindow;
+import fts.ui.Widget;
+import fts.ui.events.KeyEvent;
+import fts.ui.events.OnItemSelectionChangedListener;
 import fts.utils.dialogs.FileListPanel.FileChooserConfig;
 import fts.vfile.VirtualFile;
 

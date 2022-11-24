@@ -1,4 +1,4 @@
-package fts.graphics;
+package fts.ui.graphics;
 
 public class Align {
 	public enum HAlign {Left, Center, Right, Undefined};

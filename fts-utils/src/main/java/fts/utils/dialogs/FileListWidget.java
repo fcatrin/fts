@@ -1,8 +1,8 @@
 package fts.utils.dialogs;
 
-import fts.core.NativeWindow;
+import fts.ui.NativeWindow;
+import fts.ui.widgets.ListWidget;
 import fts.vfile.VirtualFile;
-import fts.widgets.ListWidget;
 
 public class FileListWidget extends ListWidget<VirtualFile> {
 	private final static String LOGTAG = FileListWidget.class.getSimpleName();

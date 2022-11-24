@@ -1,4 +1,6 @@
-package fts.core;
+package fts.ui;
+
+import org.w3c.dom.Element;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -6,14 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.w3c.dom.Element;
-
-import fts.graphics.Color;
-import fts.graphics.ColorListSelector;
-import fts.graphics.Drawable;
-import fts.graphics.SelectorDrawable;
-import fts.graphics.Shape;
-import fts.graphics.TextDrawable;
+import fts.ui.graphics.Color;
+import fts.ui.graphics.ColorListSelector;
+import fts.ui.graphics.Drawable;
+import fts.ui.graphics.SelectorDrawable;
+import fts.ui.graphics.Shape;
+import fts.ui.graphics.TextDrawable;
 
 public abstract class CoreComponentFactory implements ComponentFactory {
 

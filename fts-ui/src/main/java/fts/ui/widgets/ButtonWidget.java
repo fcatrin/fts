@@ -1,10 +1,10 @@
-package fts.widgets;
+package fts.ui.widgets;
 
-import fts.core.NativeWindow;
-import fts.events.KeyEvent;
-import fts.graphics.Align;
-import fts.graphics.Align.HAlign;
-import fts.graphics.Align.VAlign;
+import fts.ui.NativeWindow;
+import fts.ui.events.KeyEvent;
+import fts.ui.graphics.Align;
+import fts.ui.graphics.Align.HAlign;
+import fts.ui.graphics.Align.VAlign;
 
 public class ButtonWidget extends TextWidget {
 

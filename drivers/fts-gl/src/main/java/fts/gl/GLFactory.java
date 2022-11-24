@@ -1,17 +1,17 @@
 package fts.gl;
 
+import org.w3c.dom.Element;
+
 import java.io.File;
 import java.io.IOException;
 
-import org.w3c.dom.Element;
-
-import fts.core.Application;
-import fts.core.CoreComponentFactory;
 import fts.core.Utils;
-import fts.core.Widget;
-import fts.graphics.BackBuffer;
-import fts.graphics.Drawable;
-import fts.graphics.Image;
+import fts.ui.Application;
+import fts.ui.CoreComponentFactory;
+import fts.ui.Widget;
+import fts.ui.graphics.BackBuffer;
+import fts.ui.graphics.Drawable;
+import fts.ui.graphics.Image;
 
 public abstract class GLFactory extends CoreComponentFactory {
 

@@ -1,4 +1,4 @@
-package fts.graphics;
+package fts.ui.graphics;
 
 public class Rectangle {
 	public int x;

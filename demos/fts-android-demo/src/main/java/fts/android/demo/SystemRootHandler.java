@@ -1,11 +1,12 @@
 package fts.android.demo;
 
+import android.os.Build;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import android.os.Build;
 import fts.vfile.VirtualFile;
 import fts.vfile.handlers.StorageHandler;
 

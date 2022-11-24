@@ -1,7 +1,7 @@
-package fts.events;
+package fts.ui.events;
 
-import fts.graphics.Canvas;
-import fts.graphics.Rectangle;
+import fts.ui.graphics.Canvas;
+import fts.ui.graphics.Rectangle;
 
 public class PaintEvent {
 	public Rectangle clip = new Rectangle();

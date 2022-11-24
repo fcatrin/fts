@@ -4,22 +4,22 @@ import java.io.IOException;
 import java.util.List;
 
 import fts.core.Callback;
-import fts.core.Container;
 import fts.core.ListOption;
-import fts.core.NativeWindow;
-import fts.core.SimpleBackgroundTask;
 import fts.core.Utils;
-import fts.core.Widget;
-import fts.core.Widget.Visibility;
-import fts.events.KeyEvent;
-import fts.events.OnClickListener;
-import fts.events.OnItemSelectedListener;
-import fts.events.OnItemSelectionChangedListener;
+import fts.ui.Container;
+import fts.ui.NativeWindow;
+import fts.ui.SimpleBackgroundTask;
+import fts.ui.Widget;
+import fts.ui.Widget.Visibility;
+import fts.ui.events.KeyEvent;
+import fts.ui.events.OnClickListener;
+import fts.ui.events.OnItemSelectedListener;
+import fts.ui.events.OnItemSelectionChangedListener;
+import fts.ui.widgets.ButtonWidget;
+import fts.ui.widgets.ListWidget;
+import fts.ui.widgets.TextWidget;
 import fts.utils.dialogs.FileListPanel.FileChooserConfig;
 import fts.vfile.VirtualFile;
-import fts.widgets.ButtonWidget;
-import fts.widgets.ListWidget;
-import fts.widgets.TextWidget;
 
 public class SimpleDialogs implements DialogFactory {
 

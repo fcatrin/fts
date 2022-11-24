@@ -3,14 +3,14 @@ package fts.gl;
 import java.io.File;
 import java.util.List;
 
-import fts.core.Application;
-import fts.core.ComponentFactory;
-import fts.core.AppContext;
-import fts.core.Log;
-import fts.core.NativeWindow;
-import fts.events.PaintEvent;
-import fts.graphics.Canvas;
-import fts.graphics.Point;
+import fts.ui.AppContext;
+import fts.ui.Application;
+import fts.ui.ComponentFactory;
+import fts.ui.Log;
+import fts.ui.NativeWindow;
+import fts.ui.events.PaintEvent;
+import fts.ui.graphics.Canvas;
+import fts.ui.graphics.Point;
 
 public class GLWindow extends NativeWindow {
 	private static final String LOGTAG = GLWindow.class.getSimpleName();

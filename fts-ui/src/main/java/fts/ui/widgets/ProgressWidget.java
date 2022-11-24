@@ -1,14 +1,14 @@
-package fts.widgets;
+package fts.ui.widgets;
 
-import fts.core.NativeWindow;
 import fts.core.Utils;
-import fts.core.Widget;
-import fts.events.OnProgressChangedListener;
-import fts.events.PaintEvent;
-import fts.events.TouchEvent;
-import fts.graphics.Drawable;
-import fts.graphics.Point;
-import fts.graphics.Rectangle;
+import fts.ui.NativeWindow;
+import fts.ui.Widget;
+import fts.ui.events.OnProgressChangedListener;
+import fts.ui.events.PaintEvent;
+import fts.ui.events.TouchEvent;
+import fts.ui.graphics.Drawable;
+import fts.ui.graphics.Point;
+import fts.ui.graphics.Rectangle;
 
 public class ProgressWidget extends Widget {
 	private static final int TOUCH_DELAY = 200;

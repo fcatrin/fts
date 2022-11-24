@@ -7,9 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import fts.core.ListOption;
 
 import java.util.List;
+
+import fts.core.ListOption;
 
 public class ListOptionAdapter extends BaseAdapter {
 	
