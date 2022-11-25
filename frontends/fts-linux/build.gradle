@@ -32,6 +32,7 @@ processResources.dependsOn jniBuild
 dependencies {
     implementation 'org.json:json:20220320'
     implementation project(path: ':fts-core')
+    implementation project(path: ':fts-utils')
     implementation project(path: ':fts-ui')
     implementation project(path: ':drivers:fts-gl')
 }

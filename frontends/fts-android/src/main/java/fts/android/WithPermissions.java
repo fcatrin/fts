@@ -2,10 +2,10 @@ package fts.android;
 
 import android.app.Activity;
 
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 
 public interface WithPermissions {
 	void setPermissionHandler(int request, PermissionsHandler handler);
 	Activity getActivity();
-	NativeWindow getNativeWindow();
+	Window getNativeWindow();
 }

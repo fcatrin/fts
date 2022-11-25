@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import fts.core.ListOption;
+import fts.utils.dialogs.ListOption;
 
 public class ListOptionAdapter extends BaseAdapter {
 	

@@ -3,7 +3,7 @@ package fts.android;
 import android.app.Activity;
 
 import fts.gl.GLFactory;
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.ui.graphics.BackBuffer;
 
 public class AndroidComponentFactory extends GLFactory {
@@ -15,7 +15,7 @@ public class AndroidComponentFactory extends GLFactory {
 	}
 
 	@Override
-	public NativeWindow createNativeWindow(String title, int width, int height, int flags) {
+	public Window createNativeWindow(String title, int width, int height, int flags) {
 		return new AndroidWindow(activity);
 	}
 

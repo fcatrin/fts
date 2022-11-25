@@ -1,28 +1,29 @@
 <AbsoluteContainer
-    id="modalListPanel"
+    id="modalFilesPanel"
     width="match_parent"
     height="match_parent"
     background="@color/modal_smoke"
     visibility="gone">
     <LinearContainer
-        id="listContainer"
+        id="filesContainer"
         width="@dimen/modal_width"
         height="wrap_content"
         background="@drawable/modal_background"
         containerAlign="center"
         orientation="vertical">
         <TextWidget
-            id="title"
+            id="filesTitle"
             width="match_parent"
             height="wrap_content"
             align="center"
-            fontSize="@dimen/text_title"
+            fontSize="@dimen/text_normal"
             fontName="bold"
             padding="@dimen/modal_padding_text"
             color="@color/modal_foreground"
+            maxLines="2"
             />
-        <fts.utils.dialogs.ListOptionWidget
-            id="list"
+        <fts.ui.dialogs.FileListWidget
+            id="filesList"
             width="match_parent"
             height="wrap_content"
             background="@color/modal_foreground"

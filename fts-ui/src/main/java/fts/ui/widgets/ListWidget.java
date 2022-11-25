@@ -11,15 +11,15 @@ import java.util.Set;
 import fts.core.Utils;
 import fts.ui.LayoutInfo;
 import fts.ui.ListAdapter;
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.ui.Widget;
 import fts.ui.events.KeyEvent;
-import fts.ui.events.OnItemSelectedListener;
-import fts.ui.events.OnItemSelectionChangedListener;
 import fts.ui.events.PaintEvent;
 import fts.ui.events.TouchEvent;
 import fts.ui.graphics.Point;
 import fts.ui.graphics.Rectangle;
+import fts.utils.dialogs.OnItemSelectedListener;
+import fts.utils.dialogs.OnItemSelectionChangedListener;
 
 public class ListWidget<T> extends Widget {
 	private static final String LOGTAG = ListWidget.class.getSimpleName();
@@ -40,7 +40,7 @@ public class ListWidget<T> extends Widget {
 	
 	int separator = 1;
 
-	public ListWidget(NativeWindow window) {
+	public ListWidget(Window window) {
 		super(window);
 	}
 	
@@ -147,7 +147,7 @@ public class ListWidget<T> extends Widget {
 		invalidate();
 		
 		T item = selectedIndex < 0 ? null : adapter.getItem(selectedIndex);
-		if (onItemSelectionChangedListener != null) onItemSelectionChangedListener.onItemSelectionChanged(this, item, selectedIndex);
+		if (onItemSelectionChangedListener != null) onItemSelectionChangedListener.onItemSelectionChanged(item, selectedIndex);
 	}
 	
 	@Override
@@ -195,7 +195,7 @@ public class ListWidget<T> extends Widget {
 		if (onItemSelectedListener == null) return;
 		
 		T item = index < 0 ? null : adapter.getItem(index);
-		onItemSelectedListener.onItemSelected(this, item, index);
+		onItemSelectedListener.onItemSelected(item, index);
 	}
 
 	private void measureItemHeight() {

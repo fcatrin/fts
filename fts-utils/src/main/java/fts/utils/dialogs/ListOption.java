@@ -1,4 +1,4 @@
-package fts.core;
+package fts.utils.dialogs;
 
 public class ListOption {
 	private String code;

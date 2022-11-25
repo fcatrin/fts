@@ -1,7 +1,7 @@
 package fts.gl;
 
-import fts.ui.NativeWindowListener;
+import fts.ui.WindowListener;
 
-public interface GLWindowListener extends NativeWindowListener {
+public interface GLWindowListener extends WindowListener {
 	public boolean sync();
 }

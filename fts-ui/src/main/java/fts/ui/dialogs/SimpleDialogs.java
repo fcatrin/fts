@@ -1,24 +1,28 @@
-package fts.utils.dialogs;
+package fts.ui.dialogs;
 
 import java.io.IOException;
 import java.util.List;
 
 import fts.core.Callback;
-import fts.core.ListOption;
 import fts.core.Utils;
 import fts.ui.Container;
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.core.SimpleBackgroundTask;
 import fts.ui.Widget;
 import fts.ui.Widget.Visibility;
 import fts.ui.events.KeyEvent;
 import fts.ui.events.OnClickListener;
-import fts.ui.events.OnItemSelectedListener;
-import fts.ui.events.OnItemSelectionChangedListener;
 import fts.ui.widgets.ButtonWidget;
-import fts.ui.widgets.ListWidget;
 import fts.ui.widgets.TextWidget;
-import fts.utils.dialogs.FileListPanel.FileChooserConfig;
+import fts.utils.dialogs.DialogCallback;
+import fts.utils.dialogs.DialogContext;
+import fts.utils.dialogs.DialogFactory;
+import fts.utils.dialogs.DialogListCallback;
+import fts.utils.dialogs.FileChooserConfig;
+import fts.utils.dialogs.ListOption;
+import fts.utils.dialogs.OnItemSelectedListener;
+import fts.utils.dialogs.OnItemSelectionChangedListener;
+import fts.utils.dialogs.SimpleDialogCallback;
 import fts.vfile.VirtualFile;
 
 public class SimpleDialogs implements DialogFactory {
@@ -29,9 +33,10 @@ public class SimpleDialogs implements DialogFactory {
 	
 	public SimpleDialogs() {}
 	
-	public void select(final NativeWindow window, List<ListOption> options, String title, final DialogListCallback callback) {
+	public void select(DialogContext context, List<ListOption> options, String title, final DialogListCallback callback) {
 		dismissCallback = callback;
-		
+
+		final Window window = (Window)context;
 		Widget panel = window.findWidget("modalListPanel");
 
 		listWidget = (ListOptionWidget)panel.findWidget("list");
@@ -39,7 +44,7 @@ public class SimpleDialogs implements DialogFactory {
 		
 		listWidget.setOnItemSelectedListener(new OnItemSelectedListener<ListOption>() {
 			@Override
-			public void onItemSelected(ListWidget<ListOption> widget, ListOption item, int index) {
+			public void onItemSelected(ListOption item, int index) {
 				closeVisiblePanel(window);
 				callback.onItemSelected(item.getCode());
 			}
@@ -57,9 +62,10 @@ public class SimpleDialogs implements DialogFactory {
 	}
 
 	
-	public void confirm(final NativeWindow window, String text, String optYes, String optNo, final DialogCallback callback) {
+	public void confirm(DialogContext context, String text, String optYes, String optNo, final DialogCallback callback) {
 		dismissCallback = callback;
-		
+
+		final Window window = (Window)context;
 		Widget panel = window.findWidget("modalDialogPanel");
 		TextWidget textWidget = (TextWidget)panel.findWidget("text");
 		ButtonWidget btnYes = (ButtonWidget)panel.findWidget("btnYes");
@@ -101,9 +107,9 @@ public class SimpleDialogs implements DialogFactory {
 		visiblePanel = panel;
 	}
 
-	public void custom(final NativeWindow window, Widget widget, String optYes, String optNo, final DialogCallback callback) {
+	public void custom(final DialogContext context, Widget widget, String optYes, String optNo, final DialogCallback callback) {
 		dismissCallback = callback;
-		
+		final Window window = (Window)context;
 		Widget panel = window.findWidget("modalCustomDialogPanel");
 		ButtonWidget btnYes = (ButtonWidget)panel.findWidget("btnYes");
 		ButtonWidget btnNo  = (ButtonWidget)panel.findWidget("btnNo");
@@ -148,10 +154,11 @@ public class SimpleDialogs implements DialogFactory {
 		visiblePanel = panel;
 	}
 
-	public void browse(final NativeWindow window, final VirtualFile sysRoot,
-			final FileChooserConfig config,
-			final Callback<VirtualFile> onSelectedFileCallback) {
-		
+	public void browse(DialogContext context, final VirtualFile sysRoot,
+					   final FileChooserConfig config,
+					   final Callback<VirtualFile> onSelectedFileCallback) {
+
+		final Window window = (Window)context;
 		dismissCallback = new SimpleDialogCallback() {
 
 			@Override
@@ -213,12 +220,13 @@ public class SimpleDialogs implements DialogFactory {
 	public void setOnItemSelectionChangedListener(OnItemSelectionChangedListener<ListOption> listener) {
 		listWidget.setOnItemSelectionChangedListener(listener);
 	}
-	
-	public boolean hasVisiblePanel(NativeWindow window) {
+
+	@Override
+	public boolean hasVisiblePanel(DialogContext context) {
 		return visiblePanel!=null;
 	}
 	
-	private boolean dismissVisiblePanel(NativeWindow window) {
+	private boolean dismissVisiblePanel(Window window) {
 		boolean closed = closeVisiblePanel(window);
 		if (dismissCallback != null && closed) {
 			dismissCallback.onDismiss();
@@ -226,7 +234,7 @@ public class SimpleDialogs implements DialogFactory {
 		return closed;
 	}
 	
-	private boolean closeVisiblePanel(NativeWindow window) {
+	private boolean closeVisiblePanel(Window window) {
 		if (!hasVisiblePanel(window)) return false;
 		
 		visiblePanel.setVisibility(Visibility.Gone);
@@ -235,22 +243,24 @@ public class SimpleDialogs implements DialogFactory {
 	}
 
 	@Override
-	public boolean cancelDialog(NativeWindow window) {
-		return dismissVisiblePanel(window);
+	public boolean cancelDialog(DialogContext context) {
+		return dismissVisiblePanel((Window)context);
 	}
 	
-	public boolean onKeyDown(NativeWindow window, KeyEvent event) {
+	public boolean onKeyDown(DialogContext context, KeyEvent event) {
 		return false;
 	}
 	
-	public boolean onKeyUp(NativeWindow window, KeyEvent event) {
+	public boolean onKeyUp(DialogContext context, KeyEvent event) {
+		final Window window = (Window)context;
 		if (event.keyCode == KeyEvent.KEY_ESC) {
 			return dispatchCancelKey(window);
 		}
 		return false;
 	}
 	
-	public boolean dispatchCancelKey(NativeWindow window) {
+	public boolean dispatchCancelKey(DialogContext context) {
+		final Window window = (Window)context;
 		if (hasVisiblePanel(window)) {
 			dismissVisiblePanel(window);
 			return true;

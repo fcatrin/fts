@@ -5,7 +5,7 @@ import java.io.File;
 import fts.ui.events.KeyEvent;
 import fts.ui.graphics.Point;
 
-public interface NativeWindowListener {
+public interface WindowListener {
 	public void onWindowCreate();
 	public void onWindowStart();
 	public void onWindowStop();

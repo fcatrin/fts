@@ -1,6 +1,6 @@
 package fts.ui.widgets;
 
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.ui.Widget;
 import fts.ui.events.PaintEvent;
 import fts.ui.graphics.Canvas;
@@ -13,7 +13,7 @@ import fts.ui.graphics.Rectangle;
 public class ImageWidget extends Widget {
 	ImageDrawable imageDrawable;
 	
-	public ImageWidget(NativeWindow w) {
+	public ImageWidget(Window w) {
 		super(w);
 		imageDrawable = new ImageDrawable();
 	}

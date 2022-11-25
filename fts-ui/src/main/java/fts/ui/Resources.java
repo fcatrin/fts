@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import fts.core.Logger;
 import fts.core.ResourceLocator;
 import fts.core.Utils;
 import fts.core.xml.ParserException;
@@ -41,7 +40,7 @@ public class Resources {
 		loadStyles();
 	}
 	
-	public static NativeWindow createNativeWindow(String title, int width, int height, int flags) {
+	public static Window createNativeWindow(String title, int width, int height, int flags) {
 		return factory.createNativeWindow(title, width, height, flags);
 	}
 	
@@ -193,7 +192,7 @@ public class Resources {
 		}
 	}
 
-	protected static Widget createWidget(NativeWindow w, Element node) {
+	protected static Widget createWidget(Window w, Element node) {
 		String name = node.getNodeName();
 		
 		if (name.equals("include")) {
@@ -252,7 +251,7 @@ public class Resources {
 	}
 			
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static Component createComponentInstance(NativeWindow w, String className) {
+	public static Component createComponentInstance(Window w, String className) {
 		Class componentClass;
 		try {
 			componentClass = Class.forName(className);
@@ -261,7 +260,7 @@ public class Resources {
 		}
 		
 		try {
-			return (Component)componentClass.getDeclaredConstructor(NativeWindow.class).newInstance(w);
+			return (Component)componentClass.getDeclaredConstructor(Window.class).newInstance(w);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
 			e.printStackTrace();
 			return null;
@@ -300,7 +299,7 @@ public class Resources {
 		return createDrawable(root);
 	}
 	
-	public static Widget inflate(NativeWindow w, String name) {
+	public static Widget inflate(Window w, String name) {
 		Document doc = loadResource("layout", name);
 		Element root = doc.getDocumentElement();
 		return createWidget(w, root);

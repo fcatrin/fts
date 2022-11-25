@@ -39,5 +39,6 @@ processResources.dependsOn jniBuild
 dependencies {
     implementation 'org.jetbrains:annotations:15.0'
     implementation project(path: ':fts-core')
+    implementation project(path: ':fts-utils')
     implementation project(path: ':fts-ui')
 }

@@ -1,10 +1,9 @@
-package fts.utils.dialogs;
+package fts.ui.dialogs;
 
 import java.util.List;
 
-import fts.core.ListOption;
 import fts.ui.Resources;
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.ui.Widget;
 import fts.ui.Widget.State;
 import fts.ui.Widget.Visibility;
@@ -12,12 +11,13 @@ import fts.ui.adapters.ListOptionAdapter;
 import fts.ui.events.OnStateListener;
 import fts.ui.graphics.ColorListSelector;
 import fts.ui.widgets.TextWidget;
+import fts.utils.dialogs.ListOption;
 
 public class DialogListAdapter extends ListOptionAdapter {
 
-	private NativeWindow window;
+	private Window window;
 
-	public DialogListAdapter(NativeWindow window, List<ListOption> items) {
+	public DialogListAdapter(Window window, List<ListOption> items) {
 		setItems(items);
 		this.window = window;
 	}

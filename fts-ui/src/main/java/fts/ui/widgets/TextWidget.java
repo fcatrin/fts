@@ -1,6 +1,6 @@
 package fts.ui.widgets;
 
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.ui.Widget;
 import fts.ui.events.PaintEvent;
 import fts.ui.graphics.Align;
@@ -14,7 +14,7 @@ import fts.ui.graphics.TextDrawable;
 public class TextWidget extends Widget {
 	TextDrawable textDrawable;
 	
-	public TextWidget(NativeWindow w) {
+	public TextWidget(Window w) {
 		super(w);
 		textDrawable = new TextDrawable();
 		textDrawable.setFont(new Font("default", "16pt"));

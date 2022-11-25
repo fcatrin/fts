@@ -7,12 +7,12 @@ import fts.core.Application;
 import fts.ui.Resources;
 import fts.ui.ComponentFactory;
 import fts.core.Log;
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.ui.events.PaintEvent;
 import fts.ui.graphics.Canvas;
 import fts.ui.graphics.Point;
 
-public class GLWindow extends NativeWindow {
+public class GLWindow extends Window {
 	private static final String LOGTAG = GLWindow.class.getSimpleName();
 
 	PaintEvent paintEvent = new PaintEvent();

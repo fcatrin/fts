@@ -21,7 +21,7 @@
             padding="@dimen/modal_padding_text"
             color="@color/modal_foreground"
             />
-        <fts.utils.dialogs.ListOptionWidget
+        <fts.ui.dialogs.ListOptionWidget
             id="list"
             width="match_parent"
             height="wrap_content"

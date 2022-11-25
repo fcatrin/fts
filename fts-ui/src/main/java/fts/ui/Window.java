@@ -12,9 +12,10 @@ import fts.ui.events.TouchEvent;
 import fts.ui.graphics.Canvas;
 import fts.ui.graphics.Point;
 import fts.ui.widgets.AbsoluteContainer;
+import fts.utils.dialogs.DialogContext;
 
-public abstract class NativeWindow {
-	private static final String LOGTAG = NativeWindow.class.getSimpleName();
+public abstract class Window implements DialogContext {
+	private static final String LOGTAG = Window.class.getSimpleName();
 	
 	public static final int FLAGS_BORDERLESS = 1;
 	public static final int FLAGS_CENTER = 2;
@@ -28,7 +29,7 @@ public abstract class NativeWindow {
 	
 	private Canvas canvas;
 	
-	protected NativeWindowListener windowListener;
+	protected WindowListener windowListener;
 	
 	private Widget focusedWidgetRequest = null;
 	private Widget focusedWidget = null;
@@ -166,7 +167,7 @@ public abstract class NativeWindow {
 		if (view!=null) view.destroy();
 	}
 	
-	public void setWindowListener(NativeWindowListener windowListener) {
+	public void setWindowListener(WindowListener windowListener) {
 		this.windowListener = windowListener;
 	}
 	

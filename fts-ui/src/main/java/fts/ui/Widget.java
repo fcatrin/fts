@@ -38,7 +38,7 @@ public class Widget extends Component {
 	LayoutInfo layoutInfo = new LayoutInfo();
 	boolean layoutRequested = false;
 	
-	NativeWindow window;
+	Window window;
 	
 	private Align containerAlign = new Align();
 	protected Visibility visibility = Visibility.Visible;
@@ -69,11 +69,11 @@ public class Widget extends Component {
 	private Object tag;
 	private Map<Integer, Object> tags = new HashMap<Integer, Object>();
 	
-	public Widget(NativeWindow window) {
+	public Widget(Window window) {
 		this.window = window;
 	}
 	
-	public NativeWindow getWindow() {
+	public Window getWindow() {
 		return window;
 	}
 

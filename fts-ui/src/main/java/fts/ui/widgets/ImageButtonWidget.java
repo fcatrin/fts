@@ -1,11 +1,11 @@
 package fts.ui.widgets;
 
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.ui.events.KeyEvent;
 
 public class ImageButtonWidget extends ImageWidget {
 
-	public ImageButtonWidget(NativeWindow w) {
+	public ImageButtonWidget(Window w) {
 		super(w);
 		setClickable(true);
 		setFocusable(true);

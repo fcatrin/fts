@@ -21,19 +21,20 @@ import java.util.List;
 
 import fts.android.fileselector.FilesPanel;
 import fts.core.Callback;
-import fts.core.ListOption;
+import fts.utils.dialogs.DialogContext;
+import fts.utils.dialogs.ListOption;
 import fts.core.SimpleCallback;
 import fts.core.Utils;
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.core.SimpleBackgroundTask;
 import fts.ui.Widget;
 import fts.ui.events.KeyEvent;
-import fts.ui.events.OnItemSelectionChangedListener;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogFactory;
 import fts.utils.dialogs.DialogInputCallback;
 import fts.utils.dialogs.DialogListCallback;
-import fts.utils.dialogs.FileListPanel.FileChooserConfig;
+import fts.utils.dialogs.FileChooserConfig;
+import fts.utils.dialogs.OnItemSelectionChangedListener;
 import fts.utils.dialogs.SimpleDialogCallback;
 import fts.vfile.VirtualFile;
 
@@ -45,8 +46,8 @@ public class AndroidDialogFactory implements DialogFactory {
 	public AndroidDialogFactory() {}
 
 	@Override
-	public void confirm(NativeWindow window, String text, String optYes, String optNo, final DialogCallback callback) {
-		final Activity activity = ((AndroidWindow)window).getActivity();
+	public void confirm(DialogContext context, String text, String optYes, String optNo, final DialogCallback callback) {
+		final Activity activity = ((AndroidWindow)context).getActivity();
 		setDismissCallback(activity, R.id.modal_dialog_actions, callback);
 
 		TextView txtMessage = activity.findViewById(R.id.txtDialogAction);
@@ -111,8 +112,8 @@ public class AndroidDialogFactory implements DialogFactory {
 	}
 
 	@Override
-	public void select(NativeWindow window, List<ListOption> options, String title, final DialogListCallback callback) {
-		final Activity activity = ((AndroidWindow)window).getActivity();
+	public void select(DialogContext context, List<ListOption> options, String title, final DialogListCallback callback) {
+		final Activity activity = ((AndroidWindow)context).getActivity();
 		setDismissCallback(activity, R.id.modal_dialog_list, callback);
 		
 		TextView txtTitle = activity.findViewById(R.id.txtDialogListTitle);
@@ -156,14 +157,14 @@ public class AndroidDialogFactory implements DialogFactory {
 		});
 	}
 
-	@Override
-	public void custom(NativeWindow window, Widget widget, String optYes, String optNo, DialogCallback callback) {
+	public void custom(DialogContext context, Widget widget, String optYes, String optNo, DialogCallback callback) {
+		final Window window = (Window)context;
 		confirm(window, "Custon Dialog not implemented on AndroidDialogs", null, null, null);
 	}
 
 	@Override
-	public void browse(final NativeWindow window, final VirtualFile sysRoot, final FileChooserConfig config, Callback<VirtualFile> onSelectedFileCallback) {
-		final Activity activity = ((AndroidWindow)window).getActivity();
+	public void browse(final DialogContext context, final VirtualFile sysRoot, final FileChooserConfig config, Callback<VirtualFile> onSelectedFileCallback) {
+		final Activity activity = ((AndroidWindow)context).getActivity();
 		final Callback<VirtualFile> listCallback = new Callback<VirtualFile>() {
 			@Override
 			public void onResult(final VirtualFile result) {
@@ -226,7 +227,7 @@ public class AndroidDialogFactory implements DialogFactory {
 				TextView  txtStorage = activity.findViewById(R.id.txtStorage);
 				ImageView imgStorage = activity.findViewById(R.id.imgStorage);
 
-				FilesPanel filesPanel = new FilesPanel(window, sysRoot, lv, txtStorage, imgStorage,
+				FilesPanel filesPanel = new FilesPanel((Window)context, sysRoot, lv, txtStorage, imgStorage,
 						txtStatus1, txtStatus2, listCallback, config);
 				filesPanel.refresh();
 
@@ -249,25 +250,22 @@ public class AndroidDialogFactory implements DialogFactory {
 
 	@Override
 	public void setOnItemSelectionChangedListener(OnItemSelectionChangedListener<ListOption> listener) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public boolean hasVisiblePanel(NativeWindow window) {
-		Activity activity = ((AndroidWindow)window).getActivity();
+	public boolean hasVisiblePanel(DialogContext context) {
+		Activity activity = ((AndroidWindow)context).getActivity();
 		return getVisibleDialog(activity) != null;
 	}
 
-	@Override
-	public boolean onKeyDown(NativeWindow window, KeyEvent event) {
+	public boolean onKeyDown(DialogContext context, KeyEvent event) {
 		return false;
 	}
 
-	@Override
-	public boolean onKeyUp(NativeWindow window, KeyEvent event) {
+	public boolean onKeyUp(DialogContext context, KeyEvent event) {
+		final Window window = (Window)context;
 		int keyCode = event.keyCode;
-		
+
 		if (keyCode == KeyEvent.KEY_BACKSPACE && hasVisiblePanel(window)) {
 			
 			if ((System.currentTimeMillis() - openTimeStart) < DIALOG_OPENING_THRESHOLD) {
@@ -282,7 +280,8 @@ public class AndroidDialogFactory implements DialogFactory {
 	}
 
 	@Override
-	public boolean dispatchCancelKey(NativeWindow window) {
+	public boolean dispatchCancelKey(DialogContext context) {
+		final Window window = (Window)context;
 		return cancelDialog(window);
 	}
 	
@@ -362,8 +361,8 @@ public class AndroidDialogFactory implements DialogFactory {
 	}
 
 
-	public boolean cancelDialog(NativeWindow window) {
-		Activity activity = ((AndroidWindow)window).getActivity();
+	public boolean cancelDialog(DialogContext context) {
+		Activity activity = ((AndroidWindow)context).getActivity();
 		View dialog = getVisibleDialog(activity);
 		
 		if (dialog == null) return false;
@@ -392,8 +391,8 @@ public class AndroidDialogFactory implements DialogFactory {
 		});
 	}
 
-	public void input(NativeWindow window, String text, String lastInput, DialogInputCallback callback) {
-		final Activity activity = ((AndroidWindow)window).getActivity();
+	public void input(DialogContext context, String text, String lastInput, DialogInputCallback callback) {
+		final Activity activity = ((AndroidWindow)context).getActivity();
 		setDismissCallback(activity, R.id.modal_dialog_input, callback);
 
 		final Button btnYes = activity.findViewById(R.id.btnDialogInputPositive);

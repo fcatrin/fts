@@ -16,7 +16,7 @@ public abstract class Container extends Widget {
 	Map<String, Widget> knownWidgets = new HashMap<String, Widget>();
 	Align align = new Align();
 
-	public Container(NativeWindow w) {
+	public Container(Window w) {
 		super(w);
 	}
 

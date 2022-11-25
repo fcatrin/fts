@@ -1,7 +1,7 @@
 package fts.ui.widgets;
 
 import fts.core.Utils;
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.ui.Widget;
 import fts.ui.events.OnProgressChangedListener;
 import fts.ui.events.PaintEvent;
@@ -25,7 +25,7 @@ public class ProgressWidget extends Widget {
 	private Drawable progressDrawable;
 	private Drawable progressBackgroundDrawable;
 	
-	public ProgressWidget(NativeWindow window) {
+	public ProgressWidget(Window window) {
 		super(window);
 		minHeight = this.resolvePropertyValueDimen("minHeight", "20pt");
 	}

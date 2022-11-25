@@ -1,4 +1,4 @@
-package fts.utils.dialogs;
+package fts.ui.dialogs;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,17 +11,21 @@ import fts.core.Callback;
 import fts.core.Utils;
 import fts.core.Utils.Compact;
 import fts.core.Log;
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.core.SimpleBackgroundTask;
-import fts.ui.events.OnItemSelectedListener;
+import fts.utils.dialogs.DialogCallback;
+import fts.utils.dialogs.DialogUtils;
 import fts.ui.widgets.ListWidget;
 import fts.ui.widgets.TextWidget;
+import fts.utils.dialogs.FileChooserConfig;
+import fts.utils.dialogs.FolderInfo;
+import fts.utils.dialogs.OnItemSelectedListener;
 import fts.vfile.VirtualFile;
 
 public class FileListPanel {
 	private static final String LOGTAG = FileListPanel.class.getSimpleName();
 
-	private NativeWindow nativeWindow;
+	private Window nativeWindow;
 	private FileListWidget list;
 	private TextWidget title;
 	private VirtualFile sysRoot;
@@ -33,9 +37,9 @@ public class FileListPanel {
 	private VirtualFile currentParent;
 	protected boolean focused = false;
 
-	public FileListPanel(NativeWindow nativeWindow, TextWidget title, FileListWidget list, VirtualFile sysRoot, 
-			FileChooserConfig config,
-			final Callback<VirtualFile> openCallback) {
+	public FileListPanel(Window nativeWindow, TextWidget title, FileListWidget list, VirtualFile sysRoot,
+						 FileChooserConfig config,
+						 final Callback<VirtualFile> openCallback) {
 		this.title = title;
 		this.list = list;
 		this.sysRoot = sysRoot;
@@ -46,7 +50,7 @@ public class FileListPanel {
 		list.setOnItemSelectedListener(new OnItemSelectedListener<VirtualFile>() {
 			
 			@Override
-			public void onItemSelected(ListWidget<VirtualFile> widget, VirtualFile item, int index) {
+			public void onItemSelected(VirtualFile item, int index) {
 				if (busy) return;
 				
 				// Log.d(LOGTAG, "FileChooser go to " + item);
@@ -260,23 +264,6 @@ public class FileListPanel {
 		}
 		
 		return false;
-	}
-
-	class FolderInfo {
-		List<VirtualFile> list;
-		public int nElements;
-		String error;
-		Exception e;
-	}
-
-	public static class FileChooserConfig {
-		public String title;
-		public VirtualFile initialDir;
-		public List<String> matchList;
-		public Callback<VirtualFile> callback;
-		public Callback<VirtualFile> browseCallback;
-		public boolean isDirOnly;
-		public boolean isDirOptional;
 	}
 
 }

@@ -21,10 +21,10 @@ import fts.android.R;
 import fts.core.Callback;
 import fts.core.UserVisibleException;
 import fts.core.Utils;
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.core.SimpleBackgroundTask;
 import fts.utils.dialogs.DialogUtils;
-import fts.utils.dialogs.FileListPanel.FileChooserConfig;
+import fts.utils.dialogs.FileChooserConfig;
 import fts.vfile.VirtualFile;
 
 public class FilesPanel {
@@ -43,7 +43,7 @@ public class FilesPanel {
 	private VirtualFile currentParent;
 	private final VirtualFile sysRoot;
 	private final FileChooserConfig config;
-	private NativeWindow nativeWindow;
+	private Window nativeWindow;
 
 	@SuppressWarnings("unused")
 	static class FolderInfo {
@@ -55,8 +55,8 @@ public class FilesPanel {
 		Exception e;
 	}
 	
-	public FilesPanel(NativeWindow nativeWindow, VirtualFile sysRoot, ListView listView, TextView txtStorage, ImageView iconStorage, TextView txtPanelStatus1, TextView txtPanelStatus2,
-			final Callback<VirtualFile> openCallback, final FileChooserConfig config) {
+	public FilesPanel(Window nativeWindow, VirtualFile sysRoot, ListView listView, TextView txtStorage, ImageView iconStorage, TextView txtPanelStatus1, TextView txtPanelStatus2,
+					  final Callback<VirtualFile> openCallback, final FileChooserConfig config) {
 		this.nativeWindow = nativeWindow;
 		this.activity = ((AndroidWindow)nativeWindow).getActivity();
 		this.lv = listView;

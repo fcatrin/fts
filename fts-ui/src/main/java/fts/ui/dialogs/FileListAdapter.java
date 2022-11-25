@@ -1,11 +1,11 @@
-package fts.utils.dialogs;
+package fts.ui.dialogs;
 
 import java.util.List;
 
 import fts.core.Utils;
 import fts.ui.Resources;
 import fts.ui.ListAdapter;
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.ui.Widget;
 import fts.ui.Widget.State;
 import fts.ui.Widget.Visibility;
@@ -15,9 +15,9 @@ import fts.vfile.VirtualFile;
 
 public class FileListAdapter extends ListAdapter<VirtualFile> {
 
-	private NativeWindow window;
+	private Window window;
 
-	public FileListAdapter(NativeWindow window, List<VirtualFile> files) {
+	public FileListAdapter(Window window, List<VirtualFile> files) {
 		setItems(files);
 		this.window = window;
 	}

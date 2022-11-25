@@ -11,7 +11,8 @@ import fts.android.AndroidUtils;
 import fts.android.FtsActivity;
 import fts.android.PermissionsHandler;
 import fts.core.Callback;
-import fts.core.ListOption;
+import fts.ui.dialogs.SimpleDialogs;
+import fts.utils.dialogs.ListOption;
 import fts.core.Application;
 import fts.core.Log;
 import fts.ui.Widget;
@@ -19,7 +20,7 @@ import fts.ui.events.KeyEvent;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogListCallback;
 import fts.utils.dialogs.DialogUtils;
-import fts.utils.dialogs.FileListPanel.FileChooserConfig;
+import fts.utils.dialogs.FileChooserConfig;
 import fts.vfile.VirtualFile;
 import fts.vfile.handlers.LocalFileHandler;
 
@@ -42,13 +43,15 @@ public class DemoActivity extends FtsActivity {
 
 	@Override
 	public boolean onKeyDown(KeyEvent event) {
-		if (DialogUtils.onKeyDown(getNativeWindow(), event)) return true;
+		SimpleDialogs dialogs = (SimpleDialogs) DialogUtils.factory;
+		if (dialogs.onKeyDown(getNativeWindow(), event)) return true;
 		return super.onKeyDown(event);
 	}
 
 	@Override
 	public boolean onKeyUp(KeyEvent event) {
-		if (DialogUtils.onKeyUp(getNativeWindow(), event)) return true;
+		SimpleDialogs dialogs = (SimpleDialogs) DialogUtils.factory;
+		if (dialogs.onKeyUp(getNativeWindow(), event)) return true;
 		return super.onKeyUp(event);
 	}
 	

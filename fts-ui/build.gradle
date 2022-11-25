@@ -8,6 +8,13 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_7
 }
 
+task ftsPackage(type:Exec) {
+    workingDir '.'
+    commandLine '../fts-tools/package.sh'
+}
+
+processResources.dependsOn ftsPackage
+
 afterEvaluate {
     publishing {
         publications {
@@ -24,4 +31,5 @@ afterEvaluate {
 
 dependencies {
     implementation project(path: ':fts-core')
+    implementation project(path: ':fts-utils')
 }

@@ -1,6 +1,6 @@
 package fts.ui.widgets;
 
-import fts.ui.NativeWindow;
+import fts.ui.Window;
 import fts.ui.events.KeyEvent;
 import fts.ui.graphics.Align;
 import fts.ui.graphics.Align.HAlign;
@@ -8,7 +8,7 @@ import fts.ui.graphics.Align.VAlign;
 
 public class ButtonWidget extends TextWidget {
 
-	public ButtonWidget(NativeWindow w) {
+	public ButtonWidget(Window w) {
 		super(w);
 		setClickable(true);
 		setFocusable(true);

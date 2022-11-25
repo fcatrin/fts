@@ -22,15 +22,6 @@ afterEvaluate {
     }
 }
 
-
-task ftsPackage(type:Exec) {
-    workingDir '.'
-    commandLine '../fts-tools/package.sh'
-}
-
-processResources.dependsOn ftsPackage
-
 dependencies {
    implementation project(path: ':fts-core')
-   implementation project(path: ':fts-ui')
 }

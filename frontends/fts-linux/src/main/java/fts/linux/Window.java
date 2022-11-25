@@ -5,7 +5,6 @@ import java.io.File;
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
 import fts.ui.Resources;
-import fts.ui.NativeWindow;
 import fts.ui.Widget;
 import fts.ui.events.KeyEvent;
 import fts.ui.events.TouchEvent;
@@ -166,7 +165,7 @@ public class Window implements GLWindowListener {
 		return nativeWindow.onKeyUp(keyEvent);
 	}
 
-	public NativeWindow getNativeWindow() {
+	public fts.ui.Window getNativeWindow() {
 		return nativeWindow;
 	}
 	
