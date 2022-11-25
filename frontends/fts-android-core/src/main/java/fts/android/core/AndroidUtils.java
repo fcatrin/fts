@@ -1,4 +1,4 @@
-package fts.android.gl;
+package fts.android.core;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -33,10 +33,9 @@ import java.util.regex.Pattern;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-import fts.android.core.PermissionsHandler;
+import fts.core.Log;
 import fts.core.ProgressListener;
 import fts.core.Utils;
-import fts.core.Log;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogUtils;
 
@@ -139,20 +138,18 @@ public class AndroidUtils {
 		}
 	}
 
-	
-	public static void checkPermissions(final WithPermissions target, String reason, final String permission, final PermissionsHandler handler) {
-		final Activity activity = target.getActivity();
-		if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
+	public static void checkPermissions(WithPermissions target, String reason, final String permission, final PermissionsHandler handler) {
+		if (ContextCompat.checkSelfPermission(target.getAndroidWindow(), permission) != PackageManager.PERMISSION_GRANTED) {
 			
 			String optYes = "Continue";
 			String optNo  = "Cancel";
-			DialogUtils.confirm(target.getNativeWindow(), reason, optYes, optNo, new DialogCallback(){
+			DialogUtils.confirm(target.getAndroidWindow(), reason, optYes, optNo, new DialogCallback(){
 
 				@Override
 				public void onYes() {
 					permissionsRequest++;
 					target.setPermissionHandler(permissionsRequest, handler);
-					ActivityCompat.requestPermissions(activity,
+					ActivityCompat.requestPermissions(target.getAndroidWindow(),
 							new String[]{permission},
 							permissionsRequest);
 				}

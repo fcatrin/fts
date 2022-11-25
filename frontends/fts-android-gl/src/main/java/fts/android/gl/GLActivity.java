@@ -10,8 +10,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import fts.android.core.AndroidUtils;
 import fts.android.core.AndroidWindow;
 import fts.android.core.PermissionsHandler;
+import fts.android.core.WithPermissions;
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
 import fts.core.Application;
@@ -40,7 +42,7 @@ public class GLActivity extends AndroidWindow implements GLWindowListener, WithP
 		configureScreen();
 		setContentView(R.layout.main);
 
-		AndroidApplication.init(this);
+		AndroidGLApplication.init(this);
 		
 		GLSurface glSurface = (GLSurface)findViewById(R.id.fts_view);
 		glSurface.setFtsActivity(this);
@@ -168,10 +170,4 @@ public class GLActivity extends AndroidWindow implements GLWindowListener, WithP
     	
     	AndroidUtils.handlePermissionsResult(permissions, grantResults, handler);
     }
-
-	@Override
-	public Activity getActivity() {
-		return this;
-	}
-	
 }

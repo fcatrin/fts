@@ -7,8 +7,8 @@ import java.util.Map;
 
 import fts.ui.events.KeyEvent;
 
-public class AndroidKeyMap {
-	private static final String LOGTAG = AndroidKeyMap.class.getSimpleName();
+public class AndroidGLKeyMap {
+	private static final String LOGTAG = AndroidGLKeyMap.class.getSimpleName();
 	
 	static Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 	

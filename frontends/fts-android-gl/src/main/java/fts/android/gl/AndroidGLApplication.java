@@ -10,7 +10,7 @@ import fts.core.Application;
 import fts.ui.Resources;
 import fts.core.CoreBackgroundProcessor;
 
-public class AndroidApplication {
+public class AndroidGLApplication {
 
     private static Handler handler;
 
@@ -24,8 +24,8 @@ public class AndroidApplication {
                 new AndroidLogger());
 
         Resources.init(
-                new AndroidComponentFactory(activity),
-                new AndroidResourceLocator(activity));
+                new AndroidGLComponentFactory(activity),
+                new AndroidGLResourceLocator(activity));
     }
 
     public static void post(Runnable runnable) {

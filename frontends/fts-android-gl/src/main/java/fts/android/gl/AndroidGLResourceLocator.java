@@ -10,11 +10,11 @@ import java.io.InputStream;
 import fts.core.ResourceLocator;
 import fts.core.Utils;
 
-public class AndroidResourceLocator extends ResourceLocator {
+public class AndroidGLResourceLocator extends ResourceLocator {
 
 	private Context context;
 
-	public AndroidResourceLocator(Context context) {
+	public AndroidGLResourceLocator(Context context) {
 		this.context = context;
 	}
 	

@@ -29,7 +29,7 @@ public class GLSurface extends GLSurfaceView {
 			// SHIFT+1 dumps the layout
 			GLActivity.getNativeWindow().dumpLayout();
 		}
-		fts.ui.events.KeyEvent ftsEvent = AndroidKeyMap.translate(event);
+		fts.ui.events.KeyEvent ftsEvent = AndroidGLKeyMap.translate(event);
 		if (ftsEvent == null) return super.dispatchKeyEvent(event);
 		return GLActivity.dispatchKeyEvent(ftsEvent);
 	}

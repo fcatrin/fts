@@ -6,11 +6,11 @@ import fts.gl.GLFactory;
 import fts.ui.Window;
 import fts.ui.graphics.BackBuffer;
 
-public class AndroidComponentFactory extends GLFactory {
+public class AndroidGLComponentFactory extends GLFactory {
 	
 	Activity activity;
 	
-	public AndroidComponentFactory(Activity activity) {
+	public AndroidGLComponentFactory(Activity activity) {
 		this.activity = activity;
 	}
 
