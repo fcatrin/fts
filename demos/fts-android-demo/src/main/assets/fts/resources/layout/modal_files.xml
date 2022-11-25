@@ -22,7 +22,7 @@
             color="@color/modal_foreground"
             maxLines="2"
             />
-        <fts.utils.dialogs.FileListWidget
+        <fts.ui.dialogs.FileListWidget
             id="filesList"
             width="match_parent"
             height="wrap_content"
