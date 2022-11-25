@@ -3,9 +3,10 @@ package fts.android;
 import android.app.Activity;
 import android.os.Handler;
 
+import fts.core.AsyncExecutor;
 import fts.core.CoreAsyncExecutor;
-import fts.ui.AppContext;
 import fts.ui.Application;
+import fts.ui.Resources;
 import fts.ui.CoreBackgroundProcessor;
 
 public class AndroidApplication {
@@ -14,15 +15,16 @@ public class AndroidApplication {
 
     public static void init(Activity activity) {
         handler = new Handler();
-        
-        AppContext.asyncExecutor = new CoreAsyncExecutor();
-        AppContext.backgroundProcessor = new CoreBackgroundProcessor(AppContext.asyncExecutor);
 
+        AsyncExecutor asyncExecutor = new CoreAsyncExecutor();
         Application.init(
+                asyncExecutor,
+                new CoreBackgroundProcessor(asyncExecutor),
+                new AndroidLogger());
+
+        Resources.init(
                 new AndroidComponentFactory(activity),
-                new AndroidResourceLocator(activity),
-                new AndroidLogger(),
-                new AppContext());
+                new AndroidResourceLocator(activity));
     }
 
     public static void post(Runnable runnable) {

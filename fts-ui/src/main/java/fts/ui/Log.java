@@ -3,18 +3,18 @@ package fts.ui;
 public class Log {
 
 	public static void d(String tag, String message) {
-		Application.logger.d(tag, message);
+		Application.getLogger().d(tag, message);
 	}
 
 	public static void e(String tag, String message) {
-		Application.logger.e(tag, message);
+		Application.getLogger().e(tag, message);
 	}
 
 	public static void i(String tag, String message) {
-		Application.logger.i(tag, message);
+		Application.getLogger().i(tag, message);
 	}
 
 	public static void e(String tag, String message, Throwable t) {
-		Application.logger.e(tag, message, t);
+		Application.getLogger().e(tag, message, t);
 	}
 }

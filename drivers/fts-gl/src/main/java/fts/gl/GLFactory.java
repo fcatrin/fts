@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import fts.core.Utils;
-import fts.ui.Application;
+import fts.ui.Resources;
 import fts.ui.CoreComponentFactory;
 import fts.ui.Widget;
 import fts.ui.graphics.BackBuffer;
@@ -41,11 +41,11 @@ public abstract class GLFactory extends CoreComponentFactory {
 			String fileName = src.substring("@images/".length());
 			String location = "resources/images/" + fileName;
 			
-			if (!Application.resourceExists(location)) {
+			if (!Resources.resourceExists(location)) {
 				throw new RuntimeException("Image not found on " + location);
 			}
 			
-			imageFile = Application.resourceExtract(location);
+			imageFile = Resources.resourceExtract(location);
 			
 		} else {
 			imageFile = new File(src);

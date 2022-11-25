@@ -6,7 +6,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import fts.gl.GLWindow;
-import fts.ui.AppContext;
+import fts.ui.Application;
 import fts.ui.graphics.Point;
 
 public class GLRenderer implements Renderer {
@@ -21,7 +21,7 @@ public class GLRenderer implements Renderer {
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		window.init();
-		AppContext.backgroundProcessor.start();
+		Application.getBackgroundProcessor().start();
 
 		activity.onWindowCreate();
 		activity.onWindowStart();

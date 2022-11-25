@@ -3,8 +3,8 @@ package fts.gl;
 import java.io.File;
 import java.util.List;
 
-import fts.ui.AppContext;
 import fts.ui.Application;
+import fts.ui.Resources;
 import fts.ui.ComponentFactory;
 import fts.ui.Log;
 import fts.ui.NativeWindow;
@@ -45,19 +45,19 @@ public class GLWindow extends NativeWindow {
 		
 		windowListener.onFrame();
 		
-		AppContext.asyncExecutor.process();
+		Application.getAsyncExecutor().process();
 	}
 	
 	@Override
 	public void mainLoop() {
-		AppContext.backgroundProcessor.start();
+		Application.getBackgroundProcessor().start();
 		
 		requestLayout();
 		while (running) {
 			render();
 		}
 		
-		AppContext.backgroundProcessor.shutdown();
+		Application.getBackgroundProcessor().shutdown();
 	}
 	
 	protected boolean sync() {
@@ -65,7 +65,7 @@ public class GLWindow extends NativeWindow {
 	}
 	
 	protected void createAllFonts() {
-		ComponentFactory factory = Application.getFactory();
+		ComponentFactory factory = Resources.getFactory();
 		List<String> aliases = factory.getAllFontAliases();
 		if (aliases.isEmpty()) {
 			Log.e(LOGTAG, "No fonts found on resources (fonts/ values/fonts.xml)");

@@ -3,7 +3,7 @@ package fts.utils.dialogs;
 import java.util.List;
 
 import fts.core.Utils;
-import fts.ui.Application;
+import fts.ui.Resources;
 import fts.ui.ListAdapter;
 import fts.ui.NativeWindow;
 import fts.ui.Widget;
@@ -25,7 +25,7 @@ public class FileListAdapter extends ListAdapter<VirtualFile> {
 	@Override
 	public Widget getWidget(Widget widget, int index, Widget list) {
 		if (widget == null) {
-			widget = Application.inflate(window, "modal_files_item");
+			widget = Resources.inflate(window, "modal_files_item");
 		}
 		
 		VirtualFile item = getItem(index);

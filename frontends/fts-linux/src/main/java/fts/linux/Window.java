@@ -4,7 +4,7 @@ import java.io.File;
 
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
-import fts.ui.Application;
+import fts.ui.Resources;
 import fts.ui.NativeWindow;
 import fts.ui.Widget;
 import fts.ui.events.KeyEvent;
@@ -48,7 +48,7 @@ public class Window implements GLWindowListener {
 
 	@Override
 	public void open() {
-		nativeWindow = (GLWindow)Application.createNativeWindow(title, width, height, flags); // TODO are those parameters needed really?
+		nativeWindow = (GLWindow) Resources.createNativeWindow(title, width, height, flags); // TODO are those parameters needed really?
 		nativeWindow.setWindowListener(this);
 		
 		NativeInterface.windowOpen(title, x, y, width, height, flags);
@@ -112,7 +112,7 @@ public class Window implements GLWindowListener {
 	}
 
 	public Widget inflate(String layoutName) {
-		return Application.inflate(nativeWindow, layoutName);
+		return Resources.inflate(nativeWindow, layoutName);
 	}
 	
 	public void setContentView(Widget view) {

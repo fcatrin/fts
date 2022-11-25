@@ -3,7 +3,7 @@ package fts.ui.graphics;
 import org.w3c.dom.Element;
 
 import fts.core.xml.SimpleXML;
-import fts.ui.Application;
+import fts.ui.Resources;
 
 public class ColorListSelector extends StateListSelector<Color> {
 
@@ -21,7 +21,7 @@ public class ColorListSelector extends StateListSelector<Color> {
 	@Override
 	protected Color createItem(Element element) {
 		String colorSpec = SimpleXML.getAttribute(element, "color");
-		return Application.factory.getColor(colorSpec).getSelectedItem();
+		return Resources.factory.getColor(colorSpec).getSelectedItem();
 	}
 
 }

@@ -73,7 +73,7 @@ public abstract class CoreComponentFactory implements ComponentFactory {
 		} else if (value.startsWith("@color/")) {
 			String alias = value.substring("@color/".length());
 			if (!colors.containsKey(alias)) {
-				ColorListSelector colorResource = Application.loadColorResource(alias);
+				ColorListSelector colorResource = Resources.loadColorResource(alias);
 				if (colorResource!=null) return colorResource;
 			} else {
 				return colors.get(alias);

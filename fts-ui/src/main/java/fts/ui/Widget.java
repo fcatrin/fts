@@ -148,7 +148,7 @@ public class Widget extends Component {
 	
 	protected BackBuffer getBackBuffer(int width, int height) {
 		if (backBuffer == null || backBuffer.getWidth() != width || backBuffer.getHeight() != height) {
-			backBuffer = Application.createBackBuffer(id, width, height);
+			backBuffer = Resources.createBackBuffer(id, width, height);
 		}
 		return backBuffer;
 	}
@@ -328,11 +328,11 @@ public class Widget extends Component {
 	}
 	
 	public void postInvalidate() {
-		if (!isDisposed()) AppContext.post(invalidateTask);
+		if (!isDisposed()) Application.post(invalidateTask);
 	}
 	
 	public void post(Runnable runnable) {
-		if (!isDisposed()) AppContext.post(runnable);
+		if (!isDisposed()) Application.post(runnable);
 	}
 	
 	protected boolean isDisposed() {

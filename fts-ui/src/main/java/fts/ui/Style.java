@@ -28,7 +28,7 @@ public class Style {
 
 	private void fillAttributes(Map<String, String> result) {
 		if (parent!=null) {
-			Style parentStyle = Application.getFactory().getStyle(parent);
+			Style parentStyle = Resources.getFactory().getStyle(parent);
 			parentStyle.fillAttributes(result);
 		}
 		result.putAll(attributes);

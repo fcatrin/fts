@@ -12,7 +12,7 @@ import fts.android.FtsActivity;
 import fts.android.PermissionsHandler;
 import fts.core.Callback;
 import fts.core.ListOption;
-import fts.ui.AppContext;
+import fts.ui.Application;
 import fts.ui.Log;
 import fts.ui.Widget;
 import fts.ui.events.KeyEvent;
@@ -28,7 +28,7 @@ public class DemoActivity extends FtsActivity {
 	
 	@Override
 	public void onWindowCreate() {
-		AppContext.pointsPerPixel = getBounds().y / 540.0f;
+		Application.pointsPerPixel = getBounds().y / 540.0f;
 		DialogUtils.factory = new AndroidDialogFactory();
 		
 		Widget rootView = inflate("main");

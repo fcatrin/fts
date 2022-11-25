@@ -12,8 +12,8 @@ import java.util.Map;
 
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
-import fts.ui.AppContext;
 import fts.ui.Application;
+import fts.ui.Resources;
 import fts.ui.Widget;
 import fts.ui.events.KeyEvent;
 import fts.ui.graphics.Point;
@@ -43,7 +43,7 @@ public class FtsActivity extends Activity implements GLWindowListener, WithPermi
 		GLSurface glSurface = (GLSurface)findViewById(R.id.fts_view);
 		glSurface.setFtsActivity(this);
 		
-		nativeWindow = (GLWindow)Application.createNativeWindow("", 0, 0, 0);
+		nativeWindow = (GLWindow) Resources.createNativeWindow("", 0, 0, 0);
 		nativeWindow.setWindowListener(this);
 		started = false;
 	}
@@ -61,7 +61,7 @@ public class FtsActivity extends Activity implements GLWindowListener, WithPermi
 	}
 	
 	public Widget inflate(String layoutName) {
-		return Application.inflate(nativeWindow, layoutName);
+		return Resources.inflate(nativeWindow, layoutName);
 	}
 	
 	public Widget findWidget(String id) {
@@ -77,7 +77,7 @@ public class FtsActivity extends Activity implements GLWindowListener, WithPermi
 	@Override
 	final protected void onDestroy() {
 		super.onDestroy();
-		AppContext.backgroundProcessor.shutdown();
+		Application.getBackgroundProcessor().shutdown();
 		onWindowDestroy();
 	}
 

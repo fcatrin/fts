@@ -3,7 +3,7 @@ package fts.ui.graphics;
 import org.w3c.dom.Element;
 
 import fts.core.xml.SimpleXML;
-import fts.ui.Application;
+import fts.ui.Resources;
 
 public class ImageDrawable extends Drawable {
 	public enum ScaleType {fitCenter, cropCenter, fitXY}
@@ -24,7 +24,7 @@ public class ImageDrawable extends Drawable {
 
 	public void setSrc(String src) {
 		destroyCurrentImage();
-		image = Application.createImage(src);
+		image = Resources.createImage(src);
 	}
 	
 	public void setImage(Image image) {

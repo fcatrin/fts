@@ -5,7 +5,7 @@ import org.w3c.dom.Element;
 import java.util.List;
 
 import fts.core.xml.SimpleXML;
-import fts.ui.Application;
+import fts.ui.Resources;
 
 public class SelectorDrawable extends Drawable {
 	private final StateSelectorDrawable drawableSelector = new StateSelectorDrawable();
@@ -36,12 +36,12 @@ public class SelectorDrawable extends Drawable {
 		protected Drawable createItem(Element element) {
 			String drawable = SimpleXML.getAttribute(element, "drawable");
 			if (drawable!=null) {
-				return Application.loadDrawable(drawable);
+				return Resources.loadDrawable(drawable);
 			} else {
 				List<Element> childElements = SimpleXML.getElements(element);
 				if (childElements.size() != 1) throw new RuntimeException("Wrong number of drawable elements on selector " + element);
 				
-				return Application.createDrawable(childElements.get(0)); 
+				return Resources.createDrawable(childElements.get(0));
 			}
 		}
 	}

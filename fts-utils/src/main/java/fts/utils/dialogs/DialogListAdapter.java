@@ -3,7 +3,7 @@ package fts.utils.dialogs;
 import java.util.List;
 
 import fts.core.ListOption;
-import fts.ui.Application;
+import fts.ui.Resources;
 import fts.ui.NativeWindow;
 import fts.ui.Widget;
 import fts.ui.Widget.State;
@@ -25,7 +25,7 @@ public class DialogListAdapter extends ListOptionAdapter {
 	@Override
 	public Widget getWidget(Widget widget, int index, Widget list) {
 		if (widget == null) {
-			widget = Application.inflate(window, "modal_list_item");
+			widget = Resources.inflate(window, "modal_list_item");
 		}
 		
 		ListOption item = getItem(index);

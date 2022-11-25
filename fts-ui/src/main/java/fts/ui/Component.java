@@ -80,7 +80,7 @@ public abstract class Component {
 	protected Object resolvePropertyValue(String propertyName, String value) {
 		if (value.startsWith("@string/")) {
 			String alias = value.substring("@string/".length());
-			value = Application.factory.getString(alias);
+			value = Resources.factory.getString(alias);
 		}
 		if (propertyName.equals("text") || propertyName.equals("id")) {
 			return value;
@@ -141,7 +141,7 @@ public abstract class Component {
 	public Drawable resolveBackground(String value) {
 		if (value.startsWith("@drawable/")) {
 			String name = value.substring("@drawable/".length());
-			return Application.loadDrawable(name);
+			return Resources.loadDrawable(name);
 		} else if (value.startsWith("@color") || value.startsWith("#")) {
 			Shape shape = new Shape();
 			shape.setProperty("fillColor", value);
@@ -164,7 +164,7 @@ public abstract class Component {
 	
 	public ColorListSelector resolvePropertyValueColor(String propertyName, String value) {
 		try {
-			return Application.factory.getColor(value);
+			return Resources.factory.getColor(value);
 		} catch (RuntimeException e) {
 			throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": Invalid format " + value);
 		}
@@ -177,7 +177,7 @@ public abstract class Component {
 	protected int resolvePropertyValueDimen(String propertyName, String value) {
 		if (value.startsWith("@dimen/")) {
 			String alias = value.substring("@dimen/".length());
-			String knownDimen = Application.factory.getDimen(alias);
+			String knownDimen = Resources.factory.getDimen(alias);
 			if (knownDimen == null) {
 				throw new RuntimeException("Unknown dimension " + value + " " + getClass().getName() + "::" + propertyName);
 			}
