@@ -6,7 +6,7 @@ import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
 import fts.core.Application;
 import fts.ui.Resources;
-import fts.ui.CoreBackgroundProcessor;
+import fts.core.CoreBackgroundProcessor;
 
 public class LinuxApplication {
     public static void init() {

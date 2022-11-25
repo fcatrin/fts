@@ -7,7 +7,7 @@ import fts.core.AsyncExecutor;
 import fts.core.CoreAsyncExecutor;
 import fts.core.Application;
 import fts.ui.Resources;
-import fts.ui.CoreBackgroundProcessor;
+import fts.core.CoreBackgroundProcessor;
 
 public class AndroidApplication {
 

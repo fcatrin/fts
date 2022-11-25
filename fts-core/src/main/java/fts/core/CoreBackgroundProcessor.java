@@ -1,4 +1,4 @@
-package fts.ui;
+package fts.core;
 
 import java.util.ArrayList;
 import java.util.List;
