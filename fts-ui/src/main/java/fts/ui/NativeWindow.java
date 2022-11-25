@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import fts.core.Log;
 import fts.ui.events.KeyEvent;
 import fts.ui.events.PaintEvent;
 import fts.ui.events.TouchEvent;

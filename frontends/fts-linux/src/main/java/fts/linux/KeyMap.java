@@ -3,7 +3,7 @@ package fts.linux;
 import java.util.HashMap;
 import java.util.Map;
 
-import fts.ui.Log;
+import fts.core.Log;
 import fts.ui.events.KeyEvent;
 
 public class KeyMap {

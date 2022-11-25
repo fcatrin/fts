@@ -3,10 +3,10 @@ package fts.gl;
 import java.io.File;
 import java.util.List;
 
-import fts.ui.Application;
+import fts.core.Application;
 import fts.ui.Resources;
 import fts.ui.ComponentFactory;
-import fts.ui.Log;
+import fts.core.Log;
 import fts.ui.NativeWindow;
 import fts.ui.events.PaintEvent;
 import fts.ui.graphics.Canvas;

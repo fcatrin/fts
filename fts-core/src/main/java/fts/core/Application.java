@@ -1,7 +1,4 @@
-package fts.ui;
-
-import fts.core.AsyncExecutor;
-import fts.core.Logger;
+package fts.core;
 
 public class Application {
 	public static float pointsPerPixel = 1;

@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import fts.core.Application;
 import fts.ui.events.KeyEvent;
 import fts.ui.events.OnClickListener;
 import fts.ui.events.OnFocusChangedListener;

@@ -25,7 +25,7 @@ import fts.core.ListOption;
 import fts.core.SimpleCallback;
 import fts.core.Utils;
 import fts.ui.NativeWindow;
-import fts.ui.SimpleBackgroundTask;
+import fts.core.SimpleBackgroundTask;
 import fts.ui.Widget;
 import fts.ui.events.KeyEvent;
 import fts.ui.events.OnItemSelectionChangedListener;

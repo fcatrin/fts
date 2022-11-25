@@ -12,7 +12,7 @@ import java.util.Map;
 
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
-import fts.ui.Application;
+import fts.core.Application;
 import fts.ui.Resources;
 import fts.ui.Widget;
 import fts.ui.events.KeyEvent;

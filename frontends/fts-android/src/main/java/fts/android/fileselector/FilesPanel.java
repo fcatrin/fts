@@ -22,7 +22,7 @@ import fts.core.Callback;
 import fts.core.UserVisibleException;
 import fts.core.Utils;
 import fts.ui.NativeWindow;
-import fts.ui.SimpleBackgroundTask;
+import fts.core.SimpleBackgroundTask;
 import fts.utils.dialogs.DialogUtils;
 import fts.utils.dialogs.FileListPanel.FileChooserConfig;
 import fts.vfile.VirtualFile;

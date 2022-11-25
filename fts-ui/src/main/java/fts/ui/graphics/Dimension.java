@@ -1,6 +1,6 @@
 package fts.ui.graphics;
 
-import fts.ui.Application;
+import fts.core.Application;
 
 public class Dimension {
 	public static int pt2px(int pt) {

@@ -35,7 +35,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import fts.core.ProgressListener;
 import fts.core.Utils;
-import fts.ui.Log;
+import fts.core.Log;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogUtils;
 

@@ -1,4 +1,4 @@
-package fts.ui;
+package fts.core;
 
 public class Log {
 

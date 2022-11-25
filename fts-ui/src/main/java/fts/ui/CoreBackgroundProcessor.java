@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fts.core.AsyncExecutor;
+import fts.core.BackgroundProcessor;
+import fts.core.BackgroundTask;
 
 @SuppressWarnings("rawtypes")
 public class CoreBackgroundProcessor extends Thread implements BackgroundProcessor {

@@ -4,7 +4,7 @@ import fts.core.AsyncExecutor;
 import fts.core.CoreAsyncExecutor;
 import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
-import fts.ui.Application;
+import fts.core.Application;
 import fts.ui.Resources;
 import fts.ui.CoreBackgroundProcessor;
 

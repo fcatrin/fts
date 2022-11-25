@@ -8,7 +8,7 @@ import fts.core.ListOption;
 import fts.core.Utils;
 import fts.ui.Container;
 import fts.ui.NativeWindow;
-import fts.ui.SimpleBackgroundTask;
+import fts.core.SimpleBackgroundTask;
 import fts.ui.Widget;
 import fts.ui.Widget.Visibility;
 import fts.ui.events.KeyEvent;

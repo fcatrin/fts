@@ -1,6 +1,6 @@
 package fts.gl;
 
-import fts.ui.Log;
+import fts.core.Log;
 import fts.ui.graphics.BackBuffer;
 import fts.ui.graphics.Canvas;
 

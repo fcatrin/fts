@@ -1,4 +1,4 @@
-package fts.ui;
+package fts.core;
 
 public abstract class SimpleBackgroundTask extends BackgroundTask<Void> {
 

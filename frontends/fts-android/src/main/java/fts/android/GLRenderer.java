@@ -6,7 +6,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import fts.gl.GLWindow;
-import fts.ui.Application;
+import fts.core.Application;
 import fts.ui.graphics.Point;
 
 public class GLRenderer implements Renderer {

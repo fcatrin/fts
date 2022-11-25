@@ -2,7 +2,7 @@ package fts.gl;
 
 import java.io.File;
 
-import fts.ui.Log;
+import fts.core.Log;
 import fts.ui.graphics.Canvas;
 import fts.ui.graphics.Color;
 import fts.ui.graphics.Font;

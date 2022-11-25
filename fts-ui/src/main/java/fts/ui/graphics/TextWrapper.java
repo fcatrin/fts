@@ -3,7 +3,7 @@ package fts.ui.graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import fts.ui.Log;
+import fts.core.Log;
 
 public class TextWrapper {
 	private Point size = new Point();
