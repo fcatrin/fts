@@ -16,7 +16,7 @@ public class AndroidComponentFactory extends GLFactory {
 
 	@Override
 	public Window createNativeWindow(String title, int width, int height, int flags) {
-		return new AndroidWindow(activity);
+		return new AndroidNativeWindow(activity);
 	}
 
 	@Override

@@ -47,7 +47,7 @@ public class AndroidDialogFactory implements DialogFactory {
 
 	@Override
 	public void confirm(DialogContext context, String text, String optYes, String optNo, final DialogCallback callback) {
-		final Activity activity = ((AndroidWindow)context).getActivity();
+		final Activity activity = (AndroidWindow)context;
 		setDismissCallback(activity, R.id.modal_dialog_actions, callback);
 
 		TextView txtMessage = activity.findViewById(R.id.txtDialogAction);
@@ -113,7 +113,7 @@ public class AndroidDialogFactory implements DialogFactory {
 
 	@Override
 	public void select(DialogContext context, List<ListOption> options, String title, final DialogListCallback callback) {
-		final Activity activity = ((AndroidWindow)context).getActivity();
+		final Activity activity = (AndroidWindow)context;
 		setDismissCallback(activity, R.id.modal_dialog_list, callback);
 		
 		TextView txtTitle = activity.findViewById(R.id.txtDialogListTitle);
@@ -164,7 +164,7 @@ public class AndroidDialogFactory implements DialogFactory {
 
 	@Override
 	public void browse(final DialogContext context, final VirtualFile sysRoot, final FileChooserConfig config, Callback<VirtualFile> onSelectedFileCallback) {
-		final Activity activity = ((AndroidWindow)context).getActivity();
+		final Activity activity = (AndroidWindow)context;
 		final Callback<VirtualFile> listCallback = new Callback<VirtualFile>() {
 			@Override
 			public void onResult(final VirtualFile result) {
@@ -254,7 +254,7 @@ public class AndroidDialogFactory implements DialogFactory {
 
 	@Override
 	public boolean hasVisiblePanel(DialogContext context) {
-		Activity activity = ((AndroidWindow)context).getActivity();
+		final Activity activity = (AndroidWindow)context;
 		return getVisibleDialog(activity) != null;
 	}
 
@@ -362,7 +362,7 @@ public class AndroidDialogFactory implements DialogFactory {
 
 
 	public boolean cancelDialog(DialogContext context) {
-		Activity activity = ((AndroidWindow)context).getActivity();
+		final Activity activity = (AndroidWindow)context;
 		View dialog = getVisibleDialog(activity);
 		
 		if (dialog == null) return false;
@@ -392,7 +392,7 @@ public class AndroidDialogFactory implements DialogFactory {
 	}
 
 	public void input(DialogContext context, String text, String lastInput, DialogInputCallback callback) {
-		final Activity activity = ((AndroidWindow)context).getActivity();
+		final Activity activity = (AndroidWindow)context;
 		setDismissCallback(activity, R.id.modal_dialog_input, callback);
 
 		final Button btnYes = activity.findViewById(R.id.btnDialogInputPositive);

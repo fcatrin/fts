@@ -3,17 +3,8 @@ package fts.android;
 import android.app.Activity;
 
 import fts.gl.GLWindow;
+import fts.utils.dialogs.DialogContext;
 
-public class AndroidWindow extends GLWindow {
-
-	final Activity activity;
-	
-	public AndroidWindow(Activity activity) {
-		this.activity = activity;
-	}
-
-	public Activity getActivity() {
-		return activity;
-	}
+public class AndroidWindow extends Activity implements DialogContext {
 
 }

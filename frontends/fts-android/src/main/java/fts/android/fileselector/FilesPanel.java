@@ -23,6 +23,7 @@ import fts.core.UserVisibleException;
 import fts.core.Utils;
 import fts.ui.Window;
 import fts.core.SimpleBackgroundTask;
+import fts.utils.dialogs.DialogContext;
 import fts.utils.dialogs.DialogUtils;
 import fts.utils.dialogs.FileChooserConfig;
 import fts.vfile.VirtualFile;
@@ -35,6 +36,7 @@ public class FilesPanel {
 	private final TextView txtPanelStatus1;
 	private final TextView txtPanelStatus2;
 	private final Activity activity;
+	private final DialogContext context;
 	private final TextView txtStorage;
 	private final ImageView iconStorage;
 	private VirtualFile currentStorage;
@@ -43,7 +45,6 @@ public class FilesPanel {
 	private VirtualFile currentParent;
 	private final VirtualFile sysRoot;
 	private final FileChooserConfig config;
-	private Window nativeWindow;
 
 	@SuppressWarnings("unused")
 	static class FolderInfo {
@@ -55,10 +56,10 @@ public class FilesPanel {
 		Exception e;
 	}
 	
-	public FilesPanel(Window nativeWindow, VirtualFile sysRoot, ListView listView, TextView txtStorage, ImageView iconStorage, TextView txtPanelStatus1, TextView txtPanelStatus2,
+	public FilesPanel(DialogContext context, VirtualFile sysRoot, ListView listView, TextView txtStorage, ImageView iconStorage, TextView txtPanelStatus1, TextView txtPanelStatus2,
 					  final Callback<VirtualFile> openCallback, final FileChooserConfig config) {
-		this.nativeWindow = nativeWindow;
-		this.activity = ((AndroidWindow)nativeWindow).getActivity();
+		this.context = context;
+		this.activity = (AndroidWindow)context;
 		this.lv = listView;
 		this.txtStorage = txtStorage;
 		this.iconStorage = iconStorage;
@@ -212,9 +213,9 @@ public class FilesPanel {
 				lv.requestFocus();
 
 				if (folderInfo.error != null) {
-					DialogUtils.message(nativeWindow, folderInfo.error);
+					DialogUtils.message(context, folderInfo.error);
 				} else if (folderInfo.e != null) {
-					DialogUtils.message(nativeWindow, folderInfo.e.toString());
+					DialogUtils.message(context, folderInfo.e.toString());
 				}
 			}
 		};
