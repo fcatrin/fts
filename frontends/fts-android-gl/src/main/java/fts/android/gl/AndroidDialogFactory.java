@@ -1,4 +1,4 @@
-package fts.android;
+package fts.android.gl;
 
 import android.app.Activity;
 import android.view.View;
@@ -19,7 +19,8 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.List;
 
-import fts.android.fileselector.FilesPanel;
+import fts.android.gl.R;
+import fts.android.gl.fileselector.FilesPanel;
 import fts.core.Callback;
 import fts.utils.dialogs.DialogContext;
 import fts.utils.dialogs.ListOption;

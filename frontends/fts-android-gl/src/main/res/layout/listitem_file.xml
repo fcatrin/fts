@@ -4,7 +4,7 @@
     android:orientation="horizontal"
     android:padding="@dimen/spacing_normal" >
 
-    <fts.android.TintableImageView
+    <fts.android.gl.TintableImageView
         android:id="@+id/listFileIcon"
         android:layout_width="@dimen/text_normal"
         android:layout_height="@dimen/text_normal"

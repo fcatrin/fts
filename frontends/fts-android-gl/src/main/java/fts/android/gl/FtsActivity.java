@@ -1,4 +1,4 @@
-package fts.android;
+package fts.android.gl;
 
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import fts.android.gl.R;
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
 import fts.core.Application;

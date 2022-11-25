@@ -33,7 +33,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'fts'
-                artifactId = 'android'
+                artifactId = 'android.gl'
                 version = '1.0.0'
             }
         }

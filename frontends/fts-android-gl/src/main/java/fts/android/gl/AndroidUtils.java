@@ -1,4 +1,4 @@
-package fts.android;
+package fts.android.gl;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
