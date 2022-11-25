@@ -19,7 +19,8 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.List;
 
-import fts.android.gl.R;
+import fts.android.core.AndroidWindow;
+import fts.android.core.ListOptionAdapter;
 import fts.android.gl.fileselector.FilesPanel;
 import fts.core.Callback;
 import fts.utils.dialogs.DialogContext;

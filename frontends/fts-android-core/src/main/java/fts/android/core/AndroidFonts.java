@@ -1,4 +1,4 @@
-package fts.android.gl;
+package fts.android.core;
 
 import android.content.Context;
 import android.graphics.Typeface;

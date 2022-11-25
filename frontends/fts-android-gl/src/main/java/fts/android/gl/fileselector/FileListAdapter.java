@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import fts.android.gl.AndroidFonts;
+import fts.android.core.AndroidFonts;
 import fts.android.gl.R;
 import fts.android.gl.TintableImageView;
 import fts.core.Utils;

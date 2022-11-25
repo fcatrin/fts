@@ -16,7 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import fts.android.gl.AndroidWindow;
+import fts.android.core.AndroidWindow;
 import fts.android.gl.R;
 import fts.core.Callback;
 import fts.core.UserVisibleException;

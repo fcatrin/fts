@@ -4,10 +4,10 @@ import android.app.Activity;
 
 import fts.gl.GLWindow;
 
-public class AndroidNativeWindow extends GLWindow {
+public class AndroidGLWindow extends GLWindow {
     private final Activity activity;
 
-    public AndroidNativeWindow(Activity activity) {
+    public AndroidGLWindow(Activity activity) {
         this.activity = activity;
     }
 

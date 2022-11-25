@@ -3,6 +3,7 @@ package fts.android.gl;
 import android.app.Activity;
 import android.os.Handler;
 
+import fts.android.core.AndroidLogger;
 import fts.core.AsyncExecutor;
 import fts.core.CoreAsyncExecutor;
 import fts.core.Application;
