@@ -228,7 +228,7 @@ public class AndroidDialogFactory implements DialogFactory {
 				TextView  txtStorage = activity.findViewById(R.id.txtStorage);
 				ImageView imgStorage = activity.findViewById(R.id.imgStorage);
 
-				FilesPanel filesPanel = new FilesPanel((Window)context, sysRoot, lv, txtStorage, imgStorage,
+				FilesPanel filesPanel = new FilesPanel(context, sysRoot, lv, txtStorage, imgStorage,
 						txtStatus1, txtStatus2, listCallback, config);
 				filesPanel.refresh();
 
@@ -282,8 +282,7 @@ public class AndroidDialogFactory implements DialogFactory {
 
 	@Override
 	public boolean dispatchCancelKey(DialogContext context) {
-		final Window window = (Window)context;
-		return cancelDialog(window);
+		return cancelDialog(context);
 	}
 	
 	private void openDialog(Activity activity, int dialogResourceId, final SimpleCallback callback) {

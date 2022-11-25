@@ -19,7 +19,7 @@ import fts.ui.Widget;
 import fts.ui.events.KeyEvent;
 import fts.ui.graphics.Point;
 
-public class FtsActivity extends Activity implements GLWindowListener, WithPermissions {
+public class FtsActivity extends AndroidWindow implements GLWindowListener, WithPermissions {
 	private static final String LOGTAG = FtsActivity.class.getSimpleName();
 	
 	private GLWindow nativeWindow;

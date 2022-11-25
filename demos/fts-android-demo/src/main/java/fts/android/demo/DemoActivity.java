@@ -44,21 +44,21 @@ public class DemoActivity extends FtsActivity {
 	@Override
 	public boolean onKeyDown(KeyEvent event) {
 		SimpleDialogs dialogs = (SimpleDialogs) DialogUtils.factory;
-		if (dialogs.onKeyDown(getNativeWindow(), event)) return true;
+		if (dialogs.onKeyDown(this, event)) return true;
 		return super.onKeyDown(event);
 	}
 
 	@Override
 	public boolean onKeyUp(KeyEvent event) {
 		SimpleDialogs dialogs = (SimpleDialogs) DialogUtils.factory;
-		if (dialogs.onKeyUp(getNativeWindow(), event)) return true;
+		if (dialogs.onKeyUp(this, event)) return true;
 		return super.onKeyUp(event);
 	}
 	
 	@Override
 	public void onBackPressed() {
 		
-		if (DialogUtils.dispatchCancelKey(getNativeWindow())) {
+		if (DialogUtils.dispatchCancelKey(this)) {
 			return;
 		}
 
@@ -72,7 +72,7 @@ public class DemoActivity extends FtsActivity {
 		options.add(new ListOption("folder", "Browse folders"));
 		options.add(new ListOption("dummy", "Dummy Option"));
 		options.add(new ListOption("quit", "Quit"));
-		DialogUtils.select(getNativeWindow(), options, "Demo Dialog", new DialogListCallback() {
+		DialogUtils.select(this, options, "Demo Dialog", new DialogListCallback() {
 			
 			@Override
 			public void onItemSelected(String code) {
@@ -89,7 +89,7 @@ public class DemoActivity extends FtsActivity {
 		
 		VirtualFile folder = SystemRootHandler.getSysRoot();
 		
-		DialogUtils.browse(getNativeWindow(), folder, config, new Callback<VirtualFile>() {
+		DialogUtils.browse(this, folder, config, new Callback<VirtualFile>() {
 
 			@Override
 			public void onResult(VirtualFile folder) {
@@ -100,11 +100,11 @@ public class DemoActivity extends FtsActivity {
 	}
 
 	private void showTestMessage() {
-		DialogUtils.message(getNativeWindow(), "Simple Dialog test");
+		DialogUtils.message(this, "Simple Dialog test");
 	}
 	
 	private void askForQuit() {
-		DialogUtils.confirm(getNativeWindow(), "Quit app", "OK", "Cancel", new DialogCallback() {
+		DialogUtils.confirm(this, "Quit app", "OK", "Cancel", new DialogCallback() {
 			
 			@Override
 			public void onYes() {
