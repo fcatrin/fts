@@ -20,11 +20,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    externalNativeBuild {
-        ndkBuild {
-            path file('src/main/jni/Android.mk')
-        }
-    }
 }
 
 afterEvaluate {
@@ -33,31 +28,17 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'fts'
-                artifactId = 'android-gl'
+                artifactId = 'android-core'
                 version = '1.0.0'
             }
         }
     }
 }
 
-task ftsPackage(type:Exec) {
-    workingDir '.'
-    commandLine '../../fts-tools/package-android.sh'
-}
-
-tasks.whenTaskAdded { task ->
-    if(task.name.equals("generateDebugAssets")){
-        task.dependsOn(ftsPackage)
-    }
-}
 
 dependencies {
     implementation 'androidx.legacy:legacy-support-core-ui:1.0.0'
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
     implementation project(path: ':fts-core')
     implementation project(path: ':fts-utils')
-    implementation project(path: ':fts-ui')
-    implementation project(path: ':drivers:fts-gl')
-    implementation project(path: ':frontends:fts-android-core')
-
 }

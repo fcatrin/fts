@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import fts.android.core.PermissionsHandler;
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
 import fts.core.Application;

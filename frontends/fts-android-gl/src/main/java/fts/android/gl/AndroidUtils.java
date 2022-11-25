@@ -33,6 +33,7 @@ import java.util.regex.Pattern;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import fts.android.core.PermissionsHandler;
 import fts.core.ProgressListener;
 import fts.core.Utils;
 import fts.core.Log;

@@ -5,11 +5,11 @@ import android.Manifest;
 import java.util.ArrayList;
 import java.util.List;
 
+import fts.android.core.PermissionsHandler;
 import fts.android.gl.AndroidApplication;
 import fts.android.gl.AndroidDialogFactory;
 import fts.android.gl.AndroidUtils;
 import fts.android.gl.GLActivity;
-import fts.android.gl.PermissionsHandler;
 import fts.core.Callback;
 import fts.ui.dialogs.SimpleDialogs;
 import fts.utils.dialogs.ListOption;

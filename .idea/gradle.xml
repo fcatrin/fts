@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/drivers" />
             <option value="$PROJECT_DIR$/drivers/fts-gl" />
             <option value="$PROJECT_DIR$/frontends" />
+            <option value="$PROJECT_DIR$/frontends/fts-android-core" />
             <option value="$PROJECT_DIR$/frontends/fts-android-gl" />
             <option value="$PROJECT_DIR$/frontends/fts-linux" />
             <option value="$PROJECT_DIR$/fts-core" />

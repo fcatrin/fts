@@ -1,4 +1,4 @@
-package fts.android.gl;
+package fts.android.core;
 
 public interface PermissionsHandler {
 	public void onGranted();
