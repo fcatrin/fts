@@ -11,9 +11,9 @@ import fts.ui.graphics.Point;
 
 public class GLRenderer implements Renderer {
 	GLWindow window;
-	private FtsActivity activity;
+	private GLActivity activity;
 
-	public GLRenderer(FtsActivity activity, GLWindow nativeWindow) {
+	public GLRenderer(GLActivity activity, GLWindow nativeWindow) {
 		this.activity = activity;
 		this.window = nativeWindow;
 	}

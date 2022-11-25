@@ -10,7 +10,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import fts.android.gl.R;
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
 import fts.core.Application;
@@ -19,8 +18,8 @@ import fts.ui.Widget;
 import fts.ui.events.KeyEvent;
 import fts.ui.graphics.Point;
 
-public class FtsActivity extends AndroidWindow implements GLWindowListener, WithPermissions {
-	private static final String LOGTAG = FtsActivity.class.getSimpleName();
+public class GLActivity extends AndroidWindow implements GLWindowListener, WithPermissions {
+	private static final String LOGTAG = GLActivity.class.getSimpleName();
 	
 	private GLWindow nativeWindow;
 	private Point bounds = new Point();

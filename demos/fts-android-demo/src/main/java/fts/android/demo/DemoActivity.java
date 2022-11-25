@@ -8,7 +8,7 @@ import java.util.List;
 import fts.android.gl.AndroidApplication;
 import fts.android.gl.AndroidDialogFactory;
 import fts.android.gl.AndroidUtils;
-import fts.android.gl.FtsActivity;
+import fts.android.gl.GLActivity;
 import fts.android.gl.PermissionsHandler;
 import fts.core.Callback;
 import fts.ui.dialogs.SimpleDialogs;
@@ -24,7 +24,7 @@ import fts.utils.dialogs.FileChooserConfig;
 import fts.vfile.VirtualFile;
 import fts.vfile.handlers.LocalFileHandler;
 
-public class DemoActivity extends FtsActivity {
+public class DemoActivity extends GLActivity {
 	private static final String LOGTAG = DemoActivity.class.getSimpleName();
 	
 	@Override

@@ -11,15 +11,15 @@ import fts.ui.events.TouchEvent;
 
 public class GLSurface extends GLSurfaceView {
 	private static final String LOGTAG = GLSurface.class.getSimpleName();
-	FtsActivity ftsActivity;
+	GLActivity GLActivity;
 
 	public GLSurface(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setEGLContextClientVersion(2);
 	}
 	
-	public void setFtsActivity(FtsActivity ftsActivity) {
-		this.ftsActivity = ftsActivity;
+	public void setFtsActivity(GLActivity GLActivity) {
+		this.GLActivity = GLActivity;
 	}
 
 	@Override
@@ -27,11 +27,11 @@ public class GLSurface extends GLSurfaceView {
 		Log.d(LOGTAG, "dispatchKeyEvent keyCode " + event.getKeyCode() + ", mod:" + event.getModifiers());
 		if (event.getKeyCode() == 59 && event.getModifiers() == 65) {
 			// SHIFT+1 dumps the layout
-			ftsActivity.getNativeWindow().dumpLayout();
+			GLActivity.getNativeWindow().dumpLayout();
 		}
 		fts.ui.events.KeyEvent ftsEvent = AndroidKeyMap.translate(event);
 		if (ftsEvent == null) return super.dispatchKeyEvent(event);
-		return ftsActivity.dispatchKeyEvent(ftsEvent);
+		return GLActivity.dispatchKeyEvent(ftsEvent);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class GLSurface extends GLSurfaceView {
 		event.button = TouchEvent.Button.LEFT;
 		event.x = (int)ev.getX();
 		event.y = (int)ev.getY();
-		return ftsActivity.getNativeWindow().dispatchTouchEvent(event);
+		return GLActivity.getNativeWindow().dispatchTouchEvent(event);
 
 	}
 
