@@ -1,13 +1,14 @@
 package fts.android;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import fts.utils.dialogs.DialogContext;
 
-public class AndroidWindow extends Activity implements DialogContext, WithPermissions {
+public abstract class AndroidWindow extends Activity implements DialogContext, WithPermissions {
     private Map<Integer, PermissionsHandler> permissionHandlers = new HashMap<Integer, PermissionsHandler>();
 
     @Override
@@ -27,5 +28,24 @@ public class AndroidWindow extends Activity implements DialogContext, WithPermis
 
         AndroidUtils.handlePermissionsResult(permissions, grantResults, handler);
     }
+
+    private SharedPreferences getPreferences() {
+        return getSharedPreferences("main", Activity.MODE_PRIVATE);
+    }
+
+    public void savePreferences() {
+        SharedPreferences preferences = getPreferences();
+        SharedPreferences.Editor editor = preferences.edit();
+        savePreferences(editor);
+        editor.commit();
+    }
+
+    public void loadPreferences() {
+        SharedPreferences preferences = getPreferences();
+        loadPreferences(preferences);
+    }
+
+    protected abstract void loadPreferences(SharedPreferences preferences);
+    protected abstract void savePreferences(SharedPreferences.Editor editor);
 
 }

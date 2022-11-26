@@ -1,6 +1,7 @@
 package fts.android.demo;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,4 +141,9 @@ public class DemoActivity extends GLActivity {
 			}});
 	}
 
+	@Override
+	protected void loadPreferences(SharedPreferences preferences) {}
+
+	@Override
+	protected void savePreferences(SharedPreferences.Editor editor) {}
 }
