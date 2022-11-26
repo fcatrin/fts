@@ -1,6 +1,7 @@
-package fts.android.gl;
+package fts.android.core;
 
 import android.app.Activity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;
@@ -19,19 +20,13 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.List;
 
-import fts.android.core.AndroidUtils;
-import fts.android.core.AndroidWindow;
-import fts.android.core.ListOptionAdapter;
-import fts.android.gl.fileselector.FilesPanel;
+import fts.android.core.fileselector.FilesPanel;
 import fts.core.Callback;
 import fts.utils.dialogs.DialogContext;
 import fts.utils.dialogs.ListOption;
 import fts.core.SimpleCallback;
 import fts.core.Utils;
-import fts.ui.Window;
 import fts.core.SimpleBackgroundTask;
-import fts.ui.Widget;
-import fts.ui.events.KeyEvent;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogFactory;
 import fts.utils.dialogs.DialogInputCallback;
@@ -160,11 +155,6 @@ public class AndroidDialogFactory implements DialogFactory {
 		});
 	}
 
-	public void custom(DialogContext context, Widget widget, String optYes, String optNo, DialogCallback callback) {
-		final Window window = (Window)context;
-		confirm(window, "Custon Dialog not implemented on AndroidDialogs", null, null, null);
-	}
-
 	@Override
 	public void browse(final DialogContext context, final VirtualFile sysRoot, final FileChooserConfig config, Callback<VirtualFile> onSelectedFileCallback) {
 		final Activity activity = (AndroidWindow)context;
@@ -266,19 +256,15 @@ public class AndroidDialogFactory implements DialogFactory {
 	}
 
 	public boolean onKeyUp(DialogContext context, KeyEvent event) {
-		final Window window = (Window)context;
-		int keyCode = event.keyCode;
+		int keyCode = event.getKeyCode();
 
-		if (keyCode == KeyEvent.KEY_BACKSPACE && hasVisiblePanel(window)) {
-			
+		if (keyCode == KeyEvent.KEYCODE_BACK && hasVisiblePanel(context)) {
 			if ((System.currentTimeMillis() - openTimeStart) < DIALOG_OPENING_THRESHOLD) {
 				// ignore if this is a key up from a tap on the BACK/SELECT key
 				return true;
 			}
-			
-			return cancelDialog(window);
+			return cancelDialog(context);
 		}
-		
 		return false;
 	}
 

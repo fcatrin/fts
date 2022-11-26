@@ -8,7 +8,7 @@ import java.util.List;
 import fts.android.core.AndroidUtils;
 import fts.android.core.PermissionsHandler;
 import fts.android.gl.AndroidGLApplication;
-import fts.android.gl.AndroidDialogFactory;
+import fts.android.core.AndroidDialogFactory;
 import fts.android.gl.GLActivity;
 import fts.core.Callback;
 import fts.ui.dialogs.SimpleDialogs;

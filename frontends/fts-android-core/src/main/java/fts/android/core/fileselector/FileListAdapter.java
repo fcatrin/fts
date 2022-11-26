@@ -1,4 +1,4 @@
-package fts.android.gl.fileselector;
+package fts.android.core.fileselector;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import fts.android.core.AndroidFonts;
-import fts.android.gl.R;
+import fts.android.core.R;
 import fts.android.gl.TintableImageView;
 import fts.core.Utils;
 import fts.vfile.VirtualFile;

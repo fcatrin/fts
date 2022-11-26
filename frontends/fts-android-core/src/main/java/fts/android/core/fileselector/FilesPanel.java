@@ -1,4 +1,4 @@
-package fts.android.gl.fileselector;
+package fts.android.core.fileselector;
 
 import android.app.Activity;
 import android.util.Log;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Locale;
 
 import fts.android.core.AndroidWindow;
-import fts.android.gl.R;
+import fts.android.core.R;
 import fts.core.Callback;
 import fts.core.UserVisibleException;
 import fts.core.Utils;
