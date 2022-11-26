@@ -37,8 +37,8 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-public final class Utils {
-	private static final String LOGTAG = Utils.class.getSimpleName();
+public final class CoreUtils {
+	private static final String LOGTAG = CoreUtils.class.getSimpleName();
 	
 	public enum Compact {Start, Middle, End}
 	
@@ -62,7 +62,7 @@ public final class Utils {
 	public static int httpConnectTimeoutOnce = 0;
 	public static int httpReadTimeoutOnce = 0;
 	
-	private Utils() {}
+	private CoreUtils() {}
 
 	public static int str2i(String value) {
 		return str2i(value, 0);
@@ -673,7 +673,7 @@ public final class Utils {
 	}
 	
 	public static String compact(String text, Compact compact, int length) {
-		if (Utils.isEmptyString(text) || text.length() <= length) return text;
+		if (CoreUtils.isEmptyString(text) || text.length() <= length) return text;
 		switch (compact) {
 		case Start : return "..." + text.substring(text.length() - length);
 		case End : return text.substring(0, length) + "...";
@@ -701,7 +701,7 @@ public final class Utils {
 	}
 
 	public static byte[] loadResourceData(String path) throws IOException {
-		InputStream inputStream = Utils.class.getClassLoader().getResourceAsStream(path);
+		InputStream inputStream = CoreUtils.class.getClassLoader().getResourceAsStream(path);
 		if (inputStream == null) return null;
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -727,7 +727,7 @@ public final class Utils {
 
 	public static Properties loadProperties(String path) {
 		Properties properties = new Properties();
-		InputStream is = Utils.class.getClassLoader().getResourceAsStream(path);
+		InputStream is = CoreUtils.class.getClassLoader().getResourceAsStream(path);
 		if (is == null) return properties;
 		
 		try {

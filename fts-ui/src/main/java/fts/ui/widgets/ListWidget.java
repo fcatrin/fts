@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import fts.ui.LayoutInfo;
 import fts.ui.ListAdapter;
 import fts.ui.Widget;
@@ -280,7 +280,7 @@ public class ListWidget<T> extends Widget {
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {
 		if (propertyName.equals("maxItems")) {
-			return Utils.str2i(value);
+			return CoreUtils.str2i(value);
 		}
 		return super.resolvePropertyValue(propertyName, value);
 	}

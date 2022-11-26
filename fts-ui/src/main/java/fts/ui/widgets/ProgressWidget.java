@@ -1,6 +1,6 @@
 package fts.ui.widgets;
 
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import fts.ui.Widget;
 import fts.ui.Window;
 import fts.ui.events.OnProgressChangedListener;
@@ -140,7 +140,7 @@ public class ProgressWidget extends Widget {
 		if (propertyName.equals("progressDrawable") || propertyName.equals("progressBackgroundDrawable") ) {
 			return resolveBackground(value);
 		} else if (propertyName.equals("progress") || propertyName.equals("total")) {
-			return Utils.str2l(value);
+			return CoreUtils.str2l(value);
 		}
 		return super.resolvePropertyValue(propertyName, value);
 	}

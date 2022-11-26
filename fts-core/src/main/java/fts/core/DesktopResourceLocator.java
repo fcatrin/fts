@@ -30,7 +30,7 @@ public class DesktopResourceLocator extends ResourceLocator {
 		
 		if (tmpFile.exists()) tmpFile.delete();
 		FileOutputStream fos = new FileOutputStream(tmpFile);
-		Utils.copyFile(is, fos);
+		CoreUtils.copyFile(is, fos);
 		return tmpFile;
 	}
 

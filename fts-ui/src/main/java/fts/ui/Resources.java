@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import fts.core.ResourceLocator;
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
 import fts.ui.graphics.BackBuffer;
@@ -197,7 +197,7 @@ public class Resources {
 		
 		if (name.equals("include")) {
 			String includeName = node.getAttribute("layout");
-			if (Utils.isEmptyString(includeName)) throw new RuntimeException("Include: Missing layout name " + node);
+			if (CoreUtils.isEmptyString(includeName)) throw new RuntimeException("Include: Missing layout name " + node);
 			return inflate(w, includeName);
 		}
 		

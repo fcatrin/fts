@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import fts.core.ResourceLocator;
-import fts.core.Utils;
+import fts.core.CoreUtils;
 
 public class AndroidGLResourceLocator extends ResourceLocator {
 
@@ -35,7 +35,7 @@ public class AndroidGLResourceLocator extends ResourceLocator {
 		localResFile.delete();
 		
 		FileOutputStream fos = new FileOutputStream(localResFile);
-		Utils.copyFile(is, fos);
+		CoreUtils.copyFile(is, fos);
 		return localResFile;
 	}
 

@@ -3,7 +3,7 @@ package fts.core.json;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fts.core.Utils;
+import fts.core.CoreUtils;
 
 public class TransferObject {
 	protected String oid;
@@ -21,7 +21,7 @@ public class TransferObject {
 	}
 	
 	protected JSONObject toJSON() throws JSONException {
-		if (oid == null) oid = Utils.genOid();
+		if (oid == null) oid = CoreUtils.genOid();
 		JSONObject o = new JSONObject();
 		o.put("oid", oid);
 		return o;
@@ -29,7 +29,7 @@ public class TransferObject {
 	
 	protected static void initFromJSON(TransferObject to, JSONObject o) {
 		String oid = o.optString("oid", null);
-		if (oid == null) oid = Utils.genOid();
+		if (oid == null) oid = CoreUtils.genOid();
 		to.oid = oid;
 	}
 }

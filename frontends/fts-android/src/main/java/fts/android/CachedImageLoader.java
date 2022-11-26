@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import fts.core.DownloadManager;
 import fts.core.FilesCache;
-import fts.core.Utils;
+import fts.core.CoreUtils;
 
 public class CachedImageLoader {
     static FilesCache cache = null;
@@ -16,15 +16,15 @@ public class CachedImageLoader {
         if (cache == null) {
             cache = new FilesCache(new File(cacheDir, "cached.images"), 100, 0.05f);
         }
-        File cachedFile = cache.getFile(Utils.md5(url));
+        File cachedFile = cache.getFile(CoreUtils.md5(url));
         byte[] bitmapData;
         if (!cachedFile.exists()) {
             cachedFile.getParentFile().mkdirs();
 
             bitmapData = DownloadManager.download(url);
-            Utils.saveBytes(cachedFile, bitmapData);
+            CoreUtils.saveBytes(cachedFile, bitmapData);
         } else {
-            bitmapData = Utils.loadBytes(cachedFile);
+            bitmapData = CoreUtils.loadBytes(cachedFile);
         }
         return BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
     }

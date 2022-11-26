@@ -4,7 +4,7 @@ import org.w3c.dom.Element;
 
 import java.util.List;
 
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import fts.core.xml.SimpleXML;
 import fts.ui.graphics.Align.HAlign;
 import fts.ui.graphics.Align.VAlign;
@@ -80,7 +80,7 @@ public class TextDrawable extends Drawable {
 	public Point getSize(Canvas canvas, String text, int width) {
 		canvas.setFont(font);
 		
-		String textToMeasure = Utils.isEmptyString(text) ? "A" : text;
+		String textToMeasure = CoreUtils.isEmptyString(text) ? "A" : text;
 		textWrapper = canvas.getTextWrap(textToMeasure, width, maxLines);
 		return textWrapper.getSize();
 	}

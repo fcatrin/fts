@@ -5,7 +5,7 @@ import java.util.List;
 
 import fts.core.Callback;
 import fts.core.SimpleBackgroundTask;
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import fts.ui.Container;
 import fts.ui.Widget;
 import fts.ui.Widget.Visibility;
@@ -77,7 +77,7 @@ public class SimpleDialogs implements DialogFactory {
 		btnYes.setText(optYes);
 		
 		
-		if (Utils.isEmptyString(optNo)) {
+		if (CoreUtils.isEmptyString(optNo)) {
 			btnNo.setVisibility(Visibility.Gone);
 		} else {
 			btnNo.setText(optNo);
@@ -118,7 +118,7 @@ public class SimpleDialogs implements DialogFactory {
 		
 		btnYes.setText(optYes);
 		
-		if (Utils.isEmptyString(optNo)) {
+		if (CoreUtils.isEmptyString(optNo)) {
 			btnNo.setVisibility(Visibility.Gone);
 		} else {
 			btnNo.setText(optNo);

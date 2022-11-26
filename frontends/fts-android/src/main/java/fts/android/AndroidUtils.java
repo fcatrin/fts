@@ -35,7 +35,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import fts.core.Log;
 import fts.core.ProgressListener;
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogUtils;
 
@@ -115,7 +115,7 @@ public class AndroidUtils {
 	
 	public static void unpackAssets(Context ctx, String dir, File dstDir, ProgressListener progressListener) throws IOException {
 		File unpackDir = new File (dstDir, dir);
-		if (unpackDir.exists()) Utils.delTree(unpackDir);
+		if (unpackDir.exists()) CoreUtils.delTree(unpackDir);
 		unpackDir.mkdirs();
 
 		AssetManager assets = ctx.getAssets();
@@ -130,7 +130,7 @@ public class AndroidUtils {
 			try {
 				InputStream is = assets.open(fileName);
 				File dstFile = new File(dstDir, fileName);
-				Utils.copyFile(is, new FileOutputStream(dstFile));
+				CoreUtils.copyFile(is, new FileOutputStream(dstFile));
 			} catch (FileNotFoundException e) {
 				// this is a folder
 				unpackAssets(ctx, fileName, dstDir, progressListener);
@@ -237,7 +237,7 @@ public class AndroidUtils {
 			MessageDigest md = MessageDigest.getInstance("SHA");
 			md.update(signature.toByteArray());
 
-			signatures[i] = Utils.md5(md.digest());
+			signatures[i] = CoreUtils.md5(md.digest());
 		}
 		return signatures;
 	}

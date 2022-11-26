@@ -21,7 +21,7 @@ import fts.android.R;
 import fts.core.Callback;
 import fts.core.SimpleBackgroundTask;
 import fts.core.UserVisibleException;
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import fts.utils.dialogs.DialogContext;
 import fts.utils.dialogs.DialogUtils;
 import fts.utils.dialogs.FileChooserConfig;
@@ -173,7 +173,7 @@ public class FilesPanel {
 									activity.getString(R.string.folder_elements_n).replace("{n}",String.valueOf(nElements)));
 
 					if (size>0) {
-						strElements += " / " + Utils.size2human(size);
+						strElements += " / " + CoreUtils.size2human(size);
 					}
 
 					txtPanelStatus1.setText(strElements);
@@ -185,8 +185,8 @@ public class FilesPanel {
 				long total = folderInfo.totalSpace;
 
 				if (total>0) {
-					String freeHuman  = Utils.size2human(free);
-					String totalHuman = Utils.size2human(total);
+					String freeHuman  = CoreUtils.size2human(free);
+					String totalHuman = CoreUtils.size2human(total);
 					int percentFree = (int)(free * 100.0f / total);
 					txtPanelStatus2.setText(
 							activity.getString(R.string.folder_free)

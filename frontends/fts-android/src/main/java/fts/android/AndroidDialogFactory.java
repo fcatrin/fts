@@ -24,7 +24,7 @@ import fts.android.fileselector.FilesPanel;
 import fts.core.Callback;
 import fts.core.SimpleBackgroundTask;
 import fts.core.SimpleCallback;
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogContext;
 import fts.utils.dialogs.DialogFactory;
@@ -54,7 +54,7 @@ public class AndroidDialogFactory implements DialogFactory {
 		final Button btnYes = activity.findViewById(R.id.btnDialogActionPositive);
 		final Button btnNo = activity.findViewById(R.id.btnDialogActionNegative);
 		
-		if (Utils.isEmptyString(optYes)) optYes = "OK";
+		if (CoreUtils.isEmptyString(optYes)) optYes = "OK";
 		btnYes.setText(optYes);
 		btnYes.setOnClickListener(new OnClickListener() {
 			
@@ -73,7 +73,7 @@ public class AndroidDialogFactory implements DialogFactory {
 			}
 		});
 		
-		final boolean hasNoButton = !Utils.isEmptyString(optNo);
+		final boolean hasNoButton = !CoreUtils.isEmptyString(optNo);
 		
 		if (hasNoButton) {
 			btnNo.setVisibility(View.VISIBLE);
@@ -115,7 +115,7 @@ public class AndroidDialogFactory implements DialogFactory {
 		setDismissCallback(activity, R.id.modal_dialog_list, callback);
 		
 		TextView txtTitle = activity.findViewById(R.id.txtDialogListTitle);
-		if (Utils.isEmptyString(title)) {
+		if (CoreUtils.isEmptyString(title)) {
 			txtTitle.setVisibility(View.GONE);
 		} else {
 			txtTitle.setText(title);
@@ -191,7 +191,7 @@ public class AndroidDialogFactory implements DialogFactory {
 		});
 
 		TextView txtTitle = activity.findViewById(R.id.txtDialogChooserTitle);
-		if (Utils.isEmptyString(config.title)) {
+		if (CoreUtils.isEmptyString(config.title)) {
 			txtTitle.setVisibility(View.GONE);
 		} else {
 			txtTitle.setText(config.title);

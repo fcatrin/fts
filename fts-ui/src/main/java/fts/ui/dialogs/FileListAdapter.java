@@ -2,7 +2,7 @@ package fts.ui.dialogs;
 
 import java.util.List;
 
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import fts.ui.ListAdapter;
 import fts.ui.Resources;
 import fts.ui.Widget;
@@ -46,7 +46,7 @@ public class FileListAdapter extends ListAdapter<VirtualFile> {
 		if (item.isDirectory()) {
 			txtValue.setVisibility(Visibility.Gone);
 		} else {
-			txtValue.setText(Utils.size2human(item.getSize()));
+			txtValue.setText(CoreUtils.size2human(item.getSize()));
 			txtValue.setVisibility(Visibility.Visible);
 		}
 		

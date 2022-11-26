@@ -10,8 +10,8 @@ import java.util.Locale;
 import fts.core.Callback;
 import fts.core.Log;
 import fts.core.SimpleBackgroundTask;
-import fts.core.Utils;
-import fts.core.Utils.Compact;
+import fts.core.CoreUtils;
+import fts.core.CoreUtils.Compact;
 import fts.ui.Window;
 import fts.ui.widgets.TextWidget;
 import fts.utils.dialogs.DialogUtils;
@@ -109,14 +109,14 @@ public class FileListPanel {
 		if (path.equals("/")) {
 			path = "";
 		} else {
-			path = Utils.compact(path, Compact.Middle, 32);
+			path = CoreUtils.compact(path, Compact.Middle, 32);
 		}
 		
 		currentStorage = dir.getStorage();
 		if (currentStorage == null) currentStorage = sysRoot;
 		
 		String storageName = currentStorage.getFriendlyName();
-		if (Utils.isEmptyString(storageName)) storageName = currentStorage.getName(); 
+		if (CoreUtils.isEmptyString(storageName)) storageName = currentStorage.getName();
 		
 		title.setText(storageName + " - " + path);
 

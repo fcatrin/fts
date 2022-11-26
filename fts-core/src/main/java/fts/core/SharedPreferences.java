@@ -77,7 +77,7 @@ public class SharedPreferences {
 		prefs = new JSONObject();
 		if (prefsFile.exists()) {
 			try {
-				String sPrefs = Utils.loadString(prefsFile, ENCODING);
+				String sPrefs = CoreUtils.loadString(prefsFile, ENCODING);
 				prefs = new JSONObject(sPrefs);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -87,7 +87,7 @@ public class SharedPreferences {
 	
 	public void commit() {
 		try {
-			Utils.saveBytes(prefsFile, prefs.toString().getBytes(ENCODING));
+			CoreUtils.saveBytes(prefsFile, prefs.toString().getBytes(ENCODING));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

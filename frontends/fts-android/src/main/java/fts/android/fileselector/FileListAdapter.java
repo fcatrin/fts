@@ -13,7 +13,7 @@ import java.util.List;
 import fts.android.AndroidFonts;
 import fts.android.R;
 import fts.android.TintableImageView;
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import fts.vfile.VirtualFile;
 
 public class FileListAdapter extends BaseAdapter {
@@ -78,7 +78,7 @@ public class FileListAdapter extends BaseAdapter {
 			if ((vf.isDirectory() && vf.getSize() == 0) || vf.getSize() < 0) {
 				txtSize.setVisibility(View.GONE);
 			} else {
-				txtSize.setText(Utils.size2human(vf.getSize()));
+				txtSize.setText(CoreUtils.size2human(vf.getSize()));
 				txtSize.setVisibility(View.VISIBLE);
 			}
 			

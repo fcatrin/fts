@@ -26,7 +26,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import fts.core.Utils;
+import fts.core.CoreUtils;
 
 public abstract class SimpleXML {
 	
@@ -148,7 +148,7 @@ public abstract class SimpleXML {
 		NamedNodeMap attributes = xml.getAttributes();
 		Node namedItem = attributes.getNamedItem(name);
 		if (namedItem == null) return defaultValue;
-		return Utils.str2i(namedItem.getNodeValue(), defaultValue);
+		return CoreUtils.str2i(namedItem.getNodeValue(), defaultValue);
 	}
 
 	public static float getFloatAttribute(Element xml, String name) {
@@ -161,7 +161,7 @@ public abstract class SimpleXML {
 		NamedNodeMap attributes = xml.getAttributes();
 		Node namedItem = attributes.getNamedItem(name);
 		if (namedItem == null) return defaultValue;
-		return Utils.str2f(namedItem.getNodeValue(), defaultValue);
+		return CoreUtils.str2f(namedItem.getNodeValue(), defaultValue);
 	}
 
 	public static boolean getBoolAttribute(Node node, String name) {
@@ -187,12 +187,12 @@ public abstract class SimpleXML {
 
 	public static int getInt(Element node, String name, int defaultValue) {
 		String value = getText(node, name);
-		return Utils.str2i(value, defaultValue);
+		return CoreUtils.str2i(value, defaultValue);
 	}
 
 	public static int getHex(Element node, String name, int defaultValue) {
 		String value = getText(node, name);
-		return Utils.strHex2i(value, defaultValue);
+		return CoreUtils.strHex2i(value, defaultValue);
 	}
 
 	public static void write(Document doc, OutputStream os) throws TransformerFactoryConfigurationError, TransformerException {

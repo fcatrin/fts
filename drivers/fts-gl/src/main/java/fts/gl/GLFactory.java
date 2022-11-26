@@ -5,7 +5,7 @@ import org.w3c.dom.Element;
 import java.io.File;
 import java.io.IOException;
 
-import fts.core.Utils;
+import fts.core.CoreUtils;
 import fts.ui.CoreComponentFactory;
 import fts.ui.Resources;
 import fts.ui.Widget;
@@ -53,7 +53,7 @@ public abstract class GLFactory extends CoreComponentFactory {
 		}
 		
 		try {
-			byte data[] = Utils.loadBytes(imageFile);
+			byte data[] = CoreUtils.loadBytes(imageFile);
 			return createImage(name, data);
 		} catch (IOException e) {
 			throw new RuntimeException("Cannot load image from " + imageFile.getAbsolutePath(), e);
