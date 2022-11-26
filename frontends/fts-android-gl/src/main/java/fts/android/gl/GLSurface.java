@@ -27,7 +27,7 @@ public class GLSurface extends GLSurfaceView {
 		Log.d(LOGTAG, "dispatchKeyEvent keyCode " + event.getKeyCode() + ", mod:" + event.getModifiers());
 		if (event.getKeyCode() == 59 && event.getModifiers() == 65) {
 			// SHIFT+1 dumps the layout
-			GLActivity.getNativeWindow().dumpLayout();
+			GLActivity.getGLWindow().dumpLayout();
 		}
 		fts.ui.events.KeyEvent ftsEvent = AndroidGLKeyMap.translate(event);
 		if (ftsEvent == null) return super.dispatchKeyEvent(event);
@@ -45,7 +45,7 @@ public class GLSurface extends GLSurfaceView {
 		event.button = TouchEvent.Button.LEFT;
 		event.x = (int)ev.getX();
 		event.y = (int)ev.getY();
-		return GLActivity.getNativeWindow().dispatchTouchEvent(event);
+		return GLActivity.getGLWindow().dispatchTouchEvent(event);
 
 	}
 

@@ -6,12 +6,9 @@ import android.util.Log;
 import android.view.Display;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import fts.android.AndroidUtils;
 import fts.android.AndroidWindow;
-import fts.android.PermissionsHandler;
 import fts.android.WithPermissions;
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
@@ -24,7 +21,7 @@ import fts.ui.graphics.Point;
 public class GLActivity extends AndroidWindow implements GLWindowListener, WithPermissions {
 	private static final String LOGTAG = GLActivity.class.getSimpleName();
 	
-	private GLWindow nativeWindow;
+	private GLWindow window;
 	private Point bounds = new Point();
 	private boolean started = false;
 	
@@ -46,8 +43,8 @@ public class GLActivity extends AndroidWindow implements GLWindowListener, WithP
 		GLSurface glSurface = (GLSurface)findViewById(R.id.fts_view);
 		glSurface.setFtsActivity(this);
 		
-		nativeWindow = (GLWindow) Resources.createNativeWindow("", 0, 0, 0);
-		nativeWindow.setWindowListener(this);
+		window = (GLWindow) Resources.createNativeWindow("", 0, 0, 0);
+		window.setWindowListener(this);
 		started = false;
 	}
 	
@@ -55,28 +52,27 @@ public class GLActivity extends AndroidWindow implements GLWindowListener, WithP
 		AndroidUtils.configureAsFullscreen(this);
 	}
 	
-	public GLWindow getNativeWindow() {
-		return nativeWindow;
+	public GLWindow getGLWindow() {
+		return window;
 	}
 	
 	public void setContentView(Widget view) {
-		nativeWindow.setContentView(view);
+		window.setContentView(view);
 	}
 	
 	public Widget inflate(String layoutName) {
-		return Resources.inflate(nativeWindow, layoutName);
+		return Resources.inflate(window, layoutName);
 	}
 	
 	public Widget findWidget(String id) {
-		return nativeWindow.findWidget(id);
+		return window.findWidget(id);
 	}
 
 	@Override
 	public void setTitle(String title) {
-		// this is weird, the compiler complains if not defined in some way
 		super.setTitle(title);
 	}
-	
+
 	@Override
 	final protected void onDestroy() {
 		super.onDestroy();
@@ -89,7 +85,7 @@ public class GLActivity extends AndroidWindow implements GLWindowListener, WithP
 		super.onStart();
 		
 		if (started) return;
-		GLRenderer renderer = new GLRenderer(this, nativeWindow);
+		GLRenderer renderer = new GLRenderer(this, window);
 		GLSurface surface = (GLSurface)findViewById(R.id.fts_view);
 		surface.setRenderer(renderer);
 		surface.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
@@ -104,12 +100,12 @@ public class GLActivity extends AndroidWindow implements GLWindowListener, WithP
 	
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent keyEvent) {
-		return nativeWindow.dispatchKeyEvent(keyEvent);
+		return window.dispatchKeyEvent(keyEvent);
 	}
 
 	@Override
 	public boolean onKeyDown(KeyEvent keyEvent) {
-		return nativeWindow.onKeyDown(keyEvent);
+		return window.onKeyDown(keyEvent);
 	}
 
 	@Override
@@ -119,7 +115,7 @@ public class GLActivity extends AndroidWindow implements GLWindowListener, WithP
 			onBackPressed();
 			return true;
 		}
-		return nativeWindow.onKeyUp(keyEvent);
+		return window.onKeyUp(keyEvent);
 	}
 	
 	@Override
@@ -155,18 +151,4 @@ public class GLActivity extends AndroidWindow implements GLWindowListener, WithP
 		return this.getFilesDir();
 	}
 
-	private Map<Integer, PermissionsHandler> permissionHandlers = new HashMap<Integer, PermissionsHandler>(); 
-	
-	@Override
-	public void setPermissionHandler(int request, PermissionsHandler handler) {
-		permissionHandlers.put(request,  handler);
-	}
-	
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-    	PermissionsHandler handler = permissionHandlers.get(requestCode);
-    	if (handler == null) return;
-    	
-    	AndroidUtils.handlePermissionsResult(permissions, grantResults, handler);
-    }
 }
