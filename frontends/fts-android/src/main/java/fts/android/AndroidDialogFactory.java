@@ -1,4 +1,4 @@
-package fts.android.core;
+package fts.android;
 
 import android.app.Activity;
 import android.view.KeyEvent;
@@ -20,7 +20,8 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.List;
 
-import fts.android.core.fileselector.FilesPanel;
+import fts.android.core.R;
+import fts.android.fileselector.FilesPanel;
 import fts.core.Callback;
 import fts.utils.dialogs.DialogContext;
 import fts.utils.dialogs.ListOption;

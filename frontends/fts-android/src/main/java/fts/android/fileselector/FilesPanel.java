@@ -1,4 +1,4 @@
-package fts.android.core.fileselector;
+package fts.android.fileselector;
 
 import android.app.Activity;
 import android.util.Log;
@@ -16,7 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import fts.android.core.AndroidWindow;
+import fts.android.AndroidWindow;
 import fts.android.core.R;
 import fts.core.Callback;
 import fts.core.UserVisibleException;

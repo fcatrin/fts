@@ -1,4 +1,4 @@
-package fts.android.core;
+package fts.android;
 
 import android.app.Activity;
 

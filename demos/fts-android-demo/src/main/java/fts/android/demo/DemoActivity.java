@@ -5,10 +5,10 @@ import android.Manifest;
 import java.util.ArrayList;
 import java.util.List;
 
-import fts.android.core.AndroidUtils;
-import fts.android.core.PermissionsHandler;
+import fts.android.AndroidUtils;
+import fts.android.PermissionsHandler;
 import fts.android.gl.AndroidGLApplication;
-import fts.android.core.AndroidDialogFactory;
+import fts.android.AndroidDialogFactory;
 import fts.android.gl.GLActivity;
 import fts.core.Callback;
 import fts.ui.dialogs.SimpleDialogs;

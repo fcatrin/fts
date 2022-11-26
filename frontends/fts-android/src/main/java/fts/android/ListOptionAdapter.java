@@ -1,4 +1,4 @@
-package fts.android.core;
+package fts.android;
 
 import android.content.Context;
 import android.util.TypedValue;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fts.android.core.R;
 import fts.utils.dialogs.ListOption;
 
 public class ListOptionAdapter extends BaseAdapter {

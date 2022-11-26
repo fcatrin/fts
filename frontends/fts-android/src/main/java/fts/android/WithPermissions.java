@@ -1,6 +1,4 @@
-package fts.android.core;
-
-import android.app.Activity;
+package fts.android;
 
 public interface WithPermissions {
 	void setPermissionHandler(int request, PermissionsHandler handler);

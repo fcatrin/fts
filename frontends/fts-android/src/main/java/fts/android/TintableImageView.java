@@ -1,4 +1,4 @@
-package fts.android.gl;
+package fts.android;
 
 import android.content.Context;
 import android.content.res.ColorStateList;

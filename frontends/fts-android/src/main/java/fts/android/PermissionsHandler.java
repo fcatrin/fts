@@ -1,4 +1,4 @@
-package fts.android.core;
+package fts.android;
 
 public interface PermissionsHandler {
 	public void onGranted();

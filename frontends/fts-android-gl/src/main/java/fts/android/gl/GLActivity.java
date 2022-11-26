@@ -1,6 +1,5 @@
 package fts.android.gl;
 
-import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,10 +9,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import fts.android.core.AndroidUtils;
-import fts.android.core.AndroidWindow;
-import fts.android.core.PermissionsHandler;
-import fts.android.core.WithPermissions;
+import fts.android.AndroidUtils;
+import fts.android.AndroidWindow;
+import fts.android.PermissionsHandler;
+import fts.android.WithPermissions;
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
 import fts.core.Application;

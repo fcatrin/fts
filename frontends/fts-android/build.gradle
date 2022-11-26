@@ -28,7 +28,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'fts'
-                artifactId = 'android-core'
+                artifactId = 'android'
                 version = '1.0.0'
             }
         }
