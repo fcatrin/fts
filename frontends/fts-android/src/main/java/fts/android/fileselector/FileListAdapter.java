@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import fts.android.AndroidFonts;
-import fts.android.core.R;
+import fts.android.R;
 import fts.android.TintableImageView;
 import fts.core.Utils;
 import fts.vfile.VirtualFile;

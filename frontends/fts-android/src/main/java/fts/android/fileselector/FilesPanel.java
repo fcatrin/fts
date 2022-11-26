@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Locale;
 
 import fts.android.AndroidWindow;
-import fts.android.core.R;
+import fts.android.R;
 import fts.core.Callback;
 import fts.core.UserVisibleException;
 import fts.core.Utils;

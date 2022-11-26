@@ -44,6 +44,6 @@ dependencies {
     implementation project(path: ':fts-ui')
     implementation project(path: ':fts-utils')
     implementation project(path: ':drivers:fts-gl')
-    implementation project(path: ':frontends:fts-android-core')
+    implementation project(path: ':frontends:fts-android')
     implementation project(path: ':frontends:fts-android-gl')
 }

@@ -20,7 +20,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.List;
 
-import fts.android.core.R;
+import fts.android.R;
 import fts.android.fileselector.FilesPanel;
 import fts.core.Callback;
 import fts.utils.dialogs.DialogContext;
