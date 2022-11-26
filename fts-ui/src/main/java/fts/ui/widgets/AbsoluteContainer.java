@@ -2,8 +2,8 @@ package fts.ui.widgets;
 
 import fts.ui.Container;
 import fts.ui.LayoutInfo;
-import fts.ui.Window;
 import fts.ui.Widget;
+import fts.ui.Window;
 import fts.ui.graphics.Align;
 import fts.ui.graphics.Align.HAlign;
 import fts.ui.graphics.Align.VAlign;

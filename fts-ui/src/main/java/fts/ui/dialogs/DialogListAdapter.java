@@ -3,10 +3,10 @@ package fts.ui.dialogs;
 import java.util.List;
 
 import fts.ui.Resources;
-import fts.ui.Window;
 import fts.ui.Widget;
 import fts.ui.Widget.State;
 import fts.ui.Widget.Visibility;
+import fts.ui.Window;
 import fts.ui.adapters.ListOptionAdapter;
 import fts.ui.events.OnStateListener;
 import fts.ui.graphics.ColorListSelector;

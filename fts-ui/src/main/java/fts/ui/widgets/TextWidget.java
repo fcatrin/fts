@@ -1,7 +1,7 @@
 package fts.ui.widgets;
 
-import fts.ui.Window;
 import fts.ui.Widget;
+import fts.ui.Window;
 import fts.ui.events.PaintEvent;
 import fts.ui.graphics.Align;
 import fts.ui.graphics.Canvas;

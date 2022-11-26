@@ -1,8 +1,8 @@
 package fts.ui.widgets;
 
 import fts.core.Utils;
-import fts.ui.Window;
 import fts.ui.Widget;
+import fts.ui.Window;
 import fts.ui.events.OnProgressChangedListener;
 import fts.ui.events.PaintEvent;
 import fts.ui.events.TouchEvent;

@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.List;
 
 import fts.core.Application;
-import fts.ui.Resources;
-import fts.ui.ComponentFactory;
 import fts.core.Log;
+import fts.ui.ComponentFactory;
+import fts.ui.Resources;
 import fts.ui.Window;
 import fts.ui.events.PaintEvent;
 import fts.ui.graphics.Canvas;

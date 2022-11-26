@@ -3,12 +3,12 @@ package fts.ui.dialogs;
 import java.util.List;
 
 import fts.core.Utils;
-import fts.ui.Resources;
 import fts.ui.ListAdapter;
-import fts.ui.Window;
+import fts.ui.Resources;
 import fts.ui.Widget;
 import fts.ui.Widget.State;
 import fts.ui.Widget.Visibility;
+import fts.ui.Window;
 import fts.ui.events.OnStateListener;
 import fts.ui.widgets.TextWidget;
 import fts.vfile.VirtualFile;

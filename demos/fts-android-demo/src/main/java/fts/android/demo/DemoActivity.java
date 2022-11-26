@@ -5,22 +5,22 @@ import android.Manifest;
 import java.util.ArrayList;
 import java.util.List;
 
+import fts.android.AndroidDialogFactory;
 import fts.android.AndroidUtils;
 import fts.android.PermissionsHandler;
 import fts.android.gl.AndroidGLApplication;
-import fts.android.AndroidDialogFactory;
 import fts.android.gl.GLActivity;
-import fts.core.Callback;
-import fts.ui.dialogs.SimpleDialogs;
-import fts.utils.dialogs.ListOption;
 import fts.core.Application;
+import fts.core.Callback;
 import fts.core.Log;
 import fts.ui.Widget;
+import fts.ui.dialogs.SimpleDialogs;
 import fts.ui.events.KeyEvent;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogListCallback;
 import fts.utils.dialogs.DialogUtils;
 import fts.utils.dialogs.FileChooserConfig;
+import fts.utils.dialogs.ListOption;
 import fts.vfile.VirtualFile;
 import fts.vfile.handlers.LocalFileHandler;
 

@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 import fts.core.Utils;
-import fts.ui.Resources;
 import fts.ui.CoreComponentFactory;
+import fts.ui.Resources;
 import fts.ui.Widget;
 import fts.ui.graphics.BackBuffer;
 import fts.ui.graphics.Drawable;

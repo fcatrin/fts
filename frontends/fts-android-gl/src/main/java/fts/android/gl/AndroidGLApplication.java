@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.os.Handler;
 
 import fts.android.AndroidLogger;
+import fts.core.Application;
 import fts.core.AsyncExecutor;
 import fts.core.CoreAsyncExecutor;
-import fts.core.Application;
-import fts.ui.Resources;
 import fts.core.CoreBackgroundProcessor;
+import fts.ui.Resources;
 
 public class AndroidGLApplication {
 

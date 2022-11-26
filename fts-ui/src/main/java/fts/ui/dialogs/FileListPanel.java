@@ -8,15 +8,13 @@ import java.util.List;
 import java.util.Locale;
 
 import fts.core.Callback;
+import fts.core.Log;
+import fts.core.SimpleBackgroundTask;
 import fts.core.Utils;
 import fts.core.Utils.Compact;
-import fts.core.Log;
 import fts.ui.Window;
-import fts.core.SimpleBackgroundTask;
-import fts.utils.dialogs.DialogCallback;
-import fts.utils.dialogs.DialogUtils;
-import fts.ui.widgets.ListWidget;
 import fts.ui.widgets.TextWidget;
+import fts.utils.dialogs.DialogUtils;
 import fts.utils.dialogs.FileChooserConfig;
 import fts.utils.dialogs.FolderInfo;
 import fts.utils.dialogs.OnItemSelectedListener;
