@@ -2,8 +2,10 @@ package fts.android;
 
 import android.app.Activity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -30,6 +32,7 @@ import fts.utils.dialogs.DialogContext;
 import fts.utils.dialogs.DialogFactory;
 import fts.utils.dialogs.DialogInputCallback;
 import fts.utils.dialogs.DialogListCallback;
+import fts.utils.dialogs.DialogUtils;
 import fts.utils.dialogs.FileChooserConfig;
 import fts.utils.dialogs.ListOption;
 import fts.utils.dialogs.OnItemSelectionChangedListener;
@@ -447,4 +450,161 @@ public class AndroidDialogFactory implements DialogFactory {
 
 	}
 
+	public static void custom(Activity activity, View view,
+						String optYes, String optNo,
+						DialogCallback callback) {
+		((AndroidDialogFactory) DialogUtils.factory).dialogCustom(activity, view,
+				optYes, optNo, callback);
+	}
+
+	private void dialogCustom(final Activity activity, View view,
+							  String optYes, String optNo,
+							  final DialogCallback callback) {
+
+		setDismissCallback(activity, R.id.modal_dialog_custom, callback);
+
+		ViewGroup container = activity.findViewById(R.id.modal_dialog_custom_container);
+		container.removeAllViews();
+		container.addView(view);
+
+		final Button btnYes = activity.findViewById(R.id.btnDialogCustomPositive);
+		final Button btnNo = activity.findViewById(R.id.btnDialogCustomNegative);
+
+		final boolean hasNoButton = !CoreUtils.isEmptyString(optNo);
+		final boolean hasButtons = optYes != null || optNo != null;
+
+		View actions = activity.findViewById(R.id.modal_dialog_custom_buttons);
+		if (!hasButtons) {
+			actions.setVisibility(View.GONE);
+		} else {
+			actions.setVisibility(View.VISIBLE);
+
+			if (CoreUtils.isEmptyString(optYes)) optYes = "OK";
+
+			btnYes.setText(optYes);
+
+			btnYes.setOnClickListener(v -> closeDialog(activity, R.id.modal_dialog_custom, new SimpleCallback() {
+				@Override
+				public void onResult() {
+					if (callback != null) {
+						callback.onYes();
+						callback.onFinally();
+					}
+				}
+			}));
+
+			if (hasNoButton) {
+				btnNo.setVisibility(View.VISIBLE);
+				btnNo.setText(optNo);
+				btnNo.setOnClickListener(v -> closeDialog(activity, R.id.modal_dialog_custom, new SimpleCallback() {
+					@Override
+					public void onResult() {
+						if (callback != null) callback.onNo();
+						if (callback != null) callback.onFinally();
+					}
+				}));
+			} else {
+				btnNo.setVisibility(View.GONE);
+			}
+		}
+
+		openDialog(activity, R.id.modal_dialog_custom, new SimpleCallback() {
+			@Override
+			public void onResult() {
+				if (hasButtons) {
+					Button activeButton = hasNoButton ? btnNo : btnYes;
+					activeButton.setFocusable(true);
+					activeButton.setFocusableInTouchMode(true);
+					activeButton.requestFocus();
+				}
+			}
+		});
+	}
+
+	public static void custom(Activity activity, int viewResourceId,
+							  Callback<View> customViewCallback,
+							  Callback<View> customViewFocusCallback,
+							  String optYes, String optNo,
+							  DialogCallback callback) {
+		((AndroidDialogFactory) DialogUtils.factory).dialogCustom(activity, viewResourceId,
+				customViewCallback,
+				customViewFocusCallback,
+				optYes, optNo, callback);
+	}
+
+	private void dialogCustom(final Activity activity, int viewResourceId,
+							  Callback<View> customViewCallback,
+							  final Callback<View> customViewFocusCallback,
+							  String optYes, String optNo,
+							  final DialogCallback callback) {
+
+		setDismissCallback(activity, R.id.modal_dialog_custom, callback);
+
+		ViewGroup container = activity.findViewById(R.id.modal_dialog_custom_container);
+		container.removeAllViews();
+
+		LayoutInflater layoutInflater = activity.getLayoutInflater();
+		View customView = layoutInflater.inflate(viewResourceId, container);
+		if (customViewCallback!=null) customViewCallback.onResult(customView);
+
+
+		final Button btnYes = activity.findViewById(R.id.btnDialogCustomPositive);
+		final Button btnNo = activity.findViewById(R.id.btnDialogCustomNegative);
+
+		final boolean hasNoButton = !CoreUtils.isEmptyString(optNo);
+		final boolean hasButtons = optYes != null || optNo != null;
+
+		View actions = activity.findViewById(R.id.modal_dialog_custom_buttons);
+		if (!hasButtons) {
+			actions.setVisibility(View.GONE);
+		} else {
+			actions.setVisibility(View.VISIBLE);
+
+			if (CoreUtils.isEmptyString(optYes)) optYes = "OK";
+
+			btnYes.setText(optYes);
+
+			btnYes.setOnClickListener(v -> closeDialog(activity, R.id.modal_dialog_custom, new SimpleCallback() {
+				@Override
+				public void onResult() {
+					if (callback!=null) {
+						callback.onYes();
+						callback.onFinally();
+					}
+				}
+			}));
+
+			if (hasNoButton) {
+				btnNo.setVisibility(View.VISIBLE);
+				btnNo.setText(optNo);
+				btnNo.setOnClickListener(v -> closeDialog(activity, R.id.modal_dialog_custom, new SimpleCallback() {
+					@Override
+					public void onResult() {
+						if (callback!=null) {
+							callback.onNo();
+							callback.onFinally();
+						}
+					}
+				}));
+			} else {
+				btnNo.setVisibility(View.GONE);
+			}
+		}
+
+		openDialog(activity, R.id.modal_dialog_custom, new SimpleCallback(){
+			@Override
+			public void onResult() {
+				if (customViewFocusCallback!=null) {
+					customViewFocusCallback.onResult(activity.findViewById(R.id.modal_dialog_custom));
+				} else {
+					if (hasButtons) {
+						Button activeButton = hasNoButton?btnNo:btnYes;
+						activeButton.setFocusable(true);
+						activeButton.setFocusableInTouchMode(true);
+						activeButton.requestFocus();
+					}
+				}
+			}
+		});
+	}
 }
