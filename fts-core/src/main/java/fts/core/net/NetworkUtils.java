@@ -43,7 +43,8 @@ public class NetworkUtils {
 	}
 
 	public static void httpGetFile(String sUrl, Map<String, String>headers, File file, ProgressListener progressListener) throws IOException {
-		FileOutputStream fos = new FileOutputStream(file, headers.containsKey(HTTP_RANGE_HEADER));
+		boolean append = headers != null && headers.containsKey(HTTP_RANGE_HEADER);
+		FileOutputStream fos = new FileOutputStream(file, append);
 		long maxFileSize = file.getFreeSpace();
 		httpGetStream(sUrl, maxFileSize, headers, fos, progressListener);
 	}
