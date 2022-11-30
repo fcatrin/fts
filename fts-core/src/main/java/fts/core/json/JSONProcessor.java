@@ -6,12 +6,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import fts.core.DownloadManager;
+import fts.core.net.NetworkUtils;
 
 public abstract class JSONProcessor<T> {
 	
 	public T download(String url) throws Exception {
-		byte[] json = DownloadManager.download(url);
+		byte[] json = NetworkUtils.httpGet(url);
 		String js = new String(json).trim();
 		JSONObject o = new JSONObject(js);
 		T item = build(o);
@@ -20,7 +20,7 @@ public abstract class JSONProcessor<T> {
 	
 	public List<T> downloadList(String url) throws Exception {
 		List<T> list = new ArrayList<T>();
-		byte[] json = DownloadManager.download(url);
+		byte[] json = NetworkUtils.httpGet(url);
 		String js = new String(json).trim();
 		
 		JSONArray a = null;

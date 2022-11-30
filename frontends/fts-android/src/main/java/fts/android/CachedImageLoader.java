@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import java.io.File;
 import java.io.IOException;
 
-import fts.core.DownloadManager;
 import fts.core.FilesCache;
 import fts.core.CoreUtils;
 
