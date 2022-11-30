@@ -5,6 +5,7 @@ import android.os.Handler;
 import fts.core.Application;
 import fts.core.AsyncExecutor;
 import fts.core.BackgroundProcessor;
+import fts.utils.dialogs.DialogUtils;
 
 public class AndroidApplication {
     public static void init() {
@@ -14,5 +15,6 @@ public class AndroidApplication {
         BackgroundProcessor backgroundProcessor = new AndroidBackgroundProcessor(androidUIThreadExecutor);
 
         Application.init(asyncExecutor, backgroundProcessor, new AndroidLogger());
+        DialogUtils.factory = new AndroidDialogFactory();
     }
 }
