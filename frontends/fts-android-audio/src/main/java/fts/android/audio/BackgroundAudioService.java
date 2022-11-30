@@ -28,14 +28,20 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.media.MediaBrowserServiceCompat;
 import androidx.media.session.MediaButtonReceiver;
 
-public class BackgroundAudioService extends MediaBrowserServiceCompat implements MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener  {
+public abstract class BackgroundAudioService extends MediaBrowserServiceCompat implements MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener  {
     private static final String LOGTAG = BackgroundAudioService.class.getSimpleName();
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_SUBTITLE = "subtitle";
+    public static final String KEY_ICON = "icon";
+    public static final String KEY_NEXT_PREV = "canSkipNextPrev";
 
     public static final String COMMAND_EXAMPLE = "command_example";
 
     private BackgroundAudioPlayer audioPlayer;
     private MediaSessionCompat mMediaSessionCompat;
     private boolean canMoveNextPrev = false;
+
+    private BackgroundAudioClient backgroundAudioClient;
 
     private BroadcastReceiver mNoisyReceiver = new BroadcastReceiver() {
         @Override
@@ -79,11 +85,11 @@ public class BackgroundAudioService extends MediaBrowserServiceCompat implements
             super.onPlayFromMediaId(url, extras);
 
             audioPlayer.setDataSource(getApplicationContext(), url);
-            canMoveNextPrev = extras.getBoolean(TraXClient.KEY_NEXT_PREV);
+            canMoveNextPrev = extras.getBoolean(KEY_NEXT_PREV);
             initMediaSessionMetadata(
-                    extras.getString(TraXClient.KEY_TITLE),
-                    extras.getString(TraXClient.KEY_SUBTITLE),
-                    extras.getParcelable(TraXClient.KEY_ICON));
+                    extras.getString(KEY_TITLE),
+                    extras.getString(KEY_SUBTITLE),
+                    extras.getParcelable(KEY_ICON));
         }
 
         @Override
@@ -101,28 +107,31 @@ public class BackgroundAudioService extends MediaBrowserServiceCompat implements
 
         @Override
         public void onSkipToNext() {
-            TraXActivity.instance.playNext();
+            backgroundAudioClient.playNext();
         }
 
         @Override
         public void onSkipToPrevious() {
-            TraXActivity.instance.playPrev();
+            backgroundAudioClient.playPrev();
         }
     };
+
+    protected abstract BackgroundAudioClient getBackgroundAudioClient();
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         Log.d(LOGTAG, "onCreate");
-        audioPlayer = new TraXAudioPlayer();
+        backgroundAudioClient = getBackgroundAudioClient();
+        audioPlayer = backgroundAudioClient.createAudioPlayer();
 
         initMediaSession();
         initNoisyReceiver();
     }
 
     private void initNoisyReceiver() {
-        //Handles headphones coming unplugged. cannot be done through a manifest receiver
+        // Handles headphones coming unplugged. cannot be done through a manifest receiver
         IntentFilter filter = new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
         registerReceiver(mNoisyReceiver, filter);
     }
@@ -143,48 +152,41 @@ public class BackgroundAudioService extends MediaBrowserServiceCompat implements
     }
 
     private void showPlayingNotification() {
-        NotificationCompat.Builder builder = MediaStyleHelper.from(BackgroundAudioService.this, mMediaSessionCompat);
+        NotificationCompat.Builder builder = MediaStyleHelper.from(BackgroundAudioService.this, backgroundAudioClient, mMediaSessionCompat);
         if( builder == null ) {
             return;
         }
-
-        Log.d("MSESSION", "showPlayingNotification");
 
         if (canMoveNextPrev) builder.addAction(new NotificationCompat.Action(android.R.drawable.ic_media_previous, "Previous song", MediaButtonReceiver.buildMediaButtonPendingIntent(this, PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS)));
         builder.addAction(new NotificationCompat.Action(android.R.drawable.ic_media_pause, "Pause", MediaButtonReceiver.buildMediaButtonPendingIntent(this, PlaybackStateCompat.ACTION_PLAY_PAUSE)));
         if (canMoveNextPrev) builder.addAction(new NotificationCompat.Action(android.R.drawable.ic_media_next, "Next song", MediaButtonReceiver.buildMediaButtonPendingIntent(this, PlaybackStateCompat.ACTION_SKIP_TO_NEXT)));
         builder.setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setShowActionsInCompactView(0, 1, 2).setMediaSession(mMediaSessionCompat.getSessionToken()));
-        builder.setSmallIcon(R.drawable.wave_icon_squared_inverted_transparent);
+        builder.setSmallIcon(backgroundAudioClient.getSmallIconResourceId());
         builder.setContentIntent(getPendingIntentForActivity());
         Notification notification = builder.build();
-        // NotificationManagerCompat.from(this).notify(1, notification);
         startForeground(1, notification);
     }
 
     private void showPausedNotification() {
-        NotificationCompat.Builder builder = MediaStyleHelper.from(this, mMediaSessionCompat);
+        NotificationCompat.Builder builder = MediaStyleHelper.from(this, backgroundAudioClient, mMediaSessionCompat);
         if( builder == null ) {
             return;
         }
 
-        Log.d("MSESSION", "showPausedNotification");
-
         builder.addAction(new NotificationCompat.Action(android.R.drawable.ic_media_play, "Play", MediaButtonReceiver.buildMediaButtonPendingIntent(this, PlaybackStateCompat.ACTION_PLAY_PAUSE)));
         builder.setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setShowActionsInCompactView(0).setMediaSession(mMediaSessionCompat.getSessionToken()));
-        builder.setSmallIcon(R.drawable.wave_icon_squared_inverted_transparent);
+        builder.setSmallIcon(backgroundAudioClient.getSmallIconResourceId());
         builder.setContentIntent(getPendingIntentForActivity());
         NotificationManagerCompat.from(this).notify(1, builder.build());
     }
 
     private PendingIntent getPendingIntentForActivity() {
-        Intent intent = new Intent(this, TraXActivity.instance.getClass());
+        Intent intent = new Intent(this, backgroundAudioClient.getNotificationActivatedActivityClass());
         intent.setAction(Intent.ACTION_MAIN);
         return PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
     }
 
     private void initMediaSession() {
-        Log.d("MSESSION", "initMediaSession");
-
         Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
         mediaButtonIntent.setClass(this, MediaButtonReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, mediaButtonIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -243,18 +245,16 @@ public class BackgroundAudioService extends MediaBrowserServiceCompat implements
     }
 
 
-    //Not important for general audio service, required for class
     @Nullable
     @Override
     public BrowserRoot onGetRoot(@NonNull String clientPackageName, int clientUid, @Nullable Bundle rootHints) {
         if(TextUtils.equals(clientPackageName, getPackageName())) {
-            return new BrowserRoot(getString(R.string.app_name), null);
+            return new BrowserRoot(backgroundAudioClient.getAppName(), null);
         }
 
         return null;
     }
 
-    //Not important for general audio service, required for class
     @Override
     public void onLoadChildren(@NonNull String parentId, @NonNull Result<List<MediaBrowserCompat.MediaItem>> result) {
         result.sendResult(null);
