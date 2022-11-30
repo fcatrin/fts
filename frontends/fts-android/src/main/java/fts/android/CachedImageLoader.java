@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import fts.core.FilesCache;
 import fts.core.CoreUtils;
+import fts.core.net.NetworkUtils;
 
 public class CachedImageLoader {
     static FilesCache cache = null;
@@ -20,7 +21,7 @@ public class CachedImageLoader {
         if (!cachedFile.exists()) {
             cachedFile.getParentFile().mkdirs();
 
-            bitmapData = DownloadManager.download(url);
+            bitmapData = NetworkUtils.httpGet(url);
             CoreUtils.saveBytes(cachedFile, bitmapData);
         } else {
             bitmapData = CoreUtils.loadBytes(cachedFile);
