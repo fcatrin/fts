@@ -7,7 +7,6 @@ import fts.android.AndroidWindow;
 import fts.android.CachedImageLoader;
 import fts.android.R;
 import fts.core.BackgroundTask;
-import fts.core.Callback;
 
 public class BitmapLoader {
     private AndroidWindow activity;

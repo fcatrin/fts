@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Locale;
 
 import fts.core.Callback;
-import fts.core.Log;
-import fts.core.SimpleBackgroundTask;
 import fts.core.CoreUtils;
 import fts.core.CoreUtils.Compact;
+import fts.core.Log;
+import fts.core.SimpleBackgroundTask;
 import fts.ui.Window;
 import fts.ui.widgets.TextWidget;
 import fts.utils.dialogs.DialogUtils;

@@ -6,8 +6,8 @@ import android.graphics.BitmapFactory;
 import java.io.File;
 import java.io.IOException;
 
-import fts.core.FilesCache;
 import fts.core.CoreUtils;
+import fts.core.FilesCache;
 import fts.core.net.NetworkUtils;
 
 public class CachedImageLoader {

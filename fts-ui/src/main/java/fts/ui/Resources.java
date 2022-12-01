@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import fts.core.ResourceLocator;
 import fts.core.CoreUtils;
+import fts.core.ResourceLocator;
 import fts.core.xml.ParserException;
 import fts.core.xml.SimpleXML;
 import fts.ui.graphics.BackBuffer;

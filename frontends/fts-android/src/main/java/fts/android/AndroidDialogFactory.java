@@ -24,9 +24,9 @@ import java.util.List;
 
 import fts.android.fileselector.FilesPanel;
 import fts.core.Callback;
+import fts.core.CoreUtils;
 import fts.core.SimpleBackgroundTask;
 import fts.core.SimpleCallback;
-import fts.core.CoreUtils;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogContext;
 import fts.utils.dialogs.DialogFactory;

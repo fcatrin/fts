@@ -7,8 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import fts.core.ResourceLocator;
 import fts.core.CoreUtils;
+import fts.core.ResourceLocator;
 
 public class AndroidGLResourceLocator extends ResourceLocator {
 

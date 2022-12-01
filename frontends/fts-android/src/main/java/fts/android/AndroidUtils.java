@@ -33,9 +33,9 @@ import java.util.regex.Pattern;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import fts.core.CoreUtils;
 import fts.core.Log;
 import fts.core.ProgressListener;
-import fts.core.CoreUtils;
 import fts.utils.dialogs.DialogCallback;
 import fts.utils.dialogs.DialogUtils;
 
