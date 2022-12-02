@@ -55,6 +55,15 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
     private MediaSessionCompat.Callback mMediaSessionCallback = new MediaSessionCompat.Callback() {
 
         @Override
+        public void onStop() {
+            super.onStop();
+            audioPlayer.stop();
+            mMediaSessionCompat.setActive(false);
+            stopForeground(true);
+            stopSelf();
+        }
+
+        @Override
         public void onPlay() {
             super.onPlay();
             Log.d(LOGTAG, "onPlay");
@@ -152,7 +161,7 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
     }
 
     private void showPlayingNotification() {
-        NotificationCompat.Builder builder = MediaStyleHelper.from(BackgroundAudioService.this, backgroundAudioClient, mMediaSessionCompat);
+        NotificationCompat.Builder builder = MediaStyleHelper.from(this, backgroundAudioClient, mMediaSessionCompat);
         if( builder == null ) {
             return;
         }
@@ -178,10 +187,12 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
         builder.setSmallIcon(backgroundAudioClient.getSmallIconResourceId());
         builder.setContentIntent(getPendingIntentForActivity());
         NotificationManagerCompat.from(this).notify(1, builder.build());
+        stopForeground(false);
     }
 
     private PendingIntent getPendingIntentForActivity() {
         Intent intent = new Intent(this, backgroundAudioClient.getNotificationActivatedActivityClass());
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.setAction(Intent.ACTION_MAIN);
         return PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
     }
@@ -192,10 +203,8 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, mediaButtonIntent, PendingIntent.FLAG_IMMUTABLE);
         ComponentName mediaButtonReceiver = new ComponentName(getApplicationContext(), MediaButtonReceiver.class);
 
-        mMediaSessionCompat = new MediaSessionCompat(getApplicationContext(), "Tag", mediaButtonReceiver, pendingIntent);
-
+        mMediaSessionCompat = new MediaSessionCompat(getApplicationContext(), LOGTAG, mediaButtonReceiver, pendingIntent);
         mMediaSessionCompat.setCallback(mMediaSessionCallback);
-        mMediaSessionCompat.setFlags( MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS );
 
         setSessionToken(mMediaSessionCompat.getSessionToken());
     }
@@ -203,7 +212,7 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
     private void setMediaPlaybackState(int state) {
         PlaybackStateCompat.Builder playbackstateBuilder = new PlaybackStateCompat.Builder();
 
-        long actions = PlaybackStateCompat.ACTION_PLAY_PAUSE;
+        long actions = PlaybackStateCompat.ACTION_PLAY_PAUSE | PlaybackStateCompat.ACTION_STOP;
         actions |= PlaybackStateCompat.ACTION_SKIP_TO_NEXT | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS;
 
         if( state == PlaybackStateCompat.STATE_PLAYING ) {
@@ -243,7 +252,6 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
 
         return result == AudioManager.AUDIOFOCUS_GAIN;
     }
-
 
     @Nullable
     @Override
@@ -300,6 +308,7 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(LOGTAG, "TRAXBAS onStartCommand intent: " + intent + " flags:" + flags + " startId:" + startId);
         MediaButtonReceiver.handleIntent(mMediaSessionCompat, intent);
         return super.onStartCommand(intent, flags, startId);
     }
