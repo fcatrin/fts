@@ -11,4 +11,11 @@
 
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
+
+    <string name="login_select_account_yes">Continue</string>
+    <string name="login_select_account_no">Cancel</string>
+
+    <string name="login_grant_permissions_yes">Continue</string>
+    <string name="login_grant_permissions_no">Cancel</string>
+
 </resources>
