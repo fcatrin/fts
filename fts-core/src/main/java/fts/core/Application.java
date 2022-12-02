@@ -1,6 +1,8 @@
 package fts.core;
 
 public class Application {
+	private static final String LOGTAG = Application.class.getSimpleName();
+
 	public static float pointsPerPixel = 1;
 	private static AsyncExecutor asyncExecutor = null;
 	private static BackgroundProcessor backgroundProcessor = null;
@@ -39,4 +41,32 @@ public class Application {
 	public static int px2pt(int value) {
 		return (int)(value / pointsPerPixel);
 	}
+
+	public static void setCrashHandler(final Callback<Throwable> handler) {
+		final Thread.UncaughtExceptionHandler oldHandler = Thread.getDefaultUncaughtExceptionHandler();
+		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+			@Override
+			public void uncaughtException(Thread thread, Throwable throwable) {
+				Log.e(LOGTAG, "Uncaught Exception. Sending Trace", throwable);
+				sendTrace(handler, throwable);
+				if (oldHandler != null) {
+					oldHandler.uncaughtException(thread, throwable);
+				} else {
+					System.exit(2);
+				}
+			}
+		});
+	}
+
+	private static void sendTrace(final Callback<Throwable> handler, final Throwable t) {
+		Thread sendTraceThread = new Thread() {
+			@Override
+			public void run() {
+				handler.onResult(t);
+			}
+		};
+		sendTraceThread.start();
+		CoreUtils.sleep(200); // allow this thread to be started
+	}
+
 }

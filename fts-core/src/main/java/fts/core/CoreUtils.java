@@ -1,6 +1,7 @@
 package fts.core;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -36,6 +37,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import fts.core.json.EmptyJSONProcessor;
 
 public final class CoreUtils {
 	private static final String LOGTAG = CoreUtils.class.getSimpleName();
@@ -762,4 +765,20 @@ public final class CoreUtils {
 			e.printStackTrace();
 		}
 	}
+
+	public static void postTrace(String url, Throwable t, JSONObject data) {
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		try {
+			t.printStackTrace(pw);
+			data.put("trace", sw.toString());
+			EmptyJSONProcessor.post(url, data);
+		} catch (Exception e) {
+			// ignore exceptions at this point
+			e.printStackTrace();
+		} finally {
+			pw.close();
+		}
+	}
+
 }
