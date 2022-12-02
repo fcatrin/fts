@@ -48,4 +48,8 @@ public abstract class AndroidWindow extends Activity implements DialogContext, W
     protected abstract void loadPreferences(SharedPreferences preferences);
     protected abstract void savePreferences(SharedPreferences.Editor editor);
 
+    protected void setViewVisible(int resourceId, boolean visible) {
+        AndroidUtils.setViewVisible(findViewById(resourceId), visible);
+    }
+
 }

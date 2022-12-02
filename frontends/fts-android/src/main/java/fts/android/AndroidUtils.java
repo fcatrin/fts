@@ -291,4 +291,7 @@ public class AndroidUtils {
 		return null;
 	}
 
+	public static void setViewVisible(View view, boolean visible) {
+		view.setVisibility(visible ? View.VISIBLE : View.GONE);
+	}
 }
