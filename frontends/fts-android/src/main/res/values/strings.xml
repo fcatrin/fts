@@ -18,6 +18,9 @@
     <string name="login_grant_permissions_yes">Continue</string>
     <string name="login_grant_permissions_no">Cancel</string>
 
+    <string name="no_user_accounts_on_this_device">No accounts found on this device</string>
+    <string name="login_select_account">Select account</string>
+
     <string name="update_installer_cancel">Cancel</string>
     <string name="update_installer_ok">OK</string>
     <string name="update_download_info">Downloading update v%s</string>
