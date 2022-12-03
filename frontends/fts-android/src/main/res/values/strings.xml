@@ -18,4 +18,9 @@
     <string name="login_grant_permissions_yes">Continue</string>
     <string name="login_grant_permissions_no">Cancel</string>
 
+    <string name="update_installer_cancel">Cancel</string>
+    <string name="update_installer_ok">OK</string>
+    <string name="update_download_info">Downloading update v%s</string>
+    <string name="update_available_info">"There is a new version available:\n%s\nPress OK to install"</string>
+    ;
 </resources>
