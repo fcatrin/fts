@@ -17,7 +17,6 @@ import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.List;
 
@@ -27,6 +26,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.media.MediaBrowserServiceCompat;
 import androidx.media.session.MediaButtonReceiver;
+
+// Code based in this tutorial: https://code.tutsplus.com/tutorials/background-audio-in-android-with-mediasessioncompat--cms-27030
+// Android is a mess
 
 public abstract class BackgroundAudioService extends MediaBrowserServiceCompat implements MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener  {
     private static final String LOGTAG = BackgroundAudioService.class.getSimpleName();
@@ -66,7 +68,6 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
         @Override
         public void onPlay() {
             super.onPlay();
-            Log.d(LOGTAG, "onPlay");
             if( !successfullyRetrievedAudioFocus() ) {
                 return;
             }
@@ -81,7 +82,6 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
         @Override
         public void onPause() {
             super.onPause();
-            Log.d(LOGTAG, "onPause");
             if( audioPlayer.isPlaying() ) {
                 audioPlayer.pause();
                 setMediaPlaybackState(PlaybackStateCompat.STATE_PAUSED);
@@ -131,7 +131,6 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
     public void onCreate() {
         super.onCreate();
 
-        Log.d(LOGTAG, "onCreate");
         backgroundAudioClient = getBackgroundAudioClient();
         audioPlayer = backgroundAudioClient.createAudioPlayer();
 
@@ -148,7 +147,6 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(LOGTAG, "onDestroy");
         AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         audioManager.abandonAudioFocus(this);
         unregisterReceiver(mNoisyReceiver);
@@ -214,27 +212,20 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
 
         long actions = PlaybackStateCompat.ACTION_PLAY_PAUSE | PlaybackStateCompat.ACTION_STOP;
         actions |= PlaybackStateCompat.ACTION_SKIP_TO_NEXT | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS;
+        actions |= state == PlaybackStateCompat.STATE_PLAYING ? PlaybackStateCompat.ACTION_PAUSE : PlaybackStateCompat.ACTION_PLAY;
+        playbackstateBuilder.setActions(actions);
 
-        if( state == PlaybackStateCompat.STATE_PLAYING ) {
-            Log.d("MSESSION", "setMediaPlaybackState PLAYING");
-            playbackstateBuilder.setActions(actions | PlaybackStateCompat.ACTION_PAUSE);
-        } else {
-            Log.d("MSESSION", "setMediaPlaybackState PAUSE");
-            playbackstateBuilder.setActions(actions | PlaybackStateCompat.ACTION_PLAY);
-        }
         playbackstateBuilder.setState(state, PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN, 0);
         mMediaSessionCompat.setPlaybackState(playbackstateBuilder.build());
     }
 
     private void initMediaSessionMetadata(String title, String subtitle, Bitmap icon) {
-        Log.d(LOGTAG, "initMediaSessionMetadata");
-
         MediaMetadataCompat.Builder metadataBuilder = new MediaMetadataCompat.Builder();
-        //Notification icon in card
+        // Notification icon in card
         // metadataBuilder.putBitmap(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON, BitmapFactory.decodeResource(getResources(), R.mipmap.platform_3do));
         metadataBuilder.putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, icon);
 
-        //lock screen icon for pre lollipop
+        // lock screen icon for pre lollipop
         // metadataBuilder.putBitmap(MediaMetadataCompat.METADATA_KEY_ART, BitmapFactory.decodeResource(getResources(), R.mipmap.platform_3do));
         // metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE, "Display Title");
         // metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_DISPLAY_SUBTITLE, "Display Subtitle");
@@ -308,7 +299,6 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(LOGTAG, "TRAXBAS onStartCommand intent: " + intent + " flags:" + flags + " startId:" + startId);
         MediaButtonReceiver.handleIntent(mMediaSessionCompat, intent);
         return super.onStartCommand(intent, flags, startId);
     }
