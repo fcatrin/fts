@@ -2,6 +2,7 @@ package fts.android;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.view.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +50,11 @@ public abstract class AndroidWindow extends Activity implements DialogContext, W
     protected abstract void savePreferences(SharedPreferences.Editor editor);
 
     protected void setViewVisible(int resourceId, boolean visible) {
-        AndroidUtils.setViewVisible(findViewById(resourceId), visible);
+        setViewVisible(findViewById(resourceId), visible);
+    }
+
+    protected void setViewVisible(View view, boolean visible) {
+        AndroidUtils.setViewVisible(view, visible);
     }
 
 }

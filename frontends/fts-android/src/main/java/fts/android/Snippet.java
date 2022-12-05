@@ -40,6 +40,14 @@ public abstract class Snippet<T extends AndroidWindow> {
         return false;
     }
 
+    protected void setViewVisible(int resourceId, boolean visible) {
+        setViewVisible(findViewById(resourceId), visible);
+    }
+
+    protected void setViewVisible(View view, boolean visible) {
+        AndroidUtils.setViewVisible(view, visible);
+    }
+
     public void savePreferences(SharedPreferences.Editor editor) {}
     public void loadPreferences(SharedPreferences preferences) {}
 }
