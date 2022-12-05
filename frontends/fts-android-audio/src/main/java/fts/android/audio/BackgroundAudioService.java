@@ -48,9 +48,7 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
     private BroadcastReceiver mNoisyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if( audioPlayer != null && audioPlayer.isPlaying() ) {
-                audioPlayer.pause();
-            }
+            mMediaSessionCallback.onPause();
         }
     };
 
