@@ -216,12 +216,21 @@ public final class CoreUtils {
 
 		return -1;
 	}
-	
+
+	public static String padz(int v, int n) {
+		return padz(String.valueOf(v), n);
+	}
+
 	public static String padz(String s, int n) {
 		String ns = "00000000" + s;
 		return ns.substring(ns.length()-n);
 	}
-	
+
+	public static String pads(String s, int n) {
+		String ns = "        " + s;
+		return ns.substring(ns.length()-n);
+	}
+
 	public static String formatTime(int time) {
 		int hours = time / SECONDS_PER_HOUR;
 		int minutes = (time - hours * SECONDS_PER_HOUR) / MINUTES_PER_HOUR;
