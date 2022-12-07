@@ -42,6 +42,7 @@ public abstract class Component {
 		dimensionProperties.add("separator");
 		
 		intProperties.add("maxLines");
+		intProperties.add("weight"); // TODO this should be added dynamically by LinearContainer
 	}
 	
 	protected void setProperty(String name, String value) {

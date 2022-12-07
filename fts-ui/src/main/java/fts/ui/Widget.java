@@ -471,6 +471,11 @@ public class Widget extends Component {
 		layoutInfo.height = height;
 	}
 
+	// TODO This should be a specialization of LayoutInfo
+	public void setWeight(int weight) {
+		layoutInfo.weight = weight;
+	}
+
 	public void setLeft(int x) {
 		layoutInfo.x = x;
 	}
@@ -647,7 +652,7 @@ public class Widget extends Component {
 	private String getSizeDescriptor(int size) {
 		if (size == LayoutInfo.MATCH_PARENT) return "match_parent";
 		else if (size == LayoutInfo.WRAP_CONTENT) return "wrap_content";
-		else if (size == 0) return String.valueOf(size);
+		else if (size != 0) return String.valueOf(size);
 		else return "weight " + layoutInfo.weight;
 	}
 	
