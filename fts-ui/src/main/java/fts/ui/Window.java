@@ -94,6 +94,10 @@ public abstract class Window implements DialogContext {
 		this.canvas = canvas;
 	}
 
+	public Widget inflate(String layoutName) {
+		return Resources.inflate(this, layoutName);
+	}
+
 	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
 		touchEvent.widget = null;
 		

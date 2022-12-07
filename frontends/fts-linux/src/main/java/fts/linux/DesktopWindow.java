@@ -107,10 +107,6 @@ public class DesktopWindow extends GLWindow implements GLWindowListener {
 		dispatchTouchEvent(event);
 	}
 
-	public Widget inflate(String layoutName) {
-		return Resources.inflate(this, layoutName);
-	}
-
 	@Override
 	public void onWindowCreate() {}
 
