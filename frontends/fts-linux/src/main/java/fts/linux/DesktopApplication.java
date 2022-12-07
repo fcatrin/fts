@@ -8,7 +8,7 @@ import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
 import fts.ui.Resources;
 
-public class LinuxApplication {
+public class DesktopApplication {
     public static void init() {
         AsyncExecutor asyncExecutor = new CoreAsyncExecutor();
         Application.init(

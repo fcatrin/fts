@@ -2,11 +2,11 @@ package fts.linux.demo;
 
 import java.io.IOException;
 
-import fts.linux.LinuxApplication;
-import fts.linux.Window;
+import fts.linux.DesktopApplication;
+import fts.linux.DesktopWindow;
 import fts.ui.Widget;
 
-public class LinuxDemo extends Window {
+public class LinuxDemo extends DesktopWindow {
 
 	public LinuxDemo(String title, int width, int height) {
 		super(title, width, height);
@@ -31,7 +31,7 @@ public class LinuxDemo extends Window {
 	}
 
 	public static void main(String[] args) throws IOException {
-		LinuxApplication.init();
+		DesktopApplication.init();
 
 		LinuxDemo demo = new LinuxDemo("FTS Demo", 640, 480);
 		demo.run();

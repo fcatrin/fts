@@ -10,10 +10,8 @@ import fts.ui.events.KeyEvent;
 import fts.ui.events.TouchEvent;
 import fts.ui.graphics.Point;
 
-public class Window implements GLWindowListener {
+public class DesktopWindow extends GLWindow implements GLWindowListener {
 
-	GLWindow nativeWindow;
-	
 	private int height;
 	private int width;
 	private int flags;
@@ -22,10 +20,12 @@ public class Window implements GLWindowListener {
 	
 	private String title;
 	
-	public Window(String title, int width, int height) {
+	public DesktopWindow(String title, int width, int height) {
+		super();
 		this.width = width;
 		this.height = height;
 		this.title = title;
+		setWindowListener(this);
 	}
 
 	public void setWindowFlags(int flags) {
@@ -47,11 +47,8 @@ public class Window implements GLWindowListener {
 
 	@Override
 	public void open() {
-		nativeWindow = (GLWindow) Resources.createNativeWindow(title, width, height, flags); // TODO are those parameters needed really?
-		nativeWindow.setWindowListener(this);
-		
 		NativeInterface.windowOpen(title, x, y, width, height, flags);
-		nativeWindow.init();
+		init();
 	}
 
 	@Override
@@ -107,25 +104,13 @@ public class Window implements GLWindowListener {
 		event.x = x;
 		event.y = y;
 		event.timestamp = System.currentTimeMillis();
-		nativeWindow.dispatchTouchEvent(event);
+		dispatchTouchEvent(event);
 	}
 
 	public Widget inflate(String layoutName) {
-		return Resources.inflate(nativeWindow, layoutName);
+		return Resources.inflate(this, layoutName);
 	}
-	
-	public void setContentView(Widget view) {
-		nativeWindow.setContentView(view);
-	}
-	
-	public Widget getContentView() {
-		return nativeWindow.getContentView();
-	}
-	
-	public Widget findWidget(String id) {
-		return nativeWindow.findWidget(id);
-	}
-	
+
 	@Override
 	public void onWindowCreate() {}
 
@@ -145,30 +130,11 @@ public class Window implements GLWindowListener {
 		open();
 		onWindowCreate();
 		onWindowStart();
-		nativeWindow.mainLoop();
+		mainLoop();
 		onWindowStop();
 		onWindowDestroy();
 	}
 
-	@Override
-	public boolean dispatchKeyEvent(KeyEvent keyEvent) {
-		return nativeWindow.dispatchKeyEvent(keyEvent);
-	}
-
-	@Override
-	public boolean onKeyDown(KeyEvent keyEvent) {
-		return nativeWindow.onKeyDown(keyEvent);
-	}
-
-	@Override
-	public boolean onKeyUp(KeyEvent keyEvent) {
-		return nativeWindow.onKeyUp(keyEvent);
-	}
-
-	public fts.ui.Window getNativeWindow() {
-		return nativeWindow;
-	}
-	
 	public File getDataDir() {
 		return new File(System.getProperty("user.home"), ".ftsapp");
 	}
