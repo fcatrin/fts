@@ -21,7 +21,12 @@ public class LinuxDemo extends DesktopWindow {
 	@Override
 	public void onFrame() {
 	}
-	
+
+	@Override
+	protected String getAppCode() {
+		return "fts.linux.demo";
+	}
+
 	@Override
 	public void onWindowStop() {
 	}

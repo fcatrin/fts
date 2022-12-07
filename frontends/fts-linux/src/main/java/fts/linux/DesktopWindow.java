@@ -10,7 +10,7 @@ import fts.ui.events.KeyEvent;
 import fts.ui.events.TouchEvent;
 import fts.ui.graphics.Point;
 
-public class DesktopWindow extends GLWindow implements GLWindowListener {
+public abstract class DesktopWindow extends GLWindow implements GLWindowListener {
 
 	private int height;
 	private int width;
@@ -132,7 +132,8 @@ public class DesktopWindow extends GLWindow implements GLWindowListener {
 	}
 
 	public File getDataDir() {
-		return new File(System.getProperty("user.home"), ".ftsapp");
+		return new File(System.getProperty("user.home"), "." + getAppCode());
 	}
+	protected abstract String getAppCode();
 
 }
