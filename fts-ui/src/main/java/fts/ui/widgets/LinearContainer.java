@@ -134,7 +134,7 @@ public class LinearContainer extends Container {
 			switch (hAlign) {
 			case Center : left = containerLeft + (getInternalWidth() - width) / 2; break;
 			case Right  : left = containerLeft + (getInternalWidth() - width); break;
-			default     : break;
+			default     : left = containerLeft;
 			}
 			
 			top += layoutInfo.margins.top;
