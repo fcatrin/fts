@@ -5,12 +5,29 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+
+import fts.core.CoreUtils;
+import fts.core.FileUtils;
 
 public class LinuxUtils {
 
+	private static Map<String, String> osReleaseValues = new HashMap<>();
+
+	static {
+		try {
+			loadOsReleaseValues();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private LinuxUtils() {}
-	
+
 	public static String getUserName() {
 		String cmd[] = {"id", "-nu"};
 		return exec(cmd);
@@ -48,6 +65,22 @@ public class LinuxUtils {
             p.destroy();
         } catch (Exception e) {}
         return result.toString();
+	}
+
+	private static void loadOsReleaseValues() throws IOException {
+		String osReleaseText = CoreUtils.loadString(new File("/etc/os-release"));
+		String[] lines = osReleaseText.split("\n");
+		for(String line : lines) {
+			String[] parts = line.split("=");
+			if (parts.length != 2) continue;
+			String key = parts[0];
+			String value = CoreUtils.removeStartEnd(parts[1], "\"");
+			osReleaseValues.put(key, value);
+		}
+	}
+
+	public static String getOSReleaseValue(String key) {
+		return osReleaseValues.get(key);
 	}
 
 }
