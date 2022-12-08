@@ -72,7 +72,7 @@ public class TextDrawable extends Drawable {
 			}
 			
 			canvas.drawText(lineLeft, top + metrics.ascent, bounds.width, bounds.height, line);
-			top += metrics.height - metrics.descent + lineSeparator;
+			top += metrics.height + lineSeparator;
 		}
 		
 	}

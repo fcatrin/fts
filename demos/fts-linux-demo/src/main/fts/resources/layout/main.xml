@@ -10,4 +10,27 @@
         color="#FFFFFF"
         fontSize="20px"
 	/>
+    <LinearContainer
+        width="match_parent"
+        height="60pt"
+        orientation="horizontal"
+        align="center">
+        <TextWidget
+            weight="1"
+            height="wrap_content"
+            align="right"
+            fontSize="22pt"
+            text="Coding"
+            color="#ffffff"
+            background="#A04040"/>
+        <TextWidget
+            weight="1"
+            height="match_parent"
+            fontSize="22pt"
+            text="Coding"
+            color="#ffffff"
+            align="center|left"
+            background="#A04040"/>
+    </LinearContainer>
+
 </LinearContainer>

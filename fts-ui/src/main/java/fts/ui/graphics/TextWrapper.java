@@ -103,7 +103,7 @@ public class TextWrapper {
 		Log.d("TEXTWRAP", "add line " + line.trim() + ", height: " + metrics.height + " size.y=" + size.y);
 		lines.add(line.trim());
 		lineMetrics.add(metrics);
-		size.y += metrics.height - metrics.descent + (size.y == 0 ? 0 : lineSeparator);
+		size.y += metrics.height + (size.y == 0 ? 0 : lineSeparator);
 	}
 	
 	private boolean isSpacer(String s) {
@@ -144,10 +144,5 @@ public class TextWrapper {
 	public int getLineSeparator() {
 		return lineSeparator;
 	}
-	
-	public int getDescent() {
-		if (lineMetrics.size() == 0) return 0;
-		return lineMetrics.get(0).descent;
-	}
-	
+
 }
