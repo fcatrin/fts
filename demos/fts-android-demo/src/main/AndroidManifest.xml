@@ -20,7 +20,8 @@
             android:name="fts.android.demo.DemoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode|navigation|touchscreen"
             android:screenOrientation="sensorPortrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -4,8 +4,8 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 task ftsPackage(type:Exec) {
@@ -23,7 +23,7 @@ afterEvaluate {
 
                 groupId = 'fts'
                 artifactId = 'ui'
-                version = '1.0.0'
+                version = '1.0.1'
             }
         }
     }
