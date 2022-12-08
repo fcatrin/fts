@@ -31,6 +31,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -788,6 +789,20 @@ public final class CoreUtils {
 		} finally {
 			pw.close();
 		}
+	}
+
+	public static String removeStart(String text, String s) {
+		return text.toLowerCase(Locale.ROOT).startsWith(s) ? text.substring(s.length()) : text;
+	}
+
+	public static String removeEnd(String text, String s) {
+		return text.toLowerCase(Locale.ROOT).endsWith(s) ? text.substring(0, text.length() - s.length()) : text;
+	}
+
+	public static String removeStartEnd(String text, String s) {
+		if (!text.toLowerCase(Locale.ROOT).startsWith(s) || !text.toLowerCase(Locale.ROOT).endsWith(s)) return text;
+		text = removeStart(text, s);
+		return removeEnd(text, s);
 	}
 
 }
