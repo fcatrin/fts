@@ -64,8 +64,8 @@ public abstract class GLActivity extends AndroidWindow implements GLWindowListen
 		return Resources.inflate(window, layoutName);
 	}
 	
-	public Widget findWidget(String id) {
-		return window.findWidget(id);
+	public <W extends Widget> W findWidget(String id) {
+		return (W)window.findWidget(id);
 	}
 
 	@Override

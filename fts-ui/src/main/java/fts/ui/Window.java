@@ -54,7 +54,7 @@ public abstract class Window implements DialogContext {
 		return contentView;
 	}
 	
-	public Widget findWidget(String id) {
+	public <W extends Widget> W findWidget(String id) {
 		return view.findWidget(id);
 	}
 	

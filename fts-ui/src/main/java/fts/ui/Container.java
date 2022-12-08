@@ -13,7 +13,7 @@ import fts.ui.graphics.Rectangle;
 
 public abstract class Container extends Widget {
 	List<Widget> children = new ArrayList<Widget>();
-	Map<String, Widget> knownWidgets = new HashMap<String, Widget>();
+	Map<String, Widget> knownWidgets = new HashMap<>();
 	Align align = new Align();
 
 	public Container(Window w) {
@@ -53,7 +53,7 @@ public abstract class Container extends Widget {
 		return super.resolvePropertyValue(propertyName, value);
 	}
 
-	public void add(Widget view) {
+	public <T extends Widget> void add(T view) {
 		children.add(view);
 		String id = view.getId();
 		if (id!=null && !knownWidgets.containsKey(id)) {
@@ -69,11 +69,11 @@ public abstract class Container extends Widget {
 	}
 	
 	@Override
-	public Widget findWidget(String id) {
-		Widget w = super.findWidget(id);
+	public <W extends Widget> W findWidget(String id) {
+		W w = super.findWidget(id);
 		if (w!=null) return w;
 		
-		w = knownWidgets.get(id);
+		w = (W)knownWidgets.get(id);
 		if (w!=null) return w;
 		
 		for(Widget child : children) {

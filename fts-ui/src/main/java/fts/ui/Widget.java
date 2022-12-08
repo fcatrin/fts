@@ -530,8 +530,8 @@ public class Widget extends Component {
 		return true;
 	}
 
-	public Widget findWidget(String id) {
-		if (id!=null && id.equals(this.id)) return this;
+	public <W extends Widget> W findWidget(String id) {
+		if (id!=null && id.equals(this.id)) return (W)this;
 		return null;
 	}
 	
