@@ -7,6 +7,8 @@ import fts.core.CoreBackgroundProcessor;
 import fts.core.DesktopLogger;
 import fts.core.DesktopResourceLocator;
 import fts.ui.Resources;
+import fts.ui.dialogs.SimpleDialogs;
+import fts.utils.dialogs.DialogUtils;
 
 public class DesktopApplication {
     public static void init() {
@@ -15,6 +17,8 @@ public class DesktopApplication {
                 asyncExecutor,
                 new CoreBackgroundProcessor(asyncExecutor),
                 new DesktopLogger());
+
+        DialogUtils.factory = new SimpleDialogs();
 
         Resources.init(new ComponentFactory(), new DesktopResourceLocator());
     }
