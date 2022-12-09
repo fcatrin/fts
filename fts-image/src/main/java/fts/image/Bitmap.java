@@ -8,6 +8,15 @@ public class Bitmap {
     private int blurLevel = 1;
 
     public Bitmap() {
+        init();
+    }
+
+    public Bitmap(File file) {
+        init();
+        load(file);
+    }
+
+    private void init() {
         handle = NativeInterface.create();
     }
 
