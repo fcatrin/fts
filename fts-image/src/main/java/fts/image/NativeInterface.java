@@ -2,7 +2,8 @@ package fts.image;
 
 public class NativeInterface {
     static {
-        System.loadLibrary("fts-gl");
+        System.loadLibrary("fts-image");
+        init();
     }
 
     public static native void init();
