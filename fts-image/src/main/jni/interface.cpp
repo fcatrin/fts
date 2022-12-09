@@ -63,6 +63,18 @@ JNIEXPORT void JNICALL Java_fts_image_NativeInterface_readImage
 	env->ReleaseStringUTFChars(jPath, path);
 }
 
+JNIEXPORT void JNICALL Java_fts_image_NativeInterface_readImageData
+(JNIEnv *env, jclass clazz, jint handle, jbyteArray jData) {
+	MagickWand *m_wand = getMagickWand(handle);
+
+	jsize  size = env->GetArrayLength(env, jData);
+	jbyte* data = env->GetByteArrayElements(env, jData, NULL);
+	MagickReadImageBlob(m_wand, data, length);
+
+	env->ReleaseByteArrayElements(env, jData, data, 0);
+}
+
+
 JNIEXPORT void JNICALL Java_fts_image_NativeInterface_writeImage
 (JNIEnv *env, jclass clazz, jint handle, jstring jPath, jint compression) {
 	MagickWand *m_wand = getMagickWand(handle);

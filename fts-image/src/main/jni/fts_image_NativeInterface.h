@@ -49,6 +49,14 @@ JNIEXPORT void JNICALL Java_fts_image_NativeInterface_readImage
 
 /*
  * Class:     fts_image_NativeInterface
+ * Method:    readImageData
+ * Signature: (I[B)V
+ */
+JNIEXPORT void JNICALL Java_fts_image_NativeInterface_readImageData
+  (JNIEnv *, jclass, jint, jbyteArray);
+
+/*
+ * Class:     fts_image_NativeInterface
  * Method:    writeImage
  * Signature: (ILjava/lang/String;I)V
  */

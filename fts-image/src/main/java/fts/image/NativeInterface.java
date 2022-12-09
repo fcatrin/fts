@@ -13,6 +13,7 @@ public class NativeInterface {
     public static native void destroy(int handle);
 
     public static native void readImage(int handle, String filename);
+    public static native void readImageData(int handle, byte[] data);
     public static native void writeImage(int handle, String filename, int compression);
     public static native void resize(int handle, int width, int height, int filter, double blur);
     public static native int  getWidth(int handle);

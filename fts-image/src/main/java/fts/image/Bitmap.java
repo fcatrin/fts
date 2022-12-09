@@ -16,12 +16,21 @@ public class Bitmap {
         load(file);
     }
 
+    public Bitmap(byte[] data) {
+        init();
+        load(data);
+    }
+
     private void init() {
         handle = NativeInterface.create();
     }
 
     public void load(File file) {
         NativeInterface.readImage(handle, file.getAbsolutePath());
+    }
+
+    public void load(byte[] data) {
+        NativeInterface.readImageData(handle, data);
     }
 
     public void save(File file) {
