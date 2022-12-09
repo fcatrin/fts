@@ -1,0 +1,34 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+task ftsPackage(type:Exec) {
+    workingDir '.'
+    commandLine '../fts-tools/package.sh'
+}
+
+processResources.dependsOn ftsPackage
+
+afterEvaluate {
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+
+                groupId = 'fts'
+                artifactId = 'image'
+                version = '1.0.0'
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation project(path: ':fts-core')
+}
