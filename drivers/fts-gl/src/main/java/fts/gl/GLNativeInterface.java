@@ -48,6 +48,6 @@ public class GLNativeInterface {
 	public static native int   createImage(byte data[]);
 	public static native int[] getImageSize(int handle);
 	public static native void  destroyImage(int handle);
-	public static native void  drwawImage(int handle, int x, int y, int width, int height);
+	public static native void  drawImage(int handle, int x, int y, int width, int height);
 	
 }

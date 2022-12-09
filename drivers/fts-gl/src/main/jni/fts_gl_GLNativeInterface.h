@@ -196,7 +196,7 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_destroyImage
  * Method:    drwawImage
  * Signature: (IIIII)V
  */
-JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drwawImage
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawImage
   (JNIEnv *, jclass, jint, jint, jint, jint, jint);
 
 #ifdef __cplusplus

@@ -163,7 +163,7 @@ JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_destroyImage
 	graphics_image_destroy(handle);
 }
 
-JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drwawImage
+JNIEXPORT void JNICALL Java_fts_gl_GLNativeInterface_drawImage
   (JNIEnv *env, jclass clazz, jint handle, jint x, jint y, jint width, jint height){
 	graphics_image_draw(handle, x, y, width, height);
 }

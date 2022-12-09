@@ -25,7 +25,7 @@ public class GLCanvas extends Canvas {
 				Log.d(LOGTAG, "Invalid image " + image.getName());
 				return;
 			}
-			GLNativeInterface.drwawImage(glImage.getHandle(), x, y, width, height);
+			GLNativeInterface.drawImage(glImage.getHandle(), x, y, width, height);
 		}
 	}
 
