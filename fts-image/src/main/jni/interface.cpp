@@ -67,11 +67,11 @@ JNIEXPORT void JNICALL Java_fts_image_NativeInterface_readImageData
 (JNIEnv *env, jclass clazz, jint handle, jbyteArray jData) {
 	MagickWand *m_wand = getMagickWand(handle);
 
-	jsize  size = env->GetArrayLength(env, jData);
-	jbyte* data = env->GetByteArrayElements(env, jData, NULL);
-	MagickReadImageBlob(m_wand, data, length);
+	jsize  size = env->GetArrayLength(jData);
+	jbyte* data = env->GetByteArrayElements(jData, NULL);
+	MagickReadImageBlob(m_wand, data, size);
 
-	env->ReleaseByteArrayElements(env, jData, data, 0);
+	env->ReleaseByteArrayElements(jData, data, 0);
 }
 
 
@@ -91,6 +91,12 @@ JNIEXPORT void JNICALL Java_fts_image_NativeInterface_resize
 	// TODO select interpolation filter
 	MagickWand *m_wand = getMagickWand(handle);
 	MagickResizeImage(m_wand, width, height, LanczosFilter, blur);
+}
+
+JNIEXPORT void JNICALL Java_fts_image_NativeInterface_crop
+(JNIEnv *env, jclass clazz, jint handle, jint x, jint y, jint width, jint height) {
+	MagickWand *m_wand = getMagickWand(handle);
+	MagickCropImage(m_wand, width, height, x, y);
 }
 
 JNIEXPORT jint JNICALL Java_fts_image_NativeInterface_getWidth

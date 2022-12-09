@@ -73,6 +73,14 @@ JNIEXPORT void JNICALL Java_fts_image_NativeInterface_resize
 
 /*
  * Class:     fts_image_NativeInterface
+ * Method:    clip
+ * Signature: (IIIII)V
+ */
+JNIEXPORT void JNICALL Java_fts_image_NativeInterface_clip
+  (JNIEnv *, jclass, jint, jint, jint, jint, jint);
+
+/*
+ * Class:     fts_image_NativeInterface
  * Method:    getWidth
  * Signature: (I)I
  */

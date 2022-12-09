@@ -41,6 +41,10 @@ public class Bitmap {
         NativeInterface.resize(handle, width, height, 0, blurLevel);
     }
 
+    public void crop(int x, int y, int width, int height) {
+        NativeInterface.crop(handle, x, y, width, height);
+    }
+
     public int getWidth() {
         return NativeInterface.getWidth(handle);
     }

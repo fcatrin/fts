@@ -16,6 +16,7 @@ public class NativeInterface {
     public static native void readImageData(int handle, byte[] data);
     public static native void writeImage(int handle, String filename, int compression);
     public static native void resize(int handle, int width, int height, int filter, double blur);
+    public static native void crop(int handle, int x, int y, int width, int height);
     public static native int  getWidth(int handle);
     public static native int  getHeight(int handle);
 
