@@ -13,7 +13,7 @@ public class Snippet<T extends Window> {
 	public void loadPreferences(SharedPreferences prefs) {}
 	public void savePreferences(SharedPreferences prefs) {}
 	
-	protected Widget findWidget(String id) {
+	protected <W extends Widget> W findWidget(String id) {
 		return window.findWidget(id);
 	}
 	
