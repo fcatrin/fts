@@ -22,4 +22,14 @@ public class LayoutInfo {
 			margins.left + margins.right,
 			margins.top + margins.bottom);
 	}
+
+	@Override
+	public String toString() {
+		return String.format("LayoutInfo (%d, %d) - (%s, %s) w:%d mw:%d mh:%d",
+				x, y,
+				width == MATCH_PARENT ? "MATCH" : (width == WRAP_CONTENT ? "WRAP" : width),
+				height == MATCH_PARENT ? "MATCH" : (height == WRAP_CONTENT ? "WRAP" : height),
+				weight,
+				measuredWidth, measuredHeight);
+	}
 }
