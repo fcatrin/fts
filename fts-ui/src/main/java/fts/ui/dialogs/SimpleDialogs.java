@@ -20,6 +20,7 @@ import fts.utils.dialogs.DialogFactory;
 import fts.utils.dialogs.DialogListCallback;
 import fts.utils.dialogs.FileChooserConfig;
 import fts.utils.dialogs.ListOption;
+import fts.utils.dialogs.OnItemClickedListener;
 import fts.utils.dialogs.OnItemSelectedListener;
 import fts.utils.dialogs.OnItemSelectionChangedListener;
 import fts.utils.dialogs.SimpleDialogCallback;
@@ -42,15 +43,13 @@ public class SimpleDialogs implements DialogFactory {
 		listWidget = (ListOptionWidget)panel.findWidget("list");
 		listWidget.setAdapter(new DialogListAdapter(window, options));
 		
-		listWidget.setOnItemSelectedListener(new OnItemSelectedListener<ListOption>() {
+		listWidget.setOnItemClickedListener(new OnItemClickedListener<ListOption>() {
 			@Override
-			public void onItemSelected(ListOption item, int index) {
+			public void onItemClicked(ListOption item, int index) {
 				closeVisiblePanel(window);
 				callback.onItemSelected(item.getCode());
 			}
 		});
-		
-		listWidget.setOnItemSelectionChangedListener(null);
 		
 		TextWidget titleWidget = (TextWidget)panel.findWidget("title");
 		titleWidget.setText(title);

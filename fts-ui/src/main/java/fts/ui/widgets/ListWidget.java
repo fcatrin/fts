@@ -18,6 +18,7 @@ import fts.ui.events.PaintEvent;
 import fts.ui.events.TouchEvent;
 import fts.ui.graphics.Point;
 import fts.ui.graphics.Rectangle;
+import fts.utils.dialogs.OnItemClickedListener;
 import fts.utils.dialogs.OnItemSelectedListener;
 import fts.utils.dialogs.OnItemSelectionChangedListener;
 
@@ -27,13 +28,14 @@ public class ListWidget<T> extends Widget {
 	ListAdapter<T> adapter;
 	
 	private int itemHeight = -1;
-	private int selectedIndex = -1;
+	private int selectedIndex = -1; // TODO add focusIndex
 	private int pressedIndex = -1;
 	private int maxItems = 100;
 	private int firstItem = 0;
 	
 	private OnItemSelectedListener<T> onItemSelectedListener;
 	private OnItemSelectionChangedListener<T> onItemSelectionChangedListener;
+	private OnItemClickedListener<T> onItemClickedListener;
 	
 	Map<Integer, Widget> knownWidgets = new HashMap<Integer, Widget>();
 	List<Widget> unusedWidgets = new ArrayList<Widget>();
@@ -51,7 +53,11 @@ public class ListWidget<T> extends Widget {
 	public void setOnItemSelectionChangedListener(OnItemSelectionChangedListener<T> onItemSelectionChangedListener) {
 		this.onItemSelectionChangedListener = onItemSelectionChangedListener;
 	}
-	
+
+	public void setOnItemClickedListener(OnItemClickedListener<T> onItemClickedListener) {
+		this.onItemClickedListener = onItemClickedListener;
+	}
+
 	public void setMaxItems(int maxItems) {
 		this.maxItems = maxItems;
 	}
@@ -61,15 +67,12 @@ public class ListWidget<T> extends Widget {
 		itemHeight = -1;
 		destroyAllWidgets();
 		
-		if (adapter == null || adapter.getCount() == 0) {
-			selectedIndex = -1;
-		} else {
-			selectedIndex = 0;
-		}
-		
+		selectedIndex = -1;
+		pressedIndex  = -1;
+
 		requestLayout();
 	}
-	
+
 	public T getItem(int index) {
 		if (adapter == null) return null;
 		if (index < 0 || index >= adapter.getCount()) return null;
@@ -143,13 +146,25 @@ public class ListWidget<T> extends Widget {
 			int index = entry.getKey();
 			Widget widget = entry.getValue();
 			widget.setState(State.Selected, selectedIndex == index);
+			widget.setState(State.Pressed, pressedIndex == index);
 		}
 		invalidate();
-		
-		T item = selectedIndex < 0 ? null : adapter.getItem(selectedIndex);
+		fireItemSelected();
+	}
+
+	public T getSelectedItem() {
+		return selectedIndex < 0 ? null : adapter.getItem(selectedIndex);
+	}
+
+	private void fireItemSelected() {
+		T item = getSelectedItem();
 		if (onItemSelectionChangedListener != null) onItemSelectionChangedListener.onItemSelectionChanged(item, selectedIndex);
 	}
-	
+
+	private void fireItemClicked() {
+		if (onItemClickedListener!=null) onItemClickedListener.onItemClicked(getSelectedItem(), selectedIndex);
+	}
+
 	@Override
 	public boolean onKeyUp(KeyEvent keyEvent) {
 		if (keyEvent.keyCode == KeyEvent.KEY_DPAD_UP) {
@@ -160,6 +175,7 @@ public class ListWidget<T> extends Widget {
 			return true;
 		} else if (keyEvent.keyCode == KeyEvent.KEY_ENTER) {
 			selectItem(selectedIndex);
+			fireItemClicked();
 			return true;
 		}
 		return super.onKeyUp(keyEvent);
@@ -302,9 +318,10 @@ public class ListWidget<T> extends Widget {
 				}
 			}
 		} else if (touchEvent.action == TouchEvent.Action.UP) {
-			selectedIndex = -1;
+			pressedIndex = -1;
 			updateSelected();
-			selectItem(pressedIndex);
+			selectItem(selectedIndex);
+			fireItemClicked();
 		}
 		return true;
 	}
