@@ -12,6 +12,8 @@ import fts.ui.graphics.Align.VAlign;
 import fts.ui.graphics.Point;
 
 public class LinearContainer extends Container {
+	private static String LOGTAG = LinearContainer.class.getSimpleName();
+
 	enum Orientation {Vertical, Horizontal};
 	
 	private Orientation orientation = Orientation.Vertical;
@@ -168,7 +170,7 @@ public class LinearContainer extends Container {
 				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
 				Point marginSize = layoutInfo.getMarginSize();
-				
+
 				if (layoutInfo.width == LayoutInfo.MATCH_PARENT || layoutInfo.width == 0) {
 					contentWidth = availableWidth;
 					break;
@@ -193,10 +195,10 @@ public class LinearContainer extends Container {
 				} else if (layoutInfo.height > 0) {
 					contentHeight += layoutInfo.height + marginSize.y;
 				}
-			}			
+			}
 		} else {
 			int totalWeight = 0;
-			
+
 			List<Point> sizeInfo = new ArrayList<Point>();
 			for(int i=0; i<getChildren().size(); i++) {
 				sizeInfo.add(new Point());
@@ -240,8 +242,8 @@ public class LinearContainer extends Container {
 					contentWidth   += childSize.x;
 					availableWidth -= childSize.x;
 				}
-			}			
-			
+			}
+
 			availableWidth = Math.max(0,  availableWidth);
 
 			// use max width if there is any proportional width
@@ -296,40 +298,45 @@ public class LinearContainer extends Container {
 			int availableHeight = hspec.value - paddingSize.y;
 			int autoHeight = 0;
 			int totalWeight = 0;
-			
+
+			// measure "fixed" heights first, to get the remaining available space for others
 			for (Widget child : getChildren()) {
 				if (child.getVisibility() == Visibility.Gone) continue;
-				
+
 				LayoutInfo layoutInfo = child.getLayoutInfo();
-				Point marginSize = layoutInfo.getMarginSize();
-				child.onMeasure(wspec.value - paddingSize.x, availableHeight);
-				
-				if (layoutInfo.height == LayoutInfo.MATCH_PARENT) {
-					availableHeight = 0;
-				} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
-					availableHeight -= layoutInfo.measuredHeight + marginSize.y - separator;
-				} else if (layoutInfo.height > 0) {
-					availableHeight -= layoutInfo.height + marginSize.y - separator;
-				} else if (layoutInfo.height == 0) {
+				if (layoutInfo.height == 0) {
 					totalWeight += layoutInfo.weight;
 					autoHeight++;
+				} else {
+					Point marginSize = layoutInfo.getMarginSize();
+					child.onMeasure(wspec.value - paddingSize.x, availableHeight);
+
+					if (layoutInfo.height == LayoutInfo.MATCH_PARENT) {
+						availableHeight = 0;
+					} else if (layoutInfo.height == LayoutInfo.WRAP_CONTENT) {
+						availableHeight -= layoutInfo.measuredHeight + marginSize.y - separator;
+					} else if (layoutInfo.height > 0) {
+						availableHeight -= layoutInfo.height + marginSize.y - separator;
+					}
 				}
 				availableHeight = Math.max(0,  availableHeight);
 			}
-			
+
 			if (autoHeight > 1) {
 				availableHeight -= separator * (autoHeight -1);
 				availableHeight = Math.max(0,  availableHeight);
 			}
-			
+
 			for (Widget child : getChildren()) {
 				if (child.getVisibility() == Visibility.Gone) continue;
 				
 				LayoutInfo layoutInfo = child.getLayoutInfo();
+
 				Point marginSize = layoutInfo.getMarginSize();
 				if (layoutInfo.height == 0) {
 					int weight = layoutInfo.weight;
-					layoutInfo.measuredHeight = (availableHeight / totalWeight) * weight - marginSize.y;
+					int maxHeight = (availableHeight / totalWeight) * weight - marginSize.y;
+					child.onMeasure(wspec.value - paddingSize.x, maxHeight);
 				}
 			}
 		} else {
@@ -337,14 +344,14 @@ public class LinearContainer extends Container {
 			int availableHeight = hspec.value - paddingSize.y;
 			int totalWeight = 0;
 			int autoWidth = 0;
-			
+
 			// first processs all fixed size children
 			for (Widget child : getChildren()) {
 				if (child.getVisibility() == Visibility.Gone) continue;
 				
 				LayoutInfo childLayoutInfo = child.getLayoutInfo();
 				Point marginSize = childLayoutInfo.getMarginSize();
-				
+
 				if (childLayoutInfo.width == LayoutInfo.MATCH_PARENT) {
 					child.onMeasure(availableWidth, availableHeight);
 					availableWidth = 0;
