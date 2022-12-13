@@ -356,8 +356,9 @@ public class Widget extends Component {
 	}
 	
 	public String toString(String s) {
-		return String.format("{class: %s, bounds:%s%s}", 
+		return String.format("{class: %s, id:%s bounds:%s%s}",
 				getClass().getName(),
+				id,
 				bounds.toString(),
 				s);
 	}
