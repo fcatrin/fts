@@ -20,5 +20,6 @@ public class NativeInterface {
 	public static native void windowSwapBuffers();
 	public static native void windowClose();
 	public static native int[] windowGetEvents();
+	public static native void windowSetIcon(byte[] icon);
 
 }

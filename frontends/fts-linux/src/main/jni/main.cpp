@@ -43,6 +43,15 @@ JNIEXPORT jintArray JNICALL Java_fts_linux_NativeInterface_windowGetEvents
 	return result;
 }
 
+JNIEXPORT void JNICALL Java_fts_linux_NativeInterface_windowSetIcon
+(JNIEnv *env, jclass clazz, jbyteArray jImageData) {
+	int size = env->GetArrayLength(jImageData);
+	jbyte *imageData  = env->GetByteArrayElements(jImageData, NULL);
+
+	window_set_icon(imageData, size);
+
+	env->ReleaseByteArrayElements(jImageData, imageData, 0);
+}
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,7 @@
 package fts.linux;
 
 import java.io.File;
+import java.io.IOException;
 
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
@@ -19,6 +20,7 @@ public abstract class DesktopWindow extends GLWindow implements GLWindowListener
 	private int y;
 	
 	private String title;
+	private String icon;
 	
 	public DesktopWindow(String title, int width, int height) {
 		super();
@@ -48,6 +50,13 @@ public abstract class DesktopWindow extends GLWindow implements GLWindowListener
 	@Override
 	public void open() {
 		NativeInterface.windowOpen(title, x, y, width, height, flags);
+		if (icon!=null) {
+			try {
+				NativeInterface.windowSetIcon(Resources.loadRawResource(icon));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		init();
 	}
 
@@ -60,6 +69,10 @@ public abstract class DesktopWindow extends GLWindow implements GLWindowListener
 	public boolean sync() {
 		NativeInterface.windowSwapBuffers();
 		return processEvents(NativeInterface.windowGetEvents());
+	}
+
+	public void setIcon(String resourceName) {
+		this.icon = resourceName;
 	}
 
 	private boolean processEvents(int[] nativeEvents) {

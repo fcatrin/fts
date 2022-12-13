@@ -484,9 +484,11 @@ public final class CoreUtils {
 	}
 	
 	public static byte[] loadBytes(File f) throws IOException {
-		FileInputStream is = null;
+		return loadBytes(new FileInputStream(f));
+	}
+
+	public static byte[] loadBytes(InputStream is) throws IOException {
 		try {
-			is = new FileInputStream(f);
 			ByteArrayOutputStream bout = new ByteArrayOutputStream();
 			byte[] buf = new byte[BUF_SIZE];
 			while (true) {
@@ -501,7 +503,7 @@ public final class CoreUtils {
 			if (is!=null) is.close();
 		}
 	}
-	
+
 	public static void saveBytes(File f, byte[] content) throws IOException {
 		FileOutputStream os = null;
 		ByteArrayInputStream bais = null;

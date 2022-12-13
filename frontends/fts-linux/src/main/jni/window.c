@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL_image.h>
 #include <GL/gl.h>
 
 #include "utils.h"
@@ -142,5 +143,19 @@ void window_close() {
 	rpi4fb_done();
 #else
 	running = false;
+#endif
+}
+
+void window_set_icon(void *data, int size) {
+#ifndef RPI4FB
+	SDL_RWops *ops = SDL_RWFromMem(data, size);
+	SDL_Surface *surface = IMG_Load_RW(ops, 0);
+	if (surface != NULL) {
+		SDL_SetWindowIcon(window, surface);
+		SDL_FreeSurface(surface);
+	} else {
+		log_error("window_set_icon: Cannot crete surface from bitmap");
+	}
+	SDL_RWclose(ops);
 #endif
 }

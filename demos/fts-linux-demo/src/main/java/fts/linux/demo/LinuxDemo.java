@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import fts.linux.DesktopApplication;
 import fts.linux.DesktopWindow;
+import fts.linux.NativeInterface;
+import fts.ui.Resources;
 import fts.ui.Widget;
 
 public class LinuxDemo extends DesktopWindow {
@@ -17,7 +19,7 @@ public class LinuxDemo extends DesktopWindow {
 		Widget rootView = inflate("main");
 		setContentView(rootView);
 	}
-	
+
 	@Override
 	public void onFrame() {
 	}
@@ -39,6 +41,7 @@ public class LinuxDemo extends DesktopWindow {
 		DesktopApplication.init();
 
 		LinuxDemo demo = new LinuxDemo("FTS Demo", 640, 480);
+		demo.setIcon("@images/penguin.png");
 		demo.run();
 	}
 

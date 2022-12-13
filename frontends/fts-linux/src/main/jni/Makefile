@@ -6,6 +6,7 @@ CC = gcc
 LD = gcc
 
 CFLAGS = -O2 -g -Wall -I . -I../../..
+CFLAGS += $(shell pkg-config --cflags SDL2_image)
 
 LDFLAGS = -lm -shared -lSDL2 -lGL
 LIBARCH =
@@ -13,6 +14,7 @@ LIBARCH =
 LIBPREFIX = lib
 LDFLAGS += -lstdc++
 LDFLAGS += $(shell pkg-config --libs freetype2)
+LDFLAGS += $(shell pkg-config --libs SDL2_image)
 
 FTS_GL_DRIVER = $(BASE_DIR)/../../drivers/fts-gl/build/jni
 

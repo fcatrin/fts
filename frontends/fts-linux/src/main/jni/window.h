@@ -27,6 +27,7 @@ void window_open(const char *title, int req_x, int req_y, int req_width, int req
 void window_swap_buffers();
 int  window_process_events();
 struct event *window_get_events();
+void window_set_icon(void *data, int size);
 void window_close();
 
 

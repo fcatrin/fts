@@ -282,7 +282,7 @@ public class Resources {
 			throw new RuntimeException("Cannot load resource " + location, e);
 		}
 	}
-	
+
 	private static Document loadResource(String type, String name) {
 		InputStream is = findResourceRaw(type, name + ".xml");
 
@@ -291,6 +291,28 @@ public class Resources {
 		} catch (ParserException e) {
 			throw new RuntimeException("Cannot parse XML " + type + "/" + name, e);
 		}
+	}
+
+	public static byte[] loadRawResource(String location) throws IOException {
+		String type = "raw";
+		String name = location;
+		if (location.startsWith("@")) {
+			location = location.substring(1);
+			int p = location.indexOf("/");
+			if (p>0) {
+				type = location.substring(0, p);
+				name = location.substring(p+1);
+			}
+		}
+		return loadRawResource(type, name);
+	}
+
+	public static byte[] loadRawResource(String type, String name) throws IOException {
+		InputStream is = findResourceRaw(type, name);
+		if (is == null) {
+			throw new RuntimeException("Resource not found @" + type + "/" + name);
+		}
+		return CoreUtils.loadBytes(is);
 	}
 
 	public static Drawable loadDrawable(String name) {

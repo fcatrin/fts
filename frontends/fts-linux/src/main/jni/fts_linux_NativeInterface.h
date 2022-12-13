@@ -57,6 +57,14 @@ JNIEXPORT void JNICALL Java_fts_linux_NativeInterface_windowClose
 JNIEXPORT jintArray JNICALL Java_fts_linux_NativeInterface_windowGetEvents
   (JNIEnv *, jclass);
 
+/*
+ * Class:     fts_linux_NativeInterface
+ * Method:    windowSetIcon
+ * Signature: ([B)V
+ */
+JNIEXPORT void JNICALL Java_fts_linux_NativeInterface_windowSetIcon
+  (JNIEnv *, jclass, jbyteArray);
+
 #ifdef __cplusplus
 }
 #endif
