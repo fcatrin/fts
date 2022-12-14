@@ -3,6 +3,7 @@ package fts.linux;
 import java.io.File;
 import java.io.IOException;
 
+import fts.core.SharedPreferences;
 import fts.gl.GLWindow;
 import fts.gl.GLWindowListener;
 import fts.ui.Resources;
@@ -21,7 +22,9 @@ public abstract class DesktopWindow extends GLWindow implements GLWindowListener
 	
 	private String title;
 	private String icon;
-	
+
+	private SharedPreferences preferences;
+
 	public DesktopWindow(String title, int width, int height) {
 		super();
 		this.width = width;
@@ -149,4 +152,23 @@ public abstract class DesktopWindow extends GLWindow implements GLWindowListener
 	}
 	protected abstract String getAppCode();
 
+	private SharedPreferences getPreferences() {
+		if (preferences != null) return preferences;
+		preferences = new SharedPreferences(getDataDir(), "main");
+		return preferences;
+	}
+
+	public void loadPreferences() {
+		SharedPreferences prefs = getPreferences();
+		loadPreferences(prefs);
+	}
+
+	public void savePreferences() {
+		SharedPreferences prefs = getPreferences();
+		savePreferences(prefs);
+		prefs.commit();
+	}
+
+	protected void loadPreferences(SharedPreferences prefs) {}
+	protected void savePreferences(SharedPreferences prefs) {}
 }

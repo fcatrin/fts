@@ -325,6 +325,4 @@ public class ListWidget<T> extends Widget {
 		}
 		return true;
 	}
-
-
 }
