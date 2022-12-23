@@ -44,7 +44,23 @@ public abstract class Component {
 		intProperties.add("maxLines");
 		intProperties.add("weight"); // TODO this should be added dynamically by LinearContainer
 	}
-	
+
+	protected static void registerColorProperty(Class _class, String propertyName) {
+		colorProperties.add(getComponentDefinedProperty(_class, propertyName));
+	}
+
+	protected static void registerDimensionProperty(Class _class, String propertyName) {
+		dimensionProperties.add(getComponentDefinedProperty(_class, propertyName));
+	}
+
+	protected static void registerIntProperty(Class _class, String propertyName) {
+		intProperties.add(getComponentDefinedProperty(_class, propertyName));
+	}
+
+	protected static String getComponentDefinedProperty(Class _class, String propertyName) {
+		return _class.getName() + "::" + propertyName;
+	}
+
 	protected void setProperty(String name, String value) {
 		if (value == null) return;
 		
@@ -77,19 +93,22 @@ public abstract class Component {
 			return resolveMethod(superClass, prefix, name);
 		}
 	}
-	
+
 	protected Object resolvePropertyValue(String propertyName, String value) {
 		if (value.startsWith("@string/")) {
 			String alias = value.substring("@string/".length());
 			value = Resources.factory.getString(alias);
 		}
+
+		String componentDefinedProperty = getComponentDefinedProperty(getClass(), propertyName);
+
 		if (propertyName.equals("text") || propertyName.equals("id")) {
 			return value;
-		} else if (colorProperties.contains(propertyName)) {
-				return resolvePropertyValueColor(propertyName, value);
-		} else if (dimensionProperties.contains(propertyName)) {
+		} else if (colorProperties.contains(propertyName) || colorProperties.contains(componentDefinedProperty)) {
+			return resolvePropertyValueColor(propertyName, value);
+		} else if (dimensionProperties.contains(propertyName) || dimensionProperties.contains(componentDefinedProperty)) {
 			return resolvePropertyValueDimen(propertyName, value);
-		} else if (intProperties.contains(propertyName)) {
+		} else if (intProperties.contains(propertyName) || intProperties.contains(componentDefinedProperty)) {
 			return resolvePropertyValueInt(propertyName, value);
 		} else if (propertyName.equals("background")) {
 			return resolveBackground(value);
