@@ -75,7 +75,7 @@ public class DatabaseWrapper {
 			setParameters(ps, params);
 			
 			rs = ps.executeQuery();
-			if (rs.first()) {
+			if (rs.next()) {
 				return rowMapper.map(rs, 0);
 			}
 		} catch (SQLException e) {
