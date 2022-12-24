@@ -24,7 +24,14 @@ public class ProgressWidget extends Widget {
 	
 	private Drawable progressDrawable;
 	private Drawable progressBackgroundDrawable;
-	
+
+	static {
+		registerDrawableProperty(ProgressWidget.class, "progressDrawable");
+		registerDrawableProperty(ProgressWidget.class, "progressBackgroundDrawable");
+		registerIntProperty(ProgressWidget.class, "progress");
+		registerIntProperty(ProgressWidget.class, "total");
+	}
+
 	public ProgressWidget(Window window) {
 		super(window);
 		minHeight = this.resolvePropertyValueDimen("minHeight", "20pt");
@@ -134,16 +141,5 @@ public class ProgressWidget extends Widget {
 	public Point getContentSize(int width, int height) {
 		return new Point(width, Math.min(minHeight, height));
 	}
-	
-	@Override
-	protected Object resolvePropertyValue(String propertyName, String value) {
-		if (propertyName.equals("progressDrawable") || propertyName.equals("progressBackgroundDrawable") ) {
-			return resolveBackground(value);
-		} else if (propertyName.equals("progress") || propertyName.equals("total")) {
-			return CoreUtils.str2l(value);
-		}
-		return super.resolvePropertyValue(propertyName, value);
-	}
-
 
 }

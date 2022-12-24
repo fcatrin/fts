@@ -18,14 +18,21 @@ import fts.ui.graphics.Shape;
 public abstract class Component {
 	static Set<String> colorProperties     = new HashSet<String>();
 	static Set<String> dimensionProperties = new HashSet<String>();
-	static Set<String> intProperties = new HashSet<String>();
+	static Set<String> drawableProperties  = new HashSet<String>();
+	static Set<String> intProperties       = new HashSet<String>();
+	static Set<String> stringProperties    = new HashSet<String>();
 	
 	static {
+		stringProperties.add("id");
+		stringProperties.add("text");
+
 		colorProperties.add("color");
 		colorProperties.add("fillColor");
 		colorProperties.add("strokeColor");
 		colorProperties.add("startColor");
 		colorProperties.add("endColor");
+
+		drawableProperties.add("background");
 		
 		dimensionProperties.add("strokeWidth");
 		dimensionProperties.add("radius");
@@ -55,6 +62,14 @@ public abstract class Component {
 
 	protected static void registerIntProperty(Class _class, String propertyName) {
 		intProperties.add(getComponentDefinedProperty(_class, propertyName));
+	}
+
+	protected static void registerStringProperty(Class _class, String propertyName) {
+		stringProperties.add(getComponentDefinedProperty(_class, propertyName));
+	}
+
+	protected static void registerDrawableProperty(Class _class, String propertyName) {
+		drawableProperties.add(getComponentDefinedProperty(_class, propertyName));
 	}
 
 	protected static String getComponentDefinedProperty(Class _class, String propertyName) {
@@ -114,7 +129,7 @@ public abstract class Component {
 			value = Resources.factory.getString(alias);
 		}
 
-		if (propertyName.equals("text") || propertyName.equals("id")) {
+		if (isPropertyOfType(stringProperties, propertyName)) {
 			return value;
 		} else if (isPropertyOfType(colorProperties, propertyName)) {
 			return resolvePropertyValueColor(propertyName, value);
@@ -122,8 +137,8 @@ public abstract class Component {
 			return resolvePropertyValueDimen(propertyName, value);
 		} else if (isPropertyOfType(intProperties, propertyName)) {
 			return resolvePropertyValueInt(propertyName, value);
-		} else if (propertyName.equals("background")) {
-			return resolveBackground(value);
+		} else if (isPropertyOfType(drawableProperties, propertyName)) {
+			return resolveDrawable(value);
 		} else if (propertyName.equals("align")) {
 			return resolveAlign(propertyName, value);
 		} else if (propertyName.equals("containerAlign")) {
@@ -170,7 +185,7 @@ public abstract class Component {
 		throw new RuntimeException("Invalid property " + getClass().getName() + "::" + propertyName +": Invalid angle " + value);
 	}
 
-	public Drawable resolveBackground(String value) {
+	public Drawable resolveDrawable(String value) {
 		if (value.startsWith("@drawable/")) {
 			String name = value.substring("@drawable/".length());
 			return Resources.loadDrawable(name);
@@ -179,7 +194,7 @@ public abstract class Component {
 			shape.setProperty("fillColor", value);
 			return shape;
 		}
-		throw new RuntimeException("don't know how to drawable " + value);
+		throw new RuntimeException("don't know how to resolve drawable " + value);
 	}
 
 	public int resolvePropertyValueInt(String propertyName, String value) {

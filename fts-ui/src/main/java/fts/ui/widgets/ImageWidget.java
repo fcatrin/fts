@@ -12,6 +12,10 @@ import fts.ui.graphics.Rectangle;
 
 public class ImageWidget extends Widget {
 	ImageDrawable imageDrawable;
+
+	static {
+		registerStringProperty(ImageWidget.class, "src");
+	}
 	
 	public ImageWidget(Window w) {
 		super(w);
@@ -71,8 +75,6 @@ public class ImageWidget extends Widget {
 			} catch (Exception e) {
 				throw new RuntimeException("Invalid ScaleType value " + value);
 			}
-		} else if (propertyName.equals("src")) {
-			return value;
 		}
 		return super.resolvePropertyValue(propertyName, value);
 	}

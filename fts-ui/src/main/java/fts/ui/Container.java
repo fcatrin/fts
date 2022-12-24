@@ -50,11 +50,6 @@ public abstract class Container extends Widget {
 		}
 	}
 
-	@Override
-	protected Object resolvePropertyValue(String propertyName, String value) {
-		return super.resolvePropertyValue(propertyName, value);
-	}
-
 	public <T extends Widget> void add(T view) {
 		children.add(view);
 		String id = view.getId();

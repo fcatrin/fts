@@ -1,5 +1,7 @@
 package fts.ui.widgets;
 
+import org.w3c.dom.Text;
+
 import fts.ui.Widget;
 import fts.ui.Window;
 import fts.ui.events.PaintEvent;
@@ -18,6 +20,7 @@ public class TextWidget extends Widget {
 		registerIntProperty(TextWidget.class, "lines");
 		registerIntProperty(TextWidget.class, "maxLines");
 		registerDimensionProperty(TextWidget.class, "fontSize");
+		registerStringProperty(TextWidget.class, "fontName");
 	}
 
 	public TextWidget(Window w) {
@@ -94,11 +97,4 @@ public class TextWidget extends Widget {
 		super.onMeasure(parentWidth, parentHeight);
 	}
 	
-	@Override
-	protected Object resolvePropertyValue(String propertyName, String value) {
-		if (propertyName.equals("fontName")) {
-			return value;
-		}
-		return super.resolvePropertyValue(propertyName, value);
-	}
 }

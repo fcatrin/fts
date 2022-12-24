@@ -42,6 +42,10 @@ public class ListWidget<T> extends Widget {
 	
 	int separator = 1;
 
+	static {
+		registerIntProperty(ListWidget.class, "maxItems");
+	}
+
 	public ListWidget(Window window) {
 		super(window);
 	}
@@ -293,14 +297,6 @@ public class ListWidget<T> extends Widget {
 		unusedWidgets.clear();
 	}
 
-	@Override
-	protected Object resolvePropertyValue(String propertyName, String value) {
-		if (propertyName.equals("maxItems")) {
-			return CoreUtils.str2i(value);
-		}
-		return super.resolvePropertyValue(propertyName, value);
-	}
-	
 	@Override
 	public boolean dispatchTouchEvent(TouchEvent touchEvent) {
 		if (touchEvent.action == TouchEvent.Action.DOWN) {
