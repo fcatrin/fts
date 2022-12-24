@@ -173,8 +173,10 @@ public class Widget extends Component {
 
 	public void draw(PaintEvent e) {
 		if (visibility != Visibility.Visible) return;
-		
+
+		e.canvas.viewStart(bounds.x, bounds.y, bounds.width, bounds.height);
 		backBuffer.draw(e.canvas, bounds.x, bounds.y);
+		e.canvas.viewEnd();
 	}
 
 	public Visibility getVisibility() {

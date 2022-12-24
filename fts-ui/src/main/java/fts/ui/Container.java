@@ -32,10 +32,12 @@ public abstract class Container extends Widget {
 	@Override
 	public void draw(PaintEvent e) {
 		if (getVisibility() != Visibility.Visible) return;
+		e.canvas.viewStart(bounds.x, bounds.y, bounds.width, bounds.height);
 		backBuffer.draw(e.canvas, bounds.x, bounds.y);
 		for (Widget child : children) {
 			child.draw(e);
 		}
+		e.canvas.viewEnd();
 	}
 	
 	public abstract void layout();

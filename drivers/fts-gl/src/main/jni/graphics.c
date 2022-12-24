@@ -140,7 +140,7 @@ void graphics_draw_text(int x, int y, const char *text) {
 
 void graphics_view_start(int x, int y, int width, int height) {
 	nvgSave(vg);
-	nvgScissor(vg, x, y, width, height);
+	nvgIntersectScissor(vg, x, y, width, height);
 }
 
 void graphics_view_end() {
