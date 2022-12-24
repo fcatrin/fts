@@ -163,20 +163,20 @@ public class Widget extends Component {
 		}
 		isDirty = false;
 	}
-	
-	public void draw(PaintEvent e) {
-		if (visibility != Visibility.Visible) return;
-		
-		backBuffer.draw(e.canvas, bounds.x, bounds.y);
-	}
-	
+
 	protected void onPaint(PaintEvent e) {
 		if (background != null) {
 			background.setBounds(getPaintBounds());
 			background.draw(e.canvas);
 		}
 	}
-	
+
+	public void draw(PaintEvent e) {
+		if (visibility != Visibility.Visible) return;
+		
+		backBuffer.draw(e.canvas, bounds.x, bounds.y);
+	}
+
 	public Visibility getVisibility() {
 		return visibility;
 	}
