@@ -17,7 +17,7 @@ public class CoreAsyncExecutor extends AsyncExecutor {
 	public void process() {
 		long t0 = System.currentTimeMillis();
 		for(int i=0; i<runnables.size(); i++) {
-			RunnableAt runnableAt = runnables.get(0);
+			RunnableAt runnableAt = runnables.get(i);
 			if (runnableAt.at > t0) continue;
 			
 			runnableAt.runnable.run();
