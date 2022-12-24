@@ -105,8 +105,9 @@ void graphics_draw_line(int x, int y, int dx, int dy) {
 
 bool graphics_create_font(const char *alias, const char *path) {
 	int result = nvgCreateFont(vg, alias, path);
+#ifdef DEBUG_FONTS
 	fts_gl_log_debug("create font %s %s result:%s", alias, path, result >= 0 ? "true":"false");
-
+#endif
 	return result >= 0;
 }
 
@@ -124,7 +125,9 @@ int* graphics_get_text_size(const char *text) {
 	float bounds[4];
 	nvgTextBounds(vg, 0, 0, text, NULL, bounds);
 
+#ifdef DEBUG_TEXT_SIZE
 	fts_gl_log_debug("get text size for %s: %f,%f %f,%f", text, bounds[0], bounds[1], bounds[2], bounds[3]);
+#endif
 
 	size[0] = bounds[2] - bounds[0];
 	size[1] = bounds[3] - bounds[1];

@@ -6,6 +6,11 @@ LIBS =
 LDFLAGS = -shared
 BUILD_DIR = ../../../build/jni
 
+DEBUG_FLAGS  = -DDEBUG_FONTS
+# DEBUG_FLAGS += -DDEBUG_TEXT_SIZE
+
+CFLAGS += $(DEBUG_FLAGS)
+
 CFLAGS  += $(shell pkg-config --cflags freetype2)
 LDFLAGS += $(shell pkg-config --libs freetype2 glesv2)
 
