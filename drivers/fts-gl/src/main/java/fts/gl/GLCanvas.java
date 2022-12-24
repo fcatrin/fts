@@ -94,6 +94,12 @@ public class GLCanvas extends Canvas {
 	}
 
 	@Override
+	public int getTextHeight(int lines) {
+		TextWrapper wrapper = new TextWrapper(this, "A");
+		return wrapper.getTextHeight(lines);
+	}
+
+	@Override
 	public void viewStart(int x, int y, int width, int height) {
 		GLNativeInterface.viewStart(x, y, width, height);
 	}

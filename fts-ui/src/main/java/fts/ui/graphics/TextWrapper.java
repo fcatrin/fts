@@ -32,6 +32,13 @@ public class TextWrapper {
 		}
 		return size;
 	}
+
+	public int getTextHeight(int lines) {
+		if (lines < 1) return 0;
+
+		TextMetrics oneLineMetrics = canvas.getTextSize(text);
+		return oneLineMetrics.height * lines + lineSeparator * (lines-1);
+	}
 	
 	public Point wrap(int width, int maxLines) {
 		lines.clear();

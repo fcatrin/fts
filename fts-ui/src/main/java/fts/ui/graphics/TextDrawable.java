@@ -16,6 +16,7 @@ public class TextDrawable extends Drawable {
 	ColorListSelector color;
 	
 	int maxLines = -1;
+	int lines = -1;
 	
 	TextWrapper textWrapper;
 
@@ -32,6 +33,7 @@ public class TextDrawable extends Drawable {
 		setProperty("color", SimpleXML.getAttribute(element, "color"));
 		setProperty("align", SimpleXML.getAttribute(element, "align"));
 		setProperty("maxLines", SimpleXML.getAttribute(element, "maxLines"));
+		setProperty("lines", SimpleXML.getAttribute(element, "lines"));
 	}
 
 	@Override
@@ -79,9 +81,16 @@ public class TextDrawable extends Drawable {
 	
 	public Point getSize(Canvas canvas, String text, int width) {
 		canvas.setFont(font);
+		int fixedHeight = -1;
+		if (lines > 0) {
+			fixedHeight = canvas.getTextHeight(lines);
+		}
 		
 		String textToMeasure = CoreUtils.isEmptyString(text) ? "A" : text;
 		textWrapper = canvas.getTextWrap(textToMeasure, width, maxLines);
+		if (fixedHeight != -1) {
+			textWrapper.getSize().y = fixedHeight;
+		}
 		return textWrapper.getSize();
 	}
 
@@ -130,8 +139,18 @@ public class TextDrawable extends Drawable {
 		this.color = color;
 	}
 	
-	public void setMaxLines(int lines) {
-		this.maxLines = lines;
+	public void setMaxLines(int maxLines) {
+		this.maxLines = maxLines;
+		adjustMaxLines();
+	}
+
+	public void setLines(int lines) {
+		this.lines = lines;
+		adjustMaxLines();
+	}
+
+	private void adjustMaxLines() {
+		if (lines > 0 && maxLines > lines) maxLines = lines;
 	}
 
 	public void setState(boolean[] stateFlags) {

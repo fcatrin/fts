@@ -13,7 +13,13 @@ import fts.ui.graphics.TextDrawable;
 
 public class TextWidget extends Widget {
 	TextDrawable textDrawable;
-	
+
+	static {
+		registerIntProperty(TextWidget.class, "lines");
+		registerIntProperty(TextWidget.class, "maxLines");
+		registerDimensionProperty(TextWidget.class, "fontSize");
+	}
+
 	public TextWidget(Window w) {
 		super(w);
 		textDrawable = new TextDrawable();
@@ -48,7 +54,12 @@ public class TextWidget extends Widget {
 		textDrawable.setMaxLines(lines);
 		invalidate();
 	}
-	
+
+	public void setLines(int lines) {
+		textDrawable.setLines(lines);
+		invalidate();
+	}
+
 	public void setFontName(String name) {
 		textDrawable.setFontName(name);
 	}
@@ -85,9 +96,7 @@ public class TextWidget extends Widget {
 	
 	@Override
 	protected Object resolvePropertyValue(String propertyName, String value) {
-		if (propertyName.equals("fontSize")) {
-			return resolvePropertyValueDimen(propertyName, value);
-		} else if (propertyName.equals("fontName")) {
+		if (propertyName.equals("fontName")) {
 			return value;
 		}
 		return super.resolvePropertyValue(propertyName, value);

@@ -5,7 +5,7 @@ public abstract class Canvas {
 	Align align = new Align();
 	
 	public Canvas(int width, int height) {}
-	
+
 	public abstract void viewStart(int x, int y, int width, int height);
 	public abstract void viewEnd();
 	
@@ -17,7 +17,8 @@ public abstract class Canvas {
 	
 	public abstract TextMetrics getTextSize(String text);
 	public abstract TextWrapper getTextWrap(String text, int width, int maxLines);
-	
+	public abstract int getTextHeight(int lines);
+
 	final public void drawRect(int x, int y, int width, int height, int strokeWidth) {
 		drawRoundedRect(x, y, width, height, 0, strokeWidth);
 	}
