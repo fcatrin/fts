@@ -94,21 +94,33 @@ public abstract class Component {
 		}
 	}
 
+	private boolean isPropertyOfType(Set<String> properties, String propertyName) {
+		if (properties.contains(propertyName)) return true;
+		return isPropertyOfType(this.getClass(), properties, propertyName);
+	}
+
+	private boolean isPropertyOfType(Class _class, Set<String> properties, String propertyName) {
+		String componentDefinedProperty = getComponentDefinedProperty(_class, propertyName);
+		if (properties.contains(componentDefinedProperty)) return true;
+
+		Class superClass = _class.getSuperclass();
+		if (superClass != null) return isPropertyOfType(superClass, properties, propertyName);
+		return false;
+	}
+
 	protected Object resolvePropertyValue(String propertyName, String value) {
 		if (value.startsWith("@string/")) {
 			String alias = value.substring("@string/".length());
 			value = Resources.factory.getString(alias);
 		}
 
-		String componentDefinedProperty = getComponentDefinedProperty(getClass(), propertyName);
-
 		if (propertyName.equals("text") || propertyName.equals("id")) {
 			return value;
-		} else if (colorProperties.contains(propertyName) || colorProperties.contains(componentDefinedProperty)) {
+		} else if (isPropertyOfType(colorProperties, propertyName)) {
 			return resolvePropertyValueColor(propertyName, value);
-		} else if (dimensionProperties.contains(propertyName) || dimensionProperties.contains(componentDefinedProperty)) {
+		} else if (isPropertyOfType(dimensionProperties, propertyName)) {
 			return resolvePropertyValueDimen(propertyName, value);
-		} else if (intProperties.contains(propertyName) || intProperties.contains(componentDefinedProperty)) {
+		} else if (isPropertyOfType(intProperties, propertyName)) {
 			return resolvePropertyValueInt(propertyName, value);
 		} else if (propertyName.equals("background")) {
 			return resolveBackground(value);
