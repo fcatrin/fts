@@ -21,4 +21,15 @@ public class Snippet<T extends Window> {
 		return window.inflate(id);
 	}
 
+	public Widget getRootView() {
+		return null;
+	}
+
+	public void open() {
+		getRootView().setVisibility(Widget.Visibility.Visible);
+	}
+
+	public void close() {
+		getRootView().setVisibility(Widget.Visibility.Gone);
+	}
 }

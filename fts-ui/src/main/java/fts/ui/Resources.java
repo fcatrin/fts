@@ -20,6 +20,7 @@ import fts.core.xml.SimpleXML;
 import fts.ui.graphics.BackBuffer;
 import fts.ui.graphics.Color;
 import fts.ui.graphics.ColorListSelector;
+import fts.ui.graphics.Dimension;
 import fts.ui.graphics.Drawable;
 import fts.ui.graphics.Image;
 
@@ -327,4 +328,20 @@ public class Resources {
 		return createWidget(w, root);
 	}
 
+	public static int getDimensionPixels(String dimension) {
+		String value = dimension;
+		if (dimension.startsWith("@dimen/")) {
+			String alias = dimension.substring("@dimen/".length());
+			String knownDimen = factory.getDimen(alias);
+			if (knownDimen == null) {
+				throw new RuntimeException("Unknown dimension " + dimension);
+			}
+			value = knownDimen;
+		}
+		try {
+			return Dimension.parse(value);
+		} catch (Exception e) {
+			throw new RuntimeException("Invalid dimension " + value);
+		}
+	}
 }
