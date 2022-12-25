@@ -19,5 +19,6 @@ public class NativeInterface {
     public static native void crop(int handle, int x, int y, int width, int height);
     public static native int  getWidth(int handle);
     public static native int  getHeight(int handle);
-
+    public static native byte[] getImage(int handle, String format);
+    public static native void makeRound(int handle, int radius);
 }

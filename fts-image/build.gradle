@@ -13,7 +13,14 @@ task ftsPackage(type:Exec) {
     commandLine '../fts-tools/package.sh'
 }
 
+task jniBuild(type:Exec) {
+    workingDir 'src/main/jni'
+    commandLine 'make'
+}
+
 processResources.dependsOn ftsPackage
+processResources.dependsOn ftsPackage
+processResources.dependsOn jniBuild
 
 afterEvaluate {
     publishing {

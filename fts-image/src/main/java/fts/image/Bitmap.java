@@ -61,6 +61,14 @@ public class Bitmap {
         this.blurLevel = blurLevel;
     }
 
+    public byte[] getImageData(String format) {
+        return NativeInterface.getImage(handle, format);
+    }
+
+    public void makeRound(int radius) {
+        NativeInterface.makeRound(handle, radius);
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     protected void finalize() {

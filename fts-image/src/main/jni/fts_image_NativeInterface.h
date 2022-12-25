@@ -73,10 +73,10 @@ JNIEXPORT void JNICALL Java_fts_image_NativeInterface_resize
 
 /*
  * Class:     fts_image_NativeInterface
- * Method:    clip
+ * Method:    crop
  * Signature: (IIIII)V
  */
-JNIEXPORT void JNICALL Java_fts_image_NativeInterface_clip
+JNIEXPORT void JNICALL Java_fts_image_NativeInterface_crop
   (JNIEnv *, jclass, jint, jint, jint, jint, jint);
 
 /*
@@ -94,6 +94,22 @@ JNIEXPORT jint JNICALL Java_fts_image_NativeInterface_getWidth
  */
 JNIEXPORT jint JNICALL Java_fts_image_NativeInterface_getHeight
   (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     fts_image_NativeInterface
+ * Method:    getImage
+ * Signature: (ILjava/lang/String;)[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_fts_image_NativeInterface_getImage
+  (JNIEnv *, jclass, jint, jstring);
+
+/*
+ * Class:     fts_image_NativeInterface
+ * Method:    makeRound
+ * Signature: (II)V
+ */
+JNIEXPORT void JNICALL Java_fts_image_NativeInterface_makeRound
+  (JNIEnv *, jclass, jint, jint);
 
 #ifdef __cplusplus
 }

@@ -111,6 +111,49 @@ JNIEXPORT jint JNICALL Java_fts_image_NativeInterface_getHeight
 	return MagickGetImageHeight(m_wand);
 }
 
+JNIEXPORT jbyteArray JNICALL Java_fts_image_NativeInterface_getImage
+(JNIEnv *env, jclass clazz, jint handle, jstring jFormat) {
+	MagickWand *m_wand = getMagickWand(handle);
+
+	const char *format = env->GetStringUTFChars(jFormat, 0);
+	MagickSetImageFormat(m_wand, format);
+	env->ReleaseStringUTFChars(jFormat, format);
+
+	size_t size;
+	unsigned char *data = MagickGetImageBlob(m_wand, &size);
+
+	jbyteArray result = env->NewByteArray(size);
+	env->SetByteArrayRegion(result, 0, size, (const jbyte *)data);
+	return result;
+}
+
+JNIEXPORT void JNICALL Java_fts_image_NativeInterface_makeRound
+(JNIEnv *env, jclass clazz, jint handle, jint radius) {
+	MagickWand *m_wand = getMagickWand(handle);
+	size_t width  = MagickGetImageWidth(m_wand);
+	size_t height = MagickGetImageHeight(m_wand);
+
+	PixelWand *p_wand = NewPixelWand();
+	PixelSetColor(p_wand, "none");
+	// PixelSetAlpha(p_wand, 1);
+
+	MagickWand *s_wand = NewMagickWand();
+	MagickNewImage(s_wand, width, height, p_wand);
+
+	PixelSetColor(p_wand, "white");
+	DrawingWand *d_wand = NewDrawingWand();
+	DrawSetFillColor(d_wand, p_wand);
+	DrawRoundRectangle(d_wand, radius, radius, width - 1 - radius, height - 1 - radius, radius, radius);
+	MagickDrawImage(s_wand, d_wand);
+
+	MagickCompositeImage(m_wand, s_wand, DstInCompositeOp, 0, 0);
+
+	DestroyMagickWand(s_wand);
+	DestroyDrawingWand(d_wand);
+	DestroyPixelWand(p_wand);
+}
+
+
 #ifdef __cplusplus
 }
 #endif
