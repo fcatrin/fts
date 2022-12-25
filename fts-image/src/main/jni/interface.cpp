@@ -135,7 +135,6 @@ JNIEXPORT void JNICALL Java_fts_image_NativeInterface_makeRound
 
 	PixelWand *p_wand = NewPixelWand();
 	PixelSetColor(p_wand, "none");
-	// PixelSetAlpha(p_wand, 1);
 
 	MagickWand *s_wand = NewMagickWand();
 	MagickNewImage(s_wand, width, height, p_wand);
