@@ -85,6 +85,14 @@ public abstract class Container extends Widget {
 		return children;
 	}
 
+	public int getChildCount() {
+		return children.size();
+	}
+
+	public <W extends Widget> W getChildAt(int index) {
+		return (W)children.get(index);
+	}
+
 	@Override
 	public String toString(String s) {
 		return super.toString(String.format(", children;%s%s", children.toString(), s));
