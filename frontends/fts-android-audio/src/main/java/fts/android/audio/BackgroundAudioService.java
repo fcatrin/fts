@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.ResultReceiver;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
@@ -46,6 +45,7 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
     private MediaSessionCompat mMediaSessionCompat;
     private MediaMetadataCompat.Builder metadataBuilder = null;
     private boolean canMoveNextPrev = false;
+    private boolean wasPlaying = false;
     private int lastState;
 
     private BackgroundAudioClient backgroundAudioClient;
@@ -292,12 +292,14 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
     public void onAudioFocusChange(int focusChange) {
         switch( focusChange ) {
             case AudioManager.AUDIOFOCUS_LOSS: {
-                if( audioPlayer.isPlaying() ) {
+                wasPlaying = audioPlayer.isPlaying();
+                if( wasPlaying ) {
                     audioPlayer.stop();
                 }
                 break;
             }
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT: {
+                wasPlaying = audioPlayer.isPlaying();
                 audioPlayer.pause();
                 break;
             }
@@ -309,7 +311,7 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
             }
             case AudioManager.AUDIOFOCUS_GAIN: {
                 if( audioPlayer != null ) {
-                    if( !audioPlayer.isPlaying() ) {
+                    if( !audioPlayer.isPlaying() && wasPlaying ) {
                         audioPlayer.play();
                     }
                     audioPlayer.setVolume(1.0f);
