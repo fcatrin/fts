@@ -165,7 +165,15 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
         if (canMoveNextPrev) builder.addAction(new NotificationCompat.Action(android.R.drawable.ic_media_previous, "Previous song", MediaButtonReceiver.buildMediaButtonPendingIntent(this, PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS)));
         builder.addAction(new NotificationCompat.Action(android.R.drawable.ic_media_pause, "Pause", MediaButtonReceiver.buildMediaButtonPendingIntent(this, PlaybackStateCompat.ACTION_PLAY_PAUSE)));
         if (canMoveNextPrev) builder.addAction(new NotificationCompat.Action(android.R.drawable.ic_media_next, "Next song", MediaButtonReceiver.buildMediaButtonPendingIntent(this, PlaybackStateCompat.ACTION_SKIP_TO_NEXT)));
-        builder.setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setShowActionsInCompactView(0, 1, 2).setMediaSession(mMediaSessionCompat.getSessionToken()));
+
+        final androidx.media.app.NotificationCompat.MediaStyle mediaStyle = new androidx.media.app.NotificationCompat.MediaStyle();
+        final MediaSessionCompat.Token sessionToken = mMediaSessionCompat.getSessionToken();
+        if (canMoveNextPrev) {
+            builder.setStyle(mediaStyle.setShowActionsInCompactView(0, 1, 2).setMediaSession(sessionToken));
+        } else {
+            builder.setStyle(mediaStyle.setShowActionsInCompactView(0).setMediaSession(sessionToken));
+        }
+
         builder.setSmallIcon(backgroundAudioClient.getSmallIconResourceId());
         builder.setContentIntent(getPendingIntentForActivity());
         Notification notification = builder.build();
