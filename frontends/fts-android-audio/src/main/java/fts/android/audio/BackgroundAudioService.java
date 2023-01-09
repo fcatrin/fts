@@ -36,13 +36,17 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
     public static final String KEY_SUBTITLE = "subtitle";
     public static final String KEY_ICON = "icon";
     public static final String KEY_DURATION = "duration";
+    public static final String KEY_POSITION = "position";
     public static final String KEY_NEXT_PREV = "canSkipNextPrev";
 
-    public static final String COMMAND_EXAMPLE = "command_example";
+    public static final String ACTION_DURATION = "action_duration";
+    public static final String ACTION_POSITION = "action_position";
 
     private BackgroundAudioPlayer audioPlayer;
     private MediaSessionCompat mMediaSessionCompat;
+    private MediaMetadataCompat.Builder metadataBuilder = null;
     private boolean canMoveNextPrev = false;
+    private int lastState;
 
     private BackgroundAudioClient backgroundAudioClient;
 
@@ -97,16 +101,19 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
             initMediaSessionMetadata(
                     extras.getString(KEY_TITLE),
                     extras.getString(KEY_SUBTITLE),
-                    extras.getParcelable(KEY_ICON),
-                    extras.getLong(KEY_DURATION)
+                    extras.getParcelable(KEY_ICON)
             );
         }
 
         @Override
-        public void onCommand(String command, Bundle extras, ResultReceiver cb) {
-            super.onCommand(command, extras, cb);
-            if( COMMAND_EXAMPLE.equalsIgnoreCase(command) ) {
-                //Custom command here
+        public void onCustomAction(String command, Bundle extras) {
+            super.onCustomAction(command, extras);
+            if(ACTION_DURATION.equals(command) ) {
+                long duration = extras.getLong(KEY_DURATION);
+                updateDuration(duration);
+            } else if (ACTION_POSITION.equals(command)) {
+                long position = extras.getLong(KEY_POSITION);
+                updatePosition(position);
             }
         }
 
@@ -216,20 +223,27 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
         setSessionToken(mMediaSessionCompat.getSessionToken());
     }
 
+    private void updatePosition(long position) {
+        setMediaPlaybackState(lastState, position);
+    }
+
     private void setMediaPlaybackState(int state, long position) {
-        PlaybackStateCompat.Builder playbackstateBuilder = new PlaybackStateCompat.Builder();
+        lastState = state;
+
+        PlaybackStateCompat.Builder playbackStateBuilder = new PlaybackStateCompat.Builder();
 
         long actions = PlaybackStateCompat.ACTION_PLAY_PAUSE | PlaybackStateCompat.ACTION_STOP;
         actions |= PlaybackStateCompat.ACTION_SKIP_TO_NEXT | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS;
         actions |= state == PlaybackStateCompat.STATE_PLAYING ? PlaybackStateCompat.ACTION_PAUSE : PlaybackStateCompat.ACTION_PLAY;
-        playbackstateBuilder.setActions(actions);
+        playbackStateBuilder.setActions(actions);
 
-        playbackstateBuilder.setState(state, position, 1);
-        mMediaSessionCompat.setPlaybackState(playbackstateBuilder.build());
+        playbackStateBuilder.setState(state, position, 1);
+        mMediaSessionCompat.setPlaybackState(playbackStateBuilder.build());
     }
 
-    private void initMediaSessionMetadata(String title, String subtitle, Bitmap icon, long duration) {
-        MediaMetadataCompat.Builder metadataBuilder = new MediaMetadataCompat.Builder();
+    private void initMediaSessionMetadata(String title, String subtitle, Bitmap icon) {
+        metadataBuilder = new MediaMetadataCompat.Builder();
+
         // Notification icon in card
         // metadataBuilder.putBitmap(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON, BitmapFactory.decodeResource(getResources(), R.mipmap.platform_3do));
         metadataBuilder.putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, icon);
@@ -241,8 +255,12 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
         metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_TITLE, title);
         metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_ARTIST, subtitle);
 
-        metadataBuilder.putLong(MediaMetadataCompat.METADATA_KEY_DURATION, duration);
+        mMediaSessionCompat.setMetadata(metadataBuilder.build());
+    }
 
+    private void updateDuration(long duration) {
+        if (metadataBuilder == null) return;
+        metadataBuilder.putLong(MediaMetadataCompat.METADATA_KEY_DURATION, duration);
         mMediaSessionCompat.setMetadata(metadataBuilder.build());
     }
 
