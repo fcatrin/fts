@@ -59,13 +59,11 @@ public class MediaStyleHelper {
         MediaDescriptionCompat description = mediaMetadata.getDescription();
         Log.d("MD", "title: " + description.getTitle());
         Log.d("MD", "getSubtitle: " + description.getSubtitle());
-        Log.d("MD", "getDescription: " + description.getDescription());
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder
                 .setContentTitle(description.getTitle())
                 .setContentText(description.getSubtitle())
-                .setSubText(description.getDescription())
                 .setLargeIcon(description.getIconBitmap())
                 .setContentIntent(controller.getSessionActivity())
                 .setDeleteIntent(
