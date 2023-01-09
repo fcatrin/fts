@@ -9,6 +9,7 @@ import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.media.session.MediaButtonReceiver;
@@ -56,6 +57,9 @@ public class MediaStyleHelper {
         createNotificationChannel(context, appName, channelId);
 
         MediaDescriptionCompat description = mediaMetadata.getDescription();
+        Log.d("MD", "title: " + description.getTitle());
+        Log.d("MD", "getSubtitle: " + description.getSubtitle());
+        Log.d("MD", "getDescription: " + description.getDescription());
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder
