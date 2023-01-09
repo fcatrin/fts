@@ -35,6 +35,7 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
     public static final String KEY_TITLE = "title";
     public static final String KEY_SUBTITLE = "subtitle";
     public static final String KEY_ICON = "icon";
+    public static final String KEY_DURATION = "duration";
     public static final String KEY_NEXT_PREV = "canSkipNextPrev";
 
     public static final String COMMAND_EXAMPLE = "command_example";
@@ -70,7 +71,7 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
                 return;
             }
 
-            setMediaPlaybackState(PlaybackStateCompat.STATE_PLAYING);
+            setMediaPlaybackState(PlaybackStateCompat.STATE_PLAYING, PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN);
             mMediaSessionCompat.setActive(true);
 
             showPlayingNotification();
@@ -82,7 +83,7 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
             super.onPause();
             if( audioPlayer.isPlaying() ) {
                 audioPlayer.pause();
-                setMediaPlaybackState(PlaybackStateCompat.STATE_PAUSED);
+                setMediaPlaybackState(PlaybackStateCompat.STATE_PAUSED, PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN);
                 showPausedNotification();
             }
         }
@@ -96,7 +97,9 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
             initMediaSessionMetadata(
                     extras.getString(KEY_TITLE),
                     extras.getString(KEY_SUBTITLE),
-                    extras.getParcelable(KEY_ICON));
+                    extras.getParcelable(KEY_ICON),
+                    extras.getLong(KEY_DURATION)
+            );
         }
 
         @Override
@@ -213,7 +216,7 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
         setSessionToken(mMediaSessionCompat.getSessionToken());
     }
 
-    private void setMediaPlaybackState(int state) {
+    private void setMediaPlaybackState(int state, long position) {
         PlaybackStateCompat.Builder playbackstateBuilder = new PlaybackStateCompat.Builder();
 
         long actions = PlaybackStateCompat.ACTION_PLAY_PAUSE | PlaybackStateCompat.ACTION_STOP;
@@ -221,11 +224,11 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
         actions |= state == PlaybackStateCompat.STATE_PLAYING ? PlaybackStateCompat.ACTION_PAUSE : PlaybackStateCompat.ACTION_PLAY;
         playbackstateBuilder.setActions(actions);
 
-        playbackstateBuilder.setState(state, PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN, 0);
+        playbackstateBuilder.setState(state, position, 1);
         mMediaSessionCompat.setPlaybackState(playbackstateBuilder.build());
     }
 
-    private void initMediaSessionMetadata(String title, String subtitle, Bitmap icon) {
+    private void initMediaSessionMetadata(String title, String subtitle, Bitmap icon, long duration) {
         MediaMetadataCompat.Builder metadataBuilder = new MediaMetadataCompat.Builder();
         // Notification icon in card
         // metadataBuilder.putBitmap(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON, BitmapFactory.decodeResource(getResources(), R.mipmap.platform_3do));
@@ -237,6 +240,8 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
         // metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_DISPLAY_SUBTITLE, "Display Subtitle");
         metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_TITLE, title);
         metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_ARTIST, subtitle);
+
+        metadataBuilder.putLong(MediaMetadataCompat.METADATA_KEY_DURATION, duration);
 
         mMediaSessionCompat.setMetadata(metadataBuilder.build());
     }
