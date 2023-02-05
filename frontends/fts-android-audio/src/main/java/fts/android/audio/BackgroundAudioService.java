@@ -40,6 +40,7 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
 
     public static final String ACTION_DURATION = "action_duration";
     public static final String ACTION_POSITION = "action_position";
+    public static final String ACTION_METADATA = "action_metadata";
 
     private BackgroundAudioPlayer audioPlayer;
     private MediaSessionCompat mMediaSessionCompat;
@@ -114,6 +115,13 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
             } else if (ACTION_POSITION.equals(command)) {
                 long position = extras.getLong(KEY_POSITION);
                 updatePosition(position);
+            } else if (ACTION_METADATA.equals(command)) {
+                updateMediaSessionMetadata(
+                        extras.getString(KEY_TITLE),
+                        extras.getString(KEY_SUBTITLE),
+                        extras.getParcelable(KEY_ICON)
+                );
+                showPlayingNotification();
             }
         }
 
@@ -243,6 +251,11 @@ public abstract class BackgroundAudioService extends MediaBrowserServiceCompat i
 
     private void initMediaSessionMetadata(String title, String subtitle, Bitmap icon) {
         metadataBuilder = new MediaMetadataCompat.Builder();
+        updateMediaSessionMetadata(title, subtitle, icon);
+    }
+
+    private void updateMediaSessionMetadata(String title, String subtitle, Bitmap icon) {
+        if (metadataBuilder == null) return;
 
         // Notification icon in card
         // metadataBuilder.putBitmap(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON, BitmapFactory.decodeResource(getResources(), R.mipmap.platform_3do));
