@@ -10,7 +10,7 @@ import fts.core.Log;
 public class AndroidBackgroundProcessor implements BackgroundProcessor {
     private static final String LOGTAG = AndroidBackgroundProcessor.class.getSimpleName();
 
-    private final ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService singleThreadExecutor = Executors.newCachedThreadPool();
     AndroidUIThreadExecutor uiThreadExecutor;
 
     public AndroidBackgroundProcessor(AndroidUIThreadExecutor uiThreadExecutor) {
