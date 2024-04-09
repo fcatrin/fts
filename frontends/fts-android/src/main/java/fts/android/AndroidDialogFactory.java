@@ -174,11 +174,11 @@ public class AndroidDialogFactory implements DialogFactory {
 			}
 			
 			@Override
-			public void onError(final Exception e) {
+			public void onFailure(final Exception e) {
 				closeDialog(activity, R.id.modal_dialog_chooser, new SimpleCallback(){
 					@Override
 					public void onResult() {
-						config.callback.onError(e);
+						config.callback.onFailure(e);
 						config.callback.onFinally();
 					}
 				});
@@ -189,7 +189,7 @@ public class AndroidDialogFactory implements DialogFactory {
 			
 			@Override
 			public void onClick(View v) {
-				listCallback.onError(null);
+				listCallback.onCancel();
 			}
 		});
 

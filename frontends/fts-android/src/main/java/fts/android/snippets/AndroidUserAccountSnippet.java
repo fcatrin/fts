@@ -64,7 +64,7 @@ public abstract class AndroidUserAccountSnippet<T extends AndroidWindow> extends
 
                 @Override
                 public void onNo() {
-                    callback.onError(null);
+                    callback.onCancel();
                 }
             });
         } else {
@@ -81,7 +81,7 @@ public abstract class AndroidUserAccountSnippet<T extends AndroidWindow> extends
                     }
                     @Override
                     public void onNo() {
-                        callback.onError(null);
+                        callback.onCancel();
                     }
                 });
             } else {
@@ -112,7 +112,7 @@ public abstract class AndroidUserAccountSnippet<T extends AndroidWindow> extends
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
             if (requestCode == ACCOUNT_PICK) {
-                permissionsGrantedCallback.onError(null);
+                permissionsGrantedCallback.onCancel();
             }
         }
     }

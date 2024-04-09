@@ -21,7 +21,6 @@ import fts.utils.dialogs.DialogListCallback;
 import fts.utils.dialogs.FileChooserConfig;
 import fts.utils.dialogs.ListOption;
 import fts.utils.dialogs.OnItemClickedListener;
-import fts.utils.dialogs.OnItemSelectedListener;
 import fts.utils.dialogs.OnItemSelectionChangedListener;
 import fts.utils.dialogs.SimpleDialogCallback;
 import fts.vfile.VirtualFile;
@@ -162,7 +161,7 @@ public class SimpleDialogs implements DialogFactory {
 
 			@Override
 			public void onDismiss() {
-				onSelectedFileCallback.onError(null);
+				onSelectedFileCallback.onCancel();
 			}
 			
 		};
@@ -176,9 +175,9 @@ public class SimpleDialogs implements DialogFactory {
 			}
 
 			@Override
-			public void onError(Exception e) {
+			public void onFailure(Exception e) {
 				closeVisiblePanel(window);
-				onSelectedFileCallback.onError(e);
+				onSelectedFileCallback.onFailure(e);
 			}
 			
 		};
