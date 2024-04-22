@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,7 +42,22 @@ import fts.utils.dialogs.DialogUtils;
 
 public class AndroidUtils {
 	private static int permissionsRequest = 0;
-	
+
+	public static void toast(Context context, String message) {
+		Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+	}
+
+	public static void createNoMediaFile(File folder) {
+		File nomediaFile = new File(folder, ".nomedia");
+		if (!nomediaFile.exists()) {
+			try {
+				nomediaFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
     public static void configureAsFullscreen(Activity activity) {
     	configureAsFullscreen(activity, true);
     }
