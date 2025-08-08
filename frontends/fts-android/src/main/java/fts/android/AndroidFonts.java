@@ -59,6 +59,8 @@ public final class AndroidFonts {
 	}
 	
 	public static void setViewFont(View v, String name) {
+		if (v == null) return;
+
 		if (!(v instanceof TextView)) {
 			Log.d(LOGTAG, "view " + v.getId() + " is not a TextView");
 			return;
