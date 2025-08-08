@@ -25,5 +25,5 @@
     <string name="update_installer_ok">OK</string>
     <string name="update_download_info">Downloading update v%s</string>
     <string name="update_available_info">"There is a new version available:\n%s\nPress OK to install"</string>
-    ;
+    <string name="no_browser">Your device doesn\'t seem to have a web browser\n\nPlease open\n{url}\nin any other device</string>
 </resources>

@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Patterns;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -38,6 +39,7 @@ import fts.core.CoreUtils;
 import fts.core.Log;
 import fts.core.ProgressListener;
 import fts.utils.dialogs.DialogCallback;
+import fts.utils.dialogs.DialogContext;
 import fts.utils.dialogs.DialogUtils;
 
 public class AndroidUtils {
@@ -309,5 +311,43 @@ public class AndroidUtils {
 
 	public static void setViewVisible(View view, boolean visible) {
 		view.setVisibility(visible ? View.VISIBLE : View.GONE);
+	}
+
+	public static void setViewSize(View view, int width, int height) {
+		ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)view.getLayoutParams();
+		layoutParams.width = width;
+		layoutParams.height = height;
+	}
+
+	public static void openWeb(DialogContext context, String url) {
+		openWeb(context, url, url);
+	}
+
+	public static void openWeb(DialogContext context, String url, String name) {
+		Activity activity = (Activity)context;
+		try {
+			activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+		} catch (Exception e) {
+			String msg = activity.getString(R.string.no_browser)
+					.replace("{url}", name);
+			DialogUtils.message(context, msg);
+		}
+	}
+
+	public static void allowScreenLock(Window window, boolean allow) {
+		if (allow) window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		else window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	}
+
+	public static File getLocalDataDir(Context context) {
+		return context.getFilesDir();
+	}
+
+	public static void relayoutChildren(View view) {
+		if (view == null) return;
+		view.measure(
+				View.MeasureSpec.makeMeasureSpec(view.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
+				View.MeasureSpec.makeMeasureSpec(view.getMeasuredHeight(), View.MeasureSpec.EXACTLY));
+		view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
 	}
 }
