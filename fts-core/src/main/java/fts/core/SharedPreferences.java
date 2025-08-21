@@ -14,7 +14,8 @@ public class SharedPreferences {
 	JSONObject prefs = null;
 	
 	public SharedPreferences(File dataDir, String name) {
-		prefsFile = new File(dataDir, "prefs_" + name + ".json");
+		prefsFile = new File(dataDir, name + ".json");
+
 		File parent = prefsFile.getParentFile();
 		if (!parent.exists()) parent.mkdirs();
 		
