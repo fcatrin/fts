@@ -1,5 +1,6 @@
 package fts.core;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,7 +20,19 @@ public class SharedPreferences {
 		
 		load();
 	}
-	
+
+	public boolean has(String key) {
+		return prefs.has(key);
+	}
+
+	public JSONArray getJSONArray(String key) {
+		return prefs.optJSONArray(key);
+	}
+
+	public void putJSONArray(String key, JSONArray array) {
+		prefs.put(key, array);
+	}
+
 	public String getString(String key) {
 		return getString(key, null);
 	}
@@ -44,30 +57,29 @@ public class SharedPreferences {
 		return prefs.optInt(key, defaultValue);
 	}
 
+	public long getLong(String key) {
+		return getLong(key, 0l);
+	}
+
+	public long getLong(String key, long defaultValue) {
+		return prefs.optLong(key, defaultValue);
+	}
+
 	public void setString(String key, String value) {
-		try {
-			prefs.put(key, value);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		prefs.put(key, value);
 	}
 	
 	public void setInt(String key, int value) {
-		try {
-			prefs.put(key, value);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void setBoolean(String key, boolean value) {
-		try {
-			prefs.put(key, value);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		prefs.put(key, value);
 	}
 
+	public void setLong(String key, long value) {
+		prefs.put(key, value);
+	}
+
+	public void setBoolean(String key, boolean value) {
+		prefs.put(key, value);
+	}
 
 	public void remove(String key) {
 		prefs.remove(key);
