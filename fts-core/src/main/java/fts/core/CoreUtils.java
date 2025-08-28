@@ -462,7 +462,11 @@ public final class CoreUtils {
 	public static String loadString(File f) throws IOException  {
 		return loadString(f, "UTF-8");
 	}
-	
+
+	public static String loadString(InputStream is ) throws IOException  {
+		return loadString(is, "UTF-8");
+	}
+
 	public static String loadString(File f, String encoding) throws IOException {
 		return loadString(new FileInputStream(f), encoding);
 	}

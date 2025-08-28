@@ -294,6 +294,19 @@ public class Resources {
 		}
 	}
 
+	public static InputStream getResource(String location) throws IOException {
+		if (location.startsWith("@")) {
+			location = location.substring(1);
+			int p = location.indexOf("/");
+			if (p>0) {
+				String type = location.substring(0, p);
+				String name = location.substring(p+1);
+				location = "resources/" + type + "/" + name;
+			}
+		}
+		return resourceLocator.getResource(location);
+	}
+
 	public static byte[] loadRawResource(String location) throws IOException {
 		String type = "raw";
 		String name = location;

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class DesktopResourceLocator extends ResourceLocator {
+	private static final String LOGTAG = DesktopResourceLocator.class.getSimpleName();
 
 	@Override
 	public InputStream getResource(String location) throws IOException {
@@ -16,7 +17,6 @@ public class DesktopResourceLocator extends ResourceLocator {
 		String resourcesDir = System.getProperty("fts.resources.dir");
 		if (resourcesDir!=null) {
 			File resourcesFile = new File(resourcesDir, location);
-			System.out.println("load resource from " + resourcesFile);
 			if (resourcesFile.exists()) return new FileInputStream(resourcesFile);
 		}
 		return null;
