@@ -4,11 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    namespace = "fts.android.gl"
+    compileSdkVersion 35
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 31
+        minSdkVersion 23
+        targetSdkVersion 26
     }
 
     buildTypes {
@@ -23,6 +24,11 @@ android {
     externalNativeBuild {
         ndkBuild {
             path file('src/main/jni/Android.mk')
+        }
+    }
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
         }
     }
 }

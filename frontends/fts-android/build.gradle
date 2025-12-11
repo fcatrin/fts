@@ -4,11 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    namespace = "fts.android"
+    compileSdkVersion 35
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 30
+        minSdkVersion 23
+        targetSdkVersion 26
     }
 
     buildTypes {
@@ -19,6 +20,11 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
     }
 }
 
