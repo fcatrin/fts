@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace 'fts.android.demo'
     compileSdkVersion 31
 
     defaultConfig {
