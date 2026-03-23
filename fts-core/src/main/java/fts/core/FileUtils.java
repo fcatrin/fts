@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.security.CodeSource;
 
 import fts.vfile.VirtualFileOperationProgressListener;
 
@@ -96,6 +98,27 @@ public class FileUtils {
 		}
 		dir.delete();
 	}
-	
+
+	public static File getJarDir(Class<?> clazz) {
+		try {
+			CodeSource codeSource = clazz.getProtectionDomain().getCodeSource();
+
+			if (codeSource == null) {
+				throw new IllegalStateException("Cannot determine code source");
+			}
+
+			File jarFile = new File(codeSource.getLocation().toURI());
+
+			// If running from IDE (classes dir), go up to project root (optional)
+			if (jarFile.isDirectory()) {
+				return jarFile; // or jarFile.getParentFile()
+			}
+
+			return jarFile.getParentFile();
+
+		} catch (URISyntaxException e) {
+			throw new RuntimeException("Failed to resolve JAR path", e);
+        }
+    }
 
 }

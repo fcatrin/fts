@@ -14,9 +14,17 @@ public class DesktopResourceLocator extends ResourceLocator {
 		InputStream is = DesktopResourceLocator.class.getResourceAsStream("/" + location);
 		if (is!=null) return is;
 
+		// from JVM var
 		String resourcesDir = System.getProperty("fts.resources.dir");
 		if (resourcesDir!=null) {
 			File resourcesFile = new File(resourcesDir, location);
+			if (resourcesFile.exists()) return new FileInputStream(resourcesFile);
+		}
+
+		// from jar dir
+		File jarDir = FileUtils.getJarDir(DesktopResourceLocator.class);
+		if (jarDir.exists() && jarDir.isDirectory()) {
+			File resourcesFile = new File(jarDir, location);
 			if (resourcesFile.exists()) return new FileInputStream(resourcesFile);
 		}
 		return null;
