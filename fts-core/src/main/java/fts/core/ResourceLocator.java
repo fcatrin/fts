@@ -19,4 +19,29 @@ public abstract class ResourceLocator {
 		}
 		return is!=null;
 	}
+
+	public static void loadLibrary(String name) {
+		try {
+			System.loadLibrary(name);
+		} catch (Throwable e) {
+			loadLibraryFromFilesystem(name);
+		}
+	}
+
+	private static void loadLibraryFromFilesystem(String name) {
+		String fullName = name + getNativeLibraryExtension();
+		File jarDir = FileUtils.getJarDir(ResourceLocator.class);
+		File path = new File(jarDir, "native/lib" + fullName);
+		System.load(path.getAbsolutePath());
+	}
+
+	private static String getNativeLibraryExtension() {
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			return ".dll";
+		} else if (os.contains("mac")) {
+			return ".dylib";
+		}
+		return ".so";
+	}
 }
