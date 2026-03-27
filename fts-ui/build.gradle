@@ -8,9 +8,18 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+import org.gradle.internal.os.OperatingSystem
+
 task ftsPackage(type:Exec) {
     workingDir '.'
-    commandLine '../fts-tools/package.sh'
+    OperatingSystem os = OperatingSystem.current()
+    if (os.isLinux()) {
+        commandLine '../fts-tools/package.sh'
+    } else if (os.isWindows()) {
+        commandLine '../fts-tools/package.bat'
+    } else {
+        println "Unknown OS: ${os.getName()}"
+    }
 }
 
 processResources.dependsOn ftsPackage
